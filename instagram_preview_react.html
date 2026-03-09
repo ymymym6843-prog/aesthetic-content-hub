@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IM AESTHETIC - Instagram Preview (React)</title>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800;900&display=swap');
+  body { font-family: 'Pretendard', -apple-system, sans-serif; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState } = React;
+
+// Simple icon components (replacing lucide-react)
+const Icon = ({d, size=24, className="", fill="none", stroke="currentColor", onClick}) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24"
+    fill={fill} stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+    className={className} onClick={onClick} style={{cursor: onClick ? 'pointer' : 'inherit'}}>
+    <path d={d}/>
+  </svg>
+);
+
+const Grid = ({size=24,className=""}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+    <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+    <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+  </svg>
+);
+
+const Heart = ({size=24,className="",fill="none"}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={fill} stroke="currentColor" strokeWidth="2" className={className}>
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+  </svg>
+);
+
+const MessageCircle = ({size=24,className="",fill="none"}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={fill} stroke="currentColor" strokeWidth="2" className={className}>
+    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+  </svg>
+);
+
+const Bookmark = ({size=24,className=""}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+  </svg>
+);
+
+const Send = ({size=24,className=""}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+    <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+  </svg>
+);
+
+const MoreHorizontal = ({size=24,className=""}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+    <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+  </svg>
+);
+
+const ChevronLeft = ({size=24,className=""}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+    <polyline points="15 18 9 12 15 6"/>
+  </svg>
+);
+
+const User = ({size=24,className=""}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+  </svg>
+);
+
+const MapPin = ({size=24,className=""}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+  </svg>
+);
+
+const LinkIcon = ({size=24,className=""}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+  </svg>
+);
+
+const Play = ({size=24,className=""}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+    <polygon points="5 3 19 12 5 21 5 3"/>
+  </svg>
+);
+
+const Copy = ({size=24,className=""}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+  </svg>
+);
+
+const Layout = ({size=24,className="",onClick}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+    className={className} onClick={onClick} style={{cursor:'pointer'}}>
+    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>
+  </svg>
+);
+
+const Check = ({size=24,className=""}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+    <polyline points="20 6 9 17 4 12"/>
+  </svg>
+);
+
+const Volume2 = ({size=24,className=""}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+  </svg>
+);
+
+const Sparkles = ({size=24,className=""}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+    <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z"/>
+  </svg>
+);
+
+const CalendarIcon = ({size=24,className=""}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+  </svg>
+);
+
+const Info = ({size=24,className=""}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+    <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+  </svg>
+);
+
+
+const App = () => {
+    const [selectedPost, setSelectedPost] = useState(null);
+    const [view, setView] = useState('grid');
+    const [currentSlide, setCurrentSlide] = useState(0);
+
+    const posts = [
+        // --- 8주차 ---
+        {
+            id: 24, week: 8, day: '토', type: 'reel', phase: 'Phase 3: 전문성 & 확장',
+            title: '스터디 로그 (Reel)', image: './feed_images/8W_Sat_cover.png',
+            caption: `"전문가란, 멈추지 않고 계속 배워나가는 사람이라고 생각합니다." 📚\n\n셋이 오늘도 남아서 새로운 테크닉을 연구하고, 최신 논문을 읽으며 하루를 마무리해요.\n\n믿고 누워주시는 그 시간이 헛되지 않도록, 앞으로도 더 깊어진 손길로 뵐게요. 🌿`,
+            hashtags: '#스터디로그 #테라피스트 #공부하는전문가 #피부연구 #하이엔드뷰티 #수성구피부관리 #에스테틱전문가 #IM에스테틱'
+        },
+        {
+            id: 23, week: 8, day: '목', type: 'carousel', phase: 'Phase 3: 전문성 & 확장',
+            title: '4월 예약 & 프로모션', image: './feed_images/8W_Thu_slide2.png',
+            caption: `📅 IM AESTHETIC [4월] 예약 캘린더 오픈!\n\n두 달간 보내주신 사랑 감사해요. 4월 예약을 오픈합니다!\n\n꽃가루랑 미세먼지로 예민해지는 봄 피부를 위한 [수분폭탄 장벽 케어 프로모션]을 한정으로 준비했어요.\n\n원하시는 시간대 잡으시려면 프로필 링크 확인해 주세요! 🏃‍♀️`,
+            hashtags: '#이달의이벤트 #에스테틱이벤트 #봄철피부관리 #환절기피부 #미세먼지피부 #수분관리 #장벽케어 #대구피부이벤트 #수성구이벤트 #예약오픈'
+        },
+        {
+            id: 22, week: 8, day: '화', type: 'image', phase: 'Phase 3: 전문성 & 확장',
+            title: '고객과의 티타임', image: './feed_images/8W_Tue_alt.png',
+            caption: `"원장님들이랑 이야기하다 보면 관리받기도 전에 벌써 힐링되는 기분이에요." ☕🤍\n\n오픈 후 정신없는 시간 속에서도 꼭 지킨 것 하나가 있어요. 바로 고객님들과의 깊은 대화입니다.\n\nIM 에스테틱의 관리는 차 한 잔 나누면서 일상 습관들을 듣는 것부터 시작돼요. 언제든 편하게 기대어 쉬실 수 있는 곳이 되고 싶어요.\n\n👉 관리 전 티타임이 궁금하시면, 프로필 링크에서 예약해 보세요!`,
+            hashtags: '#티타임 #고객소통 #이너뷰티차 #뷰티카운셀링 #대구에스테틱 #수성구피부관리 #뷰티멘토 #따뜻한일상'
+        },
+        // --- 7주차 ---
+        {
+            id: 21, week: 7, day: '토', type: 'reel', phase: 'Phase 3: 전문성 & 확장',
+            title: '스파 물소리 ASMR', image: './feed_images/7W_Sat_cover.png',
+            caption: `[이어폰 필수 🎧] 따뜻한 물소리가 주는 위로.\n\n관리 전, 체온을 은은하게 높여주는 족욕 시간이에요. 물이 찰박거리는 소리, 아로마 오일의 묵직한 향이 섞이면서 복잡했던 머릿속이 조용히 비워져요.\n\n💾 잠이 안 올 때 다시 틀어보세요. 주변 지친 분에게 공유도!`,
+            hashtags: '#스파ASMR #물소리 #아로마스파 #힐링타임 #스트레스해소 #주말휴식 #수성구피부관리실 #범어동힐링'
+        },
+        {
+            id: 20, week: 7, day: '목', type: 'carousel', phase: 'Phase 3: 전문성 & 확장',
+            title: '아파야 효과 있다? Myth vs Fact', image: './feed_images/7W_Thu_slide1.png',
+            caption: `❌ "원장님, 더 세게 멍들 때까지 눌러주세요. 그래야 뼈가 작아지죠!"\n\n사실 우리 몸은 과한 통증을 느끼면 오히려 근육을 수축시키고 더 긴장해요. 멍이 들고 붓는 건 조직이 손상됐다는 신호예요.\n\nIM 에스테틱은 정확한 해부학적 포인트를 잡아 통증 없이 부드럽게 풀어내요. 아프지 않아도 라인은 확실하게 달라져요.\n\n💾 이 정보가 도움이 되셨다면 저장! "아직도 아파야 효과 있다"고 생각하는 친구에게 공유해 주세요 😉`,
+            hashtags: '#뷰티상식 #팩트체크 #무통증윤곽 #대구윤곽관리 #안아픈마사지 #체형교정의진실 #뷰티정보 #근막관리'
+        },
+        {
+            id: 19, week: 7, day: '화', type: 'carousel', phase: 'Phase 3: 전문성 & 확장',
+            title: 'IM 웨딩 케어', image: './feed_images/7W_Tue_slide1.png',
+            caption: `봄 웨딩 시즌, 5월의 신부를 완성하는 가장 중요한 디테일은 매끄러운 어깨와 쇄골 라인이에요. 👰‍♀️💍\n\n단기간에 무리하게 압을 가해서 멍이 드는 관리, 절대 안 됩니다.\n\nIM 에스테틱의 웨딩 케어는 긴장된 신경과 스트레스까지 함께 풀어드려요. 맑은 안색, 매끈한 드레스 핏까지 완성해 드릴게요.\n\n👰 상담은 DM이나 프로필 링크에서! 주변 예비 신부님 태그해 주세요 💕`,
+            hashtags: '#대구신부관리 #대구웨딩케어 #IM웨딩라인 #수성구신부관리 #드레스핏 #예비신부 #결혼준비 #봄웨딩 #승모근관리'
+        },
+        // --- 6주차 ---
+        {
+            id: 18, week: 6, day: '토', type: 'reel', phase: 'Phase 3: 전문성 & 확장',
+            title: '샵 마감 루틴 (Reel)', image: './feed_images/6W_Sat_cover.png',
+            caption: `오늘도 무사히, 그리고 감사하게 하루를 마감합니다. 🌙\n\n하루 종일 쓰인 자리를 깨끗하게 정돈하고, 은은한 향으로 공간을 마무리하는 시간.\n\n내일도 이곳이 누군가에게 편안한 쉼터가 되길. 모두 편안한 밤 되세요. ✨`,
+            hashtags: '#마감루틴 #퇴근브이로그 #인센스스틱 #공간정화 #테라피스트의하루 #수성구핫플 #에스테틱일상 #감성브이로그'
+        },
+        {
+            id: 17, week: 6, day: '목', type: 'carousel', phase: 'Phase 3: 전문성 & 확장',
+            title: '성분 딥다이브', image: './feed_images/6W_Thu_slide2.png',
+            caption: `로드샵 화장품과 에스테틱 전용 화장품, 뭐가 다를까요? 🧪\n\n가장 큰 차이는 '유효 성분 농도'와 '피부 깊숙이 전달되는 흡수력'이에요.\n\nIM 에스테틱은 향만 좋은 화장품이 아니라, 임상으로 검증된 고농축 메디컬 코스메틱만 골라서 쓰고 있어요.\n\n📌 어떤 성분 쓰는지 궁금하시면 DM 주세요!`,
+            hashtags: '#성분사전 #화장품성분 #에스테틱제품 #전문가용화장품 #피부장벽보호 #스킨멀리즘 #화장품추천 #대구메디컬스킨케어'
+        },
+        {
+            id: 16, week: 6, day: '화', type: 'carousel', phase: 'Phase 3: 전문성 & 확장',
+            title: '차트 컨퍼런스 비하인드', image: './feed_images/6W_Tue_slide1.png',
+            caption: `"이 고객님은 목뼈의 틀어짐 때문에 우측 얼굴 부종이 심하시네요. 체형 관리 후 림프 순환 스킨케어로 들어가야겠습니다."\n\n관리가 다 끝나고, 영업 종료 후의 IM 에스테틱. 셋이 모여서 내일 오실 고객님들의 차트를 하나하나 들여다봐요.\n\n혼자였으면 놓쳤을 문제도, 세 명의 시선이 모이면 더 정확한 솔루션이 나오더라고요. 📑\n\n💾 이런 관리 받고 싶다면 저장! 상담은 DM으로 편하게 보내주세요.`,
+            hashtags: '#3인케어시스템 #차트분석 #퍼스널스킨케어 #피부주치의 #대구뷰티컨설팅 #IM에스테틱 #피부전문가 #IM에스테틱일상'
+        },
+        // --- 5주차 ---
+        {
+            id: 15, week: 5, day: '토', type: 'reel', phase: 'Phase 2: 신뢰 구축',
+            title: '1분 괄사 팁 (Reel)', image: './feed_images/5W_Sat_cover.png',
+            caption: `원장님들의 꿀팁 대방출! 집에서 하는 1분 붓기 쏙 괄사 테라피 💆‍♀️\n\n귀 밑부터 쇄골 라인까지 부드럽게 쓸어내려 보세요. 괄사가 피부를 스치는 사각사각 소리와 함께 밀려있던 노폐물이 시원하게 빠져나가요.\n\n중요한 약속 전날 꼭 따라 해 보시고, 더 깊은 관리는 IM 에스테틱에서!\n\n💾 약속 전날 쓸 꿀팁! 저장 필수 🔖`,
+            hashtags: '#괄사마사지 #두피마사지 #림프순환 #붓기빼기 #홈케어꿀팁 #뷰티꿀팁 #수성구피부관리 #범어동에스테틱 #ASMR'
+        },
+        {
+            id: 14, week: 5, day: '목', type: 'carousel', phase: 'Phase 2: 신뢰 구축',
+            title: '피로도 자가 진단', image: './feed_images/5W_Thu_slide1.png',
+            caption: `자고 일어나도 목이 뻐근하고, 봄 춘곤증처럼 하루 종일 나른하지 않으세요? 🩺\n\n옆으로 넘겨 '내 몸의 피로도 자가 진단 테스트'를 한번 해보세요. 3개 이상 해당된다면, 이미 몸의 밸런스가 무너지고 있다는 신호일 수 있어요.\n\n겉만 번지르르하게 만드는 관리 말고, 깊은 근막의 긴장부터 풀어주는 케어가 필요한 순간이에요.\n\n💾 나중에 다시 해보려면 저장! 만성피로 친구에게도 공유해 주세요.`,
+            hashtags: '#자가진단 #봄피부관리 #미세먼지피부 #만성피로 #수면부족 #체형불균형 #춘곤증 #웰니스 #대구마사지 #수성구테라피 #나를위한선물'
+        },
+        {
+            id: 13, week: 5, day: '화', type: 'carousel', phase: 'Phase 2: 신뢰 구축',
+            title: 'B&A 데이터 리포트', image: './feed_images/5W_Tue_slide1.png',
+            caption: `눈대중이 아니라, 수치로 보여드립니다. 📏\n\n오픈 두 달, 벌써 놀라운 변화들이 나오고 있어요. 솟아있던 승모근 라인이 부드럽게 내려가고, 비대칭이던 턱선이 제자리를 찾았어요.\n\n근막 유착을 정확히 찾아내면, 아프지 않아도 이렇게 달라질 수 있어요.\n\n촬영에 동의해 주신 고객님, 감사합니다! 🤍\n\n📌 나도 이런 변화를 경험하고 싶다면? 프로필 링크에서 지금 바로 예약하세요!`,
+            hashtags: '#비포애프터 #승모근관리 #거북목관리 #안면비대칭교정 #IM윤곽라인 #IM체형라인 #대구윤곽관리 #수성구승모근 #근막테라피'
+        },
+        // --- 4주차 ---
+        {
+            id: 12, week: 4, day: '토', type: 'reel', phase: 'Phase 2: 신뢰 구축',
+            title: '앰플 언박싱 (Reel)', image: './feed_images/4W_Sat_cover.png',
+            caption: `가장 신선한 상태로 피부에 닿는 순간. ✨\n\n새로 도입한 프리미엄 앰플을 처음 열어봐요. 쫀득하게 늘어나는 이 밀도, 보이시나요?\n\n한 번 관리로도 차이가 느껴지는 고함량 성분을 아낌없이 써요.`,
+            hashtags: '#PDRN #엑소좀 #메디컬스킨케어 #에스테틱화장품 #IM결라인 #제품언박싱 #대구스킨케어 #광채피부'
+        },
+        {
+            id: 11, week: 4, day: '목', type: 'carousel', phase: 'Phase 2: 신뢰 구축',
+            title: 'IM 위생 철칙', image: './feed_images/4W_Thu_slide2.png',
+            caption: `내 피부에 직접 닿는 곳이니까, 위생만큼은 절대 타협하지 않아요. 🧴\n\n✔️ 해면·가운 100% 일회용\n✔️ 기구 자외선+알코올 2중 소독\n✔️ 1인 1룸, 관리 후 바로 베딩 교체 & 환기\n\n언제 오셔도 첫날 그 깨끗함 그대로 유지할게요.`,
+            hashtags: '#안심에스테틱 #위생관리 #클린뷰티 #일회용해면사용 #프라이빗룸 #수성구프라이빗샵 #IM에스테틱 #대구에스테틱'
+        },
+        {
+            id: 10, week: 4, day: '화', type: 'carousel', phase: 'Phase 2: 신뢰 구축',
+            title: '찐 후기 모음', image: './feed_images/4W_Tue_slide1.png',
+            caption: `"세 분이 제 몸을 저보다 더 잘 아셔서 정말 놀랐어요!" 💌\n\n2월 오픈 후 찾아주신 분들의 따뜻한 후기에 매일 힘을 얻고 있어요.\n\n피부결이 달라진 것도 기쁜데, 무거웠던 어깨가 가벼워지고 꿀잠 잤다는 말씀을 들을 때 — 셋이 함께 고민한 방향이 맞구나 싶었어요.\n\n처음 그 마음 그대로, 한 분 한 분 진심으로 모시겠습니다. 🙇‍♀️\n\n✨ 주변에 피부/체형 고민 있는 분 계시면 태그해 주세요!`,
+            hashtags: '#IM에스테틱후기 #찐후기 #고객리뷰 #대구피부관리후기 #3인케어시스템 #수성구맘 #믿고받는관리 #수성구에스테틱추천'
+        },
+        // --- 3주차 ---
+        {
+            id: 9, week: 3, day: '토', type: 'reel', phase: 'Phase 2: 신뢰 구축',
+            title: '방 준비 ASMR (Reel)', image: './feed_images/3W_Sat_cover.png',
+            caption: `[🎧 소리를 켜고 들어보세요]\n\n고객님을 맞이하기 전, 조용히 방을 준비하는 시간이에요. ✨\n\n린넨이 베드에 깔리는 소리, 스팀기가 따뜻하게 데워지는 소리. 이런 작은 것들이 모여서 편안한 공간이 되더라고요.\n\n처음 오시는 분도 긴장 풀고 편하게 쉬실 수 있도록, 오직 한 분만을 위한 방을 준비합니다. 🤍\n\n💾 이 소리가 좋았다면 저장해 두고 자기 전에 다시 들어보세요!`,
+            hashtags: '#ASMR #에스테틱ASMR #프라이빗케어룸 #수성구피부관리실 #테라피스트일상 #오감만족 #관리실세팅 #대구피부관리 #IM에스테틱'
+        },
+        {
+            id: 8, week: 3, day: '목', type: 'carousel', phase: 'Phase 2: 신뢰 구축',
+            title: '첫 방문 가이드', image: './feed_images/3W_Thu_slide2.png',
+            caption: `"처음이라 긴장되는데, 어떻게 진행되나요?" 🤍\n\n많이 여쭤보시는 질문이에요! IM 에스테틱 첫 방문 과정을 알려드릴게요.\n\n1️⃣ 예약 — 프로필 링크에서 원하시는 시간 선택\n2️⃣ 1:1 상담 — 차 한 잔과 함께 피부·체형·컨디션 체크\n3️⃣ 맞춤 케어 — 세 전문가가 설계한 나만의 플랜으로 관리\n4️⃣ 홈케어 가이드 — 집에서도 효과가 이어지도록 맞춤 루틴 안내\n\n처음이어도 편안하게 오실 수 있도록 준비하고 있을게요 ☺️\n\n👉 예약은 프로필 링크에서!`,
+            hashtags: '#IM에스테틱 #첫방문안내 #에스테틱상담 #맞춤케어 #1대1상담 #대구에스테틱 #수성구피부관리 #범어동에스테틱 #대구프리미엄관리'
+        },
+        {
+            id: 7, week: 3, day: '화', type: 'image', phase: 'Phase 2: 신뢰 구축',
+            title: '오픈 이벤트 공지', image: './feed_images/3W_Tue.png',
+            caption: `🤍 IM 에스테틱 첫 방문 혜택 안내\n\n처음 오시는 분들께 감사한 마음을 담아 준비했어요.\n\n✔️ 전 프로그램 첫 방문 20% 할인\n✔️ 1:1 맞춤 피부/체형 컨설팅 무료\n✔️ 홈케어 샘플 & 웰컴 기프트 증정 (한정 수량)\n\n프로필 상단 예약 링크에서 확인해 보세요! 🏃‍♀️`,
+            hashtags: '#IM에스테틱 #대구에스테틱이벤트 #수성구에스테틱 #범어마크팰리스 #첫방문할인 #네이버예약 #대구프리미엄관리 #대구뷰티샵 #IM웰컴라인'
+        },
+        // --- 2주차 ---
+        {
+            id: 6, week: 2, day: '토', type: 'carousel', phase: 'Phase 1: 브랜드 소개',
+            title: '김은경 디렉터 소개', image: './feed_images/2W_Sat.png',
+            caption: `오일 한 방울이 물에 퍼지면서 방 전체의 분위기가 바뀝니다. 💧\n\n39년간 현장을 지켜온 김은경 디렉터의 '7감 테라피'. 그날의 컨디션과 기분에 따라 아로마를 직접 블렌딩해 드려요.\n\n코끝을 맴도는 향과 부드러운 손길이 만나면, 머릿속 복잡한 생각들이 조용히 내려앉아요.\n\n💾 스트레스 받을 때 다시 보고 싶다면 저장해 두세요.`,
+            hashtags: '#7감테라피 #김은경디렉터 #아로마테라피 #블렌딩오일 #웰니스뷰티 #신경테라피 #뉴로글로우 #이너뷰티 #대구에스테틱추천'
+        },
+        {
+            id: 5, week: 2, day: '목', type: 'carousel', phase: 'Phase 1: 브랜드 소개',
+            title: '우연우 전문가 소개', image: './feed_images/2W_Thu.png',
+            caption: `"세게 눌러야 풀린다고 생각하시는 분들이 많은데, 사실 그 반대예요."\n\n바른체형 근막을 전문으로 보는 우연우 전문가예요. 우리 몸의 근막은 거미줄처럼 전부 연결되어 있어서, 어깨가 굳으면 얼굴 비대칭이나 붓기까지 이어지기도 해요.\n\n억지로 누르는 게 아니라, 근막이 스스로 제자리를 찾도록 도와주는 무통증 이완 테라피예요. 받을수록 움직임이 편안해지는 걸 느끼실 거예요. ✨\n\n👉 체형 고민은 DM으로 편하게 보내주세요!`,
+            hashtags: '#바른체형근막 #우연우전문가 #근막이완 #안면비대칭 #IM체형라인 #라운드숄더 #대구체형관리 #수성구승모근관리 #무통증테라피'
+        },
+        {
+            id: 4, week: 2, day: '화', type: 'carousel', phase: 'Phase 1: 브랜드 소개',
+            title: '유수정 전문가 소개', image: './feed_images/2W_Tue.png',
+            caption: `"피부가 스스로 회복하는 힘, 그걸 길러드리는 거예요. 그게 제가 20년간 해온 일이에요."\n\n요즘 '스킨멀리즘'이라는 말 들어보셨나요? 과한 시술로 예민해진 피부에는 오히려 덜어내는 게 답이에요.\n\n유수정 전문가가 직접 피부를 읽고, PDRN·엑소좀 같은 고기능성 성분을 깊은 곳까지 전달해 드려요. 무너진 장벽, 다시 세워드릴게요. 🛡️\n\n📌 환절기 피부 고민 있으시면 저장해 두셨다가 상담 때 보여주세요!`,
+            hashtags: '#메디컬스킨케어 #유수정전문가 #환절기피부 #문제성피부 #대구여드름관리 #장벽강화 #스킨멀리즘 #IM결라인 #수성구에스테틱 #범어동피부관리'
+        },
+        // --- 1주차 ---
+        {
+            id: 3, week: 1, day: '토', type: 'carousel', phase: 'Phase 1: 브랜드 소개',
+            title: '3인 케어 시스템', image: './feed_images/1W_Sat.png',
+            caption: `오직 한 사람을 위해, 세 명이 머리를 맞대는 시간. 📝\n\n문의가 가장 많았던 IM의 시그니처 — 3인 케어 시스템이에요. 피부, 체형, 웰니스 세 분야 전문가가 한 분을 위해 모입니다.\n\n1️⃣ 유수정 전문가의 정밀 스킨 판독\n2️⃣ 우연우 전문가의 체형·밸런스 분석\n3️⃣ 김은경 디렉터의 웰니스 솔루션 결합\n\n각자 발견한 문제를 하나로 엮어, 딱 맞는 플랜을 같이 만들어 가요.\n\n💾 궁금하셨다면 이 게시물 저장! 예약은 프로필 링크에서 하실 수 있어요.`,
+            hashtags: '#IM에스테틱 #3인케어시스템 #세명의전문가하나의솔루션 #프리미엄관리 #퍼스널케어 #수성구피부관리 #대구프리미엄관리 #대구에스테틱'
+        },
+        {
+            id: 2, week: 1, day: '목', type: 'carousel', phase: 'Phase 1: 브랜드 소개',
+            title: '공간 투어', image: './feed_images/1W_Thu.png',
+            caption: `IM 에스테틱, 안으로 들어오세요. 🌿\n\n문을 여는 순간부터 긴장이 풀리는 공간을 만들고 싶었어요. 햇살이 들어오는 대기 공간, 조용한 프라이빗 룸, 그리고 정성스럽게 우려낸 차 한 잔.\n\n여기서만큼은 일상의 무게를 잠시 내려놓으셨으면 좋겠습니다. ☕\n\n💾 마음에 드셨다면 저장! 위치는 프로필 링크에서 확인하세요.`,
+            hashtags: '#에스테틱인테리어 #수성구프라이빗샵 #범어마크팰리스 #힐링공간 #프라이빗에스테틱 #IM에스테틱공간 #수성구뷰티샵 #대구프리미엄관리 #대구에스테틱'
+        },
+        {
+            id: 1, week: 1, day: '화', type: 'image', phase: 'Phase 1: 브랜드 소개',
+            title: 'SNS 첫 인사', image: './feed_images/1W_Tue.png',
+            caption: `안녕하세요, 드디어 인스타그램에서도 인사드려요! 🤍\n\n지난 2월 대구 수성구 범어동에 문을 연 IM 에스테틱이에요. 피부, 체형, 웰니스 — 서로 다른 분야를 오래 파고든 세 명이 한자리에 모였습니다.\n\n겉으로 보이는 변화만 쫓지 않고, '왜 그런지'부터 같이 찾아가는 관리를 하고 싶었어요.\n\n오픈 한 달, 찾아주신 분들 덕분에 매일 보람차게 보내고 있습니다. 앞으로 이곳에서 저희의 일상과 꿀팁도 나눌게요 💫\n\n👉 궁금한 건 편하게 DM 주세요! 프로필 링크에서 위치랑 프로그램도 확인하실 수 있어요.`,
+            hashtags: '#IM에스테틱 #아이엠에스테틱 #3인케어시스템 #대구에스테틱 #수성구에스테틱 #범어동피부관리 #범어마크팰리스 #메디컬스킨케어 #바른체형근막 #7감테라피'
+        }
+    ];
+
+    const handlePostClick = (post) => {
+        setSelectedPost(post);
+        setCurrentSlide(0);
+        setView('feed');
+        window.scrollTo(0, 0);
+    };
+
+    const ProfileHeader = () => (
+        <div className="border-b border-gray-200 pt-10 pb-6 px-4" style={{background:'rgba(255,248,240,0.3)'}}>
+            <div className="max-w-2xl mx-auto flex flex-col items-center">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-8 w-full mb-8">
+                    <div className="w-24 h-24 md:w-36 md:h-36 rounded-full p-1 shadow-lg" style={{background:'linear-gradient(135deg,#FF8C42,#FFB085)'}}>
+                        <div className="w-full h-full rounded-full border-4 border-white overflow-hidden bg-gray-100 flex items-center justify-center">
+                            <span className="text-3xl font-black tracking-tighter" style={{color:'#FF8C42'}}>IM</span>
+                        </div>
+                    </div>
+                    <div className="flex-1 text-center md:text-left">
+                        <div className="flex flex-col md:flex-row items-center gap-4 mb-4">
+                            <h1 className="text-xl font-medium tracking-tight">im_aesthetic_official</h1>
+                            <div className="flex gap-2">
+                                <button className="bg-gray-100 hover:bg-gray-200 px-4 py-1.5 rounded-lg text-sm font-semibold">프로필 편집</button>
+                                <button className="bg-gray-100 hover:bg-gray-200 px-4 py-1.5 rounded-lg text-sm font-semibold">보관된 스토리</button>
+                            </div>
+                        </div>
+                        <div className="flex justify-center md:justify-start gap-8 mb-5">
+                            <span className="text-sm"><strong>{posts.length}</strong> 게시물</span>
+                            <span className="text-sm"><strong>1,248</strong> 팔로워</span>
+                            <span className="text-sm"><strong>152</strong> 팔로잉</span>
+                        </div>
+                        <div className="text-sm">
+                            <h2 className="font-bold mb-1 text-gray-900">IM 에스테틱 | 3인 전문가 통합 케어</h2>
+                            <p className="font-semibold mb-1 italic" style={{color:'#FF8C42'}}>세 명의 전문가, 하나의 완벽한 솔루션 🍊</p>
+                            <p className="text-gray-700 leading-relaxed text-xs">
+                                ✔️ 유수정 (메디컬 스킨케어 20년 경력)<br/>
+                                ✔️ 우연우 (바른체형 근막 테라피 전문가)<br/>
+                                ✔️ 김은경 (39년 내공 7감 리추얼 디렉터)
+                            </p>
+                            <div className="flex items-center gap-1 text-blue-900 font-semibold mt-3">
+                                <LinkIcon size={14} />
+                                <a href="#" className="hover:underline text-sm">linktr.ee/im_aesthetic</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="flex gap-5 w-full overflow-x-auto py-4 no-scrollbar">
+                    {[
+                        { name: '소개', icon: <Info size={20} /> },
+                        { name: '통합케어', icon: <Sparkles size={20} /> },
+                        { name: '후기', icon: <Heart size={20} /> },
+                        { name: '이벤트', icon: <CalendarIcon size={20} /> },
+                        { name: '공간', icon: <MapPin size={20} /> }
+                    ].map((item, i) => (
+                        <div key={i} className="flex flex-col items-center gap-2 flex-shrink-0">
+                            <div className="w-16 h-16 rounded-full border border-gray-200 p-0.5 bg-white shadow-sm flex items-center justify-center cursor-pointer" style={{color:'#FF8C42'}}>
+                                {item.icon}
+                            </div>
+                            <span className="text-xs font-semibold text-gray-600">{item.name}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+
+    const GridView = () => (
+        <div className="max-w-2xl mx-auto py-2">
+            <div className="flex justify-center border-t border-gray-200 mb-2">
+                <button className="flex items-center gap-2 py-4 border-t border-black -mt-px text-xs font-bold tracking-widest uppercase">
+                    <Grid size={14} /> 게시물
+                </button>
+                <button className="flex items-center gap-2 py-4 text-gray-400 text-xs font-bold tracking-widest uppercase mx-16">
+                    <Play size={14} /> 릴스
+                </button>
+                <button className="flex items-center gap-2 py-4 text-gray-400 text-xs font-bold tracking-widest uppercase">
+                    <User size={14} /> 태그됨
+                </button>
+            </div>
+            <div className="grid grid-cols-3 gap-0.5 md:gap-1">
+                {posts.map((post, index) => (
+                    <React.Fragment key={post.id}>
+                        {index % 9 === 0 && (
+                            <div className="col-span-3 px-3 py-2 border-y flex items-center justify-between" style={{background:'#FFF8F0', borderColor:'rgba(255,140,66,0.1)'}}>
+                                <span className="text-xs font-black uppercase tracking-widest" style={{color:'#FF8C42'}}>{post.phase}</span>
+                                <span className="text-xs text-gray-400 font-bold uppercase">Week {post.week} ~</span>
+                            </div>
+                        )}
+                        <div
+                            className="relative group cursor-pointer overflow-hidden bg-gray-100 shadow-inner"
+                            style={{aspectRatio:'3/4'}}
+                            onClick={() => handlePostClick(post)}
+                        >
+                            <img src={post.image} alt={post.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                            <div className="absolute top-3 right-3 flex flex-col gap-1" style={{filter:'drop-shadow(0 1px 2px rgba(0,0,0,0.5))'}}>
+                                {post.type === 'reel' && <Play size={18} className="text-white" />}
+                                {post.type === 'carousel' && <Copy size={18} className="text-white" />}
+                            </div>
+                            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-white">
+                                <div className="flex items-center gap-6 font-bold">
+                                    <div className="flex items-center gap-1"><Heart size={20} fill="white" /> 124</div>
+                                    <div className="flex items-center gap-1"><MessageCircle size={20} fill="white" /> 18</div>
+                                </div>
+                                <div className="text-xs mt-2 font-bold opacity-80">Click to read caption</div>
+                            </div>
+                        </div>
+                    </React.Fragment>
+                ))}
+            </div>
+        </div>
+    );
+
+    const FeedDetailView = ({ post }) => (
+        <div className="max-w-2xl mx-auto bg-white min-h-screen pb-20">
+            <div className="sticky top-0 bg-white/95 backdrop-blur-md border-b border-gray-200 z-30 flex items-center justify-between p-4">
+                <button onClick={() => setView('grid')} className="p-1 hover:bg-gray-100 rounded-full">
+                    <ChevronLeft size={24} />
+                </button>
+                <div className="text-center">
+                    <div className="text-xs text-gray-400 font-bold uppercase tracking-widest">게시물 상세</div>
+                    <h2 className="font-black tracking-tight text-sm uppercase">{post.title}</h2>
+                </div>
+                <div className="w-10"></div>
+            </div>
+            <div className="flex flex-col">
+                <div className="flex items-center justify-between p-3 border-b border-gray-50">
+                    <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-full p-0.5" style={{background:'linear-gradient(135deg,#FF8C42,#FFB085)'}}>
+                            <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-xs font-black border border-white" style={{color:'#FF8C42'}}>IM</div>
+                        </div>
+                        <div>
+                            <div className="text-sm font-bold flex items-center gap-1 uppercase">
+                                im_aesthetic_official <Check size={12} className="bg-blue-500 text-white rounded-full p-0.5" />
+                            </div>
+                            <div className="text-xs text-gray-500 flex items-center gap-0.5 italic"><MapPin size={10} /> 대구 수성구 범어동 마크팰리스</div>
+                        </div>
+                    </div>
+                    <MoreHorizontal size={20} className="text-gray-400" />
+                </div>
+                <div className="relative w-full bg-gray-50" style={{aspectRatio:'4/5'}}>
+                    {post.type === 'reel' && (
+                        <div className="absolute top-4 right-4 z-10 bg-black/40 p-2 rounded-full text-white backdrop-blur-sm">
+                            <Volume2 size={16} />
+                        </div>
+                    )}
+                    <img src={post.image} alt="" className="w-full h-full object-cover" />
+                    {post.type === 'carousel' && (
+                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-20">
+                            <div className="w-3 h-1.5 rounded-full" style={{background:'#FF8C42'}}></div>
+                            <div className="w-1.5 h-1.5 rounded-full bg-white/60"></div>
+                            <div className="w-1.5 h-1.5 rounded-full bg-white/60"></div>
+                        </div>
+                    )}
+                </div>
+                <div className="p-4">
+                    <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center gap-4">
+                            <Heart size={26} className="hover:text-red-500 cursor-pointer" />
+                            <MessageCircle size={26} className="hover:text-gray-400 cursor-pointer" />
+                            <Send size={26} className="hover:text-gray-400 cursor-pointer" />
+                        </div>
+                        <Bookmark size={26} className="cursor-pointer" style={{color:'#FF8C42'}} />
+                    </div>
+                    <div className="text-sm font-bold mb-3">좋아요 1,248개</div>
+                    <div className="p-4 rounded-2xl border mb-4" style={{background:'rgba(255,248,240,0.5)',borderColor:'rgba(255,140,66,0.2)'}}>
+                        <div className="flex items-center justify-between mb-3 border-b pb-2" style={{borderColor:'rgba(255,140,66,0.3)'}}>
+                            <span className="text-xs font-black tracking-widest uppercase italic" style={{color:'#FF8C42'}}>Instagram Caption Copy</span>
+                            <button onClick={() => {
+                                const text = post.caption + "\n\n" + post.hashtags;
+                                navigator.clipboard.writeText(text).then(() => {
+                                    const btn = document.activeElement;
+                                    const orig = btn.innerHTML;
+                                    btn.innerHTML = '✓ 복사됨!';
+                                    setTimeout(() => { btn.innerHTML = orig; }, 2000);
+                                });
+                            }} className="flex items-center gap-1 text-xs font-bold text-white px-2 py-1 rounded-md cursor-pointer" style={{background:'#FF8C42'}}>
+                                <Copy size={10} /> 본문 복사
+                            </button>
+                        </div>
+                        <div className="text-sm leading-relaxed mb-4 text-gray-800 whitespace-pre-line">
+                            <span className="font-bold text-gray-900 underline decoration-orange-400 underline-offset-4">im_aesthetic_official</span>
+                            {"\n"}{post.caption}
+                        </div>
+                        <div className="text-sm text-blue-800 font-medium leading-relaxed cursor-pointer hover:underline">
+                            {post.hashtags}
+                        </div>
+                    </div>
+                    <div className="text-xs text-gray-400 font-bold uppercase tracking-widest flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                            <span className="px-2 py-0.5 rounded" style={{background:'rgba(255,140,66,0.1)',color:'#FF8C42'}}>{post.phase}</span>
+                            <span>Week {post.week} - {post.day}</span>
+                        </div>
+                        <span>2026년 3월 예정</span>
+                    </div>
+                </div>
+                <div className="border-t border-gray-50 px-4 py-4 mt-2 mb-10">
+                    <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-400 border border-gray-200">You</div>
+                        <div className="flex-1 bg-gray-50 rounded-full px-4 py-2 text-xs text-gray-400 border border-gray-100 italic">댓글을 달아 고객과 소통해보세요...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
+    return (
+        <div className="bg-gray-50 min-h-screen text-gray-800 font-sans">
+            {view === 'grid' ? (
+                <div>
+                    <ProfileHeader />
+                    <GridView />
+                </div>
+            ) : (
+                <FeedDetailView post={selectedPost} />
+            )}
+            <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-100 h-16 flex items-center justify-around px-4 z-50">
+                <Layout size={24} className={view === 'grid' ? '' : 'text-gray-300'} style={{color: view === 'grid' ? '#FF8C42' : undefined}} onClick={() => setView('grid')} />
+                <Play size={24} className="text-gray-300" />
+                <div className="w-10 h-10 rounded-full p-0.5 flex items-center justify-center shadow-md" style={{background:'linear-gradient(135deg,#FF8C42,#FFB085)'}}>
+                    <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-xs font-black" style={{color:'#FF8C42'}}>IM</div>
+                </div>
+                <MessageCircle size={24} className="text-gray-300" />
+                <User size={24} className="text-gray-300" />
+            </div>
+        </div>
+    );
+};
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
