@@ -8,26 +8,109 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap');
   body { font-family: 'Pretendard', -apple-system, sans-serif; }
+  .pin-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid #FF8C42; transition: all 0.2s; }
+  .pin-dot.filled { background: #FF8C42; transform: scale(1.1); }
+  .pin-btn { width: 72px; height: 72px; border-radius: 50%; font-size: 24px; font-weight: 700;
+    border: 2px solid #e5e7eb; background: white; transition: all 0.15s; cursor: pointer; }
+  .pin-btn:hover { border-color: #FF8C42; background: #FFF8F0; }
+  .pin-btn:active { transform: scale(0.95); background: #FF8C42; color: white; }
+  .shake { animation: shake 0.4s ease-in-out; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
 </style>
 </head>
 <body class="bg-gradient-to-br from-orange-50 to-white min-h-screen flex items-center justify-center">
-  <div class="text-center max-w-lg mx-auto px-6">
-    <div class="mb-8">
-      <h1 class="text-4xl font-extrabold text-gray-800 mb-2">IM AESTHETIC</h1>
-      <p class="text-lg text-orange-500 font-semibold">3IN Care System</p>
-      <p class="text-gray-500 mt-2">8주 인스타그램 콘텐츠 허브</p>
-    </div>
-    <div class="space-y-4">
-      <a href="dashboard.html"
-         class="block w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-6 rounded-2xl shadow-lg transition-all hover:shadow-xl hover:-translate-y-0.5">
-        📊 올인원 전략 대시보드
-      </a>
-      <a href="instagram_preview_react.html"
-         class="block w-full bg-white hover:bg-gray-50 text-gray-800 font-bold py-4 px-6 rounded-2xl shadow-lg border-2 border-orange-200 transition-all hover:shadow-xl hover:-translate-y-0.5">
-        📱 Instagram Feed Preview
-      </a>
-    </div>
-    <p class="text-xs text-gray-400 mt-10">IM AESTHETIC · 대구 수성구 범어동</p>
+
+<!-- PIN Screen -->
+<div id="pin-screen" class="text-center max-w-sm mx-auto px-6">
+  <div class="mb-10">
+    <h1 class="text-3xl font-extrabold text-gray-800 mb-1">IM AESTHETIC</h1>
+    <p class="text-sm text-orange-500 font-semibold">Content Hub</p>
   </div>
+  <p class="text-gray-500 text-sm mb-6">PIN 번호를 입력하세요</p>
+  <div id="dots" class="flex justify-center gap-3 mb-8">
+    <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
+  </div>
+  <div class="grid grid-cols-3 gap-3 justify-items-center max-w-[240px] mx-auto">
+    <button class="pin-btn" onclick="addDigit('1')">1</button>
+    <button class="pin-btn" onclick="addDigit('2')">2</button>
+    <button class="pin-btn" onclick="addDigit('3')">3</button>
+    <button class="pin-btn" onclick="addDigit('4')">4</button>
+    <button class="pin-btn" onclick="addDigit('5')">5</button>
+    <button class="pin-btn" onclick="addDigit('6')">6</button>
+    <button class="pin-btn" onclick="addDigit('7')">7</button>
+    <button class="pin-btn" onclick="addDigit('8')">8</button>
+    <button class="pin-btn" onclick="addDigit('9')">9</button>
+    <div></div>
+    <button class="pin-btn" onclick="addDigit('0')">0</button>
+    <button class="pin-btn text-lg" onclick="removeDigit()" style="font-size:18px">&#9003;</button>
+  </div>
+  <p id="pin-error" class="text-red-400 text-sm mt-4 opacity-0 transition-opacity">PIN이 올바르지 않습니다</p>
+</div>
+
+<!-- Main Content (hidden) -->
+<div id="main-content" class="text-center max-w-lg mx-auto px-6" style="display:none">
+  <div class="mb-8">
+    <h1 class="text-4xl font-extrabold text-gray-800 mb-2">IM AESTHETIC</h1>
+    <p class="text-lg text-orange-500 font-semibold">3IN Care System</p>
+    <p class="text-gray-500 mt-2">8주 인스타그램 콘텐츠 허브</p>
+  </div>
+  <div class="space-y-4">
+    <a href="dashboard.html"
+       class="block w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-6 rounded-2xl shadow-lg transition-all hover:shadow-xl hover:-translate-y-0.5">
+      📊 올인원 전략 대시보드
+    </a>
+    <a href="instagram_preview_react.html"
+       class="block w-full bg-white hover:bg-gray-50 text-gray-800 font-bold py-4 px-6 rounded-2xl shadow-lg border-2 border-orange-200 transition-all hover:shadow-xl hover:-translate-y-0.5">
+      📱 Instagram Feed Preview
+    </a>
+  </div>
+  <p class="text-xs text-gray-400 mt-10">IM AESTHETIC · 대구 수성구 범어동</p>
+</div>
+
+<script>
+const PIN = '1234';
+let entered = '';
+
+function updateDots() {
+  document.querySelectorAll('.pin-dot').forEach((dot, i) => {
+    dot.classList.toggle('filled', i < entered.length);
+  });
+}
+
+function addDigit(d) {
+  if (entered.length >= 4) return;
+  entered += d;
+  updateDots();
+  if (entered.length === 4) {
+    setTimeout(() => {
+      if (entered === PIN) {
+        sessionStorage.setItem('pin_ok', '1');
+        document.getElementById('pin-screen').style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+      } else {
+        document.getElementById('dots').classList.add('shake');
+        document.getElementById('pin-error').style.opacity = '1';
+        setTimeout(() => {
+          entered = '';
+          updateDots();
+          document.getElementById('dots').classList.remove('shake');
+          document.getElementById('pin-error').style.opacity = '0';
+        }, 800);
+      }
+    }, 200);
+  }
+}
+
+function removeDigit() {
+  entered = entered.slice(0, -1);
+  updateDots();
+}
+
+// Check session
+if (sessionStorage.getItem('pin_ok') === '1') {
+  document.getElementById('pin-screen').style.display = 'none';
+  document.getElementById('main-content').style.display = 'block';
+}
+</script>
 </body>
 </html>
