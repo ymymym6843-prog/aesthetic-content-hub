@@ -262,6 +262,36 @@ textarea{resize:vertical;min-height:54px}
   box-shadow:var(--shadow-or);
 }
 
+/* ---- 이미지 자동 매칭 ---- */
+.img-match-btn{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:5px 10px;border-radius:6px;border:1.5px solid var(--or);
+  background:rgba(255,140,66,0.08);color:var(--or);
+  font-family:inherit;font-size:11px;font-weight:600;
+  cursor:pointer;transition:all var(--transition);
+  margin-top:4px;
+}
+.img-match-btn:hover{background:var(--or);color:#fff}
+.img-match-btn svg{width:14px;height:14px;flex-shrink:0}
+
+.img-picker{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:6px;
+  margin-top:6px;max-height:0;overflow:hidden;
+  transition:max-height .3s ease,opacity .3s ease;opacity:0;
+}
+.img-picker.open{max-height:400px;opacity:1}
+.img-picker img{
+  width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:6px;
+  cursor:pointer;border:2px solid transparent;
+  transition:border-color var(--transition),transform var(--transition);
+}
+.img-picker img:hover{border-color:var(--or);transform:scale(1.03)}
+.img-picker img.selected{border-color:var(--or);box-shadow:0 0 0 2px rgba(255,140,66,0.3)}
+.img-picker .img-credit{
+  grid-column:1/-1;font-size:9px;color:var(--gr);text-align:right;
+  margin-top:-2px;
+}
+
 /* ---- 플로팅 홈 버튼 ---- */
 .home-btn{
   position:fixed;
@@ -627,7 +657,16 @@ function edHTML(s,i,cid){
     ${fields(s,i)}
     <div style="margin-top:7px"><label>배경색</label>
     <div class="cr">${dots}<div class="cd" style="background:linear-gradient(135deg,#f00,#0f0,#00f)" title="직접선택"><input type="color" value="${s.bg||'#FFF8F0'}" oninput="setBg(${i},this.value,'${cid}')"></div></div></div>
-    <div style="margin-top:7px"><label>이미지 (선택)</label><input type="file" accept="image/*" onchange="upImg(${i},this,'${cid}')"></div>
+    <div style="margin-top:7px"><label>이미지</label>
+      <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+        <input type="file" accept="image/*" onchange="upImg(${i},this,'${cid}')" style="flex:1;min-width:0">
+        <button class="img-match-btn" onclick="autoMatchImg(${i})" title="키워드 기반 무료 이미지 검색">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          자동 매칭
+        </button>
+      </div>
+      <div class="img-picker" id="imgpick-${i}"></div>
+    </div>
   </div>`;
 }
 
@@ -933,6 +972,150 @@ function setP(show,txt='',pct=0,rendering=false){
 }
 
 const e=t=>String(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+/* ==== 이미지 자동 매칭 (큐레이션 이미지 뱅크) ==== */
+
+/* ---- Unsplash 무료 이미지 뱅크 (에스테틱/뷰티 특화) ---- */
+/* Unsplash License: 무료 상업적 사용 가능, 출처 표기 권장 */
+const IMG_BANK={
+  skincare:[
+    'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80',
+    'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80',
+    'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=600&q=80',
+    'https://images.unsplash.com/photo-1612817288484-6f916006741a?w=600&q=80',
+    'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=600&q=80',
+    'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&q=80',
+  ],
+  spa:[
+    'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80',
+    'https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=600&q=80',
+    'https://images.unsplash.com/photo-1540555700478-4be289fbec6d?w=600&q=80',
+    'https://images.unsplash.com/photo-1552693673-1bf958298935?w=600&q=80',
+    'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=600&q=80',
+    'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=600&q=80',
+  ],
+  interior:[
+    'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80',
+    'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&q=80',
+    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80',
+    'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&q=80',
+    'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80',
+    'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80',
+  ],
+  aromatherapy:[
+    'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=600&q=80',
+    'https://images.unsplash.com/photo-1547793548-7a0012f31911?w=600&q=80',
+    'https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?w=600&q=80',
+    'https://images.unsplash.com/photo-1474979266404-7f28db3dc1a1?w=600&q=80',
+    'https://images.unsplash.com/photo-1602928321679-560bb453f190?w=600&q=80',
+    'https://images.unsplash.com/photo-1599948128020-9a44505b0d1b?w=600&q=80',
+  ],
+  massage:[
+    'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=600&q=80',
+    'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80',
+    'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=600&q=80',
+    'https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=600&q=80',
+    'https://images.unsplash.com/photo-1559599101-f09722fb4948?w=600&q=80',
+    'https://images.unsplash.com/photo-1596178060671-7a80dc8059ea?w=600&q=80',
+  ],
+  serum:[
+    'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600&q=80',
+    'https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=600&q=80',
+    'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=600&q=80',
+    'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&q=80',
+    'https://images.unsplash.com/photo-1617897903246-719242758050?w=600&q=80',
+    'https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?w=600&q=80',
+  ],
+  wellness:[
+    'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&q=80',
+    'https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=600&q=80',
+    'https://images.unsplash.com/photo-1599447421416-3414500d18a5?w=600&q=80',
+    'https://images.unsplash.com/photo-1552693673-1bf958298935?w=600&q=80',
+    'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80',
+    'https://images.unsplash.com/photo-1517483000871-1dbf64a6e1c6?w=600&q=80',
+  ],
+  clean:[
+    'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=600&q=80',
+    'https://images.unsplash.com/photo-1563453392212-326f5e854473?w=600&q=80',
+    'https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?w=600&q=80',
+    'https://images.unsplash.com/photo-1628771065518-0d82f1938462?w=600&q=80',
+    'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=600&q=80',
+    'https://images.unsplash.com/photo-1583947215259-38e31be8751f?w=600&q=80',
+  ],
+  face:[
+    'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&q=80',
+    'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80',
+    'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80',
+    'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=600&q=80',
+    'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=600&q=80',
+    'https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=600&q=80',
+  ],
+  promo:[
+    'https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=600&q=80',
+    'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&q=80',
+    'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=600&q=80',
+    'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=80',
+    'https://images.unsplash.com/photo-1540555700478-4be289fbec6d?w=600&q=80',
+    'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=600&q=80',
+  ]
+};
+
+/* ---- 슬라이드 내용 → 카테고리 자동 매칭 ---- */
+const KEYWORD_MAP=[
+  {keys:['공간','라운지','룸','파우더','인테리어','리셉션'],cat:'interior'},
+  {keys:['피부','결','스킨','장벽','각질','모공','좁쌀'],cat:'skincare'},
+  {keys:['수분','보습','촉촉','건조','속건조'],cat:'skincare'},
+  {keys:['트러블','여드름','붉은기','예민','진정'],cat:'skincare'},
+  {keys:['아로마','오일','허브','향','블렌딩','7감'],cat:'aromatherapy'},
+  {keys:['근막','체형','어깨','비대칭','턱','이완','무통증'],cat:'massage'},
+  {keys:['마사지','테라피','릴랙스'],cat:'massage'},
+  {keys:['성분','앰플','제형','농도','화장품','코스메틱'],cat:'serum'},
+  {keys:['위생','소독','일회용','살균','깨끗'],cat:'clean'},
+  {keys:['윤곽','볼륨','리프팅','탄력','주름','팔자'],cat:'face'},
+  {keys:['피로','스트레스','숙면','두통','나른','뭉침'],cat:'wellness'},
+  {keys:['프로모션','이벤트','할인','예약','캘린더','4월'],cat:'promo'},
+  {keys:['힐링','웰니스','명상','차','릴렉스'],cat:'wellness'},
+  {keys:['관리','케어','프로그램'],cat:'spa'},
+];
+
+function matchCategory(slide){
+  const parts=[slide.tx,slide.tt,slide.name,slide.tag];
+  if(slide.items)parts.push(...slide.items);
+  const text=parts.filter(Boolean).join(' ');
+
+  for(const m of KEYWORD_MAP){
+    if(m.keys.some(k=>text.includes(k)))return m.cat;
+  }
+  return 'spa';
+}
+
+/* ---- 자동 매칭 실행 ---- */
+function autoMatchImg(idx){
+  const slide=SLIDES[idx];
+  const picker=document.getElementById('imgpick-'+idx);
+  if(!picker)return;
+
+  if(picker.classList.contains('open')){
+    picker.classList.remove('open');
+    return;
+  }
+
+  const cat=matchCategory(slide);
+  const imgs=IMG_BANK[cat]||IMG_BANK.spa;
+
+  picker.innerHTML=imgs.map(url=>
+    `<img src="${url}" data-full="${url.replace('w=600','w=1200')}" alt="${cat}" onclick="pickImg(${idx},this)" loading="lazy">`
+  ).join('')+`<div class="img-credit">Unsplash 무료 이미지</div>`;
+  picker.classList.add('open');
+}
+
+/* ---- 이미지 선택 적용 ---- */
+function pickImg(idx,imgEl){
+  imgEl.parentElement.querySelectorAll('img').forEach(i=>i.classList.remove('selected'));
+  imgEl.classList.add('selected');
+  IMGS[idx]=imgEl.dataset.full||imgEl.src;
+  refreshPrev(idx);
+}
 </script>
 </body>
 </html>
