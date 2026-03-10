@@ -8,6 +8,25 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Pretendard Variable',Pretendard,sans-serif;background:#FFF8F0;color:#333;min-height:100vh;display:flex;flex-direction:column}
+/* PIN Lock */
+#pin-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:#4A3728;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999}
+#pin-screen.hidden{display:none}
+.pin-title{font-size:28px;font-weight:300;color:#FFF8F0;letter-spacing:6px;margin-bottom:8px}
+.pin-sub{font-size:14px;color:rgba(255,248,240,0.5);margin-bottom:36px;letter-spacing:1px}
+.pin-dots{display:flex;gap:16px;margin-bottom:40px}
+.pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,248,240,0.4);background:transparent;transition:all .2s}
+.pin-dot.filled{background:#FF8C42;border-color:#FF8C42}
+.pin-pad{display:grid;grid-template-columns:repeat(3,72px);gap:12px}
+.pin-btn{width:72px;height:72px;border-radius:50%;border:1.5px solid rgba(255,248,240,0.25);background:transparent;color:#FFF8F0;font-size:24px;font-family:inherit;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.pin-btn:hover{background:rgba(255,248,240,0.1)}
+.pin-btn:active{background:rgba(255,248,240,0.2)}
+.pin-btn.empty{border:none;pointer-events:none}
+.pin-btn.back{font-size:18px}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.shake{animation:shake .4s ease}
+.pin-error{color:#FF8C42;font-size:13px;margin-top:16px;opacity:0;transition:opacity .3s}
+.pin-error.show{opacity:1}
+#main-content{display:none}
 header{background:#4A3728;padding:40px 24px;text-align:center}
 header h1{font-size:36px;font-weight:300;color:#FFF8F0;letter-spacing:8px;margin-bottom:8px}
 header p{font-size:16px;color:rgba(255,248,240,0.6);letter-spacing:2px}
@@ -34,6 +53,30 @@ footer .divider{width:40px;height:1px;background:rgba(255,248,240,0.2);margin:12
 </head>
 <body>
 
+<div id="pin-screen">
+  <div class="pin-title">IM AESTHETIC</div>
+  <div class="pin-sub">PIN을 입력하세요</div>
+  <div class="pin-dots" id="pinDots">
+    <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
+  </div>
+  <div class="pin-pad">
+    <button class="pin-btn" onclick="pinInput('1')">1</button>
+    <button class="pin-btn" onclick="pinInput('2')">2</button>
+    <button class="pin-btn" onclick="pinInput('3')">3</button>
+    <button class="pin-btn" onclick="pinInput('4')">4</button>
+    <button class="pin-btn" onclick="pinInput('5')">5</button>
+    <button class="pin-btn" onclick="pinInput('6')">6</button>
+    <button class="pin-btn" onclick="pinInput('7')">7</button>
+    <button class="pin-btn" onclick="pinInput('8')">8</button>
+    <button class="pin-btn" onclick="pinInput('9')">9</button>
+    <button class="pin-btn empty"></button>
+    <button class="pin-btn" onclick="pinInput('0')">0</button>
+    <button class="pin-btn back" onclick="pinBack()">&larr;</button>
+  </div>
+  <div class="pin-error" id="pinError">PIN이 올바르지 않습니다</div>
+</div>
+
+<div id="main-content">
 <header>
   <h1>IM AESTHETIC</h1>
   <p>콘텐츠 관리 시스템</p>
@@ -136,6 +179,14 @@ footer .divider{width:40px;height:1px;background:rgba(255,248,240,0.2);margin:12
   <div class="divider"></div>
   <p>2026년 3월~</p>
 </footer>
+</div>
 
+<script>
+const PIN='1234';let code='';
+if(sessionStorage.getItem('im_auth')==='1'){document.getElementById('pin-screen').classList.add('hidden');document.getElementById('main-content').style.display=''}
+function updateDots(){document.querySelectorAll('.pin-dot').forEach((d,i)=>{d.classList.toggle('filled',i<code.length)})}
+function pinInput(n){if(code.length>=4)return;code+=n;updateDots();if(code.length===4){if(code===PIN){sessionStorage.setItem('im_auth','1');document.getElementById('pin-screen').classList.add('hidden');document.getElementById('main-content').style.display=''}else{document.getElementById('pinError').classList.add('show');document.getElementById('pinDots').classList.add('shake');setTimeout(()=>{code='';updateDots();document.getElementById('pinError').classList.remove('show');document.getElementById('pinDots').classList.remove('shake')},600)}}}
+function pinBack(){if(code.length>0){code=code.slice(0,-1);updateDots()}}
+</script>
 </body>
 </html>
