@@ -3,30 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IM AESTHETIC · 콘텐츠 관리 시스템</title>
+<title>IM AESTHETIC</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Pretendard Variable',Pretendard,sans-serif;background:#FFF8F0;color:#333;min-height:100vh;display:flex;flex-direction:column}
-/* PIN Lock */
-#pin-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:#4A3728;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999}
-#pin-screen.hidden{display:none}
-.pin-title{font-size:28px;font-weight:300;color:#FFF8F0;letter-spacing:6px;margin-bottom:8px}
-.pin-sub{font-size:14px;color:rgba(255,248,240,0.5);margin-bottom:36px;letter-spacing:1px}
-.pin-dots{display:flex;gap:16px;margin-bottom:40px}
-.pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,248,240,0.4);background:transparent;transition:all .2s}
-.pin-dot.filled{background:#FF8C42;border-color:#FF8C42}
-.pin-pad{display:grid;grid-template-columns:repeat(3,72px);gap:12px}
-.pin-btn{width:72px;height:72px;border-radius:50%;border:1.5px solid rgba(255,248,240,0.25);background:transparent;color:#FFF8F0;font-size:24px;font-family:inherit;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
-.pin-btn:hover{background:rgba(255,248,240,0.1)}
-.pin-btn:active{background:rgba(255,248,240,0.2)}
-.pin-btn.empty{border:none;pointer-events:none}
-.pin-btn.back{font-size:18px}
-@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+body{font-family:'Pretendard Variable',Pretendard,sans-serif;background:#FFF8F0;color:#333;min-height:100vh}
+
+/* ── PIN Screen ── */
+#pin-screen{
+  position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;
+  background:linear-gradient(160deg,#3E2D1F 0%,#4A3728 40%,#5C4635 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity .5s ease,transform .5s ease;
+}
+#pin-screen.hide{opacity:0;transform:scale(1.02);pointer-events:none}
+.pin-logo{width:64px;height:64px;margin-bottom:20px;opacity:.15}
+.pin-brand{font-size:11px;font-weight:600;color:rgba(255,248,240,0.3);letter-spacing:6px;text-transform:uppercase;margin-bottom:40px}
+.pin-label{font-size:15px;font-weight:400;color:rgba(255,248,240,0.7);letter-spacing:1.5px;margin-bottom:28px}
+.pin-dots{display:flex;gap:18px;margin-bottom:48px;position:relative}
+.pin-dot{width:12px;height:12px;border-radius:50%;background:rgba(255,248,240,0.15);transition:all .25s cubic-bezier(.4,0,.2,1)}
+.pin-dot.filled{background:#FF8C42;box-shadow:0 0 12px rgba(255,140,66,0.5)}
+.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;width:264px}
+.pin-btn{
+  width:80px;height:80px;border-radius:50%;border:none;
+  background:rgba(255,248,240,0.06);backdrop-filter:blur(4px);
+  color:#FFF8F0;font-size:26px;font-weight:300;font-family:inherit;
+  cursor:pointer;transition:all .15s ease;
+  display:flex;align-items:center;justify-content:center;
+}
+.pin-btn:hover{background:rgba(255,248,240,0.12)}
+.pin-btn:active{background:rgba(255,140,66,0.2);transform:scale(0.95)}
+.pin-btn.empty{background:transparent;pointer-events:none}
+.pin-btn.back{font-size:20px;color:rgba(255,248,240,0.5)}
+.pin-btn.back:hover{color:#FFF8F0}
+.pin-msg{height:20px;margin-top:24px;font-size:13px;color:#FF8C42;opacity:0;transition:opacity .3s}
+.pin-msg.show{opacity:1}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-10px)}40%,80%{transform:translateX(10px)}}
+.shake .pin-dot{background:#ff6b6b!important;box-shadow:0 0 12px rgba(255,107,107,0.4)!important}
 .shake{animation:shake .4s ease}
-.pin-error{color:#FF8C42;font-size:13px;margin-top:16px;opacity:0;transition:opacity .3s}
-.pin-error.show{opacity:1}
-#main-content{display:none}
+
+/* ── Main Content ── */
+#main-content{display:none;flex-direction:column;min-height:100vh}
+#main-content.show{display:flex}
 header{background:#4A3728;padding:40px 24px;text-align:center}
 header h1{font-size:36px;font-weight:300;color:#FFF8F0;letter-spacing:8px;margin-bottom:8px}
 header p{font-size:16px;color:rgba(255,248,240,0.6);letter-spacing:2px}
@@ -47,17 +65,25 @@ main{flex:1;max-width:1100px;width:100%;margin:0 auto;padding:48px 24px}
 footer{background:#4A3728;padding:24px;text-align:center}
 footer p{color:rgba(255,248,240,0.5);font-size:13px;line-height:1.8}
 footer .divider{width:40px;height:1px;background:rgba(255,248,240,0.2);margin:12px auto}
-@media(max-width:768px){.grid{grid-template-columns:repeat(2,1fr)}.stats{flex-wrap:wrap}.stat{flex:1 1 50%;border-bottom:1px solid #f0e8e0}.stat:nth-child(2n){border-right:none}}
-@media(max-width:480px){.grid{grid-template-columns:1fr}.stats{flex-direction:column}.stat{border-right:none}.header h1{font-size:28px;letter-spacing:5px}}
+@media(max-width:768px){.grid{grid-template-columns:repeat(2,1fr)}.stats{flex-wrap:wrap}.stat{flex:1 1 50%;border-bottom:1px solid #f0e8e0}.stat:nth-child(2n){border-right:none}.pin-btn{width:68px;height:68px;font-size:24px}.pin-pad{width:236px;gap:12px}}
+@media(max-width:480px){.grid{grid-template-columns:1fr}.stats{flex-direction:column}.stat{border-right:none}header h1{font-size:28px;letter-spacing:5px}.pin-btn{width:64px;height:64px;font-size:22px}.pin-pad{width:224px;gap:10px}}
 </style>
 </head>
 <body>
 
+<!-- PIN Lock Screen -->
 <div id="pin-screen">
-  <div class="pin-title">IM AESTHETIC</div>
-  <div class="pin-sub">PIN을 입력하세요</div>
+  <svg class="pin-logo" viewBox="0 0 64 64" fill="none">
+    <circle cx="32" cy="32" r="30" stroke="rgba(255,248,240,0.15)" stroke-width="1.5"/>
+    <text x="32" y="37" text-anchor="middle" fill="rgba(255,248,240,0.25)" font-size="18" font-weight="300" font-family="Pretendard,sans-serif" letter-spacing="3">IM</text>
+  </svg>
+  <div class="pin-brand">IM AESTHETIC</div>
+  <div class="pin-label">PIN</div>
   <div class="pin-dots" id="pinDots">
-    <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
+    <div class="pin-dot"></div>
+    <div class="pin-dot"></div>
+    <div class="pin-dot"></div>
+    <div class="pin-dot"></div>
   </div>
   <div class="pin-pad">
     <button class="pin-btn" onclick="pinInput('1')">1</button>
@@ -71,121 +97,128 @@ footer .divider{width:40px;height:1px;background:rgba(255,248,240,0.2);margin:12
     <button class="pin-btn" onclick="pinInput('9')">9</button>
     <button class="pin-btn empty"></button>
     <button class="pin-btn" onclick="pinInput('0')">0</button>
-    <button class="pin-btn back" onclick="pinBack()">&larr;</button>
+    <button class="pin-btn back" onclick="pinBack()">&#x232B;</button>
   </div>
-  <div class="pin-error" id="pinError">PIN이 올바르지 않습니다</div>
+  <div class="pin-msg" id="pinMsg">PIN이 올바르지 않습니다</div>
 </div>
 
+<!-- Main Content -->
 <div id="main-content">
 <header>
   <h1>IM AESTHETIC</h1>
-  <p>콘텐츠 관리 시스템</p>
+  <p>Contents Management System</p>
 </header>
 
 <main>
   <p class="section-title">Tools &amp; Pages</p>
 
   <div class="grid">
-
     <a class="card" href="dashboard.html">
       <svg class="card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="6" y="6" width="14" height="14" rx="2"/>
-        <rect x="28" y="6" width="14" height="14" rx="2"/>
-        <rect x="6" y="28" width="14" height="14" rx="2"/>
-        <rect x="28" y="28" width="14" height="14" rx="2"/>
+        <rect x="6" y="6" width="14" height="14" rx="2"/><rect x="28" y="6" width="14" height="14" rx="2"/>
+        <rect x="6" y="28" width="14" height="14" rx="2"/><rect x="28" y="28" width="14" height="14" rx="2"/>
       </svg>
-      <div class="card-title">콘텐츠 대시보드</div>
-      <div class="card-desc">12주 콘텐츠 캘린더 · 포스트 상세 보기</div>
+      <div class="card-title">Content Dashboard</div>
+      <div class="card-desc">12-Week Calendar &middot; Post Details</div>
     </a>
 
     <a class="card" href="instagram_preview_react.html">
       <svg class="card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="6" y="6" width="10" height="10" rx="1.5"/>
-        <rect x="19" y="6" width="10" height="10" rx="1.5"/>
-        <rect x="32" y="6" width="10" height="10" rx="1.5"/>
-        <rect x="6" y="19" width="10" height="10" rx="1.5"/>
-        <rect x="19" y="19" width="10" height="10" rx="1.5"/>
-        <rect x="32" y="19" width="10" height="10" rx="1.5"/>
-        <rect x="6" y="32" width="10" height="10" rx="1.5"/>
-        <rect x="19" y="32" width="10" height="10" rx="1.5"/>
-        <rect x="32" y="32" width="10" height="10" rx="1.5"/>
+        <rect x="6" y="6" width="10" height="10" rx="1.5"/><rect x="19" y="6" width="10" height="10" rx="1.5"/><rect x="32" y="6" width="10" height="10" rx="1.5"/>
+        <rect x="6" y="19" width="10" height="10" rx="1.5"/><rect x="19" y="19" width="10" height="10" rx="1.5"/><rect x="32" y="19" width="10" height="10" rx="1.5"/>
+        <rect x="6" y="32" width="10" height="10" rx="1.5"/><rect x="19" y="32" width="10" height="10" rx="1.5"/><rect x="32" y="32" width="10" height="10" rx="1.5"/>
       </svg>
-      <div class="card-title">피드 프리뷰</div>
-      <div class="card-desc">인스타그램 그리드 미리보기 · 36개 포스트</div>
+      <div class="card-title">Feed Preview</div>
+      <div class="card-desc">Instagram Grid &middot; 36 Posts</div>
     </a>
 
     <a class="card" href="card_news_maker.html">
       <span class="badge">NEW</span>
       <svg class="card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="8" y="12" width="32" height="24" rx="2"/>
-        <rect x="12" y="8" width="32" height="24" rx="2" fill="none"/>
-        <line x1="14" y1="20" x2="34" y2="20"/>
-        <line x1="14" y1="26" x2="28" y2="26"/>
+        <rect x="8" y="12" width="32" height="24" rx="2"/><rect x="12" y="8" width="32" height="24" rx="2" fill="none"/>
+        <line x1="14" y1="20" x2="34" y2="20"/><line x1="14" y1="26" x2="28" y2="26"/>
       </svg>
-      <div class="card-title">카드뉴스 메이커</div>
-      <div class="card-desc">목요일 카드뉴스 제작 · PNG 내보내기</div>
+      <div class="card-title">Card News Maker</div>
+      <div class="card-desc">Thursday Card News &middot; PNG Export</div>
     </a>
 
     <a class="card" href="carousel_templates.html">
       <svg class="card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <rect x="10" y="10" width="28" height="28" rx="2"/>
-        <line x1="10" y1="18" x2="38" y2="18"/>
-        <line x1="18" y1="18" x2="18" y2="38"/>
+        <line x1="10" y1="18" x2="38" y2="18"/><line x1="18" y1="18" x2="18" y2="38"/>
         <circle cx="40" cy="24" r="3" fill="currentColor" stroke="none" opacity=".4"/>
         <circle cx="8" cy="24" r="3" fill="currentColor" stroke="none" opacity=".4"/>
       </svg>
-      <div class="card-title">캐러셀 가이드</div>
-      <div class="card-desc">4가지 템플릿 디자인 가이드</div>
+      <div class="card-title">Carousel Guide</div>
+      <div class="card-desc">4 Template Design Guide</div>
     </a>
 
     <a class="card" href="현장촬영_체크리스트.html">
       <svg class="card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <rect x="8" y="14" width="32" height="26" rx="3"/>
         <path d="M18 14v-3a6 6 0 0 1 12 0v3"/>
-        <circle cx="24" cy="27" r="5"/>
-        <circle cx="24" cy="27" r="2" fill="currentColor" stroke="none"/>
+        <circle cx="24" cy="27" r="5"/><circle cx="24" cy="27" r="2" fill="currentColor" stroke="none"/>
       </svg>
-      <div class="card-title">촬영 체크리스트</div>
-      <div class="card-desc">현장답사 촬영 가이드 · 체크리스트</div>
+      <div class="card-title">Shooting Checklist</div>
+      <div class="card-desc">On-Site Photography Guide</div>
     </a>
-
   </div>
 
   <p class="section-title">Quick Stats</p>
-
   <div class="stats">
-    <div class="stat">
-      <div class="stat-num">36</div>
-      <div class="stat-label">총 포스트</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">67</div>
-      <div class="stat-label">캐러셀 슬라이드</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">8</div>
-      <div class="stat-label">프로그램</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">12</div>
-      <div class="stat-label">운영 기간 (주)</div>
-    </div>
+    <div class="stat"><div class="stat-num">36</div><div class="stat-label">Total Posts</div></div>
+    <div class="stat"><div class="stat-num">67</div><div class="stat-label">Carousel Slides</div></div>
+    <div class="stat"><div class="stat-num">8</div><div class="stat-label">Programs</div></div>
+    <div class="stat"><div class="stat-num">12</div><div class="stat-label">Weeks</div></div>
   </div>
-
 </main>
 
 <footer>
-  <p>IM 에스테틱 콘텐츠 관리 시스템 v1.0</p>
+  <p>IM AESTHETIC CMS v1.0</p>
   <div class="divider"></div>
-  <p>2026년 3월~</p>
+  <p>2026.03 ~</p>
 </footer>
 </div>
 
 <script>
-const PIN='1234';let code='';
-if(sessionStorage.getItem('im_auth')==='1'){document.getElementById('pin-screen').classList.add('hidden');document.getElementById('main-content').style.display=''}
-function updateDots(){document.querySelectorAll('.pin-dot').forEach((d,i)=>{d.classList.toggle('filled',i<code.length)})}
-function pinInput(n){if(code.length>=4)return;code+=n;updateDots();if(code.length===4){if(code===PIN){sessionStorage.setItem('im_auth','1');document.getElementById('pin-screen').classList.add('hidden');document.getElementById('main-content').style.display=''}else{document.getElementById('pinError').classList.add('show');document.getElementById('pinDots').classList.add('shake');setTimeout(()=>{code='';updateDots();document.getElementById('pinError').classList.remove('show');document.getElementById('pinDots').classList.remove('shake')},600)}}}
+const PIN='1234';
+let code='';
+const pinScreen=document.getElementById('pin-screen');
+const mainContent=document.getElementById('main-content');
+const dots=document.querySelectorAll('.pin-dot');
+const dotsWrap=document.getElementById('pinDots');
+const msg=document.getElementById('pinMsg');
+
+// Check session
+if(sessionStorage.getItem('im_auth')==='1'){unlock(true)}
+
+function unlock(instant){
+  if(instant){pinScreen.style.display='none';mainContent.classList.add('show');return}
+  pinScreen.classList.add('hide');
+  mainContent.classList.add('show');
+  setTimeout(()=>{pinScreen.style.display='none'},500);
+  sessionStorage.setItem('im_auth','1');
+}
+
+function updateDots(){dots.forEach((d,i)=>d.classList.toggle('filled',i<code.length))}
+
+function pinInput(n){
+  if(code.length>=4)return;
+  code+=n;updateDots();
+  if(code.length===4){
+    if(code===PIN){
+      setTimeout(()=>unlock(false),200);
+    }else{
+      msg.classList.add('show');
+      dotsWrap.classList.add('shake');
+      setTimeout(()=>{
+        code='';updateDots();
+        msg.classList.remove('show');
+        dotsWrap.classList.remove('shake');
+      },700);
+    }
+  }
+}
 function pinBack(){if(code.length>0){code=code.slice(0,-1);updateDots()}}
 </script>
 </body>
