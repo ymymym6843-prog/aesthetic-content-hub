@@ -1,7 +1,7 @@
 import React from 'react';
-import { X, Camera, LayoutGrid, MessageSquare, Palette, BookOpen, Copy, Check, Hash, Star } from './Icons.jsx';
+import { X, Camera, LayoutGrid, MessageSquare, Palette, BookOpen, Copy, Check, Hash, Star, Edit2 } from './Icons.jsx';
 
-export const PostDetail = ({ post, activeWeek, copied, onClose, onCopy }) => {
+export const PostDetail = ({ post, activeWeek, copied, onClose, onCopy, onEdit, dbConnected }) => {
     if (!post) return null;
 
     return (
@@ -21,7 +21,15 @@ export const PostDetail = ({ post, activeWeek, copied, onClose, onCopy }) => {
                             <h2 className="text-2xl font-bold">{post.title}</h2>
                         </div>
                     </div>
-                    <button onClick={onClose} className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center"><X size={20} /></button>
+                    <div className="flex items-center gap-2">
+                        {dbConnected && onEdit && (
+                            <button onClick={() => onEdit(post)}
+                                className="w-10 h-10 rounded-full bg-white/10 hover:bg-orange-500/80 flex items-center justify-center transition-colors" title="수정">
+                                <Edit2 size={16} />
+                            </button>
+                        )}
+                        <button onClick={onClose} className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center"><X size={20} /></button>
+                    </div>
                 </div>
 
                 <div className="flex-grow overflow-y-auto p-8 md:p-10 space-y-8 no-scrollbar">

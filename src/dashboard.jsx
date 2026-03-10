@@ -1,17 +1,81 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles.css';
 
-import { LayoutGrid, Sparkles, Clock, Award, CheckCircle2, ChevronRight } from './components/Icons.jsx';
-import { strategyData } from './data/posts.js';
+import { LayoutGrid, Sparkles, Clock, Award, CheckCircle2, ChevronRight, Plus } from './components/Icons.jsx';
+import { strategyData as fallbackData } from './data/posts.js';
+import { fetchPosts, fetchWeekStrategies, createPost, updatePost, deletePost, uploadImage, addPostImage, DEFAULT_CLINIC_ID } from './lib/supabase.js';
 import { WeekNav } from './components/WeekNav.jsx';
 import { PostCard } from './components/PostCard.jsx';
 import { PostDetail } from './components/PostDetail.jsx';
+import { PostEditor } from './components/PostEditor.jsx';
+
+// DB 데이터를 strategyData 형식으로 변환
+function transformDbData(posts, strategies) {
+    return strategies.map(s => {
+        const weekPosts = posts.filter(p => p.week === s.week);
+        return {
+            week: s.week,
+            phase: `${s.phase}`,
+            theme: s.theme,
+            goal: s.goal,
+            posts: weekPosts.map(p => ({
+                day: p.day,
+                type: p.type,
+                title: p.title,
+                desc: p.description,
+                caption: p.caption,
+                tags: p.tags,
+                image: p.post_images?.[0]?.image_url || '/feed_images/placeholder.svg',
+                slideCount: p.slide_count,
+                templateType: p.template_type,
+                asset: '',
+                aiGuide: '',
+                design: '',
+                dbId: p.id,
+                status: p.status,
+            }))
+        };
+    });
+}
 
 const App = () => {
     const [activeWeek, setActiveWeek] = useState(1);
     const [selectedPost, setSelectedPost] = useState(null);
     const [copied, setCopied] = useState(false);
+    const [strategyData, setStrategyData] = useState(fallbackData);
+    const [dbConnected, setDbConnected] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [editorPost, setEditorPost] = useState(undefined); // undefined=closed, null=new, object=edit
+    const [toast, setToast] = useState(null);
+
+    const showToast = (msg, type = 'success') => {
+        setToast({ msg, type });
+        setTimeout(() => setToast(null), 3000);
+    };
+
+    const reloadData = async () => {
+        try {
+            const [posts, strategies] = await Promise.all([
+                fetchPosts(DEFAULT_CLINIC_ID),
+                fetchWeekStrategies(DEFAULT_CLINIC_ID),
+            ]);
+            if (strategies.length > 0 && posts.length > 0) {
+                setStrategyData(transformDbData(posts, strategies));
+                setDbConnected(true);
+            }
+        } catch (err) {
+            console.warn('DB 새로고침 실패:', err.message);
+        }
+    };
+
+    useEffect(() => {
+        async function loadFromDb() {
+            await reloadData();
+            setLoading(false);
+        }
+        loadFromDb();
+    }, []);
 
     const handleCopy = (text) => {
         navigator.clipboard.writeText(text);
@@ -19,10 +83,79 @@ const App = () => {
         setTimeout(() => setCopied(false), 2000);
     };
 
+    const handleSave = async (formData, isNew) => {
+        try {
+            const postData = {
+                clinic_id: DEFAULT_CLINIC_ID,
+                week: activeWeek,
+                day: formData.day,
+                type: formData.type,
+                title: formData.title,
+                description: formData.desc,
+                caption: formData.caption,
+                tags: formData.tags,
+                slide_count: formData.type === '캐러셀' ? (formData.slideCount || 0) : 0,
+                template_type: formData.type === '캐러셀' ? formData.templateType : '',
+                status: formData.status,
+                sort_order: formData.day === '화' ? 1 : formData.day === '목' ? 2 : 3,
+            };
+
+            let savedPost;
+            if (isNew) {
+                savedPost = await createPost(postData);
+            } else {
+                savedPost = await updatePost(formData.dbId, postData);
+            }
+
+            // Handle image upload
+            if (formData.imageFile && savedPost) {
+                const path = `${DEFAULT_CLINIC_ID}/${activeWeek}W_${formData.day}_${Date.now()}.${formData.imageFile.name.split('.').pop()}`;
+                const publicUrl = await uploadImage(formData.imageFile, path);
+                await addPostImage(savedPost.id, publicUrl, 0, formData.title);
+            }
+
+            await reloadData();
+            setEditorPost(undefined);
+            setSelectedPost(null);
+            showToast(isNew ? '게시물이 추가되었습니다' : '게시물이 수정되었습니다');
+        } catch (err) {
+            showToast('저장 실패: ' + err.message, 'error');
+        }
+    };
+
+    const handleDelete = async (postId) => {
+        try {
+            await deletePost(postId);
+            await reloadData();
+            setEditorPost(undefined);
+            setSelectedPost(null);
+            showToast('게시물이 삭제되었습니다');
+        } catch (err) {
+            showToast('삭제 실패: ' + err.message, 'error');
+        }
+    };
+
+    const handleEdit = (post) => {
+        setSelectedPost(null);
+        setEditorPost(post);
+    };
+
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center" style={{background:'#FFF8F0'}}>
+                <div className="text-center">
+                    <div className="w-8 h-8 border-3 border-t-transparent rounded-full animate-spin mx-auto mb-4" style={{borderColor:'#FF8C42', borderTopColor:'transparent'}}></div>
+                    <p className="text-gray-400 text-sm">Loading...</p>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="min-h-screen p-4 md:p-10 font-sans" style={{background:'#FFF8F0', color:'#333'}}>
             <header className="max-w-6xl mx-auto mb-12 flex flex-col items-center">
-                <div className="px-5 py-1.5 rounded-full text-xs font-bold mb-4 border tracking-widest uppercase" style={{background:'rgba(255,140,66,0.1)', color:'#FF8C42', borderColor:'rgba(255,140,66,0.2)'}}>
+                <div className="px-5 py-1.5 rounded-full text-xs font-bold mb-4 border tracking-widest uppercase flex items-center gap-2" style={{background:'rgba(255,140,66,0.1)', color:'#FF8C42', borderColor:'rgba(255,140,66,0.2)'}}>
+                    <span className={`w-2 h-2 rounded-full ${dbConnected ? 'bg-green-400' : 'bg-gray-300'}`}></span>
                     IM AESTHETIC SNS CONTENT HUB
                 </div>
                 <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight text-center">
@@ -74,6 +207,13 @@ const App = () => {
                                 <LayoutGrid size={22} style={{color:'#FF8C42'}} />
                                 콘텐츠 상세 기획 (클릭하여 확인)
                             </h3>
+                            {dbConnected && (
+                                <button onClick={() => setEditorPost(null)}
+                                    className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold text-white shadow-md hover:shadow-lg transition-all"
+                                    style={{background:'#FF8C42'}}>
+                                    <Plus size={14} /> 새 게시물
+                                </button>
+                            )}
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -109,7 +249,25 @@ const App = () => {
                 copied={copied}
                 onClose={() => setSelectedPost(null)}
                 onCopy={handleCopy}
+                onEdit={handleEdit}
+                dbConnected={dbConnected}
             />
+
+            {editorPost !== undefined && (
+                <PostEditor
+                    post={editorPost}
+                    activeWeek={activeWeek}
+                    onSave={handleSave}
+                    onDelete={handleDelete}
+                    onClose={() => setEditorPost(undefined)}
+                />
+            )}
+
+            {toast && (
+                <div className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] px-6 py-3 rounded-2xl text-sm font-bold text-white shadow-xl transition-all ${toast.type === 'error' ? 'bg-red-500' : 'bg-gray-800'}`}>
+                    {toast.msg}
+                </div>
+            )}
 
             <footer className="max-w-6xl mx-auto mt-16 text-center text-gray-400">
                 <p className="text-xs font-bold uppercase tracking-widest mb-2 italic opacity-60">Professional Aesthetics Content Strategy</p>
