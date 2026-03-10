@@ -398,6 +398,43 @@ textarea{resize:vertical;min-height:54px}
   .pw{width:270px;height:337px}
 }
 
+/* ---- 프리셋 카드 ---- */
+.preset-card{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 16px;border-radius:12px;
+  border:2px solid var(--bd);background:rgba(255,248,240,0.85);
+  cursor:pointer;transition:all var(--transition);
+}
+.preset-card:hover{border-color:var(--or);transform:translateY(-2px);box-shadow:0 6px 18px rgba(255,140,66,0.15)}
+.preset-icon{font-size:28px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:rgba(255,140,66,0.08);flex-shrink:0}
+.preset-title{font-size:14px;font-weight:700;color:var(--dark)}
+.preset-desc{font-size:11px;color:var(--gr);margin-top:2px}
+.preset-slides{font-size:10px;color:var(--or);font-weight:700;margin-top:3px}
+
+/* ---- 슬라이드 가이드 플레이스홀더 ---- */
+.slide-guide{
+  background:rgba(255,140,66,0.06);border:1px dashed rgba(255,140,66,0.3);
+  border-radius:8px;padding:8px 12px;margin-bottom:8px;
+  font-size:11px;color:var(--or);font-weight:600;
+}
+
+/* ---- 브랜드 모드 컬러 팔레트 ---- */
+.brand-palette{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.brand-swatch{
+  width:28px;height:28px;border-radius:6px;cursor:pointer;
+  border:2px solid transparent;transition:all var(--transition);
+}
+.brand-swatch:hover,.brand-swatch.active{border-color:var(--or);transform:scale(1.15)}
+
+/* ---- 폰트 프리셋 ---- */
+.font-presets{display:flex;gap:6px;margin-top:6px}
+.font-preset-btn{
+  padding:4px 10px;border-radius:6px;font-size:10px;font-weight:700;
+  border:1.5px solid var(--bd);background:var(--bg);color:var(--dark);
+  cursor:pointer;transition:all var(--transition);
+}
+.font-preset-btn:hover,.font-preset-btn.active{border-color:var(--or);color:var(--or)}
+
 @media(max-width:480px){
   .cal-grid{grid-template-columns:1fr}
   header h1{font-size:15px}
@@ -421,6 +458,13 @@ textarea{resize:vertical;min-height:54px}
 <div class="tabs">
   <div class="tab active" onclick="switchTab(0)">캘린더에서 선택</div>
   <div class="tab" onclick="switchTab(1)">직접 입력</div>
+  <div class="tab" onclick="switchTab(2)">템플릿 프리셋</div>
+  <div style="margin-left:auto;display:flex;align-items:center;padding-right:16px;gap:8px">
+    <label style="font-size:11px;color:var(--gr);cursor:pointer;display:flex;align-items:center;gap:6px">
+      <input type="checkbox" id="brand-mode" onchange="toggleBrandMode()" checked>
+      <span style="font-weight:700">브랜드 모드</span>
+    </label>
+  </div>
 </div>
 
 <!-- 모바일 전용 에디터/프리뷰 토글 -->
@@ -457,6 +501,46 @@ textarea{resize:vertical;min-height:54px}
       <div id="rec-lbl" style="font-size:11px;color:var(--or);margin-bottom:8px;min-height:16px"></div>
       <button class="btn btn-p" style="width:100%;margin-bottom:4px" onclick="genTopic()">슬라이드 생성</button>
       <div id="seds-b" style="margin-top:10px"></div>
+    </div>
+
+    <!-- Phase 2: 템플릿 프리셋 패널 -->
+    <div class="panel" id="panel-c">
+      <div class="ib" style="margin-bottom:12px">템플릿을 선택하면 슬라이드가 자동으로 구성됩니다.</div>
+      <div style="display:grid;gap:10px">
+        <div class="preset-card" onclick="applyPreset('guide')">
+          <div class="preset-icon">📋</div>
+          <div>
+            <div class="preset-title">가이드/체크리스트형</div>
+            <div class="preset-desc">후킹→정보→CTA (Week 3-8 패턴)</div>
+            <div class="preset-slides">5-6장</div>
+          </div>
+        </div>
+        <div class="preset-card" onclick="applyPreset('program')">
+          <div class="preset-icon">💆</div>
+          <div>
+            <div class="preset-title">프로그램 소개형</div>
+            <div class="preset-desc">문제→솔루션3단계→CTA (Week 9-12 패턴)</div>
+            <div class="preset-slides">7장</div>
+          </div>
+        </div>
+        <div class="preset-card" onclick="applyPreset('expert')">
+          <div class="preset-icon">👩‍⚕️</div>
+          <div>
+            <div class="preset-title">전문가 소개형</div>
+            <div class="preset-desc">인물→경력→철학 (Week 2 패턴)</div>
+            <div class="preset-slides">5장</div>
+          </div>
+        </div>
+        <div class="preset-card" onclick="applyPreset('qa')">
+          <div class="preset-icon">❓</div>
+          <div>
+            <div class="preset-title">Q&A/팩트체크형</div>
+            <div class="preset-desc">질문→답변→근거 (Week 7 패턴)</div>
+            <div class="preset-slides">5-6장</div>
+          </div>
+        </div>
+      </div>
+      <div id="seds-c" style="margin-top:10px"></div>
     </div>
 
     <!-- 액션바 -->
@@ -1116,6 +1200,119 @@ function pickImg(idx,imgEl){
   IMGS[idx]=imgEl.dataset.full||imgEl.src;
   refreshPrev(idx);
 }
+
+/* ==== Phase 2: 템플릿 프리셋 시스템 ==== */
+
+/* ---- 슬라이드별 가이드 텍스트 ---- */
+const SLIDE_GUIDES={
+  guide:[
+    '후킹 질문 또는 제목을 입력하세요',
+    '문제점/원인을 설명하세요',
+    '구체적인 정보나 팁을 입력하세요',
+    '추가 정보나 비교 포인트를 입력하세요',
+    '핵심 메시지를 강조하세요',
+    'CTA - 저장/공유/예약 유도 문구'
+  ],
+  program:[
+    '후킹 질문으로 고객 공감을 유도하세요',
+    '문제의 원인을 전문적으로 설명하세요',
+    '프로그램명과 핵심 태그라인을 입력하세요',
+    '솔루션 1단계: 분석/진단 과정',
+    '솔루션 2단계: 핵심 케어 과정',
+    '이런 분께 추천 - 대상 고객을 구체적으로',
+    'CTA - 블로그/DM/예약 유도'
+  ],
+  expert:[
+    '전문가 이름과 타이틀을 강조하세요',
+    '경력과 전문 분야를 소개하세요',
+    '관리 철학이나 차별점을 설명하세요',
+    '대표 프로그램이나 시그니처 케어 소개',
+    'CTA - 상담 예약 유도'
+  ],
+  qa:[
+    '잘못 알려진 상식을 질문 형태로 제시하세요',
+    'MYTH - 틀린 상식을 적어주세요',
+    'FACT - 올바른 정보를 설명해주세요',
+    'MYTH - 또 다른 오해를 적어주세요',
+    'FACT - 전문가 근거를 포함한 답변',
+    'CTA - 저장/공유 유도'
+  ]
+};
+
+const PRESET_TEMPLATES={
+  guide:{id:'preset_guide',t:'가이드/체크리스트',tp:'infographic',s:[
+    {r:'hook',tx:'이 슬라이드에 후킹 질문을 입력하세요'},
+    {r:'content',tt:'문제점',tx:'문제점/원인을 설명하세요'},
+    {r:'content',tt:'포인트 1',tx:'구체적인 정보나 팁을 입력하세요'},
+    {r:'content',tt:'포인트 2',tx:'추가 정보나 비교 포인트를 입력하세요'},
+    {r:'highlight',tx:'핵심 메시지를 강조하세요'},
+    {r:'cta',tx:'저장하고 공유해 주세요'}
+  ]},
+  program:{id:'preset_program',t:'프로그램 소개',tp:'program',s:[
+    {r:'hook',tx:'고객의 고민을 공감하는 질문을 적어주세요'},
+    {r:'cause',tt:'왜 이런 일이?',tx:'문제의 원인을 전문적으로 설명하세요'},
+    {r:'program',name:'IM 프로그램명',tag:'핵심 태그라인을 입력하세요'},
+    {r:'step',n:'01',tt:'1단계',tx:'분석/진단 과정'},
+    {r:'step',n:'02',tt:'2단계',tx:'핵심 케어 과정'},
+    {r:'recommend',items:['추천 대상 1을 입력하세요','추천 대상 2를 입력하세요','추천 대상 3을 입력하세요']},
+    {r:'cta',tx:'블로그에서 자세히 보기'}
+  ]},
+  expert:{id:'preset_expert',t:'전문가 소개',tp:'infographic',s:[
+    {r:'hook',tx:'전문가 이름과 인용문을 적어주세요'},
+    {r:'content',tt:'경력',tx:'전문 분야와 경력 연수를 입력하세요'},
+    {r:'content',tt:'관리 철학',tx:'관리 철학이나 차별점을 설명하세요'},
+    {r:'content',tt:'시그니처 케어',tx:'대표 프로그램이나 시그니처 케어 소개'},
+    {r:'cta',tx:'상담 예약은 DM으로'}
+  ]},
+  qa:{id:'preset_qa',t:'Q&A 팩트체크',tp:'qa_flip',s:[
+    {r:'hook',tx:'잘못 알려진 상식을 질문 형태로 적어주세요',bg:'#4A3728'},
+    {r:'myth',tx:'틀린 상식을 적어주세요'},
+    {r:'fact',tx:'올바른 정보를 설명해주세요'},
+    {r:'myth',tx:'또 다른 오해를 적어주세요'},
+    {r:'fact',tx:'전문가 근거를 포함한 답변'},
+    {r:'cta',tx:'저장하고 친구에게 공유해 주세요'}
+  ]}
+};
+
+let currentPresetType=null;
+
+function applyPreset(type){
+  const tpl=PRESET_TEMPLATES[type];
+  if(!tpl)return;
+  currentPresetType=type;
+  POST={...tpl};
+  SLIDES=tpl.s.map(s=>({...s,items:s.items?[...s.items]:undefined}));
+  IMGS={};
+  buildEditorsWithGuides('seds-c',type);
+  render();show();
+}
+
+function buildEditorsWithGuides(cid,presetType){
+  const guides=SLIDE_GUIDES[presetType]||[];
+  const el=document.getElementById(cid);
+  el.innerHTML=SLIDES.map((s,i)=>{
+    const guide=guides[i]?`<div class="slide-guide">💡 ${guides[i]}</div>`:'';
+    return guide+edHTML(s,i,cid);
+  }).join('');
+}
+
+/* ---- 탭 전환 (3탭 지원) ---- */
+const _origSwitchTab=switchTab;
+switchTab=function(i){
+  document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('active',i===j));
+  document.querySelectorAll('.panel').forEach((p,j)=>p.classList.toggle('active',i===j));
+};
+
+/* ==== Phase 2B: 브랜드 모드 ==== */
+const BRAND_COLORS=['#FFF8F0','#FFFFFF','#4A3728','#FF8C42','#F5EDE0','#333333','#5C4635','#FFB085'];
+let brandModeOn=true;
+
+function toggleBrandMode(){
+  brandModeOn=document.getElementById('brand-mode').checked;
+}
+
+/* ---- 폰트 크기 프리셋 ---- */
+const FONT_PRESETS={title:32,body:22,caption:16};
 </script>
 </body>
 </html>

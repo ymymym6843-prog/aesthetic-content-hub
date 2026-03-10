@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles.css';
 
-import { LayoutGrid, Sparkles, Clock, Award, CheckCircle2, ChevronRight, Plus } from './components/Icons.jsx';
+import { LayoutGrid, Sparkles, Clock, Award, CheckCircle2, ChevronRight, Plus, BarChart } from './components/Icons.jsx';
 import { strategyData as fallbackData } from './data/posts.js';
-import { fetchPosts, fetchWeekStrategies, createPost, updatePost, deletePost, uploadImage, addPostImage, DEFAULT_CLINIC_ID } from './lib/supabase.js';
+import { fetchPosts, fetchWeekStrategies, createPost, updatePost, deletePost, uploadImage, addPostImage, createWeekStrategy, updatePublishChecklist, updatePostStatus, DEFAULT_CLINIC_ID } from './lib/supabase.js';
 import { WeekNav } from './components/WeekNav.jsx';
 import { PostCard } from './components/PostCard.jsx';
 import { PostDetail } from './components/PostDetail.jsx';
 import { PostEditor } from './components/PostEditor.jsx';
+import { WeekWizard } from './components/WeekWizard.jsx';
 
 // DB 데이터를 strategyData 형식으로 변환
 function transformDbData(posts, strategies) {
@@ -34,6 +35,7 @@ function transformDbData(posts, strategies) {
                 design: p.design || '',
                 dbId: p.id,
                 status: p.status,
+                publishChecklist: p.publish_checklist || null,
             }))
         };
     });
@@ -48,6 +50,7 @@ const App = () => {
     const [loading, setLoading] = useState(true);
     const [editorPost, setEditorPost] = useState(undefined); // undefined=closed, null=new, object=edit
     const [toast, setToast] = useState(null);
+    const [showWizard, setShowWizard] = useState(false);
 
     const showToast = (msg, type = 'success') => {
         setToast({ msg, type });
@@ -140,6 +143,67 @@ const App = () => {
         setEditorPost(post);
     };
 
+    // Phase 1: 새 주차 생성 위저드
+    const handleWizardComplete = async (weekStrategy, posts) => {
+        try {
+            await createWeekStrategy({
+                clinic_id: DEFAULT_CLINIC_ID,
+                week: weekStrategy.week,
+                phase: weekStrategy.phase,
+                theme: weekStrategy.theme,
+                goal: weekStrategy.goal,
+            });
+
+            for (const post of posts) {
+                await createPost({
+                    clinic_id: DEFAULT_CLINIC_ID,
+                    week: weekStrategy.week,
+                    day: post.day,
+                    type: post.type,
+                    title: post.title,
+                    description: post.desc,
+                    caption: post.caption,
+                    tags: post.tags,
+                    slide_count: post.slideCount || 0,
+                    template_type: post.templateType || '',
+                    status: 'draft',
+                    sort_order: post.day === '화' ? 1 : post.day === '목' ? 2 : 3,
+                });
+            }
+
+            await reloadData();
+            setShowWizard(false);
+            setActiveWeek(weekStrategy.week);
+            showToast(`Week ${weekStrategy.week} 생성 완료! 3개 포스트가 추가되었습니다.`);
+        } catch (err) {
+            showToast('주차 생성 실패: ' + err.message, 'error');
+        }
+    };
+
+    // Phase 3: 발행 체크리스트 업데이트
+    const handleUpdateChecklist = async (postId, checklist, allChecked) => {
+        try {
+            await updatePublishChecklist(postId, checklist);
+            if (allChecked) {
+                await updatePostStatus(postId, 'published');
+            }
+            await reloadData();
+        } catch (err) {
+            console.warn('체크리스트 업데이트 실패:', err.message);
+        }
+    };
+
+    // Phase 3: 발행 통계 계산
+    const allPosts = strategyData.flatMap(w => w.posts);
+    const publishedCount = allPosts.filter(p => p.status === 'published').length;
+    const totalCount = allPosts.length;
+    const progressPct = totalCount > 0 ? Math.round((publishedCount / totalCount) * 100) : 0;
+
+    const nextWeek = strategyData.length > 0 ? Math.max(...strategyData.map(s => s.week)) + 1 : 1;
+
+    // 현재 주차의 모든 포스트 (가이드 패널용)
+    const currentWeekPosts = strategyData[activeWeek - 1]?.posts || [];
+
     if (loading) {
         return (
             <div className="min-h-screen flex items-center justify-center" style={{background:'#FFF8F0'}}>
@@ -151,6 +215,8 @@ const App = () => {
         );
     }
 
+    const activeData = strategyData.find(s => s.week === activeWeek) || strategyData[0];
+
     return (
         <div className="min-h-screen p-4 md:p-10 font-sans" style={{background:'#FFF8F0', color:'#333'}}>
             <header className="max-w-6xl mx-auto mb-12 flex flex-col items-center">
@@ -159,11 +225,29 @@ const App = () => {
                     IM AESTHETIC SNS CONTENT HUB
                 </div>
                 <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight text-center">
-                    IM 에스테틱 12주 올인원 전략
+                    IM 에스테틱 콘텐츠 관리
                 </h1>
                 <p className="text-gray-500 text-lg max-w-2xl text-center leading-relaxed">
                     각 카드를 클릭하여 <strong>이미지 가이드, 본문 카피, 태그</strong>를 확인하세요.
                 </p>
+
+                {/* Phase 3: 발행 진행률 */}
+                {dbConnected && totalCount > 0 && (
+                    <div className="mt-6 w-full max-w-md">
+                        <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center gap-2 text-sm font-bold text-gray-500">
+                                <BarChart size={16} style={{color:'#FF8C42'}} />
+                                발행 현황
+                            </div>
+                            <span className="text-sm font-black" style={{color:'#FF8C42'}}>{publishedCount}/{totalCount} ({progressPct}%)</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
+                            <div className="h-full rounded-full transition-all duration-700"
+                                style={{width: `${progressPct}%`, background: progressPct === 100 ? '#22c55e' : '#FF8C42'}} />
+                        </div>
+                    </div>
+                )}
+
                 <div className="mt-4 flex gap-3">
                     <a href="card_news_maker.html" className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold text-white shadow-md hover:shadow-lg transition-all" style={{background:'#FF8C42'}}>
                         <LayoutGrid size={16} /> 카드뉴스 메이커
@@ -172,7 +256,13 @@ const App = () => {
             </header>
 
             <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
-                <WeekNav strategyData={strategyData} activeWeek={activeWeek} onSelect={setActiveWeek} />
+                <WeekNav
+                    strategyData={strategyData}
+                    activeWeek={activeWeek}
+                    onSelect={setActiveWeek}
+                    onAddWeek={() => setShowWizard(true)}
+                    dbConnected={dbConnected}
+                />
 
                 <main className="lg:col-span-9 bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden min-h-[600px] flex flex-col">
                     <div className="p-8 md:p-10 border-b border-gray-50 bg-gray-800 text-white">
@@ -180,9 +270,9 @@ const App = () => {
                             <div>
                                 <div className="flex items-center gap-2 mb-2" style={{color:'#FF8C42'}}>
                                     <Sparkles size={16} />
-                                    <span className="text-xs font-black uppercase tracking-widest italic">{strategyData[activeWeek - 1].phase}</span>
+                                    <span className="text-xs font-black uppercase tracking-widest italic">{activeData.phase}</span>
                                 </div>
-                                <h2 className="text-3xl font-bold tracking-tight">{strategyData[activeWeek - 1].theme}</h2>
+                                <h2 className="text-3xl font-bold tracking-tight">{activeData.theme}</h2>
                             </div>
                             <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-xl backdrop-blur-md border border-white/5">
                                 <Clock size={16} style={{color:'#FF8C42'}} />
@@ -198,7 +288,7 @@ const App = () => {
                                 <CheckCircle2 size={16} /><span>Strategy Goal</span>
                             </div>
                             <p className="text-gray-700 text-lg font-medium leading-relaxed italic">
-                                "{strategyData[activeWeek - 1].goal}"
+                                "{activeData.goal}"
                             </p>
                         </div>
 
@@ -217,7 +307,7 @@ const App = () => {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                            {strategyData[activeWeek - 1].posts.map((post, idx) => (
+                            {activeData.posts.map((post, idx) => (
                                 <PostCard
                                     key={idx}
                                     post={post}
@@ -251,6 +341,7 @@ const App = () => {
                 onCopy={handleCopy}
                 onEdit={handleEdit}
                 dbConnected={dbConnected}
+                onUpdateChecklist={handleUpdateChecklist}
             />
 
             {editorPost !== undefined && (
@@ -260,6 +351,15 @@ const App = () => {
                     onSave={handleSave}
                     onDelete={handleDelete}
                     onClose={() => setEditorPost(undefined)}
+                    existingPosts={currentWeekPosts}
+                />
+            )}
+
+            {showWizard && (
+                <WeekWizard
+                    nextWeek={nextWeek}
+                    onComplete={handleWizardComplete}
+                    onClose={() => setShowWizard(false)}
                 />
             )}
 

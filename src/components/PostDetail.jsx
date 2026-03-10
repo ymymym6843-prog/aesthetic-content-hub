@@ -1,8 +1,53 @@
-import React from 'react';
-import { X, Camera, LayoutGrid, MessageSquare, Palette, BookOpen, Copy, Check, Hash, Star, Edit2 } from './Icons.jsx';
+import React, { useState } from 'react';
+import { X, Camera, LayoutGrid, MessageSquare, Palette, BookOpen, Copy, Check, Hash, Star, Edit2, ClipboardCheck } from './Icons.jsx';
 
-export const PostDetail = ({ post, activeWeek, copied, onClose, onCopy, onEdit, dbConnected }) => {
+const DEFAULT_CHECKLIST = {
+    caption_copied: false,
+    image_downloaded: false,
+    uploaded_to_instagram: false,
+    hashtags_added: false,
+    published_at: null,
+};
+
+const CHECKLIST_ITEMS = [
+    { key: 'caption_copied', label: '캡션 복사 완료' },
+    { key: 'image_downloaded', label: '이미지 다운로드 완료' },
+    { key: 'uploaded_to_instagram', label: '인스타그램 업로드 완료' },
+    { key: 'hashtags_added', label: '해시태그 추가 완료' },
+];
+
+export const PostDetail = ({ post, activeWeek, copied, onClose, onCopy, onEdit, dbConnected, onUpdateChecklist }) => {
+    const [checklist, setChecklist] = useState(() => {
+        const saved = post?.publishChecklist;
+        return saved && typeof saved === 'object' ? { ...DEFAULT_CHECKLIST, ...saved } : { ...DEFAULT_CHECKLIST };
+    });
+
     if (!post) return null;
+
+    const handleCopyCaption = () => {
+        onCopy(post.caption);
+        if (dbConnected && onUpdateChecklist && post.dbId) {
+            const updated = { ...checklist, caption_copied: true };
+            setChecklist(updated);
+            onUpdateChecklist(post.dbId, updated);
+        }
+    };
+
+    const handleCheckToggle = (key) => {
+        if (!dbConnected || !onUpdateChecklist || !post.dbId) return;
+        const updated = { ...checklist, [key]: !checklist[key] };
+        // If all checked, set published_at
+        const allChecked = CHECKLIST_ITEMS.every(item => updated[item.key]);
+        if (allChecked && !updated.published_at) {
+            updated.published_at = new Date().toISOString();
+        } else if (!allChecked) {
+            updated.published_at = null;
+        }
+        setChecklist(updated);
+        onUpdateChecklist(post.dbId, updated, allChecked);
+    };
+
+    const completedCount = CHECKLIST_ITEMS.filter(item => checklist[item.key]).length;
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm" style={{background:'rgba(51,51,51,0.6)'}}
@@ -48,17 +93,17 @@ export const PostDetail = ({ post, activeWeek, copied, onClose, onCopy, onEdit, 
                             </h3>
                             <div className="space-y-3">
                                 <div className="p-4 bg-gray-50 rounded-2xl border border-gray-100">
-                                    <div className="text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-tight">📸 권장 사진 에셋</div>
+                                    <div className="text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-tight">권장 사진 에셋</div>
                                     <div className="text-sm font-semibold">{post.asset}</div>
                                 </div>
                                 <div className="p-4 rounded-2xl border" style={{background:'rgba(255,140,66,0.05)', borderColor:'rgba(255,140,66,0.2)'}}>
-                                    <div className="text-[10px] font-bold uppercase mb-1 tracking-tight" style={{color:'#FF8C42'}}>🎨 디자인 스타일</div>
+                                    <div className="text-[10px] font-bold uppercase mb-1 tracking-tight" style={{color:'#FF8C42'}}>디자인 스타일</div>
                                     <div className="text-sm font-semibold">{post.design}</div>
                                 </div>
                             </div>
                         </div>
                         <div className="p-6 bg-gray-900 rounded-3xl text-white">
-                            <div className="text-[10px] font-bold text-gray-500 uppercase mb-2 tracking-widest">🪄 AI GENERATION PROMPT</div>
+                            <div className="text-[10px] font-bold text-gray-500 uppercase mb-2 tracking-widest">AI GENERATION PROMPT</div>
                             <div className="text-xs leading-relaxed font-mono opacity-80 italic">{post.aiGuide}</div>
                         </div>
                     </section>
@@ -68,7 +113,7 @@ export const PostDetail = ({ post, activeWeek, copied, onClose, onCopy, onEdit, 
                             <h3 className="text-sm font-black text-gray-400 uppercase tracking-widest flex items-center gap-2">
                                 <BookOpen size={16} /> 업로드용 본문 (수정본)
                             </h3>
-                            <button onClick={() => onCopy(post.caption)}
+                            <button onClick={handleCopyCaption}
                                 className="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full hover:bg-orange-50" style={{color:'#FF8C42'}}>
                                 {copied ? <Check size={14} /> : <Copy size={14} />}
                                 {copied ? "복사됨!" : "텍스트 복사"}
@@ -90,6 +135,46 @@ export const PostDetail = ({ post, activeWeek, copied, onClose, onCopy, onEdit, 
                             ))}
                         </div>
                     </section>
+
+                    {/* Phase 3: 발행 체크리스트 */}
+                    {dbConnected && post.dbId && (
+                        <section className="space-y-4">
+                            <h3 className="text-sm font-black text-gray-400 uppercase tracking-widest flex items-center gap-2">
+                                <ClipboardCheck size={16} /> 발행 체크리스트
+                            </h3>
+                            <div className="p-5 rounded-2xl border border-gray-100 bg-gray-50 space-y-3">
+                                <div className="flex items-center gap-3 mb-4">
+                                    <div className="flex-grow bg-gray-200 rounded-full h-2 overflow-hidden">
+                                        <div className="h-full rounded-full transition-all duration-500"
+                                            style={{
+                                                width: `${(completedCount / CHECKLIST_ITEMS.length) * 100}%`,
+                                                background: completedCount === CHECKLIST_ITEMS.length ? '#22c55e' : '#FF8C42'
+                                            }} />
+                                    </div>
+                                    <span className="text-xs font-bold text-gray-400">{completedCount}/{CHECKLIST_ITEMS.length}</span>
+                                </div>
+                                {CHECKLIST_ITEMS.map((item) => (
+                                    <label key={item.key}
+                                        className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all ${checklist[item.key] ? 'bg-green-50 border border-green-100' : 'bg-white border border-gray-100 hover:border-orange-200'}`}>
+                                        <input type="checkbox" checked={checklist[item.key] || false}
+                                            onChange={() => handleCheckToggle(item.key)}
+                                            className="w-4 h-4 rounded accent-orange-500" />
+                                        <span className={`text-sm font-medium ${checklist[item.key] ? 'text-green-700 line-through' : 'text-gray-700'}`}>
+                                            {item.label}
+                                        </span>
+                                        {item.key === 'caption_copied' && !checklist[item.key] && (
+                                            <span className="text-[10px] text-gray-400 ml-auto">위 "텍스트 복사" 클릭 시 자동 체크</span>
+                                        )}
+                                    </label>
+                                ))}
+                                {checklist.published_at && (
+                                    <div className="mt-2 text-xs text-green-600 font-bold text-center">
+                                        발행 완료 ({new Date(checklist.published_at).toLocaleString('ko-KR')})
+                                    </div>
+                                )}
+                            </div>
+                        </section>
+                    )}
                 </div>
 
                 <div className="p-6 border-t border-gray-100 bg-gray-50 text-center shrink-0">

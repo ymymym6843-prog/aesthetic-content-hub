@@ -120,5 +120,43 @@ export async function deletePostImage(imageId) {
   if (error) throw error;
 }
 
+// Create a new week strategy
+export async function createWeekStrategy(strategy) {
+  const { data, error } = await supabase
+    .from('week_strategies')
+    .insert(strategy)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+}
+
+// Update publish checklist on a post
+export async function updatePublishChecklist(postId, checklist) {
+  const { data, error } = await supabase
+    .from('posts')
+    .update({ publish_checklist: checklist })
+    .eq('id', postId)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+}
+
+// Update post status
+export async function updatePostStatus(postId, status) {
+  const { data, error } = await supabase
+    .from('posts')
+    .update({ status })
+    .eq('id', postId)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+}
+
 // Default clinic ID
 export const DEFAULT_CLINIC_ID = '00000000-0000-0000-0000-000000000001';

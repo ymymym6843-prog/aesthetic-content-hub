@@ -30,15 +30,23 @@ function transformToFeedPosts(posts, strategies) {
             hashtags: p.tags || '',
             slideCount: p.slide_count,
             templateType: p.template_type,
+            status: p.status || 'draft',
         }))
         .sort((a, b) => b.id - a.id); // 최신순
 }
+
+const FILTERS = [
+    { key: 'all', label: '전체' },
+    { key: 'published', label: '발행됨' },
+    { key: 'unpublished', label: '미발행' },
+];
 
 const App = () => {
     const [selectedPost, setSelectedPost] = useState(null);
     const [view, setView] = useState('grid');
     const [posts, setPosts] = useState(fallbackPosts);
     const [loading, setLoading] = useState(true);
+    const [filter, setFilter] = useState('all');
 
     useEffect(() => {
         async function loadFromDb() {
@@ -72,12 +80,31 @@ const App = () => {
         );
     }
 
+    // 통계
+    const publishedCount = posts.filter(p => p.status === 'published').length;
+
     return (
         <div className="bg-gray-50 min-h-screen text-gray-800 font-sans">
             {view === 'grid' ? (
                 <div>
                     <ProfileHeader />
-                    <GridView posts={posts} onPostClick={handlePostClick} />
+                    {/* Phase 4: 발행 필터 */}
+                    <div className="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between">
+                        <div className="flex gap-2">
+                            {FILTERS.map(f => (
+                                <button key={f.key}
+                                    onClick={() => setFilter(f.key)}
+                                    className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${filter === f.key ? 'text-white shadow-md' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
+                                    style={filter === f.key ? {background:'#FF8C42'} : {}}>
+                                    {f.label}
+                                </button>
+                            ))}
+                        </div>
+                        <span className="text-xs font-bold text-gray-400">
+                            {publishedCount}/{posts.length} 발행
+                        </span>
+                    </div>
+                    <GridView posts={posts} onPostClick={handlePostClick} filter={filter} />
                 </div>
             ) : (
                 <FeedDetailView post={selectedPost} onBack={() => setView('grid')} />
