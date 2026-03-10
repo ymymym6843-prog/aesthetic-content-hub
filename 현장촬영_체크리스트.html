@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IM AESTHETIC - 현장촬영 체크리스트</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #FFF8F0;
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    color: #333;
+    line-height: 1.7;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  header {
+    text-align: center;
+    padding: 30px 0 20px;
+    border-bottom: 3px solid #FF8C42;
+    margin-bottom: 30px;
+  }
+
+  header .brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 28px;
+    color: #FF8C42;
+    letter-spacing: 2px;
+  }
+
+  header h1 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    margin-top: 8px;
+  }
+
+  header .date {
+    font-size: 13px;
+    color: #999;
+    margin-top: 4px;
+  }
+
+  h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #FF8C42;
+    margin: 30px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #FFE0C0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  h2 .icon { font-size: 20px; }
+
+  h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #555;
+    margin: 20px 0 10px;
+    padding-left: 4px;
+  }
+
+  .checklist {
+    list-style: none;
+    padding: 0;
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    margin-bottom: 4px;
+    border-radius: 8px;
+    background: #fff;
+    transition: background 0.2s;
+  }
+
+  .checklist li:hover {
+    background: #FFF0E0;
+  }
+
+  .checklist li.checked {
+    background: #f0f7f0;
+    text-decoration: line-through;
+    color: #999;
+  }
+
+  .checklist input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-top: 3px;
+    accent-color: #FF8C42;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  .checklist .item-text {
+    flex: 1;
+  }
+
+  .checklist .item-title {
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .checklist .item-desc {
+    font-size: 12px;
+    color: #888;
+    margin-top: 2px;
+  }
+
+  /* Tables */
+  .schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 20px;
+    font-size: 13px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+
+  .schedule-table thead {
+    background: #FF8C42;
+    color: #fff;
+  }
+
+  .schedule-table th {
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  .schedule-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #f0e8e0;
+    vertical-align: top;
+  }
+
+  .schedule-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .schedule-table .priority {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    border-radius: 50%;
+    background: #FF8C42;
+    color: #fff;
+    font-weight: 700;
+    font-size: 11px;
+  }
+
+  .schedule-table .week-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: #FFF0E0;
+    color: #FF8C42;
+    font-weight: 600;
+    font-size: 11px;
+  }
+
+  .schedule-table input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #FF8C42;
+    cursor: pointer;
+  }
+
+  /* Bonus table */
+  .bonus-table thead {
+    background: #666;
+  }
+
+  /* Tips section */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .tip-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 12px 14px;
+    border-left: 3px solid #FF8C42;
+  }
+
+  .tip-card .tip-label {
+    font-weight: 700;
+    font-size: 13px;
+    color: #FF8C42;
+    margin-bottom: 4px;
+  }
+
+  .tip-card .tip-text {
+    font-size: 12px;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  /* Confirm section */
+  .confirm-section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 12px;
+    border: 2px dashed #FFE0C0;
+  }
+
+  .confirm-section .checklist li {
+    background: #FFF8F0;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 30px 0;
+    font-size: 11px;
+    color: #bbb;
+    margin-top: 40px;
+    border-top: 1px solid #eeddc8;
+  }
+
+  footer .brand-sm {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #FF8C42;
+    font-size: 12px;
+  }
+
+  /* Print styles */
+  @media print {
+    body {
+      background: #fff;
+      padding: 10px;
+      font-size: 11px;
+    }
+
+    header { padding: 10px 0; margin-bottom: 15px; }
+    header .brand { font-size: 20px; }
+    header h1 { font-size: 16px; }
+
+    h2 { margin: 15px 0 8px; font-size: 14px; page-break-after: avoid; }
+    h3 { margin: 10px 0 6px; font-size: 12px; }
+
+    .checklist li {
+      padding: 6px 8px;
+      margin-bottom: 2px;
+      box-shadow: none;
+      border: 1px solid #eee;
+    }
+
+    .schedule-table { font-size: 11px; box-shadow: none; border: 1px solid #ddd; }
+    .schedule-table th { padding: 6px 8px; }
+    .schedule-table td { padding: 6px 8px; }
+
+    .tips-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
+    .tip-card { padding: 8px 10px; border: 1px solid #eee; }
+
+    .confirm-section { padding: 12px; }
+    footer { padding: 10px 0; }
+
+    .checklist li:hover { background: #fff; }
+
+    @page { margin: 15mm; }
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    body { padding: 12px; }
+    header .brand { font-size: 22px; }
+    header h1 { font-size: 17px; }
+    .tips-grid { grid-template-columns: 1fr; }
+    .schedule-table { font-size: 12px; }
+    .schedule-table th, .schedule-table td { padding: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">IM AESTHETIC</div>
+  <h1>현장촬영 체크리스트</h1>
+  <div class="date">촬영일: ____년 ____월 ____일</div>
+</header>
+
+<!-- ===== 필수 사진 ===== -->
+<h2><span class="icon">&#128247;</span> 필수 사진 (4:5 비율)</h2>
+
+<ul class="checklist">
+  <li>
+    <input type="checkbox" onchange="this.parentElement.classList.toggle('checked')">
+    <div class="item-text">
+      <div class="item-title">시술 손 클로즈업 (3~5컷)</div>
+      <div class="item-desc">전문가 손이 피부 위에서 움직이는 장면</div>
+    </div>
+  </li>
+  <li>
+    <input type="checkbox" onchange="this.parentElement.classList.toggle('checked')">
+    <div class="item-text">
+      <div class="item-title">제품 라인업</div>
+      <div class="item-desc">앰플/크림/기기 배열 (자연광)</div>
+    </div>
+  </li>
+  <li>
+    <input type="checkbox" onchange="this.parentElement.classList.toggle('checked')">
+    <div class="item-text">
+      <div class="item-title">상담 장면</div>
+      <div class="item-desc">차 마시며 대화하는 자연스러운 스냅</div>
+    </div>
+  </li>
+  <li>
+    <input type="checkbox" onchange="this.parentElement.classList.toggle('checked')">
+    <div class="item-text">
+      <div class="item-title">시술 전후 피부 클로즈업</div>
+      <div class="item-desc">동일 조명 (고객 동의 필수)</div>
+    </div>
+  </li>
+  <li>
+    <input type="checkbox" onchange="this.parentElement.classList.toggle('checked')">
+    <div class="item-text">
+      <div class="item-title">세 전문가 차트 회의</div>
+      <div class="item-desc">차트 보며 머리 맞대는 장면</div>
+    </div>
+  </li>
+  <li>
+    <input type="checkbox" onchange="this.parentElement.classList.toggle('checked')">
+    <div class="item-text">
+      <div class="item-title">결관리 시술 과정</div>
+      <div class="item-desc">결 정돈 &rarr; 수분 공급 &rarr; 장벽 보호 단계별</div>
+    </div>
+  </li>
+  <li>
+    <input type="checkbox" onchange="this.parentElement.classList.toggle('checked')">
+    <div class="item-text">
+      <div class="item-title">윤곽 케어 시술</div>
+      <div class="item-desc">두피&rarr;목&rarr;턱&rarr;광대&rarr;쇄골 연결 과정</div>
+    </div>
+  </li>
+</ul>
+
+<!-- ===== 릴스용 영상 ===== -->
+<h2><span class="icon">&#127909;</span> 릴스용 영상 (세로 9:16, 15~30초 클립)</h2>
+
+<h3>기존 캘린더용 (3~8주차)</h3>
+<table class="schedule-table">
+  <thead>
+    <tr>
+      <th style="width:30px;"></th>
+      <th style="width:40px;">순위</th>
+      <th>촬영 내용</th>
+      <th style="width:60px;">주차</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><input type="checkbox"></td>
+      <td><span class="priority">1</span></td>
+      <td>관리실 세팅 ASMR &mdash; 린넨 깔기, 스팀기 예열, 디퓨저 (소리 중요!)</td>
+      <td><span class="week-tag">3W</span></td>
+    </tr>
+    <tr>
+      <td><input type="checkbox"></td>
+      <td><span class="priority">2</span></td>
+      <td>앰플 언박싱/제형 시연 &mdash; 앰플 오픈, 제형 흘러내리는 장면</td>
+      <td><span class="week-tag">4W</span></td>
+    </tr>
+    <tr>
+      <td><input type="checkbox"></td>
+      <td><span class="priority">3</span></td>
+      <td>1분 괄사 시연 &mdash; 전문가가 직접 보여주는 홈케어 팁</td>
+      <td><span class="week-tag">5W</span></td>
+    </tr>
+    <tr>
+      <td><input type="checkbox"></td>
+      <td><span class="priority">4</span></td>
+      <td>마감 루틴 &mdash; 베드 정돈, 인센스 스틱 피우기</td>
+      <td><span class="week-tag">6W</span></td>
+    </tr>
+    <tr>
+      <td><input type="checkbox"></td>
+      <td><span class="priority">5</span></td>
+      <td>족욕/오일 블렌딩 &mdash; 따뜻한 물에 오일 풀기 (물소리 ASMR)</td>
+      <td><span class="week-tag">7W</span></td>
+    </tr>
+    <tr>
+      <td><input type="checkbox"></td>
+      <td><span class="priority">6</span></td>
+      <td>스터디 장면 &mdash; 세 전문가 공부 타임랩스</td>
+      <td><span class="week-tag">8W</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>9~12주차 프로그램용 (추가)</h3>
+<table class="schedule-table">
+  <thead>
+    <tr>
+      <th style="width:30px;"></th>
+      <th style="width:40px;">순위</th>
+      <th>촬영 내용</th>
+      <th style="width:60px;">주차</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><input type="checkbox"></td>
+      <td><span class="priority">1</span></td>
+      <td>보습 결케어 시술 ASMR &mdash; 앰플 도포, 마스크팩, 수기 터치 소리</td>
+      <td><span class="week-tag">9W</span></td>
+    </tr>
+    <tr>
+      <td><input type="checkbox"></td>
+      <td><span class="priority">2</span></td>
+      <td>트러블 케어 전후 피부 클로즈업 (타임랩스)</td>
+      <td><span class="week-tag">10W</span></td>
+    </tr>
+    <tr>
+      <td><input type="checkbox"></td>
+      <td><span class="priority">3</span></td>
+      <td>톤업 전후 비교 &mdash; 동일 조명 아래 피부 톤 변화</td>
+      <td><span class="week-tag">11W</span></td>
+    </tr>
+    <tr>
+      <td><input type="checkbox"></td>
+      <td><span class="priority">4</span></td>
+      <td>윤곽 케어 전 과정 &mdash; 4단계 두피&rarr;목&rarr;턱&rarr;흉곽 연결 (자막용)</td>
+      <td><span class="week-tag">12W</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>추가 촬영하면 좋은 릴스 소스 (보너스)</h3>
+<table class="schedule-table bonus-table">
+  <thead>
+    <tr>
+      <th style="width:30px;"></th>
+      <th>촬영 내용</th>
+      <th style="width:140px;">활용 방법</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><input type="checkbox"></td>
+      <td>고객 반응 인터뷰 (5~10초) &mdash; "어떠셨어요?" 한마디</td>
+      <td>후기 릴스, 스토리</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox"></td>
+      <td>제품 텍스처 클로즈업 &mdash; 앰플이 피부에 스며드는 순간</td>
+      <td>제품 소개 릴스</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox"></td>
+      <td>아로마 오일 블렌딩 과정 &mdash; 김은경 디렉터 전용</td>
+      <td>7감 테라피 소개</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox"></td>
+      <td>괄사/기기 사용 비교 &mdash; 수기 vs 기기 차이 시각화</td>
+      <td>전문성 어필 릴스</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox"></td>
+      <td>하루 시작 루틴 &mdash; 문 열고, 디퓨저 켜고, 음악 트는 장면</td>
+      <td>오프닝 릴스</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox"></td>
+      <td>시술 중 손 움직임 슬로모션 &mdash; 전문가 손놀림 강조</td>
+      <td>B-roll 소스</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox"></td>
+      <td>대기실 티 세팅 &mdash; 차 우리는 과정 클로즈업</td>
+      <td>공간 브랜딩</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ===== 촬영 팁 ===== -->
+<h2><span class="icon">&#128161;</span> 촬영 팁</h2>
+
+<div class="tips-grid">
+  <div class="tip-card">
+    <div class="tip-label">조명</div>
+    <div class="tip-text">자연광 최우선 (따뜻한 톤)<br>형광등 직사 피하기</div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-label">소리</div>
+    <div class="tip-text">ASMR용은 반드시 BGM 없이 현장음만 녹음<br>에어컨/환풍기 끄기</div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-label">앵글</div>
+    <div class="tip-text">손+피부 클로즈업 > 전신<br>고객 얼굴 노출 최소화</div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-label">분량</div>
+    <div class="tip-text">릴스용은 15~30초 클립 여러 개<br>> 긴 영상 1개</div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-label">비율</div>
+    <div class="tip-text">사진 4:5 (세로)<br>릴스 9:16 (세로 풀)</div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-label">동의</div>
+    <div class="tip-text">고객 얼굴이 나오는 촬영은<br>반드시 사전 서면 동의</div>
+  </div>
+</div>
+
+<!-- ===== 현장에서 확인할 사항 ===== -->
+<h2><span class="icon">&#128203;</span> 현장에서 확인할 사항</h2>
+
+<div class="confirm-section">
+  <ul class="checklist">
+    <li>
+      <input type="checkbox" onchange="this.parentElement.classList.toggle('checked')">
+      <div class="item-text">
+        <div class="item-title">실제 사용하는 제품 브랜드/이름 목록</div>
+        <div class="item-desc">메모: _______________________________________</div>
+      </div>
+    </li>
+    <li>
+      <input type="checkbox" onchange="this.parentElement.classList.toggle('checked')">
+      <div class="item-text">
+        <div class="item-title">시술 과정 정확한 순서 (블로그와 일치 확인)</div>
+        <div class="item-desc">메모: _______________________________________</div>
+      </div>
+    </li>
+    <li>
+      <input type="checkbox" onchange="this.parentElement.classList.toggle('checked')">
+      <div class="item-text">
+        <div class="item-title">전문가별 시그니처 테크닉 이름</div>
+        <div class="item-desc">메모: _______________________________________</div>
+      </div>
+    </li>
+    <li>
+      <input type="checkbox" onchange="this.parentElement.classList.toggle('checked')">
+      <div class="item-text">
+        <div class="item-title">7감 리추얼의 구체적 의미/과정</div>
+        <div class="item-desc">메모: _______________________________________</div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<footer>
+  <div class="brand-sm">IM AESTHETIC</div>
+  <div>Daegu Suseong-gu | 3-Expert Collaborative Care</div>
+</footer>
+
+</body>
+</html>

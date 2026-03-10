@@ -1,0 +1,2126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IM 에스테틱 목요일 카드뉴스 디자인 가이드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<style>
+/* ==========================================
+   BASE & RESET
+   ========================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --warm-white: #FFF8F0;
+  --orange: #FF8C42;
+  --charcoal: #333333;
+  --dark-warm: #4A3728;
+  --darker-warm: #5C4A3A;
+  --orange-light: #FFE4CC;
+  --orange-pale: #FFF0E0;
+  --gray-soft: #F5F0EB;
+  --gray-mid: #D4C9BE;
+  --page-bg: #F0EBE3;
+  --shadow: 0 4px 24px rgba(74,55,40,0.13);
+  --shadow-sm: 0 2px 12px rgba(74,55,40,0.09);
+  --radius-slide: 10px;
+  --font: 'Pretendard Variable', Pretendard, 'Noto Sans KR', sans-serif;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--page-bg);
+  color: var(--charcoal);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* ==========================================
+   PAGE HEADER
+   ========================================== */
+.page-header {
+  background: var(--dark-warm);
+  color: white;
+  padding: 48px 40px 40px;
+  text-align: center;
+}
+
+.page-header .logo-badge {
+  display: inline-block;
+  background: var(--orange);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+
+.page-header h1 {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.page-header p {
+  font-size: 15px;
+  color: rgba(255,248,240,0.7);
+  font-weight: 300;
+}
+
+/* ==========================================
+   COMMON RULES SECTION
+   ========================================== */
+.section {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 40px 28px;
+}
+
+.section-title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--orange);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.section-heading {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--dark-warm);
+  margin-bottom: 24px;
+}
+
+/* Color palette */
+.color-palette {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.swatch-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.swatch {
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.07);
+  box-shadow: var(--shadow-sm);
+}
+
+.swatch-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--charcoal);
+  text-align: center;
+  line-height: 1.4;
+}
+
+.swatch-hex {
+  font-size: 10px;
+  color: #888;
+  font-family: monospace;
+}
+
+/* Font hierarchy display */
+.font-hierarchy {
+  background: white;
+  border-radius: 12px;
+  padding: 24px 28px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 32px;
+}
+
+.font-row {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid #F0EBE3;
+}
+.font-row:last-child { border-bottom: none; }
+
+.font-meta {
+  width: 160px;
+  font-size: 11px;
+  color: #999;
+  flex-shrink: 0;
+}
+
+.font-preview-title { font-size: 32px; font-weight: 700; color: var(--charcoal); }
+.font-preview-body { font-size: 22px; font-weight: 400; color: var(--charcoal); }
+.font-preview-caption { font-size: 16px; font-weight: 300; color: #666; }
+
+/* Principle cards */
+.principle-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.principle-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px 18px;
+  box-shadow: var(--shadow-sm);
+  border-left: 3px solid var(--orange);
+}
+
+.principle-card .p-icon { font-size: 22px; margin-bottom: 8px; }
+.principle-card .p-title { font-size: 13px; font-weight: 700; color: var(--dark-warm); margin-bottom: 4px; }
+.principle-card .p-desc { font-size: 11px; color: #888; line-height: 1.5; }
+
+/* Page indicator example */
+.indicator-demo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  padding: 10px 18px;
+  border-radius: 20px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 32px;
+}
+
+.indicator-badge {
+  background: rgba(51,51,51,0.65);
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================
+   TAB NAVIGATION
+   ========================================== */
+.tabs-container {
+  background: var(--dark-warm);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 0 28px;
+}
+
+.tabs {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs::-webkit-scrollbar { display: none; }
+
+.tab-btn {
+  padding: 16px 22px;
+  background: none;
+  border: none;
+  color: rgba(255,248,240,0.55);
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+  letter-spacing: 0.2px;
+}
+
+.tab-btn:hover { color: rgba(255,248,240,0.85); }
+.tab-btn.active {
+  color: white;
+  border-bottom-color: var(--orange);
+  font-weight: 700;
+}
+
+/* ==========================================
+   TEMPLATE SECTION
+   ========================================== */
+.template-section {
+  display: none;
+  padding: 40px 28px 48px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.template-section.active { display: block; }
+
+.template-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.template-title-group {}
+.template-type-badge {
+  display: inline-block;
+  background: var(--orange-pale);
+  color: var(--orange);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.template-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--dark-warm);
+}
+
+.slide-count-badge {
+  background: var(--dark-warm);
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 20px;
+  align-self: flex-start;
+  margin-top: 6px;
+}
+
+/* ==========================================
+   CAROUSEL VIEWER
+   ========================================== */
+.carousel-viewer {
+  position: relative;
+  margin-bottom: 32px;
+}
+
+.carousel-track-wrap {
+  overflow: hidden;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.04);
+  padding: 28px 20px;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+/* Slide mockup */
+.slide-mockup {
+  flex-shrink: 0;
+  width: 270px;
+  height: 337px;
+  border-radius: var(--radius-slide);
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-family: var(--font);
+}
+
+.slide-mockup:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(74,55,40,0.2);
+}
+
+.slide-mockup.active-slide {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+}
+
+/* Page indicator in slide */
+.slide-page-indicator {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0,0,0,0.45);
+  color: white;
+  font-size: 9px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  z-index: 10;
+}
+
+/* Navigation buttons */
+.carousel-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.nav-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--dark-warm);
+  background: white;
+  color: var(--dark-warm);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-btn:hover { background: var(--dark-warm); color: white; }
+.nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+.dot-indicators {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gray-mid);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.dot.active {
+  background: var(--orange);
+  width: 20px;
+  border-radius: 4px;
+}
+
+/* Slide counter text */
+.slide-counter {
+  font-size: 13px;
+  color: #888;
+  font-weight: 500;
+}
+
+/* ==========================================
+   ANNOTATION CARD
+   ========================================== */
+.annotation-card {
+  background: white;
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.anno-field { margin-bottom: 14px; }
+.anno-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--orange);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.anno-value {
+  font-size: 13px;
+  color: var(--charcoal);
+  line-height: 1.6;
+}
+
+.anno-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.anno-tag {
+  background: var(--orange-pale);
+  color: var(--dark-warm);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.anno-rule-list {
+  list-style: none;
+}
+
+.anno-rule-list li {
+  font-size: 12px;
+  color: #555;
+  padding: 3px 0;
+  padding-left: 14px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.anno-rule-list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--orange);
+}
+
+/* ==========================================
+   SLIDE CONTENT STYLES
+   (All slide mockup inner layouts)
+   ========================================== */
+
+/* --- Slide base layouts --- */
+.sl { width: 100%; height: 100%; position: relative; overflow: hidden; }
+
+/* Warm white base */
+.sl-warm { background: var(--warm-white); }
+/* Dark warm base */
+.sl-dark { background: var(--dark-warm); }
+.sl-darker { background: var(--darker-warm); }
+
+/* Logo mark */
+.sl-logo {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: var(--orange);
+}
+
+/* Slide inner padding */
+.sl-inner {
+  padding: 28px 22px 22px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hook slide */
+.sl-hook-eyebrow {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--orange);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.sl-hook-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--charcoal);
+  line-height: 1.35;
+  letter-spacing: -0.3px;
+}
+
+.sl-hook-title em {
+  color: var(--orange);
+  font-style: normal;
+}
+
+.sl-hook-sub {
+  margin-top: 12px;
+  font-size: 11px;
+  color: #888;
+  line-height: 1.6;
+}
+
+.sl-hook-swipe {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: #bbb;
+}
+
+.sl-hook-accent-line {
+  width: 32px;
+  height: 3px;
+  background: var(--orange);
+  border-radius: 2px;
+  margin-bottom: 14px;
+}
+
+/* Decorative orange circle */
+.sl-deco-circle {
+  position: absolute;
+  right: -30px;
+  top: -30px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--orange);
+  opacity: 0.08;
+}
+
+.sl-deco-circle-sm {
+  position: absolute;
+  left: -15px;
+  bottom: 40px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--orange);
+  opacity: 0.06;
+}
+
+/* Icon list items */
+.sl-icon-list {
+  list-style: none;
+  margin-top: 10px;
+}
+
+.sl-icon-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 5px 0;
+  font-size: 11px;
+  color: var(--charcoal);
+  line-height: 1.5;
+}
+
+.sl-icon-list .icon-bullet {
+  font-size: 13px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Section label */
+.sl-section-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--orange);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+/* Step number */
+.sl-step-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--orange);
+  color: white;
+  font-size: 14px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.sl-step-num-lg {
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--orange-light);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.sl-step-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--charcoal);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.sl-step-desc {
+  font-size: 10px;
+  color: #777;
+  line-height: 1.7;
+}
+
+/* Highlight bar */
+.sl-highlight-bar {
+  background: var(--orange-pale);
+  border-left: 3px solid var(--orange);
+  padding: 10px 12px;
+  border-radius: 0 6px 6px 0;
+  margin-top: 10px;
+}
+
+.sl-highlight-bar p {
+  font-size: 11px;
+  color: var(--dark-warm);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* Photo placeholder */
+.sl-photo-placeholder {
+  background: #EDE8E1;
+  border: 1.5px dashed #C5BAB0;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #B5AAA0;
+  font-size: 10px;
+  gap: 4px;
+}
+
+.sl-photo-placeholder .ph-icon { font-size: 18px; }
+
+/* CTA slide */
+.sl-cta-logo {
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: var(--orange);
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.sl-cta-sub-logo {
+  font-size: 8px;
+  font-weight: 500;
+  color: #aaa;
+  letter-spacing: 1px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.sl-cta-bookmark {
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.sl-cta-main {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--charcoal);
+  text-align: center;
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+
+.sl-cta-sub {
+  font-size: 10px;
+  color: #aaa;
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.sl-cta-divider {
+  width: 30px;
+  height: 2px;
+  background: var(--orange);
+  border-radius: 2px;
+  margin: 0 auto 14px;
+}
+
+.sl-cta-contact {
+  background: var(--gray-soft);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-top: auto;
+}
+
+.sl-cta-contact-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: #666;
+  padding: 2px 0;
+}
+
+.sl-cta-contact-row .c-icon { font-size: 11px; }
+
+/* Q&A flip styles */
+.sl-qa-q-mark {
+  font-size: 64px;
+  font-weight: 900;
+  color: rgba(255,255,255,0.15);
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  line-height: 1;
+}
+
+.sl-qa-question {
+  font-size: 17px;
+  font-weight: 800;
+  color: white;
+  line-height: 1.45;
+  margin-top: auto;
+  letter-spacing: -0.2px;
+}
+
+.sl-qa-eyebrow {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: rgba(255,248,240,0.55);
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.sl-myth-x {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.sl-myth-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,248,240,0.9);
+  line-height: 1.55;
+  font-style: italic;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 8px;
+  border-left: 3px solid rgba(255,140,66,0.5);
+}
+
+.sl-fact-check {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.sl-fact-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--dark-warm);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.sl-fact-text {
+  font-size: 11px;
+  color: #555;
+  line-height: 1.65;
+}
+
+.sl-fact-bubble {
+  background: white;
+  border-radius: 10px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+  margin-top: 8px;
+}
+
+/* Review/UGC styles */
+.sl-star-row {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 12px;
+}
+
+.sl-quote-mark {
+  font-size: 36px;
+  color: var(--orange);
+  font-family: Georgia, serif;
+  line-height: 0.8;
+  margin-bottom: 8px;
+  opacity: 0.4;
+}
+
+.sl-review-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--charcoal);
+  line-height: 1.65;
+  letter-spacing: -0.1px;
+}
+
+.sl-reviewer {
+  margin-top: 10px;
+  font-size: 10px;
+  color: #bbb;
+  font-weight: 500;
+}
+
+.sl-ugc-frame {
+  border: 2px solid var(--orange);
+  border-radius: 8px;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.sl-ugc-corner {
+  position: absolute;
+  font-size: 22px;
+  color: var(--orange);
+  opacity: 0.5;
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+
+.sl-ugc-corner.tl { top: 4px; left: 6px; }
+.sl-ugc-corner.br { bottom: 4px; right: 6px; transform: rotate(180deg); }
+
+.sl-ugc-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #F0EBE3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #C5BAB0;
+  font-size: 10px;
+  gap: 4px;
+  text-align: center;
+}
+
+.sl-result-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  margin-bottom: 7px;
+}
+
+.sl-result-icon { font-size: 16px; }
+
+.sl-result-text {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--charcoal);
+}
+
+/* Program intro styles */
+.sl-concern-quote {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--charcoal);
+  line-height: 1.55;
+  letter-spacing: -0.2px;
+}
+
+.sl-concern-quote::before {
+  content: '"';
+  color: var(--orange);
+  font-size: 24px;
+  font-family: Georgia, serif;
+  vertical-align: -4px;
+  margin-right: 2px;
+}
+
+.sl-concern-quote::after {
+  content: '"';
+  color: var(--orange);
+  font-size: 24px;
+  font-family: Georgia, serif;
+  vertical-align: -4px;
+  margin-left: 2px;
+}
+
+.sl-insight-bg {
+  background: var(--orange-pale);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-top: 12px;
+}
+
+.sl-insight-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.sl-insight-text {
+  font-size: 12px;
+  color: var(--dark-warm);
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.sl-program-badge {
+  background: var(--dark-warm);
+  color: var(--warm-white);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  flex: 1;
+}
+
+.sl-program-name {
+  font-size: 17px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.sl-program-tagline {
+  font-size: 10px;
+  color: rgba(255,248,240,0.6);
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+
+.sl-program-pill {
+  display: inline-block;
+  background: var(--orange);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 20px;
+}
+
+.sl-checklist {
+  list-style: none;
+  margin-top: 8px;
+}
+
+.sl-checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  padding: 5px 0;
+  font-size: 11px;
+  color: var(--charcoal);
+  line-height: 1.5;
+}
+
+.sl-check-icon {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  background: var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.sl-check-icon::after {
+  content: '✓';
+  color: white;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.sl-cta-blog {
+  background: var(--dark-warm);
+  color: white;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 10px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.sl-cta-save {
+  background: var(--orange);
+  color: white;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 10px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* ==========================================
+   FOOTER
+   ========================================== */
+.page-footer {
+  background: var(--dark-warm);
+  color: rgba(255,248,240,0.5);
+  text-align: center;
+  padding: 20px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================
+   DIVIDER
+   ========================================== */
+.divider {
+  border: none;
+  border-top: 1px solid rgba(74,55,40,0.1);
+  margin: 32px 0;
+}
+
+/* ==========================================
+   PRINT STYLES
+   ========================================== */
+@media print {
+  .tabs-container, .carousel-nav, .nav-btn { display: none !important; }
+  .template-section { display: block !important; break-inside: avoid; }
+  .carousel-track { flex-wrap: wrap; transform: none !important; }
+  .slide-mockup { break-inside: avoid; }
+  body { background: white; }
+  .page-footer { color: #333; }
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+@media (max-width: 700px) {
+  .principle-grid { grid-template-columns: 1fr 1fr; }
+  .annotation-card { grid-template-columns: 1fr; }
+  .page-header h1 { font-size: 22px; }
+  .slide-mockup { width: 220px; height: 275px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==========================================
+     PAGE HEADER
+     ========================================== -->
+<header class="page-header">
+  <div class="logo-badge">IM Aesthetic · Design Guide</div>
+  <h1>목요일 카드뉴스 디자인 가이드</h1>
+  <p>4가지 맞춤형 템플릿 — 슬라이드별 설계 가이드 & 시각 레퍼런스</p>
+</header>
+
+<!-- ==========================================
+     COMMON DESIGN RULES
+     ========================================== -->
+<div class="section">
+  <div class="section-title">공통 디자인 규칙</div>
+  <div class="section-heading">브랜드 스타일 가이드</div>
+
+  <!-- Color palette -->
+  <div style="margin-bottom:8px; font-size:12px; font-weight:600; color:#888; letter-spacing:1px; text-transform:uppercase;">컬러 팔레트</div>
+  <div class="color-palette" style="margin-bottom:28px;">
+    <div class="swatch-group">
+      <div class="swatch" style="background:#FFF8F0;"></div>
+      <div class="swatch-label">웜 화이트<br><span class="swatch-hex">#FFF8F0</span></div>
+    </div>
+    <div class="swatch-group">
+      <div class="swatch" style="background:#FF8C42;"></div>
+      <div class="swatch-label">오렌지 포인트<br><span class="swatch-hex">#FF8C42</span></div>
+    </div>
+    <div class="swatch-group">
+      <div class="swatch" style="background:#333333;"></div>
+      <div class="swatch-label">차콜 (주 텍스트)<br><span class="swatch-hex">#333333</span></div>
+    </div>
+    <div class="swatch-group">
+      <div class="swatch" style="background:#4A3728;"></div>
+      <div class="swatch-label">다크 웜 (강조 배경)<br><span class="swatch-hex">#4A3728</span></div>
+    </div>
+    <div class="swatch-group">
+      <div class="swatch" style="background:#FFE4CC;"></div>
+      <div class="swatch-label">오렌지 연한톤<br><span class="swatch-hex">#FFE4CC</span></div>
+    </div>
+    <div class="swatch-group">
+      <div class="swatch" style="background:#F5F0EB; border:1px solid #DDD;"></div>
+      <div class="swatch-label">소프트 그레이<br><span class="swatch-hex">#F5F0EB</span></div>
+    </div>
+  </div>
+
+  <!-- Font hierarchy -->
+  <div style="margin-bottom:8px; font-size:12px; font-weight:600; color:#888; letter-spacing:1px; text-transform:uppercase;">폰트 위계</div>
+  <div class="font-hierarchy" style="margin-bottom:28px;">
+    <div class="font-row">
+      <div class="font-meta">제목<br>36px+ / Bold 800<br>라인하이트 1.3</div>
+      <div class="font-preview-title">피부 고민, 이젠 끝.</div>
+    </div>
+    <div class="font-row">
+      <div class="font-meta">본문<br>24px / Regular 400<br>라인하이트 1.65</div>
+      <div class="font-preview-body">전문가 3인이 함께 케어합니다</div>
+    </div>
+    <div class="font-row">
+      <div class="font-meta">캡션<br>18px / Light 300<br>라인하이트 1.7</div>
+      <div class="font-preview-caption">스와이프로 자세히 확인하세요 →</div>
+    </div>
+  </div>
+
+  <!-- Page indicator -->
+  <div style="margin-bottom:8px; font-size:12px; font-weight:600; color:#888; letter-spacing:1px; text-transform:uppercase;">슬라이드 번호 표시 (우상단)</div>
+  <div style="margin-bottom:28px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+    <div class="indicator-demo">
+      <span style="font-size:12px; color:#888;">슬라이드 오른쪽 상단 위치</span>
+      <div class="indicator-badge">3 / 6</div>
+    </div>
+    <div style="font-size:12px; color:#888;">배경: rgba(0,0,0,0.45) · 텍스트: white · border-radius: 20px · 모든 슬라이드 공통 적용</div>
+  </div>
+
+  <!-- Principles -->
+  <div style="margin-bottom:8px; font-size:12px; font-weight:600; color:#888; letter-spacing:1px; text-transform:uppercase;">핵심 원칙</div>
+  <div class="principle-grid">
+    <div class="principle-card">
+      <div class="p-icon">⚡</div>
+      <div class="p-title">3초 안에 핵심 전달</div>
+      <div class="p-desc">훅 슬라이드에서 핵심 메시지를 즉시 전달. 첫 장이 저장률을 결정합니다.</div>
+    </div>
+    <div class="principle-card">
+      <div class="p-icon">🎯</div>
+      <div class="p-title">슬라이드당 핵심 1개</div>
+      <div class="p-desc">한 장에 한 가지 정보만. 복잡하면 다음 슬라이드로 분리합니다.</div>
+    </div>
+    <div class="principle-card">
+      <div class="p-icon">⬜</div>
+      <div class="p-title">여백 70% 유지</div>
+      <div class="p-desc">텍스트가 전체 면적의 30% 이하. 여백이 프리미엄 느낌을 만듭니다.</div>
+    </div>
+    <div class="principle-card">
+      <div class="p-icon">✍️</div>
+      <div class="p-title">텍스트 10~15단어</div>
+      <div class="p-desc">슬라이드당 제목 포함 최대 15단어. 간결할수록 임팩트가 강합니다.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================
+     TAB NAVIGATION
+     ========================================== -->
+<nav class="tabs-container">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab(0)" id="tab-0">① 카드 인포그래픽형</button>
+    <button class="tab-btn" onclick="switchTab(1)" id="tab-1">② 질문→답변 플립형</button>
+    <button class="tab-btn" onclick="switchTab(2)" id="tab-2">③ 후기 / UGC형</button>
+    <button class="tab-btn" onclick="switchTab(3)" id="tab-3">④ 프로그램 소개형</button>
+  </div>
+</nav>
+
+<!-- ==========================================
+     TEMPLATE 1: 카드 인포그래픽형
+     ========================================== -->
+<div class="template-section active" id="template-0">
+  <div class="template-header">
+    <div class="template-title-group">
+      <div class="template-type-badge">TEMPLATE 01</div>
+      <div class="template-name">카드 인포그래픽형 (Card Infographic)</div>
+    </div>
+    <div class="slide-count-badge">총 6장</div>
+  </div>
+
+  <div class="carousel-viewer" data-carousel="0">
+    <div class="carousel-track-wrap">
+      <div class="carousel-track" id="track-0">
+
+        <!-- Slide 1: HOOK -->
+        <div class="slide-mockup" onclick="goToSlide(0,0)">
+          <div class="slide-page-indicator">1 / 6</div>
+          <div class="sl sl-warm">
+            <div class="sl-deco-circle"></div>
+            <div class="sl-deco-circle-sm"></div>
+            <div class="sl-inner">
+              <div class="sl-logo">IM AESTHETIC</div>
+              <div style="flex:1; display:flex; flex-direction:column; justify-content:center; padding-top:20px;">
+                <div class="sl-hook-accent-line"></div>
+                <div class="sl-hook-eyebrow">THURSDAY CARD NEWS</div>
+                <div class="sl-hook-title">
+                  세안 후 바로<br><em>당기는 피부,</em><br>이유가 있었어요
+                </div>
+                <div class="sl-hook-sub">원인부터 해결법까지<br>지금 바로 확인하세요 →</div>
+              </div>
+              <div class="sl-hook-swipe">
+                <span>→ 스와이프해서 확인</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2: Problem/Empathy -->
+        <div class="slide-mockup" onclick="goToSlide(0,1)">
+          <div class="slide-page-indicator">2 / 6</div>
+          <div class="sl sl-warm">
+            <div class="sl-inner">
+              <div class="sl-logo">IM AESTHETIC</div>
+              <div style="padding-top:18px;">
+                <div class="sl-section-label">공감 포인트</div>
+                <div class="sl-step-title" style="font-size:15px; margin-bottom:14px;">이런 고민 있으시죠? 🤔</div>
+                <ul class="sl-icon-list">
+                  <li><span class="icon-bullet">💧</span>"바를 땐 촉촉한데 금방 또 건조해요"</li>
+                  <li><span class="icon-bullet">😣</span>"당김이 심해서 세안이 두려워요"</li>
+                  <li><span class="icon-bullet">🌀</span>"보습제를 바꿔봐도 똑같아요"</li>
+                  <li><span class="icon-bullet">🔍</span>"피부 장벽이 문제일까요?"</li>
+                </ul>
+                <div class="sl-highlight-bar" style="margin-top:14px;">
+                  <p>👇 그 이유, 지금 알려드릴게요</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3: Solution Step 1 -->
+        <div class="slide-mockup" onclick="goToSlide(0,2)">
+          <div class="slide-page-indicator">3 / 6</div>
+          <div class="sl sl-warm">
+            <div class="sl-inner">
+              <div class="sl-logo">IM AESTHETIC</div>
+              <div style="padding-top:18px;">
+                <div class="sl-section-label">해결 방법 01</div>
+                <div class="sl-step-num">1</div>
+                <div class="sl-step-title">피부 장벽 먼저 확인하세요</div>
+                <div class="sl-step-desc">세안 후 당김의 90%는 손상된 피부 장벽 때문입니다. 올바른 세안제 선택이 첫 번째 해결책입니다.</div>
+                <div style="margin-top:12px; background:#F5F0EB; border-radius:8px; padding:12px; display:flex; align-items:center; gap:10px;">
+                  <span style="font-size:24px;">🧴</span>
+                  <div style="font-size:10px; color:#777; line-height:1.5;">약산성 세안제 + 세안 후<br>30초 이내 보습이 핵심</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4: Solution Step 2 -->
+        <div class="slide-mockup" onclick="goToSlide(0,3)">
+          <div class="slide-page-indicator">4 / 6</div>
+          <div class="sl sl-warm">
+            <div class="sl-inner">
+              <div class="sl-logo">IM AESTHETIC</div>
+              <div style="padding-top:18px;">
+                <div class="sl-section-label">해결 방법 02</div>
+                <div class="sl-step-num">2</div>
+                <div class="sl-step-title">수분 밀봉 루틴 만들기</div>
+                <div class="sl-step-desc">토너→에센스→크림 순서는 기본. 마지막 단계에서 오일 한 방울로 수분을 밀봉하면 지속력이 2배 늘어납니다.</div>
+                <div style="margin-top:12px; background:#F5F0EB; border-radius:8px; padding:12px; display:flex; align-items:center; gap:10px;">
+                  <span style="font-size:24px;">✨</span>
+                  <div style="font-size:10px; color:#777; line-height:1.5;">세라마이드 + 히알루론산<br>성분 조합이 효과적입니다</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 5: Solution Step 3 + Summary -->
+        <div class="slide-mockup" onclick="goToSlide(0,4)">
+          <div class="slide-page-indicator">5 / 6</div>
+          <div class="sl sl-warm">
+            <div class="sl-inner">
+              <div class="sl-logo">IM AESTHETIC</div>
+              <div style="padding-top:18px;">
+                <div class="sl-section-label">해결 방법 03</div>
+                <div class="sl-step-num">3</div>
+                <div class="sl-step-title">전문 관리로 장벽 회복</div>
+                <div class="sl-step-desc">집에서 관리해도 개선이 안 된다면 전문 케어가 필요한 신호. 피부과적 관리로 근본적인 장벽 회복이 가능합니다.</div>
+                <div class="sl-highlight-bar">
+                  <p>💡 핵심 요약: 세안제 → 수분 밀봉 → 전문 케어<br>3단계로 건조한 피부 작별!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 6: CTA -->
+        <div class="slide-mockup" onclick="goToSlide(0,5)">
+          <div class="slide-page-indicator">6 / 6</div>
+          <div class="sl sl-warm">
+            <div class="sl-inner">
+              <div class="sl-logo">IM AESTHETIC</div>
+              <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding-top:20px;">
+                <div class="sl-cta-logo">IM</div>
+                <div class="sl-cta-sub-logo">AESTHETIC</div>
+                <div class="sl-cta-bookmark">🔖</div>
+                <div class="sl-cta-main">도움이 되셨다면<br>저장해 두세요!</div>
+                <div class="sl-cta-sub">필요할 때 꺼내 보세요 💛</div>
+                <div class="sl-cta-divider"></div>
+              </div>
+              <div class="sl-cta-contact">
+                <div class="sl-cta-contact-row"><span class="c-icon">📞</span> 053-241-3855</div>
+                <div class="sl-cta-contact-row"><span class="c-icon">📍</span> 범어마크팰리스 2층</div>
+                <div class="sl-cta-contact-row"><span class="c-icon">🕐</span> 평일 10:00 — 19:00</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /track -->
+    </div><!-- /wrap -->
+
+    <div class="carousel-nav">
+      <button class="nav-btn" id="prev-0" onclick="navigate(0,-1)" disabled>&#8592;</button>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+        <div class="dot-indicators" id="dots-0"></div>
+        <div class="slide-counter" id="counter-0">1 / 6</div>
+      </div>
+      <button class="nav-btn" id="next-0" onclick="navigate(0,1)">&#8594;</button>
+    </div>
+  </div>
+
+  <!-- Annotation -->
+  <div class="annotation-card">
+    <div>
+      <div class="anno-field">
+        <div class="anno-label">템플릿 유형</div>
+        <div class="anno-value" style="font-weight:700; color:var(--dark-warm);">카드 인포그래픽형</div>
+      </div>
+      <div class="anno-field">
+        <div class="anno-label">슬라이드 수</div>
+        <div class="anno-value">6장 고정</div>
+      </div>
+      <div class="anno-field">
+        <div class="anno-label">적용 콘텐츠</div>
+        <div class="anno-tags">
+          <span class="anno-tag">팁·체크리스트</span>
+          <span class="anno-tag">단계별 가이드</span>
+          <span class="anno-tag">성분 분석</span>
+          <span class="anno-tag">첫 방문 안내</span>
+          <span class="anno-tag">위생·관리법</span>
+          <span class="anno-tag">프로모션</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="anno-field">
+        <div class="anno-label">첫 장 훅 규칙</div>
+        <div class="anno-value">질문형 또는 공감형 문장. 36px 이상 Bold. 오렌지 키워드 1개 강조. 스와이프 유도 문구 하단 배치.</div>
+      </div>
+      <div class="anno-field">
+        <div class="anno-label">마지막 장</div>
+        <div class="anno-value">CTA 전용 — 로고 + 북마크 아이콘 + "저장" 메시지 + 연락처</div>
+      </div>
+      <div class="anno-field">
+        <div class="anno-label">핵심 규칙</div>
+        <ul class="anno-rule-list">
+          <li>슬라이드 2: 공감 아이콘 리스트 3~4개 (이모지 활용)</li>
+          <li>슬라이드 3~5: 숫자 원형 배지 + 제목 + 2줄 설명 통일</li>
+          <li>슬라이드 5 하단: 오렌지 하이라이트 바로 요약 강조</li>
+          <li>배경 전체 #FFF8F0 통일, 포인트컬러 5% 이하</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================
+     TEMPLATE 2: 질문→답변 플립형
+     ========================================== -->
+<div class="template-section" id="template-1">
+  <div class="template-header">
+    <div class="template-title-group">
+      <div class="template-type-badge">TEMPLATE 02</div>
+      <div class="template-name">질문→답변 플립형 (Q&A Flip)</div>
+    </div>
+    <div class="slide-count-badge">총 6장</div>
+  </div>
+
+  <div class="carousel-viewer" data-carousel="1">
+    <div class="carousel-track-wrap">
+      <div class="carousel-track" id="track-1">
+
+        <!-- Slide 1: HOOK Dark -->
+        <div class="slide-mockup" onclick="goToSlide(1,0)">
+          <div class="slide-page-indicator">1 / 6</div>
+          <div class="sl sl-dark">
+            <div class="sl-inner">
+              <div class="sl-logo" style="color:rgba(255,248,240,0.5);">IM AESTHETIC</div>
+              <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+                <div class="sl-qa-eyebrow">MYTH vs FACT</div>
+                <div class="sl-qa-question">
+                  자외선차단제,<br>실내에서도<br>꼭 발라야 할까요?
+                </div>
+                <div style="margin-top:12px; font-size:9px; color:rgba(255,248,240,0.4); letter-spacing:1px;">→ 정답은 슬라이드 안에</div>
+              </div>
+            </div>
+            <div class="sl-qa-q-mark">?</div>
+          </div>
+        </div>
+
+        <!-- Slide 2: Myth 1 (Dark warm) -->
+        <div class="slide-mockup" onclick="goToSlide(1,1)">
+          <div class="slide-page-indicator">2 / 6</div>
+          <div class="sl sl-darker">
+            <div class="sl-inner">
+              <div class="sl-logo" style="color:rgba(255,248,240,0.4);">IM AESTHETIC</div>
+              <div style="padding-top:18px;">
+                <div class="sl-qa-eyebrow">MYTH ① — 흔한 오해</div>
+                <div class="sl-myth-x">❌</div>
+                <div class="sl-myth-text">
+                  "실내에 있으면<br>자외선이 없으니까<br>선크림은 필요 없어요"
+                </div>
+                <div style="margin-top:12px; font-size:10px; color:rgba(255,248,240,0.45); line-height:1.6;">
+                  많은 분들이 이렇게 생각하시죠?<br>→ 다음 슬라이드에서 진실을
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3: Fact 1 (Bright warm) -->
+        <div class="slide-mockup" onclick="goToSlide(1,2)">
+          <div class="slide-page-indicator">3 / 6</div>
+          <div class="sl sl-warm">
+            <div class="sl-inner">
+              <div class="sl-logo">IM AESTHETIC</div>
+              <div style="padding-top:18px;">
+                <div class="sl-section-label">FACT ① — 진실</div>
+                <div class="sl-fact-check">✅</div>
+                <div class="sl-fact-title">유리창을 통과하는<br>UVA는 피부 노화의 주범</div>
+                <div class="sl-fact-bubble">
+                  <div class="sl-fact-text">UVA는 유리창을 통과합니다. 실내에서도 창가 근처라면 자외선 노출이 발생하며, 이는 진피층 콜라겐을 파괴해 주름과 색소 침착을 유발합니다.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4: Myth 2 -->
+        <div class="slide-mockup" onclick="goToSlide(1,3)">
+          <div class="slide-page-indicator">4 / 6</div>
+          <div class="sl sl-darker">
+            <div class="sl-inner">
+              <div class="sl-logo" style="color:rgba(255,248,240,0.4);">IM AESTHETIC</div>
+              <div style="padding-top:18px;">
+                <div class="sl-qa-eyebrow">MYTH ② — 흔한 오해</div>
+                <div class="sl-myth-x">❌</div>
+                <div class="sl-myth-text">
+                  "SPF 50이면<br>하루 종일 효과가<br>지속되지 않나요?"
+                </div>
+                <div style="margin-top:12px; font-size:10px; color:rgba(255,248,240,0.45); line-height:1.6;">
+                  SPF 숫자의 의미를<br>잘못 이해하고 있는 경우가 많아요
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 5: Fact 2 -->
+        <div class="slide-mockup" onclick="goToSlide(1,4)">
+          <div class="slide-page-indicator">5 / 6</div>
+          <div class="sl sl-warm">
+            <div class="sl-inner">
+              <div class="sl-logo">IM AESTHETIC</div>
+              <div style="padding-top:18px;">
+                <div class="sl-section-label">FACT ② — 진실</div>
+                <div class="sl-fact-check">✅</div>
+                <div class="sl-fact-title">2~3시간마다<br>덧바르기가 정석입니다</div>
+                <div class="sl-fact-bubble">
+                  <div class="sl-fact-text">SPF 수치는 차단 효과의 강도이지, 지속 시간이 아닙니다. 땀·피지로 인해 2~3시간이면 효과가 약해지므로 주기적인 덧바르기가 필수입니다.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 6: CTA -->
+        <div class="slide-mockup" onclick="goToSlide(1,5)">
+          <div class="slide-page-indicator">6 / 6</div>
+          <div class="sl sl-dark">
+            <div class="sl-inner">
+              <div class="sl-logo" style="color:rgba(255,248,240,0.5);">IM AESTHETIC</div>
+              <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; padding-top:20px;">
+                <div style="font-size:11px; color:rgba(255,248,240,0.5); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:4px;">궁금한 게 더 있으신가요?</div>
+                <div style="font-size:16px; font-weight:800; color:white; text-align:center; line-height:1.5;">DM으로<br>편하게 물어보세요!</div>
+                <div style="font-size:22px; margin:6px 0;">💬</div>
+                <div style="width:36px; height:2px; background:var(--orange); border-radius:2px; margin-bottom:6px;"></div>
+                <div style="font-size:10px; color:rgba(255,248,240,0.5); text-align:center; line-height:1.8;">인스타그램 @im.aesthetic<br>또는 📞 053-241-3855</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.07); border-radius:8px; padding:10px 14px; margin-top:auto;">
+                <div style="font-size:9px; font-weight:800; letter-spacing:2px; color:var(--orange); text-align:center; margin-bottom:2px;">IM AESTHETIC</div>
+                <div style="font-size:9px; color:rgba(255,248,240,0.4); text-align:center;">대구 수성구 범어마크팰리스 2층</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="carousel-nav">
+      <button class="nav-btn" id="prev-1" onclick="navigate(1,-1)" disabled>&#8592;</button>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+        <div class="dot-indicators" id="dots-1"></div>
+        <div class="slide-counter" id="counter-1">1 / 6</div>
+      </div>
+      <button class="nav-btn" id="next-1" onclick="navigate(1,1)">&#8594;</button>
+    </div>
+  </div>
+
+  <div class="annotation-card">
+    <div>
+      <div class="anno-field">
+        <div class="anno-label">템플릿 유형</div>
+        <div class="anno-value" style="font-weight:700; color:var(--dark-warm);">질문→답변 플립형</div>
+      </div>
+      <div class="anno-field">
+        <div class="anno-label">슬라이드 수</div>
+        <div class="anno-value">6장 (훅 1 + 미스/팩트 2세트 + CTA 1)</div>
+      </div>
+      <div class="anno-field">
+        <div class="anno-label">적용 콘텐츠</div>
+        <div class="anno-tags">
+          <span class="anno-tag">속설 vs 사실</span>
+          <span class="anno-tag">자주 묻는 질문</span>
+          <span class="anno-tag">오해 바로잡기</span>
+          <span class="anno-tag">성분 팩트체크</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="anno-field">
+        <div class="anno-label">첫 장 훅 규칙</div>
+        <div class="anno-value">어두운 웜 배경(#4A3728) + 흰색 텍스트 + 거대한 "?" 장식. 도발적인 질문으로 궁금증 유발.</div>
+      </div>
+      <div class="anno-field">
+        <div class="anno-label">컬러 대비 전략</div>
+        <div class="anno-value">어두운 배경(미스) ↔ 밝은 배경(팩트) 교차 반복으로 리듬감 형성</div>
+      </div>
+      <div class="anno-field">
+        <div class="anno-label">핵심 규칙</div>
+        <ul class="anno-rule-list">
+          <li>미스 슬라이드: ❌ 아이콘 + 이탤릭 인용문 스타일, 어두운 배경</li>
+          <li>팩트 슬라이드: ✅ 아이콘 + 흰색 버블 카드, 밝은 배경</li>
+          <li>CTA는 어두운 배경으로 마무리, DM 유도 중심</li>
+          <li>슬라이드 2·4: #5C4A3A / 슬라이드 3·5: #FFF8F0 교차</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================
+     TEMPLATE 3: 후기/UGC형
+     ========================================== -->
+<div class="template-section" id="template-2">
+  <div class="template-header">
+    <div class="template-title-group">
+      <div class="template-type-badge">TEMPLATE 03</div>
+      <div class="template-name">후기 / UGC형 (Review & Testimonial)</div>
+    </div>
+    <div class="slide-count-badge">총 5장</div>
+  </div>
+
+  <div class="carousel-viewer" data-carousel="2">
+    <div class="carousel-track-wrap">
+      <div class="carousel-track" id="track-2">
+
+        <!-- Slide 1: Hero Review Quote -->
+        <div class="slide-mockup" onclick="goToSlide(2,0)">
+          <div class="slide-page-indicator">1 / 5</div>
+          <div class="sl sl-warm">
+            <div class="sl-inner">
+              <div class="sl-logo">IM AESTHETIC</div>
+              <div style="flex:1; display:flex; flex-direction:column; justify-content:center; padding-top:10px;">
+                <div class="sl-star-row">
+                  <span style="font-size:14px;">⭐</span>
+                  <span style="font-size:14px;">⭐</span>
+                  <span style="font-size:14px;">⭐</span>
+                  <span style="font-size:14px;">⭐</span>
+                  <span style="font-size:14px;">⭐</span>
+                </div>
+                <div class="sl-quote-mark">"</div>
+                <div class="sl-review-text">
+                  3번 받고 나서 어깨가 진짜 가벼워졌어요. 원장님이 매번 꼼꼼하게 봐주셔서 믿음이 갔어요.
+                </div>
+                <div class="sl-reviewer">— 30대 직장인, 수성구 거주 고객님 ⭐⭐⭐⭐⭐</div>
+              </div>
+              <div style="width:100%; height:2px; background:linear-gradient(to right, transparent, var(--orange), transparent); opacity:0.3; margin-top:10px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2: UGC Screenshot Frame -->
+        <div class="slide-mockup" onclick="goToSlide(2,1)">
+          <div class="slide-page-indicator">2 / 5</div>
+          <div class="sl sl-warm">
+            <div class="sl-inner" style="padding:14px 12px;">
+              <div class="sl-logo">IM AESTHETIC</div>
+              <div style="padding-top:16px; flex:1; display:flex; flex-direction:column;">
+                <div class="sl-section-label" style="margin-bottom:8px;">실제 고객 후기</div>
+                <div class="sl-ugc-frame" style="flex:1; min-height:0;">
+                  <div class="sl-ugc-corner tl">「</div>
+                  <div class="sl-ugc-corner br">」</div>
+                  <div class="sl-ugc-placeholder">
+                    <span style="font-size:20px;">📸</span>
+                    <span style="font-size:9px; line-height:1.5; text-align:center; padding:0 20px;">실제 후기 스크린샷<br>삽입 영역</span>
+                  </div>
+                </div>
+                <div style="padding-top:8px; font-size:9px; color:#bbb; text-align:center;">IM 에스테틱 네이버 플레이스 리뷰</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3: Another Review Card -->
+        <div class="slide-mockup" onclick="goToSlide(2,2)">
+          <div class="slide-page-indicator">3 / 5</div>
+          <div class="sl" style="background:#FFF4EA;">
+            <div class="sl-inner">
+              <div class="sl-logo">IM AESTHETIC</div>
+              <div style="flex:1; display:flex; flex-direction:column; justify-content:center; padding-top:10px;">
+                <div style="background:white; border-radius:12px; padding:16px 14px; box-shadow:0 4px 16px rgba(74,55,40,0.1);">
+                  <div class="sl-star-row" style="margin-bottom:8px;">
+                    <span style="font-size:12px;">⭐</span>
+                    <span style="font-size:12px;">⭐</span>
+                    <span style="font-size:12px;">⭐</span>
+                    <span style="font-size:12px;">⭐</span>
+                    <span style="font-size:12px;">⭐</span>
+                  </div>
+                  <div style="font-size:12px; font-weight:700; color:var(--charcoal); line-height:1.65; margin-bottom:10px;">
+                    "피부가 이렇게 달라질 수 있다는 걸 처음 알았어요. 선생님들이 너무 친절하고 설명도 자세히 해주셔서 믿음이 갔습니다."
+                  </div>
+                  <div style="font-size:10px; color:#bbb;">— 40대 주부, 황금동 고객님</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4: Results Summary -->
+        <div class="slide-mockup" onclick="goToSlide(2,3)">
+          <div class="slide-page-indicator">4 / 5</div>
+          <div class="sl sl-warm">
+            <div class="sl-inner">
+              <div class="sl-logo">IM AESTHETIC</div>
+              <div style="padding-top:18px;">
+                <div class="sl-section-label">고객 변화 결과</div>
+                <div style="font-size:14px; font-weight:700; color:var(--dark-warm); margin-bottom:14px;">공통적으로 느끼는 변화</div>
+                <div class="sl-result-item">
+                  <span class="sl-result-icon">✨</span>
+                  <div>
+                    <div class="sl-result-text">피부결 & 톤 개선</div>
+                    <div style="font-size:9px; color:#aaa;">2~3회차부터 눈에 띄는 변화</div>
+                  </div>
+                </div>
+                <div class="sl-result-item">
+                  <span class="sl-result-icon">💆</span>
+                  <div>
+                    <div class="sl-result-text">어깨·목 가벼움</div>
+                    <div style="font-size:9px; color:#aaa;">체형 케어 후 긴장 완화</div>
+                  </div>
+                </div>
+                <div class="sl-result-item">
+                  <span class="sl-result-icon">😴</span>
+                  <div>
+                    <div class="sl-result-text">숙면 & 피로 회복</div>
+                    <div style="font-size:9px; color:#aaa;">7감 테라피 후기 공통 반응</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 5: CTA -->
+        <div class="slide-mockup" onclick="goToSlide(2,4)">
+          <div class="slide-page-indicator">5 / 5</div>
+          <div class="sl sl-warm">
+            <div class="sl-inner">
+              <div class="sl-logo">IM AESTHETIC</div>
+              <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding-top:16px; gap:6px;">
+                <div style="font-size:24px;">✨</div>
+                <div style="font-size:14px; font-weight:800; color:var(--dark-warm); text-align:center; line-height:1.5;">다음 후기의<br>주인공은 바로 나!</div>
+                <div style="width:28px; height:2px; background:var(--orange); border-radius:2px; margin:6px 0;"></div>
+                <div style="font-size:10px; color:#aaa; text-align:center; line-height:1.7;">첫 방문 시 피부 진단 상담 무료<br>예약은 DM 또는 전화로</div>
+              </div>
+              <div class="sl-cta-contact">
+                <div class="sl-cta-contact-row"><span class="c-icon">📞</span> 053-241-3855</div>
+                <div class="sl-cta-contact-row"><span class="c-icon">📍</span> 범어마크팰리스 2층</div>
+                <div class="sl-cta-contact-row"><span class="c-icon">📲</span> 인스타 DM 환영</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="carousel-nav">
+      <button class="nav-btn" id="prev-2" onclick="navigate(2,-1)" disabled>&#8592;</button>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+        <div class="dot-indicators" id="dots-2"></div>
+        <div class="slide-counter" id="counter-2">1 / 5</div>
+      </div>
+      <button class="nav-btn" id="next-2" onclick="navigate(2,1)">&#8594;</button>
+    </div>
+  </div>
+
+  <div class="annotation-card">
+    <div>
+      <div class="anno-field">
+        <div class="anno-label">템플릿 유형</div>
+        <div class="anno-value" style="font-weight:700; color:var(--dark-warm);">후기 / UGC형</div>
+      </div>
+      <div class="anno-field">
+        <div class="anno-label">슬라이드 수</div>
+        <div class="anno-value">5장 (대표 후기 + UGC 프레임 + 추가 후기 + 결과 요약 + CTA)</div>
+      </div>
+      <div class="anno-field">
+        <div class="anno-label">적용 콘텐츠</div>
+        <div class="anno-tags">
+          <span class="anno-tag">고객 후기</span>
+          <span class="anno-tag">네이버 플레이스 리뷰</span>
+          <span class="anno-tag">DM 감사 메시지</span>
+          <span class="anno-tag">변화 사례</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="anno-field">
+        <div class="anno-label">첫 장 훅 규칙</div>
+        <div class="anno-value">가장 임팩트 있는 후기 1개 선별. 큰 인용부호 + 별점 5개. 리뷰어 정보 최하단 (지역+연령대 익명).</div>
+      </div>
+      <div class="anno-field">
+        <div class="anno-label">UGC 프레임 규칙</div>
+        <div class="anno-value">오렌지 테두리 + 「 」 장식 코너. 스크린샷 실제 붙여넣기. 여백은 브랜드 배경색 처리.</div>
+      </div>
+      <div class="anno-field">
+        <div class="anno-label">핵심 규칙</div>
+        <ul class="anno-rule-list">
+          <li>개인정보 보호: 이름·연락처 미기재, 지역+연령대만 표기</li>
+          <li>슬라이드 4: 결과 3가지 아이콘 카드 형식으로 시각화</li>
+          <li>CTA: "다음 후기의 주인공" 문구로 행동 유발</li>
+          <li>리뷰 원본 스크린샷은 고객 동의 후 사용</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================
+     TEMPLATE 4: 프로그램 소개형
+     ========================================== -->
+<div class="template-section" id="template-3">
+  <div class="template-header">
+    <div class="template-title-group">
+      <div class="template-type-badge">TEMPLATE 04</div>
+      <div class="template-name">프로그램 소개형 (Program Introduction)</div>
+    </div>
+    <div class="slide-count-badge">총 7장</div>
+  </div>
+
+  <div class="carousel-viewer" data-carousel="3">
+    <div class="carousel-track-wrap">
+      <div class="carousel-track" id="track-3">
+
+        <!-- Slide 1: HOOK - Customer Concern Quote -->
+        <div class="slide-mockup" onclick="goToSlide(3,0)">
+          <div class="slide-page-indicator">1 / 7</div>
+          <div class="sl sl-warm">
+            <div class="sl-deco-circle"></div>
+            <div class="sl-inner">
+              <div class="sl-logo">IM AESTHETIC</div>
+              <div style="flex:1; display:flex; flex-direction:column; justify-content:center; padding-top:10px;">
+                <div class="sl-hook-eyebrow">PROGRAM GUIDE</div>
+                <div class="sl-concern-quote">
+                  바를 땐 촉촉한데, 금방 다시 건조해져요
+                </div>
+                <div style="margin-top:14px; font-size:11px; color:#aaa; line-height:1.7;">이 고민, 저희도 많이 들었어요.<br>근본 원인과 해결법을 알려드립니다.</div>
+                <div style="margin-top:14px; font-size:10px; color:#ccc; display:flex; align-items:center; gap:6px;">
+                  <span>→ 아래로 스와이프</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2: Cause Analysis -->
+        <div class="slide-mockup" onclick="goToSlide(3,1)">
+          <div class="slide-page-indicator">2 / 7</div>
+          <div class="sl sl-warm">
+            <div class="sl-inner">
+              <div class="sl-logo">IM AESTHETIC</div>
+              <div style="padding-top:18px;">
+                <div class="sl-section-label">원인 분석</div>
+                <div class="sl-step-title" style="font-size:15px;">왜 이런 일이 생길까요?</div>
+                <div style="margin-top:10px; display:flex; align-items:center; justify-content:center; font-size:32px; padding:10px 0;">🔬</div>
+                <div class="sl-insight-bg">
+                  <div class="sl-insight-label">핵심 인사이트</div>
+                  <div class="sl-insight-text">수분은 충분한데 피부 장벽이 손상되어 있으면, 바른 보습제가 피부 안으로 흡수되지 못하고 증발합니다. 이것이 '수분 증발형 건성 피부'입니다.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3: Program Badge -->
+        <div class="slide-mockup" onclick="goToSlide(3,2)">
+          <div class="slide-page-indicator">3 / 7</div>
+          <div class="sl sl-warm">
+            <div class="sl-inner">
+              <div class="sl-logo">IM AESTHETIC</div>
+              <div style="flex:1; display:flex; flex-direction:column; justify-content:center; padding-top:10px; gap:12px;">
+                <div style="font-size:11px; font-weight:600; color:#bbb; text-align:center; letter-spacing:1px;">이런 분을 위한 IM 솔루션</div>
+                <div class="sl-program-badge">
+                  <div style="font-size:11px; color:rgba(255,248,240,0.5); letter-spacing:2px; margin-bottom:6px; font-weight:500;">PROGRAM</div>
+                  <div class="sl-program-name">IM 결관리<br>집중 케어</div>
+                  <div class="sl-program-tagline">결관리를 기본으로</div>
+                  <div class="sl-program-pill">9주 프로그램</div>
+                </div>
+                <div style="text-align:center; font-size:10px; color:#aaa; line-height:1.6;">유수정 원장 · 피부 의학 케어<br>전담 매니저 배정 1:1 맞춤 관리</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4: Process Step 01 -->
+        <div class="slide-mockup" onclick="goToSlide(3,3)">
+          <div class="slide-page-indicator">4 / 7</div>
+          <div class="sl sl-warm">
+            <div class="sl-inner">
+              <div class="sl-logo">IM AESTHETIC</div>
+              <div style="padding-top:18px;">
+                <div class="sl-section-label">프로그램 과정</div>
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                  <div style="width:36px; height:36px; border-radius:50%; background:var(--dark-warm); color:white; font-size:14px; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0;">01</div>
+                  <div style="font-size:13px; font-weight:700; color:var(--charcoal);">피부 상태 정밀 진단</div>
+                </div>
+                <div class="sl-step-desc" style="font-size:11px; color:#666; line-height:1.7; margin-bottom:12px;">수분 함량·유분 밸런스·장벽 손상 정도를 기기로 측정합니다. 진단 결과에 따라 개인 맞춤 케어 플랜을 수립합니다.</div>
+                <div style="background:#F5F0EB; border-radius:8px; padding:10px 12px; display:flex; align-items:center; gap:10px;">
+                  <span style="font-size:20px;">🔍</span>
+                  <div style="font-size:10px; color:#888; line-height:1.5;">소요 시간: 30분<br>측정 항목: 5가지</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 5: Process Step 02 -->
+        <div class="slide-mockup" onclick="goToSlide(3,4)">
+          <div class="slide-page-indicator">5 / 7</div>
+          <div class="sl sl-warm">
+            <div class="sl-inner">
+              <div class="sl-logo">IM AESTHETIC</div>
+              <div style="padding-top:18px;">
+                <div class="sl-section-label">프로그램 과정</div>
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                  <div style="width:36px; height:36px; border-radius:50%; background:var(--orange); color:white; font-size:14px; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0;">02</div>
+                  <div style="font-size:13px; font-weight:700; color:var(--charcoal);">장벽 강화 집중 케어</div>
+                </div>
+                <div class="sl-step-desc" style="font-size:11px; color:#666; line-height:1.7; margin-bottom:12px;">손상된 피부 장벽을 단계적으로 회복시킵니다. 세라마이드 집중 공급과 물리적 장벽 강화 관리를 병행합니다.</div>
+                <div style="background:#FFF0E0; border-radius:8px; padding:10px 12px; display:flex; align-items:center; gap:10px;">
+                  <span style="font-size:20px;">💧</span>
+                  <div style="font-size:10px; color:#888; line-height:1.5;">주 1회 / 총 9주<br>홈케어 가이드 함께 제공</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 6: Recommendation checklist -->
+        <div class="slide-mockup" onclick="goToSlide(3,5)">
+          <div class="slide-page-indicator">6 / 7</div>
+          <div class="sl sl-warm">
+            <div class="sl-inner">
+              <div class="sl-logo">IM AESTHETIC</div>
+              <div style="padding-top:18px;">
+                <div class="sl-section-label">추천 대상</div>
+                <div style="font-size:13px; font-weight:700; color:var(--dark-warm); margin-bottom:12px;">이런 분께 추천합니다</div>
+                <ul class="sl-checklist">
+                  <li><div class="sl-check-icon"></div><span>세안 후 당김이 심한 분</span></li>
+                  <li><div class="sl-check-icon"></div><span>보습제를 여러 번 바꿔도 개선 없는 분</span></li>
+                  <li><div class="sl-check-icon"></div><span>예민하거나 붉은기 있는 피부</span></li>
+                  <li><div class="sl-check-icon"></div><span>근본적인 피부 개선을 원하는 분</span></li>
+                </ul>
+                <div class="sl-highlight-bar" style="margin-top:12px;">
+                  <p>예상 효과: 4주차부터 수분 지속력 변화 체감</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 7: CTA -->
+        <div class="slide-mockup" onclick="goToSlide(3,6)">
+          <div class="slide-page-indicator">7 / 7</div>
+          <div class="sl sl-warm">
+            <div class="sl-inner">
+              <div class="sl-logo">IM AESTHETIC</div>
+              <div style="flex:1; display:flex; flex-direction:column; justify-content:center; padding-top:10px; gap:8px;">
+                <div style="text-align:center; font-size:22px; margin-bottom:4px;">📖</div>
+                <div class="sl-cta-blog">📖 블로그에서 자세히 보기</div>
+                <div class="sl-cta-save">💾 저장해두고 나중에 확인!</div>
+                <div style="font-size:10px; color:#aaa; text-align:center; line-height:1.7;">네이버 블로그: IM 에스테틱<br>링크는 프로필 바이오에</div>
+                <div style="width:28px; height:2px; background:var(--orange); border-radius:2px; margin:4px auto;"></div>
+              </div>
+              <div class="sl-cta-contact">
+                <div class="sl-cta-contact-row"><span class="c-icon">📞</span> 053-241-3855</div>
+                <div class="sl-cta-contact-row"><span class="c-icon">📍</span> 범어마크팰리스 2층</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="carousel-nav">
+      <button class="nav-btn" id="prev-3" onclick="navigate(3,-1)" disabled>&#8592;</button>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+        <div class="dot-indicators" id="dots-3"></div>
+        <div class="slide-counter" id="counter-3">1 / 7</div>
+      </div>
+      <button class="nav-btn" id="next-3" onclick="navigate(3,1)">&#8594;</button>
+    </div>
+  </div>
+
+  <div class="annotation-card">
+    <div>
+      <div class="anno-field">
+        <div class="anno-label">템플릿 유형</div>
+        <div class="anno-value" style="font-weight:700; color:var(--dark-warm);">프로그램 소개형</div>
+      </div>
+      <div class="anno-field">
+        <div class="anno-label">슬라이드 수</div>
+        <div class="anno-value">7장 (고민 훅 + 원인 + 프로그램 소개 + 과정 2단계 + 추천 체크리스트 + CTA)</div>
+      </div>
+      <div class="anno-field">
+        <div class="anno-label">적용 콘텐츠</div>
+        <div class="anno-tags">
+          <span class="anno-tag">9주 프로그램 시리즈</span>
+          <span class="anno-tag">결라인 관리</span>
+          <span class="anno-tag">IM 윤곽라인</span>
+          <span class="anno-tag">12주 집중 케어</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="anno-field">
+        <div class="anno-label">첫 장 훅 규칙</div>
+        <div class="anno-value">고객의 실제 고민을 인용부호 안에 담기. 공감 문구 1개 + 해결 예고. 밝은 배경으로 접근성 높임.</div>
+      </div>
+      <div class="anno-field">
+        <div class="anno-label">프로그램 뱃지 (슬라이드 3)</div>
+        <div class="anno-value">다크 웜 배경 카드에 프로그램명 Bold + 기간 오렌지 필 배지. IM 브랜드 마크 포함.</div>
+      </div>
+      <div class="anno-field">
+        <div class="anno-label">핵심 규칙</div>
+        <ul class="anno-rule-list">
+          <li>슬라이드 2: 원인 → 오렌지 인사이트 박스로 핵심 1줄 강조</li>
+          <li>슬라이드 4·5: 01/02 숫자 원 + 과정명 + 설명 + 아이콘 카드 통일</li>
+          <li>슬라이드 6: 체크박스 리스트 + 기대 효과 하이라이트 바</li>
+          <li>CTA: 블로그 링크 + 저장 유도 버튼 분리 표시</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  IM 에스테틱 캐러셀 디자인 가이드 v1.0 &nbsp;·&nbsp; 대구 수성구 범어마크팰리스 2층 &nbsp;·&nbsp; 053-241-3855
+</footer>
+
+<!-- ==========================================
+     JAVASCRIPT
+     ========================================== -->
+<script>
+// Carousel state per template
+const state = [
+  { current: 0, total: 6 },
+  { current: 0, total: 6 },
+  { current: 0, total: 5 },
+  { current: 0, total: 7 }
+];
+
+// Slide width + gap (must match CSS)
+const SLIDE_W = 270;
+const SLIDE_GAP = 20;
+
+function getVisibleCount() {
+  const wrap = document.querySelector('.carousel-track-wrap');
+  if (!wrap) return 3;
+  return Math.floor((wrap.offsetWidth - 40) / (SLIDE_W + SLIDE_GAP));
+}
+
+function initDots() {
+  for (let i = 0; i < 4; i++) {
+    const dots = document.getElementById('dots-' + i);
+    dots.innerHTML = '';
+    for (let j = 0; j < state[i].total; j++) {
+      const d = document.createElement('div');
+      d.className = 'dot' + (j === 0 ? ' active' : '');
+      d.onclick = (function(idx, j) { return function() { goToSlide(idx, j); }; })(i, j);
+      dots.appendChild(d);
+    }
+  }
+}
+
+function updateCarousel(idx) {
+  const s = state[idx];
+  const track = document.getElementById('track-' + idx);
+  const offset = s.current * (SLIDE_W + SLIDE_GAP);
+  track.style.transform = 'translateX(-' + offset + 'px)';
+
+  // Dots
+  const dots = document.getElementById('dots-' + idx).children;
+  for (let i = 0; i < dots.length; i++) {
+    dots[i].classList.toggle('active', i === s.current);
+  }
+
+  // Counter
+  document.getElementById('counter-' + idx).textContent = (s.current + 1) + ' / ' + s.total;
+
+  // Active slide highlight
+  const slides = document.querySelectorAll('#track-' + idx + ' .slide-mockup');
+  slides.forEach(function(sl, i) {
+    sl.classList.toggle('active-slide', i === s.current);
+  });
+
+  // Nav buttons
+  document.getElementById('prev-' + idx).disabled = s.current === 0;
+  document.getElementById('next-' + idx).disabled = s.current >= s.total - 1;
+}
+
+function navigate(idx, dir) {
+  const s = state[idx];
+  const next = s.current + dir;
+  if (next < 0 || next >= s.total) return;
+  s.current = next;
+  updateCarousel(idx);
+}
+
+function goToSlide(idx, slideIdx) {
+  state[idx].current = slideIdx;
+  updateCarousel(idx);
+}
+
+// Tab switching
+function switchTab(idx) {
+  document.querySelectorAll('.template-section').forEach(function(el, i) {
+    el.classList.toggle('active', i === idx);
+  });
+  document.querySelectorAll('.tab-btn').forEach(function(btn, i) {
+    btn.classList.toggle('active', i === idx);
+  });
+}
+
+// Touch/swipe support
+function addSwipe(idx) {
+  const wrap = document.querySelector('#template-' + idx + ' .carousel-track-wrap');
+  if (!wrap) return;
+  let startX = 0;
+  wrap.addEventListener('touchstart', function(e) {
+    startX = e.touches[0].clientX;
+  }, { passive: true });
+  wrap.addEventListener('touchend', function(e) {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 40) navigate(idx, dx < 0 ? 1 : -1);
+  }, { passive: true });
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', function() {
+  initDots();
+  for (let i = 0; i < 4; i++) {
+    updateCarousel(i);
+    addSwipe(i);
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+.env
+*.pyc
+__pycache__/
+.claude/
+generated_images/
+*.zip
+checklist_preview.png
+*.jsx
+AI_이미지_일괄생성_프롬프트.md
+CANVA_워크플로우_가이드.md
+릴스_영상제작_파이프라인.md
+실전_이미지생성_가이드.md
+이미지생성_프롬프트_가이드.md
+content-hub/

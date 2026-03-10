@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IM AESTHETIC - Instagram Feed Preview</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Pretendard:wght@400;500;600;700;800&family=Montserrat:wght@600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #fafafa;
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    color: #333;
+  }
+
+  .phone-frame {
+    width: 420px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    overflow: hidden;
+    border: 8px solid #1a1a1a;
+  }
+
+  .status-bar {
+    background: #fff;
+    padding: 8px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .profile-header {
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .profile-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .profile-pic {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FF8C42 0%, #FFB88C 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    line-height: 1.1;
+    flex-shrink: 0;
+  }
+
+  .profile-stats {
+    display: flex;
+    gap: 20px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .stat { text-align: center; }
+  .stat-num { font-weight: 700; font-size: 16px; }
+  .stat-label { font-size: 11px; color: #999; }
+
+  .profile-name { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
+
+  .profile-bio {
+    font-size: 12px;
+    color: #555;
+    line-height: 1.5;
+  }
+
+  .profile-bio .orange { color: #FF8C42; font-weight: 600; }
+
+  .edit-btn {
+    width: 100%;
+    padding: 7px;
+    background: #f0f0f0;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 13px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+
+  .highlights {
+    display: flex;
+    gap: 12px;
+    padding: 12px 16px;
+    overflow-x: auto;
+    border-bottom: 1px solid #eee;
+  }
+
+  .highlight { text-align: center; flex-shrink: 0; }
+
+  .highlight-circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-bottom: 4px;
+    background: #FFF8F0;
+  }
+
+  .highlight-label { font-size: 10px; color: #555; }
+
+  .tab-bar {
+    display: flex;
+    border-bottom: 1px solid #eee;
+  }
+
+  .tab {
+    flex: 1;
+    text-align: center;
+    padding: 12px;
+    font-size: 12px;
+    color: #999;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .tab.active { color: #333; font-weight: 700; }
+
+  .tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #333;
+  }
+
+  .feed-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    max-height: 900px;
+    overflow-y: auto;
+  }
+
+  .feed-item {
+    aspect-ratio: 1;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .feed-item:hover { opacity: 0.85; }
+
+  .feed-item .bg {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 8px;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Overlay styles */
+  .glass {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 8px;
+    padding: 6px 8px;
+    margin-top: auto;
+  }
+
+  .glass-dark {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 8px;
+    padding: 6px 8px;
+    margin-top: auto;
+  }
+
+  .post-title {
+    font-size: 9px;
+    font-weight: 700;
+    color: #333;
+    line-height: 1.3;
+    font-family: 'Noto Serif KR', serif;
+  }
+
+  .post-title-white {
+    font-size: 9px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+  }
+
+  .post-sub {
+    font-size: 7px;
+    color: #666;
+    margin-top: 2px;
+  }
+
+  .post-sub-white {
+    font-size: 7px;
+    color: rgba(255,255,255,0.8);
+    margin-top: 2px;
+  }
+
+  .post-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 6px;
+    font-weight: 600;
+    color: #FF8C42;
+    text-align: right;
+    margin-top: 2px;
+  }
+
+  .post-logo-white {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 6px;
+    font-weight: 600;
+    color: #FF8C42;
+    text-align: right;
+    margin-top: 2px;
+  }
+
+  .carousel-icon {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .carousel-icon svg {
+    width: 14px;
+    height: 14px;
+    fill: white;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+  }
+
+  .reels-icon {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+  }
+
+  .reels-icon svg {
+    width: 14px;
+    height: 14px;
+    fill: white;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+  }
+
+  /* Phase labels */
+  .phase-row {
+    grid-column: 1 / -1;
+    padding: 8px 12px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #FF8C42;
+    background: #FFF8F0;
+    border-bottom: 1px solid #FFE0C0;
+  }
+
+  .phase-row .week {
+    color: #999;
+    font-weight: 400;
+    margin-left: 8px;
+  }
+
+  .phase-row .no-reels {
+    color: #CC6633;
+    font-weight: 600;
+    font-size: 8px;
+    margin-left: 6px;
+  }
+
+  /* Grid annotation */
+  .grid-note {
+    grid-column: 1 / -1;
+    padding: 4px 12px;
+    font-size: 8px;
+    color: #999;
+    background: #f9f9f9;
+    text-align: center;
+    font-style: italic;
+  }
+
+  /* Bottom nav */
+  .bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0 20px;
+    border-top: 1px solid #eee;
+    background: #fff;
+  }
+
+  .nav-icon { font-size: 20px; color: #333; }
+
+  /* Legend */
+  .legend {
+    max-width: 420px;
+    margin: 20px auto 60px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+
+  .legend h3 {
+    font-size: 14px;
+    margin-bottom: 12px;
+    color: #333;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    font-size: 12px;
+    color: #555;
+  }
+
+  .legend-color {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+
+  .missing-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 7px;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<div class="phone-frame">
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <span>9:41</span>
+    <span>im.aesthetic.official</span>
+    <span>...</span>
+  </div>
+
+  <!-- Profile Header -->
+  <div class="profile-header">
+    <div class="profile-top">
+      <div class="profile-pic">IM</div>
+      <div class="profile-stats">
+        <div class="stat"><div class="stat-num">36</div><div class="stat-label">posts</div></div>
+        <div class="stat"><div class="stat-num">-</div><div class="stat-label">followers</div></div>
+        <div class="stat"><div class="stat-num">-</div><div class="stat-label">following</div></div>
+      </div>
+    </div>
+    <div class="profile-name">IM AESTHETIC</div>
+    <div class="profile-bio">
+      <span class="orange">3-Expert Collaborative Care</span><br>
+      Skin . Body . Wellness<br>
+      Daegu Suseong-gu | 2026.02 OPEN<br>
+      <span class="orange">Booking link in bio</span>
+    </div>
+    <button class="edit-btn">Edit Profile</button>
+  </div>
+
+  <!-- Highlights -->
+  <div class="highlights">
+    <div class="highlight">
+      <div class="highlight-circle">&#127793;</div>
+      <div class="highlight-label">About</div>
+    </div>
+    <div class="highlight">
+      <div class="highlight-circle">&#10024;</div>
+      <div class="highlight-label">3-Care</div>
+    </div>
+    <div class="highlight">
+      <div class="highlight-circle">&#128172;</div>
+      <div class="highlight-label">Reviews</div>
+    </div>
+    <div class="highlight">
+      <div class="highlight-circle">&#127873;</div>
+      <div class="highlight-label">Events</div>
+    </div>
+    <div class="highlight">
+      <div class="highlight-circle">&#127807;</div>
+      <div class="highlight-label">HomeCare</div>
+    </div>
+    <div class="highlight">
+      <div class="highlight-circle">&#127969;</div>
+      <div class="highlight-label">Space</div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tab-bar">
+    <div class="tab active">&#9638;</div>
+    <div class="tab">&#9654;</div>
+    <div class="tab">&#128100;</div>
+  </div>
+
+  <!-- Feed Grid (newest at top, oldest at bottom) -->
+  <div class="feed-grid">
+
+    <!-- ===== 12W (Row 1 - newest, top) ===== -->
+    <div class="phase-row">PHASE 6 - contour line<span class="week">12W IM contour series</span></div>
+
+    <!-- 12W Sat - Reels: Contour Full Video -->
+    <div class="feed-item">
+      <div class="bg" style="background:linear-gradient(135deg,#2a2218,#4a3828);">
+        <div class="reels-icon"><svg viewBox="0 0 24 24" width="14" height="14"><polygon points="5,3 19,12 5,21" fill="white"/></svg></div>
+        <div class="glass-dark">
+          <div class="post-title-white">윤곽 시술 풀영상</div>
+          <div class="post-sub-white">두피→쇄골 연결</div>
+          <div class="post-logo-white">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12W Thu - 4 Programs -->
+    <div class="feed-item">
+      <div class="bg" style="background:linear-gradient(135deg,#FFF8F0,#EDE0D4);">
+        <div class="carousel-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/><rect x="6" y="6" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/></svg></div>
+        <div class="glass">
+          <div class="post-title" style="font-family:Pretendard;">IM 윤곽라인 4대 프로그램</div>
+          <div class="post-logo">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12W Tue - Asymmetry -->
+    <div class="feed-item">
+      <div class="bg" style="background:linear-gradient(135deg,#FFF8F0,#E5D0BB);">
+        <div class="glass">
+          <div class="post-title">비대칭윤곽케어</div>
+          <div class="post-sub">균형이 만드는 아름다움</div>
+          <div class="post-logo">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 11W ===== -->
+    <div class="phase-row">PHASE 5 - skin line<span class="week">11W calm & tone-up</span></div>
+
+    <!-- 11W Sat - Reels: Tone-up B&A -->
+    <div class="feed-item">
+      <div class="bg" style="background:linear-gradient(135deg,#2a2218,#4a3828);">
+        <div class="reels-icon"><svg viewBox="0 0 24 24" width="14" height="14"><polygon points="5,3 19,12 5,21" fill="white"/></svg></div>
+        <div class="glass-dark">
+          <div class="post-title-white">톤업 전후 비교</div>
+          <div class="post-logo-white">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11W Thu - Tone-up -->
+    <div class="feed-item">
+      <div class="bg" style="background:linear-gradient(135deg,#FFF8F0,#EDE0D4);">
+        <div class="carousel-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/><rect x="6" y="6" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/></svg></div>
+        <div class="glass">
+          <div class="post-title" style="font-family:Pretendard;">톤업 결케어</div>
+          <div class="post-sub">맑은 광채의 비밀</div>
+          <div class="post-logo">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11W Tue - Calming -->
+    <div class="feed-item">
+      <div class="bg" style="background:linear-gradient(135deg,#FFF8F0,#E5D0BB);">
+        <div class="glass">
+          <div class="post-title">진정 결케어</div>
+          <div class="post-sub">붉은기, 순환이 답</div>
+          <div class="post-logo">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 10W ===== -->
+    <div class="phase-row"><span class="week">10W trouble care</span></div>
+
+    <!-- 10W Sat - Reels: Trouble B&A -->
+    <div class="feed-item">
+      <div class="bg" style="background:linear-gradient(135deg,#2a2218,#4a3828);">
+        <div class="reels-icon"><svg viewBox="0 0 24 24" width="14" height="14"><polygon points="5,3 19,12 5,21" fill="white"/></svg></div>
+        <div class="glass-dark">
+          <div class="post-title-white">트러블 B&A</div>
+          <div class="post-logo-white">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10W Thu - Trouble causes -->
+    <div class="feed-item">
+      <div class="bg" style="background:linear-gradient(135deg,#FFF8F0,#EDE0D4);">
+        <div class="carousel-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/><rect x="6" y="6" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/></svg></div>
+        <div class="glass">
+          <div class="post-title" style="font-family:Pretendard;">트러블 반복 3가지 원인</div>
+          <div class="post-logo">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10W Tue - Trouble -->
+    <div class="feed-item">
+      <div class="bg" style="background:linear-gradient(135deg,#FFF8F0,#E5D0BB);">
+        <div class="glass">
+          <div class="post-title">트러블 결케어</div>
+          <div class="post-sub">반복 트러블의 정체</div>
+          <div class="post-logo">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 9W ===== -->
+    <div class="phase-row">PHASE 5 - skin line series<span class="week">9W moisture care</span></div>
+
+    <!-- 9W Sat - Reels: Moisture ASMR -->
+    <div class="feed-item">
+      <div class="bg" style="background:linear-gradient(135deg,#2a2218,#4a3828);">
+        <div class="reels-icon"><svg viewBox="0 0 24 24" width="14" height="14"><polygon points="5,3 19,12 5,21" fill="white"/></svg></div>
+        <div class="glass-dark">
+          <div class="post-title-white">보습 시술 ASMR</div>
+          <div class="post-logo-white">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9W Thu - Moisture 3 Steps -->
+    <div class="feed-item">
+      <div class="bg" style="background:linear-gradient(135deg,#FFF8F0,#EDE0D4);">
+        <div class="carousel-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/><rect x="6" y="6" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/></svg></div>
+        <div class="glass">
+          <div class="post-title" style="font-family:Pretendard;">보습 결케어 3단계</div>
+          <div class="post-logo">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9W Tue - Moisture Care -->
+    <div class="feed-item">
+      <div class="bg" style="background:linear-gradient(135deg,#FFF8F0,#E5D0BB);">
+        <div class="glass">
+          <div class="post-title">보습 결케어</div>
+          <div class="post-sub">수분을 머금는 힘</div>
+          <div class="post-logo">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 8W ===== -->
+    <div class="phase-row">PHASE 3 - expertise<span class="week">8W wrap-up</span></div>
+
+    <!-- 8W Sat - Reels: Study Log -->
+    <div class="feed-item">
+      <div class="bg" style="background-image:url('feed_images/8W_Sat_cover.png');">
+        <div class="reels-icon"><svg viewBox="0 0 24 24" width="14" height="14"><polygon points="5,3 19,12 5,21" fill="white"/></svg></div>
+        <div class="glass-dark">
+          <div class="post-title-white">3-Expert Study Log</div>
+          <div class="post-logo-white">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8W Thu - Calendar Promo -->
+    <div class="feed-item">
+      <div class="bg" style="background-image:url('feed_images/8W_Thu_slide2.png');">
+        <div class="carousel-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/><rect x="6" y="6" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/></svg></div>
+        <div class="glass">
+          <div class="post-title" style="font-family:Pretendard;">4월 예약 & 프로모션</div>
+          <div class="post-logo">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8W Tue - Tea Time -->
+    <div class="feed-item">
+      <div class="bg" style="background-image:url('feed_images/8W_Tue_alt.png');">
+        <div class="carousel-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/><rect x="6" y="6" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/></svg></div>
+        <div class="glass">
+          <div class="post-title">고객과의 티타임</div>
+          <div class="post-logo">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 7W ===== -->
+    <div class="phase-row"><span class="week">7W wedding & wellness</span></div>
+
+    <!-- 7W Sat - Reels: Spa ASMR -->
+    <div class="feed-item">
+      <div class="bg" style="background-image:url('feed_images/7W_Sat_cover.png');">
+        <div class="reels-icon"><svg viewBox="0 0 24 24" width="14" height="14"><polygon points="5,3 19,12 5,21" fill="white"/></svg></div>
+        <div class="glass-dark">
+          <div class="post-title-white">Spa Water ASMR</div>
+          <div class="post-logo-white">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7W Thu - Myth vs Fact -->
+    <div class="feed-item">
+      <div class="bg" style="background-image:url('feed_images/7W_Thu_slide1.png');">
+        <div class="carousel-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/><rect x="6" y="6" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/></svg></div>
+        <div class="glass-dark">
+          <div class="post-title-white">Myth vs Fact</div>
+          <div class="post-logo-white">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7W Tue - Wedding -->
+    <div class="feed-item">
+      <div class="bg" style="background-image:url('feed_images/7W_Tue_slide1.png');">
+        <div class="carousel-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/><rect x="6" y="6" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/></svg></div>
+        <div class="glass">
+          <div class="post-title">웨딩 케어</div>
+          <div class="post-logo">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 6W ===== -->
+    <div class="phase-row"><span class="week">6W expert deep-dive</span></div>
+
+    <!-- 6W Sat - Reels: Closing Routine -->
+    <div class="feed-item">
+      <div class="bg" style="background-image:url('feed_images/6W_Sat_cover.png');">
+        <div class="reels-icon"><svg viewBox="0 0 24 24" width="14" height="14"><polygon points="5,3 19,12 5,21" fill="white"/></svg></div>
+        <div class="glass-dark">
+          <div class="post-title-white">마감 루틴 Reel</div>
+          <div class="post-logo-white">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6W Thu - Ingredients -->
+    <div class="feed-item">
+      <div class="bg" style="background-image:url('feed_images/6W_Thu_slide2.png');">
+        <div class="carousel-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/><rect x="6" y="6" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/></svg></div>
+        <div class="glass">
+          <div class="post-title" style="font-family:Pretendard;">성분 딥다이브</div>
+          <div class="post-logo">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6W Tue - Chart Conference -->
+    <div class="feed-item">
+      <div class="bg" style="background-image:url('feed_images/6W_Tue_slide1.png');">
+        <div class="carousel-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/><rect x="6" y="6" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/></svg></div>
+        <div class="glass-dark">
+          <div class="post-title-white">차트 컨퍼런스</div>
+          <div class="post-logo-white">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 5W ===== -->
+    <div class="phase-row">PHASE 2 - trust<span class="week">5W data & self-check</span></div>
+
+    <!-- 5W Sat - Reels: Gua Sha -->
+    <div class="feed-item">
+      <div class="bg" style="background-image:url('feed_images/5W_Sat_cover.png');">
+        <div class="reels-icon"><svg viewBox="0 0 24 24" width="14" height="14"><polygon points="5,3 19,12 5,21" fill="white"/></svg></div>
+        <div class="glass-dark">
+          <div class="post-title-white">1분 괄사 홈팁</div>
+          <div class="post-logo-white">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5W Thu - Self Check -->
+    <div class="feed-item">
+      <div class="bg" style="background-image:url('feed_images/5W_Thu_slide1.png');">
+        <div class="carousel-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/><rect x="6" y="6" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/></svg></div>
+        <div class="glass">
+          <div class="post-title" style="font-family:Pretendard;">피로도 셀프체크</div>
+          <div class="post-logo">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5W Tue - B&A Data -->
+    <div class="feed-item">
+      <div class="bg" style="background-image:url('feed_images/5W_Tue_slide1.png');">
+        <div class="carousel-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/><rect x="6" y="6" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/></svg></div>
+        <div class="glass">
+          <div class="post-title" style="font-family:Pretendard;">B&A 데이터</div>
+          <div class="post-logo">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 4W ===== -->
+    <div class="phase-row"><span class="week">4W reviews & hygiene</span></div>
+
+    <!-- 4W Sat - Reels: Ampoule -->
+    <div class="feed-item">
+      <div class="bg" style="background-image:url('feed_images/4W_Sat_cover.png');">
+        <div class="reels-icon"><svg viewBox="0 0 24 24" width="14" height="14"><polygon points="5,3 19,12 5,21" fill="white"/></svg></div>
+        <div class="glass-dark">
+          <div class="post-title-white">앰플 언박싱</div>
+          <div class="post-logo-white">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4W Thu - Hygiene -->
+    <div class="feed-item">
+      <div class="bg" style="background-image:url('feed_images/4W_Thu_slide2.png');">
+        <div class="carousel-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/><rect x="6" y="6" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/></svg></div>
+        <div class="glass">
+          <div class="post-title" style="font-family:Pretendard;">위생 기준</div>
+          <div class="post-logo">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4W Tue - Reviews -->
+    <div class="feed-item">
+      <div class="bg" style="background-image:url('feed_images/4W_Tue_slide1.png');">
+        <div class="carousel-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/><rect x="6" y="6" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/></svg></div>
+        <div class="glass">
+          <div class="post-title" style="font-family:Pretendard;">실제 후기</div>
+          <div class="post-logo">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 3W (Reels start here!) ===== -->
+    <div class="phase-row">PHASE 2 - trust building<span class="week">3W first visit guide</span><span class="no-reels">REELS START</span></div>
+
+    <!-- 3W Sat - FIRST REELS: ASMR -->
+    <div class="feed-item">
+      <div class="bg" style="background-image:url('feed_images/3W_Sat_cover.png');">
+        <div class="reels-icon"><svg viewBox="0 0 24 24" width="14" height="14"><polygon points="5,3 19,12 5,21" fill="white"/></svg></div>
+        <div class="glass-dark">
+          <div class="post-title-white">Room Setup ASMR</div>
+          <div class="post-sub-white">First Reels!</div>
+          <div class="post-logo-white">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3W Thu - First Visit Process -->
+    <div class="feed-item">
+      <div class="bg" style="background-image:url('feed_images/3W_Thu_slide2.png');">
+        <div class="carousel-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/><rect x="6" y="6" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/></svg></div>
+        <div class="glass">
+          <div class="post-title" style="font-family:Pretendard;">첫 방문 프로세스</div>
+          <div class="post-logo">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3W Tue - First Visit Benefit -->
+    <div class="feed-item">
+      <div class="bg" style="background-image:url('feed_images/3W_Tue.png');">
+        <div class="glass">
+          <div class="post-title" style="font-family:Pretendard;">첫 방문 혜택</div>
+          <div class="post-sub">20% 할인 + 웰컴 기프트</div>
+          <div class="post-logo">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 2W - Expert Introductions (NO REELS) ===== -->
+    <div class="phase-row">PHASE 1 - brand intro<span class="week">2W meet the experts</span><span class="no-reels">NO REELS</span></div>
+
+    <div class="grid-note">Grid Row: 3 experts aligned</div>
+
+    <!-- 2W Sat - Director 3: Kim Eunkyung -->
+    <div class="feed-item">
+      <div class="bg" style="background-image:url('feed_images/2W_Sat.png');">
+        <div class="carousel-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/><rect x="6" y="6" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/></svg></div>
+        <div class="glass">
+          <div class="post-title">김은경 원장</div>
+          <div class="post-sub">7-Sense Therapy | 39yr</div>
+          <div class="post-logo">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2W Thu - Director 2: Woo Yeonwoo -->
+    <div class="feed-item">
+      <div class="bg" style="background-image:url('feed_images/2W_Thu.png');">
+        <div class="carousel-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/><rect x="6" y="6" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/></svg></div>
+        <div class="glass">
+          <div class="post-title">우연우 원장</div>
+          <div class="post-sub">Body Alignment Expert</div>
+          <div class="post-logo">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2W Tue - Director 1: Yoo Sujeong -->
+    <div class="feed-item">
+      <div class="bg" style="background-image:url('feed_images/2W_Tue.png');">
+        <div class="carousel-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/><rect x="6" y="6" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/></svg></div>
+        <div class="glass">
+          <div class="post-title">유수정 원장</div>
+          <div class="post-sub">Medical Skincare | 20yr</div>
+          <div class="post-logo">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 1W - Brand Introduction (NO REELS) ===== -->
+    <div class="phase-row">PHASE 1 - brand intro<span class="week">1W hello, we are IM</span><span class="no-reels">NO REELS</span></div>
+
+    <div class="grid-note">Grid Row: team / space / system</div>
+
+    <!-- 1W Sat - 3-Care System -->
+    <div class="feed-item">
+      <div class="bg" style="background-image:url('feed_images/1W_Sat.png');">
+        <div class="carousel-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/><rect x="6" y="6" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/></svg></div>
+        <div class="glass">
+          <div class="post-title">3인 케어 시스템</div>
+          <div class="post-sub">한 분을 위해 셋이</div>
+          <div class="post-logo">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1W Thu - Space Tour -->
+    <div class="feed-item">
+      <div class="bg" style="background-image:url('feed_images/1W_Thu.png');">
+        <div class="carousel-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/><rect x="6" y="6" width="15" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/></svg></div>
+        <div class="glass">
+          <div class="post-title">공간 투어</div>
+          <div class="post-logo">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1W Tue - Team Hello (SINGLE IMAGE) -->
+    <div class="feed-item">
+      <div class="bg" style="background-image:url('feed_images/1W_Tue.png');">
+        <div class="glass">
+          <div class="post-title">세 명이 한 분만 봅니다</div>
+          <div class="post-logo">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Nav -->
+  <div class="bottom-nav">
+    <span class="nav-icon">&#127968;</span>
+    <span class="nav-icon">&#128269;</span>
+    <span class="nav-icon">&#10010;</span>
+    <span class="nav-icon">&#9829;</span>
+    <span class="nav-icon">&#128100;</span>
+  </div>
+</div>
+
+<!-- Legend -->
+<div class="legend">
+  <h3>Grid Structure Guide</h3>
+  <div class="legend-item">
+    <div class="legend-color" style="background:linear-gradient(135deg,#FFF8F0,#E5D0BB);"></div>
+    <span><strong>1~2W Brand Intro</strong> - No Reels. Team, space, system, 3 experts</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-color" style="background:linear-gradient(135deg,#FFF8F0,#EDE0D4);"></div>
+    <span><strong>3~5W Trust Building</strong> - Reels start at 3W. Reviews, hygiene, data</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-color" style="background:linear-gradient(135deg,#444,#333);"></div>
+    <span><strong>6~8W Expertise</strong> - Dark hooking, strong text, deep content</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-color" style="background:linear-gradient(135deg,#2a2218,#4a3828);"></div>
+    <span><strong>Reels</strong> - ASMR/tutorial. 3W~8W only (6 total)</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-color" style="background:linear-gradient(135deg,#FFF8F0,#F5E6D3);"></div>
+    <span><strong>9~11W Skin Line Series</strong> - 결라인 프로그램 (보습/트러블/진정/톤업)</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-color" style="background:linear-gradient(135deg,#E5D0BB,#D4B896);"></div>
+    <span><strong>12W Contour Line</strong> - IM 윤곽라인 4대 프로그램</span>
+  </div>
+  <div style="margin-top:12px;padding:10px;background:#FFF8F0;border-radius:8px;font-size:11px;color:#555;line-height:1.6;">
+    <strong style="color:#FF8C42;">Key Grid Strategy:</strong><br>
+    Row 1 (bottom): Team Photo | Space | 3-Care System<br>
+    Row 2: Yoo Sujeong | Woo Yeonwoo | Kim Eunkyung<br>
+    Row 3+: Regular pattern (Image | Info | Reels)<br><br>
+    All 36 posts have real images applied.
+  </div>
+</div>
+
+</body>
+</html>

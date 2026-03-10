@@ -3,114 +3,150 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IM AESTHETIC - Content Hub</title>
-<script src="https://cdn.tailwindcss.com"></script>
+<title>IM AESTHETIC · 콘텐츠 관리 시스템</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap');
-  body { font-family: 'Pretendard', -apple-system, sans-serif; }
-  .pin-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid #FF8C42; transition: all 0.2s; }
-  .pin-dot.filled { background: #FF8C42; transform: scale(1.1); }
-  .pin-btn { width: 72px; height: 72px; border-radius: 50%; font-size: 24px; font-weight: 700;
-    border: 2px solid #e5e7eb; background: white; transition: all 0.15s; cursor: pointer; }
-  .pin-btn:hover { border-color: #FF8C42; background: #FFF8F0; }
-  .pin-btn:active { transform: scale(0.95); background: #FF8C42; color: white; }
-  .shake { animation: shake 0.4s ease-in-out; }
-  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Pretendard Variable',Pretendard,sans-serif;background:#FFF8F0;color:#333;min-height:100vh;display:flex;flex-direction:column}
+header{background:#4A3728;padding:40px 24px;text-align:center}
+header h1{font-size:36px;font-weight:300;color:#FFF8F0;letter-spacing:8px;margin-bottom:8px}
+header p{font-size:16px;color:rgba(255,248,240,0.6);letter-spacing:2px}
+main{flex:1;max-width:1100px;width:100%;margin:0 auto;padding:48px 24px}
+.section-title{font-size:13px;font-weight:600;color:#FF8C42;letter-spacing:3px;text-transform:uppercase;margin-bottom:24px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:48px}
+.card{background:#fff;border-radius:12px;padding:28px 24px;cursor:pointer;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:14px;box-shadow:0 2px 12px rgba(74,55,40,0.08);border-left:3px solid transparent;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;position:relative}
+.card:hover{transform:translateY(-4px);box-shadow:0 8px 28px rgba(74,55,40,0.14);border-left-color:#FF8C42}
+.card-icon{width:48px;height:48px;color:#FF8C42;flex-shrink:0}
+.card-title{font-size:20px;font-weight:700;color:#333;line-height:1.2}
+.card-desc{font-size:14px;color:#888;line-height:1.6}
+.badge{position:absolute;top:16px;right:16px;background:#FF8C42;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:1px}
+.stats{display:flex;gap:0;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(74,55,40,0.08)}
+.stat{flex:1;background:#fff;padding:24px 20px;text-align:center;border-right:1px solid #f0e8e0}
+.stat:last-child{border-right:none}
+.stat-num{font-size:32px;font-weight:700;color:#4A3728;line-height:1}
+.stat-label{font-size:13px;color:#999;margin-top:6px;letter-spacing:0.5px}
+footer{background:#4A3728;padding:24px;text-align:center}
+footer p{color:rgba(255,248,240,0.5);font-size:13px;line-height:1.8}
+footer .divider{width:40px;height:1px;background:rgba(255,248,240,0.2);margin:12px auto}
+@media(max-width:768px){.grid{grid-template-columns:repeat(2,1fr)}.stats{flex-wrap:wrap}.stat{flex:1 1 50%;border-bottom:1px solid #f0e8e0}.stat:nth-child(2n){border-right:none}}
+@media(max-width:480px){.grid{grid-template-columns:1fr}.stats{flex-direction:column}.stat{border-right:none}.header h1{font-size:28px;letter-spacing:5px}}
 </style>
 </head>
-<body class="bg-gradient-to-br from-orange-50 to-white min-h-screen flex items-center justify-center">
+<body>
 
-<!-- PIN Screen -->
-<div id="pin-screen" class="text-center max-w-sm mx-auto px-6">
-  <div class="mb-10">
-    <h1 class="text-3xl font-extrabold text-gray-800 mb-1">IM AESTHETIC</h1>
-    <p class="text-sm text-orange-500 font-semibold">Content Hub</p>
-  </div>
-  <p class="text-gray-500 text-sm mb-6">PIN 번호를 입력하세요</p>
-  <div id="dots" class="flex justify-center gap-3 mb-8">
-    <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
-  </div>
-  <div class="grid grid-cols-3 gap-3 justify-items-center max-w-[240px] mx-auto">
-    <button class="pin-btn" onclick="addDigit('1')">1</button>
-    <button class="pin-btn" onclick="addDigit('2')">2</button>
-    <button class="pin-btn" onclick="addDigit('3')">3</button>
-    <button class="pin-btn" onclick="addDigit('4')">4</button>
-    <button class="pin-btn" onclick="addDigit('5')">5</button>
-    <button class="pin-btn" onclick="addDigit('6')">6</button>
-    <button class="pin-btn" onclick="addDigit('7')">7</button>
-    <button class="pin-btn" onclick="addDigit('8')">8</button>
-    <button class="pin-btn" onclick="addDigit('9')">9</button>
-    <div></div>
-    <button class="pin-btn" onclick="addDigit('0')">0</button>
-    <button class="pin-btn text-lg" onclick="removeDigit()" style="font-size:18px">&#9003;</button>
-  </div>
-  <p id="pin-error" class="text-red-400 text-sm mt-4 opacity-0 transition-opacity">PIN이 올바르지 않습니다</p>
-</div>
+<header>
+  <h1>IM AESTHETIC</h1>
+  <p>콘텐츠 관리 시스템</p>
+</header>
 
-<!-- Main Content (hidden) -->
-<div id="main-content" class="text-center max-w-lg mx-auto px-6" style="display:none">
-  <div class="mb-8">
-    <h1 class="text-4xl font-extrabold text-gray-800 mb-2">IM AESTHETIC</h1>
-    <p class="text-lg text-orange-500 font-semibold tracking-wide">3인 3색 토탈 케어</p>
-    <p class="text-gray-500 mt-2">8주 인스타그램 콘텐츠 허브</p>
-  </div>
-  <div class="space-y-4">
-    <a href="dashboard.html"
-       class="block w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-6 rounded-2xl shadow-lg transition-all hover:shadow-xl hover:-translate-y-0.5">
-      📊 올인원 전략 대시보드
+<main>
+  <p class="section-title">Tools &amp; Pages</p>
+
+  <div class="grid">
+
+    <a class="card" href="dashboard.html">
+      <svg class="card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="6" y="6" width="14" height="14" rx="2"/>
+        <rect x="28" y="6" width="14" height="14" rx="2"/>
+        <rect x="6" y="28" width="14" height="14" rx="2"/>
+        <rect x="28" y="28" width="14" height="14" rx="2"/>
+      </svg>
+      <div class="card-title">콘텐츠 대시보드</div>
+      <div class="card-desc">12주 콘텐츠 캘린더 · 포스트 상세 보기</div>
     </a>
-    <a href="instagram_preview_react.html"
-       class="block w-full bg-white hover:bg-gray-50 text-gray-800 font-bold py-4 px-6 rounded-2xl shadow-lg border-2 border-orange-200 transition-all hover:shadow-xl hover:-translate-y-0.5">
-      📱 Instagram Feed Preview
+
+    <a class="card" href="instagram_preview_react.html">
+      <svg class="card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="6" y="6" width="10" height="10" rx="1.5"/>
+        <rect x="19" y="6" width="10" height="10" rx="1.5"/>
+        <rect x="32" y="6" width="10" height="10" rx="1.5"/>
+        <rect x="6" y="19" width="10" height="10" rx="1.5"/>
+        <rect x="19" y="19" width="10" height="10" rx="1.5"/>
+        <rect x="32" y="19" width="10" height="10" rx="1.5"/>
+        <rect x="6" y="32" width="10" height="10" rx="1.5"/>
+        <rect x="19" y="32" width="10" height="10" rx="1.5"/>
+        <rect x="32" y="32" width="10" height="10" rx="1.5"/>
+      </svg>
+      <div class="card-title">피드 프리뷰</div>
+      <div class="card-desc">인스타그램 그리드 미리보기 · 36개 포스트</div>
     </a>
+
+    <a class="card" href="card_news_maker.html">
+      <span class="badge">NEW</span>
+      <svg class="card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="8" y="12" width="32" height="24" rx="2"/>
+        <rect x="12" y="8" width="32" height="24" rx="2" fill="none"/>
+        <line x1="14" y1="20" x2="34" y2="20"/>
+        <line x1="14" y1="26" x2="28" y2="26"/>
+      </svg>
+      <div class="card-title">카드뉴스 메이커</div>
+      <div class="card-desc">목요일 카드뉴스 제작 · PNG 내보내기</div>
+    </a>
+
+    <a class="card" href="carousel_templates.html">
+      <svg class="card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="10" y="10" width="28" height="28" rx="2"/>
+        <line x1="10" y1="18" x2="38" y2="18"/>
+        <line x1="18" y1="18" x2="18" y2="38"/>
+        <circle cx="40" cy="24" r="3" fill="currentColor" stroke="none" opacity=".4"/>
+        <circle cx="8" cy="24" r="3" fill="currentColor" stroke="none" opacity=".4"/>
+      </svg>
+      <div class="card-title">캐러셀 가이드</div>
+      <div class="card-desc">4가지 템플릿 디자인 가이드</div>
+    </a>
+
+    <a class="card" href="현장촬영_체크리스트.html">
+      <svg class="card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="8" y="14" width="32" height="26" rx="3"/>
+        <path d="M18 14v-3a6 6 0 0 1 12 0v3"/>
+        <circle cx="24" cy="27" r="5"/>
+        <circle cx="24" cy="27" r="2" fill="currentColor" stroke="none"/>
+      </svg>
+      <div class="card-title">촬영 체크리스트</div>
+      <div class="card-desc">현장답사 촬영 가이드 · 체크리스트</div>
+    </a>
+
+    <a class="card" href="instagram_feed_preview.html">
+      <svg class="card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="6" y="6" width="36" height="36" rx="3"/>
+        <rect x="12" y="12" width="24" height="16" rx="1.5"/>
+        <line x1="12" y1="34" x2="22" y2="34"/>
+        <line x1="12" y1="38" x2="36" y2="38" opacity=".4"/>
+      </svg>
+      <div class="card-title">피드 프리뷰 (HTML)</div>
+      <div class="card-desc">정적 HTML 그리드 프리뷰</div>
+    </a>
+
   </div>
-  <p class="text-xs text-gray-400 mt-10">IM AESTHETIC · 대구 수성구 범어동</p>
-</div>
 
-<script>
-const PIN = '1234';
-let entered = '';
+  <p class="section-title">Quick Stats</p>
 
-function updateDots() {
-  document.querySelectorAll('.pin-dot').forEach((dot, i) => {
-    dot.classList.toggle('filled', i < entered.length);
-  });
-}
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">36</div>
+      <div class="stat-label">총 포스트</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">67</div>
+      <div class="stat-label">캐러셀 슬라이드</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">8</div>
+      <div class="stat-label">프로그램</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">12</div>
+      <div class="stat-label">운영 기간 (주)</div>
+    </div>
+  </div>
 
-function addDigit(d) {
-  if (entered.length >= 4) return;
-  entered += d;
-  updateDots();
-  if (entered.length === 4) {
-    setTimeout(() => {
-      if (entered === PIN) {
-        sessionStorage.setItem('pin_ok', '1');
-        document.getElementById('pin-screen').style.display = 'none';
-        document.getElementById('main-content').style.display = 'block';
-      } else {
-        document.getElementById('dots').classList.add('shake');
-        document.getElementById('pin-error').style.opacity = '1';
-        setTimeout(() => {
-          entered = '';
-          updateDots();
-          document.getElementById('dots').classList.remove('shake');
-          document.getElementById('pin-error').style.opacity = '0';
-        }, 800);
-      }
-    }, 200);
-  }
-}
+</main>
 
-function removeDigit() {
-  entered = entered.slice(0, -1);
-  updateDots();
-}
+<footer>
+  <p>IM 에스테틱 콘텐츠 관리 시스템 v1.0</p>
+  <div class="divider"></div>
+  <p>2026년 3월~</p>
+</footer>
 
-// Check session
-if (sessionStorage.getItem('pin_ok') === '1') {
-  document.getElementById('pin-screen').style.display = 'none';
-  document.getElementById('main-content').style.display = 'block';
-}
-</script>
 </body>
 </html>

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IM 에스테틱 카드뉴스 메이커</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<style>
+:root{--bg:#FFF8F0;--dark:#4A3728;--ch:#333;--or:#FF8C42;--gr:#888;--bd:#e8d5c0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Pretendard',sans-serif;background:#f5ede0;color:var(--ch);min-height:100vh}
+header{background:var(--dark);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:16px}
+header h1{font-size:18px;font-weight:700}header span{font-size:12px;opacity:.65}
+.tabs{display:flex;background:#fff;border-bottom:2px solid var(--bd)}
+.tab{padding:11px 22px;cursor:pointer;font-size:13px;font-weight:600;color:var(--gr);border-bottom:3px solid transparent;margin-bottom:-2px;transition:.15s}
+.tab.active{color:var(--or);border-color:var(--or)}
+.main{display:grid;grid-template-columns:400px 1fr;min-height:calc(100vh - 108px)}
+@media(max-width:860px){.main{grid-template-columns:1fr}}
+.editor{background:#fff;border-right:1px solid var(--bd);overflow-y:auto;max-height:calc(100vh - 108px)}
+.pnl{background:#eee4d5;overflow-y:auto;max-height:calc(100vh - 108px);padding:18px}
+.panel{display:none;padding:14px}.panel.active{display:block}
+.cal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.cc{background:var(--bg);border:2px solid var(--bd);border-radius:9px;padding:10px;cursor:pointer;transition:.15s}
+.cc:hover{border-color:var(--or);transform:translateY(-1px)}.cc.sel{border-color:var(--or);background:#fff3ea}
+.cc .wk{font-size:11px;color:var(--or);font-weight:700}.cc .ti{font-size:13px;font-weight:600;margin-top:3px}
+.cc .tp{font-size:10px;color:var(--gr);margin-top:1px}
+.frow{margin-bottom:10px}
+label{display:block;font-size:11px;font-weight:600;color:var(--dark);margin-bottom:3px}
+input[type=text],textarea,select{width:100%;padding:7px 10px;border:1.5px solid var(--bd);border-radius:7px;font-family:inherit;font-size:13px;background:var(--bg);color:var(--ch);outline:none;transition:.15s}
+input[type=text]:focus,textarea:focus,select:focus{border-color:var(--or)}
+textarea{resize:vertical;min-height:54px}
+.se{background:var(--bg);border:1.5px solid var(--bd);border-radius:9px;padding:12px;margin-bottom:10px}
+.se-hd{display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.badge{background:var(--or);color:#fff;border-radius:20px;padding:2px 9px;font-size:10px;font-weight:700}
+.rl{font-size:11px;color:var(--gr);font-weight:600}
+.cr{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-top:7px}
+.cd{width:22px;height:22px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:.15s;position:relative}
+.cd:hover,.cd.sel{border-color:var(--ch)}
+.cd input[type=color]{opacity:0;position:absolute;inset:0;cursor:pointer;width:100%;height:100%}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:14px}
+.pi{background:#fff;border-radius:9px;overflow:hidden;box-shadow:0 2px 10px #0002}
+.pilbl{padding:7px 11px;font-size:11px;font-weight:600;color:var(--gr);display:flex;justify-content:space-between;align-items:center}
+.pw{width:270px;height:337px;overflow:hidden;cursor:pointer}
+.pw>div{transform:scale(0.25);transform-origin:top left;width:1080px;height:1080px}
+.sf{width:1080px;height:1350px;position:relative;overflow:hidden;font-family:'Pretendard',sans-serif}
+.stb{position:absolute;top:0;left:0;right:0;height:6px;background:var(--or)}
+.sind{position:absolute;top:18px;right:34px;font-size:20px;color:#ccc;font-weight:600}
+.sp{padding:80px;height:100%;display:flex;flex-direction:column;justify-content:center}
+.btn{padding:7px 14px;border-radius:7px;border:none;cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;transition:.15s}
+.btn-p{background:var(--or);color:#fff}.btn-p:hover{background:#d96e28}
+.btn-o{background:#fff;border:1.5px solid var(--bd);color:var(--ch)}.btn-o:hover{border-color:var(--or)}
+.btn-sm{padding:4px 9px;font-size:11px}
+.acts{display:flex;gap:7px;flex-wrap:wrap;padding:14px;border-top:1px solid var(--bd)}
+#export-area{position:fixed;left:-9999px;top:0;pointer-events:none}
+.pb{background:var(--bd);border-radius:3px;height:5px;overflow:hidden;margin-top:7px}
+.pf{height:100%;background:var(--or);transition:width .3s}
+.ib{background:var(--bg);border:1px solid var(--bd);border-radius:7px;padding:10px;font-size:12px;color:var(--gr);margin-bottom:10px}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>IM 에스테틱 카드뉴스 메이커</h1>
+    <span>053-241-3855 | 범어마크팰리스 2층</span>
+  </div>
+</header>
+<div class="tabs">
+  <div class="tab active" onclick="switchTab(0)">캘린더에서 선택</div>
+  <div class="tab" onclick="switchTab(1)">직접 입력</div>
+</div>
+<div class="main">
+  <div class="editor">
+    <div class="panel active" id="panel-a">
+      <div class="ib">Thursday 인포그래픽 목록입니다. 클릭하면 에디터가 채워집니다.</div>
+      <div class="cal-grid" id="cal-grid"></div>
+      <div id="seds-a" style="margin-top:14px"></div>
+    </div>
+    <div class="panel" id="panel-b">
+      <div class="frow">
+        <label>주제 / 키워드</label>
+        <input type="text" id="topic" placeholder="예: 수분 케어, 비대칭, 결 관리..." oninput="autoRec()">
+      </div>
+      <div class="frow">
+        <label>템플릿 타입</label>
+        <select id="tpl">
+          <option value="auto">자동 추천</option>
+          <option value="infographic">Infographic</option>
+          <option value="qa_flip">Q&amp;A Flip</option>
+          <option value="program">Program</option>
+          <option value="ugc">UGC / 후기</option>
+        </select>
+      </div>
+      <div id="rec-lbl" style="font-size:11px;color:var(--or);margin-bottom:8px;min-height:16px"></div>
+      <button class="btn btn-p" style="width:100%;margin-bottom:4px" onclick="genTopic()">슬라이드 생성</button>
+      <div id="seds-b" style="margin-top:10px"></div>
+    </div>
+    <div class="acts" id="actbar" style="display:none">
+      <button class="btn btn-p" onclick="dlAll()">전체 다운로드</button>
+      <button class="btn btn-o" onclick="cpCanva()">Canva 가이드 복사</button>
+      <div style="width:100%;display:none" id="prog-wrap">
+        <div style="font-size:11px;color:var(--gr)" id="prog-txt">준비중...</div>
+        <div class="pb"><div class="pf" id="prog-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="pnl">
+    <div id="pgrid" class="pgrid"></div>
+    <div id="empty" style="text-align:center;padding:60px 20px;color:var(--gr)">
+      <div style="font-size:40px;margin-bottom:10px">  </div>
+      <div style="font-weight:600;font-size:14px">포스팅을 선택하거나 주제를 입력해<br>슬라이드를 생성하세요</div>
+    </div>
+  </div>
+</div>
+<div id="export-area"></div>
+<script>
+const CP=[
+{id:"1W_Thu",w:"1주차",t:"공간 소개",tp:"infographic",s:[
+{r:"hook",tx:"저희 공간, 한번 들어와 보실래요?",bg:"#FFF8F0"},
+{r:"content",tt:"라운지",tx:"햇살이 들어오는 대기 공간"},
+{r:"content",tt:"프라이빗 케어룸",tx:"오직 한 분을 위한 방"},
+{r:"content",tt:"파우더룸",tx:"관리 후 마무리까지 편안하게"},
+{r:"cta",tx:"저장하고 방문해보세요"}]},
+{id:"3W_Thu",w:"3주차",t:"첫 방문 안내",tp:"infographic",s:[
+{r:"hook",tx:"처음이라 긴장되시죠? 이렇게 진행돼요",bg:"#FFF8F0"},
+{r:"step",n:"01",tt:"예약",tx:"프로필 링크에서 원하시는 시간 선택"},
+{r:"step",n:"02",tt:"1:1 상담",tx:"차 한 잔과 함께 피부 결·장벽 체크"},
+{r:"step",n:"03",tt:"맞춤 케어",tx:"결관리 기반 전문 수기 테크닉"},
+{r:"step",n:"04",tt:"홈케어 가이드",tx:"집에서도 효과 이어지도록"},
+{r:"cta",tx:"저장해두고 방문 전에 다시 확인하세요!"}]},
+{id:"4W_Thu",w:"4주차",t:"위생 철칙",tp:"infographic",s:[
+{r:"hook",tx:"내 피부에 직접 닿는 곳, 얼마나 깨끗할까?"},
+{r:"content",tt:"일회용 위생용품",tx:"해면·가운 100% 일회용"},
+{r:"content",tt:"2중 소독",tx:"기구 자외선+알코올 2중 소독"},
+{r:"content",tt:"1인 1룸",tx:"관리 후 베딩 교체 & 환기"},
+{r:"cta",tx:"안심하고 방문하세요"}]},
+{id:"5W_Thu",w:"5주차",t:"피로도 자가 진단",tp:"infographic",s:[
+{r:"hook",tx:"요즘 자고 일어나도 개운하지 않으세요?"},
+{r:"checklist",tt:"체크리스트 (1)",items:["아침에 목이 뻐근하다","하루 종일 나른하다","한쪽 어깨만 자주 뭉친다","얼굴이 자주 붓는다"]},
+{r:"checklist",tt:"체크리스트 (2)",items:["두통이 자주 온다","좌우 얼굴이 다르다","숙면이 어렵다","소화가 잘 안 된다"]},
+{r:"content",tt:"3개 이상이라면?",tx:"밸런스가 무너지고 있다는 신호"},
+{r:"content",tt:"해결책",tx:"결관리 + 근막 흐름 정돈이 필요한 순간"},
+{r:"cta",tx:"저장! 만성피로 친구에게 공유해 주세요"}]},
+{id:"6W_Thu",w:"6주차",t:"성분 딥다이브",tp:"infographic",s:[
+{r:"hook",tx:"같은 성분인데 왜 효과가 다를까?"},
+{r:"content",tt:"비교",tx:"로드샵 vs 에스테틱 전용 화장품"},
+{r:"content",tt:"유효 성분 농도",tx:"에스테틱 전용 고농축 메디컬 코스메틱"},
+{r:"content",tt:"흡수력의 차이",tx:"결관리 + 수기 테크닉이 더해질 때"},
+{r:"highlight",tx:"결이 안정되면, 같은 성분도 흡수력이 달라져요"},
+{r:"cta",tx:"어떤 성분 쓰는지 궁금하면 DM!"}]},
+{id:"7W_Thu",w:"7주차",t:"Myth vs Fact",tp:"qa_flip",s:[
+{r:"hook",tx:"아파야 효과 있다?",bg:"#4A3728"},
+{r:"myth",tx:"세게 눌러야 뼈가 작아진다"},
+{r:"fact",tx:"과한 통증은 근육을 수축시켜 오히려 긴장시킵니다"},
+{r:"myth",tx:"보습해도 건조하면 더 비싼 크림을 써야 한다"},
+{r:"fact",tx:"문제는 수분 양이 아니라 피부 결의 '붙잡는 힘'"},
+{r:"cta",tx:"저장하고 친구에게 공유해 주세요"}]},
+{id:"8W_Thu",w:"8주차",t:"4월 프로모션",tp:"infographic",s:[
+{r:"hook",tx:"4월, 자리가 많지 않아요"},
+{r:"content",tt:"4월 예약 캘린더",tx:"원하시는 날짜를 확인하세요"},
+{r:"content",tt:"보습 결케어",tx:"수분이 머무는 피부 결 만들기"},
+{r:"content",tt:"진정 결케어",tx:"붉은기·열감, 순환부터 잡기"},
+{r:"content",tt:"볼륨윤곽관리",tx:"봄 나들이 전 탄력 윤곽"},
+{r:"cta",tx:"프로필 링크에서 지금 바로 예약!"}]},
+{id:"9W_Thu",w:"9주차",t:"보습 결케어",tp:"program",s:[
+{r:"hook",tx:"바를 땐 촉촉한데, 금방 다시 건조해져요"},
+{r:"cause",tt:"왜 이런 일이?",tx:"문제는 수분 양이 아니라 '붙잡는 힘'"},
+{r:"program",name:"IM 보습 결케어",tag:"결이 살아나면 촉촉함을 유지합니다"},
+{r:"step",n:"01",tt:"결 안정",tx:"각질 벗기기 X, 결의 방향과 흐름 정돈"},
+{r:"step",n:"02",tt:"저자극 수분 케어",tx:"손 감각 기반 케어 + 수분 공급"},
+{r:"recommend",items:["보습제 발라도 금방 건조해지는 분","환절기마다 피부가 당기는 분","속건조가 심한 분","피부 결이 거칠어진 분"]},
+{r:"cta",tx:"블로그에서 자세히 보기"}]},
+{id:"10W_Thu",w:"10주차",t:"트러블 결케어",tp:"program",s:[
+{r:"hook",tx:"화장으로 안 가려지는 좁쌀, 반복되는 트러블"},
+{r:"cause",tt:"트러블의 정체",tx:"결이 무너진 피부의 SOS 신호"},
+{r:"program",name:"IM 트러블 결케어",tag:"결을 바로잡으면 트러블은 스스로 멈춥니다"},
+{r:"step",n:"01",tt:"원인 분석",tx:"트러블 원인 분석 + 결 상태 진단"},
+{r:"step",n:"02",tt:"결 정돈 + 진정",tx:"결 정돈 + 진정 + 장벽 회복"},
+{r:"recommend",items:["좁쌀 여드름이 반복되는 분","화장품만 바꿔도 트러블이 나는 분","피부가 예민하고 울긋불긋한 분","트러블 자국이 오래 남는 분"]},
+{r:"cta",tx:"블로그에서 자세히 보기"}]},
+{id:"11W_Thu",w:"11주차",t:"볼륨윤곽관리",tp:"program",s:[
+{r:"hook",tx:"팔자주름이 깊어지고, 볼이 꺼져 보여요"},
+{r:"cause",tt:"왜 꺼져 보일까?",tx:"유지인대 약화 + 지방패드 하수"},
+{r:"program",name:"IM 볼륨윤곽관리",tag:"모든 프로그램에 결관리가 기본입니다"},
+{r:"step",n:"01",tt:"근막 흐름 분석",tx:"근막 흐름 분석 + 윤곽 기기 적용"},
+{r:"step",n:"02",tt:"리프팅 + 볼륨",tx:"전문 수기로 리프팅 + 볼륨 회복"},
+{r:"recommend",items:["팔자주름이 깊어진 분","볼이 꺼져 피곤해 보이는 분","탄력이 떨어져 처진 느낌인 분","윤곽이 무너져 보이는 분"]},
+{r:"cta",tx:"블로그에서 자세히 보기"}]},
+{id:"12W_Thu",w:"12주차",t:"비대칭윤곽케어",tp:"program",s:[
+{r:"hook",tx:"왼쪽 오른쪽, 왜 얼굴이 다를까요?"},
+{r:"cause",tt:"비대칭의 원인",tx:"근막 방향성 + 턱관절 + 습관의 축적"},
+{r:"program",name:"IM 비대칭윤곽케어",tag:"조화로운 흐름이 만드는 자연스러운 균형"},
+{r:"step",n:"01",tt:"방향성 분석",tx:"근막 방향성 분석 + 두피·목·턱 라인 정리"},
+{r:"step",n:"02",tt:"균형 조율",tx:"좌우 균형 조율 + 흉곽 라인 연결"},
+{r:"recommend",items:["사진 속 좌우 얼굴이 다른 분","한쪽으로만 씹는 습관이 있는 분","턱이 자주 결리는 분","어깨 높이가 다른 분"]},
+{r:"cta",tx:"블로그에서 자세히 보기"}]}
+];
+
+/* ---- SVG icons ---- */
+const IC={
+bookmark:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>`,
+phone:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.6 19.79 19.79 0 0 1 1.61 5.06 2 2 0 0 1 3.6 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10.6a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`,
+mapPin:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
+shield:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+droplet:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>`,
+heart:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
+sparkle:`<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6L12 2z"/></svg>`,
+check:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg>`,
+xcirc:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>`,
+target:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`,
+star:`<svg viewBox="0 0 24 24" fill="#FF8C42"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`,
+face:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>`,
+link:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
+hand:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 11V6a2 2 0 0 0-4 0v0M14 10V4a2 2 0 0 0-4 0v2M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>`,
+refresh:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>`
+};
+const ic=(n,sz=32,cl="currentColor")=>`<span style="display:inline-flex;width:${sz}px;height:${sz}px;color:${cl};flex-shrink:0">${IC[n]||''}</span>`;
+
+/* ---- state ---- */
+let POST=null,SLIDES=[],IMGS={};
+
+/* ---- init ---- */
+(()=>{
+  const g=document.getElementById('cal-grid');
+  g.innerHTML=CP.map(p=>`<div class="cc" id="cc-${p.id}" onclick="selPost('${p.id}')">
+    <div class="wk">${p.w}</div><div class="ti">${p.t}</div><div class="tp">${p.tp}</div>
+  </div>`).join('');
+  const q=new URLSearchParams(location.search).get('post');
+  if(q){const p=CP.find(c=>c.id===q);if(p){selPost(p.id);}}
+})();
+
+function switchTab(i){
+  document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('active',i===j));
+  document.querySelectorAll('.panel').forEach((p,j)=>p.classList.toggle('active',i===j));
+}
+
+function selPost(id){
+  const p=CP.find(c=>c.id===id);if(!p)return;
+  POST=p;SLIDES=p.s.map(s=>({...s,items:s.items?[...s.items]:undefined}));IMGS={};
+  document.querySelectorAll('.cc').forEach(c=>c.classList.remove('sel'));
+  document.getElementById('cc-'+id)?.classList.add('sel');
+  buildEditors('seds-a');render();show();
+}
+
+/* ---- editors ---- */
+const RL={hook:'훅',step:'스텝',content:'내용',cta:'CTA',myth:'미스',fact:'팩트',checklist:'체크리스트',program:'프로그램',cause:'원인',recommend:'추천대상',highlight:'강조',ugc:'후기'};
+const BGP=['#FFF8F0','#FFFFFF','#4A3728','#F5EDE0'];
+
+function buildEditors(cid){
+  document.getElementById(cid).innerHTML=SLIDES.map((s,i)=>edHTML(s,i,cid)).join('');
+}
+
+function edHTML(s,i,cid){
+  const n=SLIDES.length;
+  const dots=BGP.map(c=>`<div class="cd" style="background:${c}" onclick="setBg(${i},'${c}','${cid}')" title="${c}"></div>`).join('');
+  return`<div class="se">
+    <div class="se-hd"><span class="badge">${i+1}/${n}</span><span class="rl">${RL[s.r]||s.r}</span></div>
+    ${fields(s,i)}
+    <div style="margin-top:7px"><label>배경색</label>
+    <div class="cr">${dots}<div class="cd" style="background:linear-gradient(135deg,#f00,#0f0,#00f)" title="직접선택"><input type="color" value="${s.bg||'#FFF8F0'}" oninput="setBg(${i},this.value,'${cid}')"></div></div></div>
+    <div style="margin-top:7px"><label>이미지 (선택)</label><input type="file" accept="image/*" onchange="upImg(${i},this,'${cid}')"></div>
+  </div>`;
+}
+
+function fi(lbl,k,v,multi,idx){
+  const attr=`data-idx="${idx}" data-k="${k}"`;
+  return multi
+    ?`<div class="frow"><label>${lbl}</label><textarea ${attr} oninput="upd(this)">${v||''}</textarea></div>`
+    :`<div class="frow"><label>${lbl}</label><input type="text" ${attr} value="${(v||'').replace(/"/g,'&quot;')}" oninput="upd(this)"></div>`;
+}
+
+function fields(s,i){
+  const f=(l,k,v,m=false)=>fi(l,k,v,m,i);
+  const ta=(l,k,arr)=>`<div class="frow"><label>${l}</label><textarea data-idx="${i}" data-k="${k}" oninput="upd(this)">${(arr||[]).join('\n')}</textarea></div>`;
+  switch(s.r){
+    case'hook':return f('훅 문구','tx',s.tx,true);
+    case'step':return f('번호','n',s.n)+f('제목','tt',s.tt)+f('설명','tx',s.tx,true);
+    case'content':return f('제목','tt',s.tt)+f('설명','tx',s.tx,true);
+    case'cta':return f('CTA 문구','tx',s.tx,true);
+    case'myth':return f('미스 문구','tx',s.tx,true);
+    case'fact':return f('팩트 문구','tx',s.tx,true);
+    case'highlight':return f('강조 문구','tx',s.tx,true);
+    case'cause':return f('제목','tt',s.tt)+f('내용','tx',s.tx,true);
+    case'program':return f('프로그램명','name',s.name)+f('태그라인','tag',s.tag);
+    case'checklist':return f('제목','tt',s.tt)+ta('항목 (줄바꿈 구분)','items',s.items);
+    case'recommend':return ta('추천 대상 (줄바꿈 구분)','items',s.items);
+    case'ugc':return f('후기 내용','tx',s.tx,true)+f('작성자','author',s.author);
+    default:return f('내용','tx',s.tx,true);
+  }
+}
+
+function upd(el){
+  const idx=+el.dataset.idx,k=el.dataset.k;
+  SLIDES[idx][k]=k==='items'?el.value.split('\n').filter(x=>x.trim()):el.value;
+  refreshPrev(idx);
+}
+function setBg(idx,c,cid){SLIDES[idx].bg=c;refreshPrev(idx);}
+function upImg(idx,inp,cid){
+  const r=new FileReader();r.onload=e=>{IMGS[idx]=e.target.result;refreshPrev(idx);};
+  r.readAsDataURL(inp.files[0]);
+}
+
+/* ---- render ---- */
+function render(){
+  const g=document.getElementById('pgrid');
+  const n=SLIDES.length;
+  g.innerHTML=SLIDES.map((s,i)=>`
+    <div class="pi">
+      <div class="pilbl"><span>${i+1}/${n} · ${RL[s.r]||s.r}</span>
+        <button class="btn btn-o btn-sm" onclick="dlOne(${i})">다운로드</button></div>
+      <div class="pw" onclick="dlOne(${i})" title="클릭하면 다운로드">
+        <div id="pw${i}"></div></div>
+    </div>`).join('');
+  SLIDES.forEach((_,i)=>refreshPrev(i));
+}
+
+function refreshPrev(idx){
+  const el=document.getElementById('pw'+idx);
+  if(!el)return;
+  el.innerHTML=slideHTML(SLIDES[idx],idx,SLIDES.length);
+}
+
+function show(){
+  document.getElementById('actbar').style.display='flex';
+  document.getElementById('empty').style.display='none';
+}
+
+/* ---- slide HTML ---- */
+const darkBg=new Set(['myth','program']);
+function defBg(s){
+  if(s.bg)return s.bg;
+  if(s.r==='myth')return'#5C4A3A';
+  if(s.r==='program')return'#4A3728';
+  if(s.r==='hook'&&POST?.tp==='qa_flip')return'#4A3728';
+  return'#FFF8F0';
+}
+function lum(hex){
+  if(!hex||hex[0]!=='#')return 200;
+  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  return 0.299*r+0.587*g+0.114*b;
+}
+
+function slideHTML(s,i,n){
+  const bg=defBg(s);
+  const light=lum(bg)>128;
+  const dc=light?'#333':'#fff';
+  const sc=light?'#888':'rgba(255,255,255,.65)';
+  const img=IMGS[i]?`<div style="position:absolute;inset:0;background:url('${IMGS[i]}') center/cover;opacity:.12"></div>`:'';
+  return`<div class="sf" style="background:${bg}">
+    <div class="stb"></div>${img}
+    <div class="sind">${i+1}/${n}</div>
+    <div class="sp">${inner(s,dc,sc,bg,i,n)}</div>
+    ${i===n-1?footer():''}
+  </div>`;
+}
+
+function inner(s,dc,sc,bg,i,n){
+  switch(s.r){
+    case'hook':return`
+      <div style="color:rgba(255,140,66,.13);font-size:200px;font-weight:900;line-height:1;position:absolute;top:50px;left:55px;pointer-events:none">"</div>
+      <div style="text-align:center;color:${dc}">
+        <div style="font-size:66px;font-weight:800;line-height:1.35;white-space:pre-wrap">${e(s.tx)}</div>
+      </div>
+      <div style="color:rgba(255,140,66,.13);font-size:200px;font-weight:900;position:absolute;bottom:110px;right:55px;transform:rotate(180deg)">"</div>`;
+    case'step':return`
+      <div style="display:flex;align-items:flex-start;gap:44px">
+        <div style="background:#FF8C42;color:#fff;width:96px;height:96px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:38px;font-weight:800;flex-shrink:0">${e(s.n)}</div>
+        <div style="border-left:6px solid #FF8C42;padding-left:36px;flex:1">
+          <div style="font-size:40px;font-weight:800;color:${dc};margin-bottom:18px">${e(s.tt)}</div>
+          <div style="font-size:28px;color:${sc};line-height:1.65;white-space:pre-wrap">${e(s.tx)}</div>
+        </div>
+      </div>`;
+    case'content':return`
+      <div>
+        <div style="font-size:36px;font-weight:800;color:#FF8C42;margin-bottom:16px">${e(s.tt||'')}</div>
+        <div style="height:4px;background:#FF8C42;width:72px;margin-bottom:28px;border-radius:2px"></div>
+        <div style="font-size:29px;color:${dc};line-height:1.7;white-space:pre-wrap">${e(s.tx)}</div>
+      </div>`;
+    case'myth':return`
+      <div style="text-align:center">
+        <div style="display:flex;justify-content:center;margin-bottom:36px">${ic('xcirc',110,'#e05050')}</div>
+        <div style="font-size:22px;font-weight:700;color:#e05050;letter-spacing:5px;margin-bottom:22px">MYTH</div>
+        <div style="font-size:50px;font-weight:800;color:#fff;line-height:1.4;white-space:pre-wrap">${e(s.tx)}</div>
+      </div>`;
+    case'fact':return`
+      <div style="text-align:center">
+        <div style="display:flex;justify-content:center;margin-bottom:36px">${ic('check',110,'#4CAF50')}</div>
+        <div style="font-size:22px;font-weight:700;color:#4CAF50;letter-spacing:5px;margin-bottom:22px">FACT</div>
+        <div style="font-size:46px;font-weight:800;color:${dc};line-height:1.5;white-space:pre-wrap">${e(s.tx)}</div>
+      </div>`;
+    case'checklist':return`
+      <div>
+        <div style="font-size:36px;font-weight:800;color:${dc};margin-bottom:36px">${e(s.tt||'')}</div>
+        ${(s.items||[]).map(it=>`<div style="display:flex;align-items:center;gap:22px;padding:18px 0;border-bottom:1px solid rgba(0,0,0,.07)">
+          ${ic('check',42,'#FF8C42')}<span style="font-size:29px;color:${dc}">${e(it)}</span></div>`).join('')}
+      </div>`;
+    case'program':return`
+      <div style="text-align:center">
+        ${ic('sparkle',76,'#FF8C42')}
+        <div style="font-size:26px;color:rgba(255,255,255,.55);margin:22px 0 14px;letter-spacing:5px">PROGRAM</div>
+        <div style="font-size:58px;font-weight:900;color:#fff;margin-bottom:22px;line-height:1.2">${e(s.name||'')}</div>
+        <div style="background:rgba(255,140,66,.28);border-radius:40px;padding:14px 44px;display:inline-block">
+          <span style="font-size:25px;color:#FF8C42;font-weight:600">${e(s.tag||'')}</span>
+        </div>
+      </div>`;
+    case'cause':return`
+      <div>
+        <div style="font-size:27px;color:#FF8C42;font-weight:700;margin-bottom:14px">${e(s.tt||'')}</div>
+        <div style="font-size:42px;font-weight:800;color:${dc};line-height:1.45;white-space:pre-wrap">${e(s.tx)}</div>
+      </div>`;
+    case'recommend':return`
+      <div>
+        <div style="font-size:36px;font-weight:800;color:${dc};margin-bottom:14px">이런 분께 추천해요</div>
+        <div style="height:4px;background:#FF8C42;width:72px;margin-bottom:32px;border-radius:2px"></div>
+        ${(s.items||[]).map(it=>`<div style="display:flex;align-items:center;gap:18px;margin-bottom:22px">
+          ${ic('target',38,'#FF8C42')}<span style="font-size:27px;color:${dc}">${e(it)}</span></div>`).join('')}
+      </div>`;
+    case'highlight':return`
+      <div style="border-left:10px solid #FF8C42;padding:44px 52px;background:rgba(255,140,66,.06);border-radius:0 14px 14px 0">
+        <div style="font-size:48px;font-weight:800;color:${dc};line-height:1.5;white-space:pre-wrap">${e(s.tx)}</div>
+      </div>`;
+    case'ugc':return`
+      <div style="text-align:center">
+        ${ic('heart',76,'#FF8C42')}
+        <div style="font-size:42px;font-style:italic;color:${dc};margin:32px 0;line-height:1.55;white-space:pre-wrap">"${e(s.tx)}"</div>
+        <div style="font-size:25px;color:${sc}">— ${e(s.author||'고객 후기')}</div>
+      </div>`;
+    case'cta':return`
+      <div style="text-align:center">
+        <div style="display:flex;justify-content:center;margin-bottom:36px">${ic('bookmark',76,'#FF8C42')}</div>
+        <div style="font-size:46px;font-weight:800;color:${dc};line-height:1.5;white-space:pre-wrap">${e(s.tx)}</div>
+        <div style="margin-top:36px;display:flex;justify-content:center;gap:20px">
+          ${ic('star',34)}${ic('star',34)}${ic('star',34)}
+        </div>
+      </div>`;
+    default:return`<div style="font-size:29px;color:${dc};white-space:pre-wrap">${e(s.tx||JSON.stringify(s))}</div>`;
+  }
+}
+
+function footer(){return`
+  <div style="position:absolute;bottom:0;left:0;right:0;padding:36px 80px 46px;border-top:2px solid rgba(255,140,66,.18)">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+      ${ic('sparkle',34,'#FF8C42')}
+      <span style="font-size:42px;font-weight:900;color:#4A3728;letter-spacing:-1px">IM AESTHETIC</span>
+    </div>
+    <div style="display:flex;gap:28px;color:#888;font-size:23px">
+      <span style="display:flex;align-items:center;gap:7px">${ic('phone',26,'#FF8C42')} 053-241-3855</span>
+      <span style="display:flex;align-items:center;gap:7px">${ic('mapPin',26,'#FF8C42')} 범어마크팰리스 2층</span>
+    </div>
+  </div>`;}
+
+/* ---- auto recommend ---- */
+const KM=[
+  {k:['수분','건조','촉촉'],tp:'program',tpl:{id:'custom',t:'보습 결케어',tp:'program',s:[
+    {r:'hook',tx:'바를 땐 촉촉한데, 금방 다시 건조해져요'},{r:'cause',tt:'원인',tx:"문제는 수분 양이 아니라 '붙잡는 힘'"},
+    {r:'program',name:'IM 보습 결케어',tag:'결이 살아나면 촉촉함을 유지합니다'},{r:'cta',tx:'DM으로 문의해 주세요'}]}},
+  {k:['트러블','여드름','좁쌀'],tp:'program',tpl:{id:'custom',t:'트러블 결케어',tp:'program',s:[
+    {r:'hook',tx:'반복되는 트러블, 지치셨죠?'},{r:'cause',tt:'원인',tx:'결이 무너진 피부의 SOS 신호'},
+    {r:'program',name:'IM 트러블 결케어',tag:'결을 바로잡으면 트러블은 스스로 멈춥니다'},{r:'cta',tx:'DM으로 문의해 주세요'}]}},
+  {k:['비대칭','좌우','턱','윤곽'],tp:'program',tpl:{id:'custom',t:'비대칭윤곽케어',tp:'program',s:[
+    {r:'hook',tx:'왼쪽 오른쪽, 왜 얼굴이 다를까요?'},{r:'cause',tt:'원인',tx:'근막 방향성 + 습관의 축적'},
+    {r:'program',name:'IM 비대칭윤곽케어',tag:'조화로운 흐름이 만드는 자연스러운 균형'},{r:'cta',tx:'DM으로 문의해 주세요'}]}},
+  {k:['오해','미신','아프','통증','잘못'],tp:'qa_flip',tpl:{id:'custom',t:'Myth vs Fact',tp:'qa_flip',s:[
+    {r:'hook',tx:'피부 관리, 잘못 알고 계신 거 아닌가요?',bg:'#4A3728'},
+    {r:'myth',tx:'세게 눌러야 효과 있다'},{r:'fact',tx:'과한 자극은 오히려 피부를 긴장시킵니다'},
+    {r:'cta',tx:'저장하고 공유해 주세요'}]}}
+];
+
+function autoRec(){
+  const v=document.getElementById('topic').value.toLowerCase();
+  const sel=document.getElementById('tpl');
+  const lbl=document.getElementById('rec-lbl');
+  if(sel.value!=='auto'){lbl.textContent='';return;}
+  for(const m of KM){if(m.k.some(kw=>v.includes(kw))){lbl.textContent=`자동 추천: ${m.tpl.t} (${m.tp})`;return;}}
+  lbl.textContent='';
+}
+
+const DEF_TPLS={
+  infographic:(t)=>({id:'custom',t,tp:'infographic',s:[
+    {r:'hook',tx:t},{r:'content',tt:'포인트 1',tx:'내용을 입력하세요'},
+    {r:'content',tt:'포인트 2',tx:'내용을 입력하세요'},{r:'highlight',tx:'핵심 메시지'},
+    {r:'cta',tx:'저장하고 공유해 주세요'}]}),
+  qa_flip:(t)=>({id:'custom',t,tp:'qa_flip',s:[
+    {r:'hook',tx:t,bg:'#4A3728'},{r:'myth',tx:'잘못된 상식'},{r:'fact',tx:'올바른 정보'},
+    {r:'cta',tx:'저장하고 공유해 주세요'}]}),
+  program:(t)=>({id:'custom',t,tp:'program',s:[
+    {r:'hook',tx:t},{r:'cause',tt:'원인',tx:'원인을 입력하세요'},
+    {r:'program',name:'IM '+t,tag:'결이 살아나는 케어'},
+    {r:'recommend',items:['추천 대상 1','추천 대상 2']},{r:'cta',tx:'DM으로 문의해 주세요'}]}),
+  ugc:(t)=>({id:'custom',t,tp:'ugc',s:[
+    {r:'hook',tx:t},{r:'ugc',tx:'고객님의 솔직한 후기를 입력하세요',author:'고객님'},
+    {r:'cta',tx:'직접 경험해 보세요'}]})
+};
+
+function genTopic(){
+  const topic=document.getElementById('topic').value.trim();
+  if(!topic){alert('주제를 입력하세요');return;}
+  let tpv=document.getElementById('tpl').value,matched=null;
+  if(tpv==='auto'){
+    const tv=topic.toLowerCase();
+    for(const m of KM){if(m.k.some(kw=>tv.includes(kw))){matched=m.tpl;break;}}
+  }
+  if(!matched){
+    const tp=tpv==='auto'?'infographic':tpv;
+    matched=(DEF_TPLS[tp]||DEF_TPLS.infographic)(topic);
+  }
+  POST=matched;SLIDES=matched.s.map(s=>({...s,items:s.items?[...s.items]:undefined}));IMGS={};
+  buildEditors('seds-b');render();show();
+}
+
+/* ---- export ---- */
+async function dlOne(idx){
+  const el=document.getElementById('pw'+idx);if(!el)return;
+  const sf=el.querySelector('.sf');if(!sf)return;
+  setP(true,`슬라이드 ${idx+1} 렌더링...`,0);
+  try{
+    const c=await html2canvas(sf,{scale:1,useCORS:true,allowTaint:true,width:1080,height:1350});
+    dl(c,`IM_카드뉴스_${POST?.id||'custom'}_${idx+1}.png`);
+  }catch(ex){alert('렌더링 실패: '+ex.message);}
+  setP(false);
+}
+
+async function dlAll(){
+  if(!SLIDES.length)return;
+  for(let i=0;i<SLIDES.length;i++){
+    setP(true,`${i+1}/${SLIDES.length} 렌더링...`,Math.round(i/SLIDES.length*100));
+    const sf=document.getElementById('pw'+i)?.querySelector('.sf');
+    if(!sf)continue;
+    try{
+      const c=await html2canvas(sf,{scale:1,useCORS:true,allowTaint:true,width:1080,height:1350});
+      dl(c,`IM_카드뉴스_${POST?.id||'custom'}_${i+1}.png`);
+      await new Promise(r=>setTimeout(r,200));
+    }catch(ex){console.error(ex);}
+  }
+  setP(false);
+}
+
+function cpCanva(){
+  const lines=[`IM 에스테틱 카드뉴스 — ${POST?.t||''}`,`총 ${SLIDES.length}장`,''];
+  SLIDES.forEach((s,i)=>{
+    lines.push(`[슬라이드 ${i+1}] ${RL[s.r]||s.r}`);
+    ['tt','tx','name','tag','n','author'].forEach(k=>{if(s[k])lines.push(`${k}: ${s[k]}`);});
+    if(s.items)lines.push('항목:\n'+s.items.map(x=>'• '+x).join('\n'));
+    lines.push('');
+  });
+  navigator.clipboard.writeText(lines.join('\n'))
+    .then(()=>alert('Canva 가이드가 클립보드에 복사되었습니다!'))
+    .catch(()=>alert('복사 실패. 브라우저 권한을 확인하세요.'));
+}
+
+function dl(canvas,name){const a=document.createElement('a');a.href=canvas.toDataURL('image/png');a.download=name;a.click();}
+function setP(show,txt='',pct=0){
+  const w=document.getElementById('prog-wrap');
+  w.style.display=show?'block':'none';
+  if(show){document.getElementById('prog-txt').textContent=txt;document.getElementById('prog-fill').style.width=pct+'%';}
+}
+const e=t=>String(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+</script>
+</body>
+</html>
