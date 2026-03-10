@@ -7,69 +7,402 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <style>
-:root{--bg:#FFF8F0;--dark:#4A3728;--ch:#333;--or:#FF8C42;--gr:#888;--bd:#e8d5c0}
+/* ---- CSS 변수 / 색상 시스템 ---- */
+:root{
+  --bg:#FFF8F0;
+  --dark:#4A3728;
+  --ch:#333;
+  --or:#FF8C42;
+  --gr:#888;
+  --bd:#e8d5c0;
+  --glass-light:rgba(255,248,240,0.72);
+  --glass-border:rgba(232,213,192,0.5);
+  --shadow-or:0 2px 12px rgba(255,140,66,0.08);
+  --transition:.2s ease;
+}
+
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Pretendard',sans-serif;background:#f5ede0;color:var(--ch);min-height:100vh}
-header{background:var(--dark);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:16px}
-header h1{font-size:18px;font-weight:700}header span{font-size:12px;opacity:.65}
-.tabs{display:flex;background:#fff;border-bottom:2px solid var(--bd)}
-.tab{padding:11px 22px;cursor:pointer;font-size:13px;font-weight:600;color:var(--gr);border-bottom:3px solid transparent;margin-bottom:-2px;transition:.15s}
-.tab.active{color:var(--or);border-color:var(--or)}
-.main{display:grid;grid-template-columns:400px 1fr;min-height:calc(100vh - 108px)}
-@media(max-width:860px){.main{grid-template-columns:1fr}}
-.editor{background:#fff;border-right:1px solid var(--bd);overflow-y:auto;max-height:calc(100vh - 108px)}
-.pnl{background:#eee4d5;overflow-y:auto;max-height:calc(100vh - 108px);padding:18px}
-.panel{display:none;padding:14px}.panel.active{display:block}
+
+/* ---- 헤더 글래스모피즘 ---- */
+header{
+  background:linear-gradient(to right,#3E2D1F,#4A3728,#5C4635);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  color:#fff;
+  padding:0 24px;
+  border-bottom:2px solid #FF8C42;
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 4px 20px rgba(62,45,31,0.35);
+}
+.header-inner{display:flex;align-items:center;gap:16px;padding:18px 0}
+header h1{font-size:18px;font-weight:300;letter-spacing:0.05em}
+header span{font-size:12px;opacity:.65}
+
+/* ---- 탭 바 ---- */
+.tabs{
+  display:flex;
+  background:rgba(255,255,255,0.85);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  border-bottom:2px solid var(--bd);
+  position:sticky;
+  top:62px;
+  z-index:99;
+}
+.tab{
+  padding:11px 22px;
+  cursor:pointer;
+  font-size:13px;
+  font-weight:600;
+  color:var(--gr);
+  position:relative;
+  min-height:44px;
+  display:flex;
+  align-items:center;
+  transition:color var(--transition);
+}
+/* 탭 언더라인 애니메이션 */
+.tab::after{
+  content:'';
+  position:absolute;
+  bottom:-2px;
+  left:0;
+  right:0;
+  height:3px;
+  background:var(--or);
+  transform:scaleX(0);
+  transition:transform var(--transition);
+  transform-origin:left center;
+}
+.tab.active{color:var(--or)}
+.tab.active::after{transform:scaleX(1)}
+
+/* ---- 메인 그리드 ---- */
+.main{display:grid;grid-template-columns:400px 1fr;min-height:calc(100vh - 110px)}
+
+/* ---- 에디터 사이드바 글래스모피즘 ---- */
+.editor{
+  background:var(--glass-light);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-right:1px solid var(--glass-border);
+  overflow-y:auto;
+  max-height:calc(100vh - 110px);
+  box-shadow:2px 0 16px rgba(255,140,66,0.06);
+}
+.pnl{
+  background:#eee4d5;
+  overflow-y:auto;
+  max-height:calc(100vh - 110px);
+  padding:18px;
+}
+.panel{display:none;padding:14px}
+.panel.active{display:block}
+
+/* ---- 캘린더 그리드 ---- */
 .cal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
-.cc{background:var(--bg);border:2px solid var(--bd);border-radius:9px;padding:10px;cursor:pointer;transition:.15s}
-.cc:hover{border-color:var(--or);transform:translateY(-1px)}.cc.sel{border-color:var(--or);background:#fff3ea}
-.cc .wk{font-size:11px;color:var(--or);font-weight:700}.cc .ti{font-size:13px;font-weight:600;margin-top:3px}
+
+/* ---- 콘텐츠 카드 ---- */
+.cc{
+  background:rgba(255,248,240,0.85);
+  border:2px solid var(--bd);
+  border-radius:9px;
+  padding:10px;
+  cursor:pointer;
+  transition:border-color var(--transition), transform var(--transition), box-shadow var(--transition), background var(--transition);
+  box-shadow:var(--shadow-or);
+}
+.cc:hover{
+  border-color:var(--or);
+  transform:translateY(-2px);
+  box-shadow:0 6px 18px rgba(255,140,66,0.15);
+}
+.cc.sel{
+  border-color:var(--or);
+  background:rgba(255,243,234,0.95);
+  box-shadow:0 4px 16px rgba(255,140,66,0.2);
+  transform:translateY(-1px);
+}
+.cc .wk{font-size:11px;color:var(--or);font-weight:700}
+.cc .ti{font-size:13px;font-weight:600;margin-top:3px}
 .cc .tp{font-size:10px;color:var(--gr);margin-top:1px}
+
+/* ---- 폼 요소 ---- */
 .frow{margin-bottom:10px}
 label{display:block;font-size:11px;font-weight:600;color:var(--dark);margin-bottom:3px}
-input[type=text],textarea,select{width:100%;padding:7px 10px;border:1.5px solid var(--bd);border-radius:7px;font-family:inherit;font-size:13px;background:var(--bg);color:var(--ch);outline:none;transition:.15s}
-input[type=text]:focus,textarea:focus,select:focus{border-color:var(--or)}
+input[type=text],textarea,select{
+  width:100%;
+  padding:7px 10px;
+  border:1.5px solid var(--bd);
+  border-radius:7px;
+  font-family:inherit;
+  font-size:13px;
+  background:rgba(255,248,240,0.8);
+  color:var(--ch);
+  outline:none;
+  transition:border-color var(--transition), box-shadow var(--transition);
+}
+input[type=text]:focus,textarea:focus,select:focus{
+  border-color:var(--or);
+  box-shadow:0 0 0 3px rgba(255,140,66,0.1);
+}
 textarea{resize:vertical;min-height:54px}
-.se{background:var(--bg);border:1.5px solid var(--bd);border-radius:9px;padding:12px;margin-bottom:10px}
+
+/* ---- 슬라이드 에디터 카드 글래스모피즘 ---- */
+.se{
+  background:rgba(255,255,255,0.7);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  border:1.5px solid var(--glass-border);
+  border-radius:9px;
+  padding:12px;
+  margin-bottom:10px;
+  box-shadow:var(--shadow-or);
+  transition:box-shadow var(--transition);
+}
+.se:hover{box-shadow:0 4px 16px rgba(255,140,66,0.12)}
 .se-hd{display:flex;align-items:center;gap:7px;margin-bottom:8px}
 .badge{background:var(--or);color:#fff;border-radius:20px;padding:2px 9px;font-size:10px;font-weight:700}
 .rl{font-size:11px;color:var(--gr);font-weight:600}
+
+/* ---- 컬러 피커 ---- */
 .cr{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-top:7px}
-.cd{width:22px;height:22px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:.15s;position:relative}
+.cd{width:22px;height:22px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:border-color var(--transition), transform var(--transition);position:relative}
+.cd:hover{transform:scale(1.15)}
 .cd:hover,.cd.sel{border-color:var(--ch)}
 .cd input[type=color]{opacity:0;position:absolute;inset:0;cursor:pointer;width:100%;height:100%}
+
+/* ---- 미리보기 그리드 ---- */
 .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:14px}
-.pi{background:#fff;border-radius:9px;overflow:hidden;box-shadow:0 2px 10px #0002}
+.pi{
+  background:#fff;
+  border-radius:9px;
+  overflow:hidden;
+  box-shadow:var(--shadow-or);
+  transition:box-shadow var(--transition), transform var(--transition);
+}
+.pi:hover{
+  box-shadow:0 6px 20px rgba(255,140,66,0.16);
+  transform:translateY(-2px);
+}
 .pilbl{padding:7px 11px;font-size:11px;font-weight:600;color:var(--gr);display:flex;justify-content:space-between;align-items:center}
 .pw{width:270px;height:337px;overflow:hidden;cursor:pointer}
 .pw>div{transform:scale(0.25);transform-origin:top left;width:1080px;height:1080px}
+
+/* ---- 슬라이드 실제 크기 ---- */
 .sf{width:1080px;height:1350px;position:relative;overflow:hidden;font-family:'Pretendard',sans-serif}
 .stb{position:absolute;top:0;left:0;right:0;height:6px;background:var(--or)}
 .sind{position:absolute;top:18px;right:34px;font-size:20px;color:#ccc;font-weight:600}
 .sp{padding:80px;height:100%;display:flex;flex-direction:column;justify-content:center}
-.btn{padding:7px 14px;border-radius:7px;border:none;cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;transition:.15s}
-.btn-p{background:var(--or);color:#fff}.btn-p:hover{background:#d96e28}
-.btn-o{background:#fff;border:1.5px solid var(--bd);color:var(--ch)}.btn-o:hover{border-color:var(--or)}
-.btn-sm{padding:4px 9px;font-size:11px}
-.acts{display:flex;gap:7px;flex-wrap:wrap;padding:14px;border-top:1px solid var(--bd)}
+
+/* ---- 버튼 ---- */
+.btn{
+  padding:7px 14px;
+  border-radius:7px;
+  border:none;
+  cursor:pointer;
+  font-family:inherit;
+  font-size:12px;
+  font-weight:600;
+  transition:background var(--transition), border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+  min-height:44px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+.btn:active{transform:scale(0.97)}
+.btn-p{background:var(--or);color:#fff;box-shadow:0 2px 8px rgba(255,140,66,0.25)}
+.btn-p:hover{background:#d96e28;box-shadow:0 4px 12px rgba(255,140,66,0.35)}
+.btn-o{background:rgba(255,255,255,0.8);border:1.5px solid var(--bd);color:var(--ch)}
+.btn-o:hover{border-color:var(--or);background:#fff}
+.btn-sm{padding:4px 9px;font-size:11px;min-height:32px}
+
+/* ---- 액션바 글래스모피즘 ---- */
+.acts{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  padding:14px;
+  border-top:1px solid var(--glass-border);
+  background:rgba(255,248,240,0.8);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+
+/* ---- 내보내기 영역 ---- */
 #export-area{position:fixed;left:-9999px;top:0;pointer-events:none}
+
+/* ---- 진행 바 (렌더링 중 펄스 애니메이션) ---- */
 .pb{background:var(--bd);border-radius:3px;height:5px;overflow:hidden;margin-top:7px}
-.pf{height:100%;background:var(--or);transition:width .3s}
-.ib{background:var(--bg);border:1px solid var(--bd);border-radius:7px;padding:10px;font-size:12px;color:var(--gr);margin-bottom:10px}
+.pf{
+  height:100%;
+  background:var(--or);
+  transition:width .3s ease;
+}
+.pf.rendering{
+  animation:progress-pulse 1.2s ease-in-out infinite;
+}
+@keyframes progress-pulse{
+  0%,100%{opacity:1}
+  50%{opacity:0.6}
+}
+
+/* ---- 인포 박스 ---- */
+.ib{
+  background:rgba(255,248,240,0.8);
+  border:1px solid var(--bd);
+  border-radius:7px;
+  padding:10px;
+  font-size:12px;
+  color:var(--gr);
+  margin-bottom:10px;
+  box-shadow:var(--shadow-or);
+}
+
+/* ---- 플로팅 홈 버튼 ---- */
+.home-btn{
+  position:fixed;
+  bottom:24px;
+  left:24px;
+  width:44px;
+  height:44px;
+  background:#4A3728;
+  color:#fff;
+  border:none;
+  border-radius:50%;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  box-shadow:0 4px 16px rgba(74,55,40,0.4);
+  transition:background var(--transition), transform var(--transition), box-shadow var(--transition);
+  text-decoration:none;
+}
+.home-btn:hover{
+  background:#FF8C42;
+  transform:scale(1.1);
+  box-shadow:0 6px 20px rgba(255,140,66,0.4);
+}
+.home-btn:active{transform:scale(0.95)}
+.home-btn svg{width:20px;height:20px;flex-shrink:0}
+
+/* ---- 모바일 패널 토글 ---- */
+.mobile-toggle{
+  display:none;
+  background:rgba(255,255,255,0.9);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--bd);
+  padding:8px 16px;
+  gap:8px;
+  position:sticky;
+  top:108px;
+  z-index:98;
+}
+.mobile-toggle button{
+  flex:1;
+  padding:10px;
+  border-radius:8px;
+  border:1.5px solid var(--bd);
+  background:transparent;
+  font-family:inherit;
+  font-size:13px;
+  font-weight:600;
+  color:var(--gr);
+  cursor:pointer;
+  min-height:44px;
+  transition:background var(--transition), color var(--transition), border-color var(--transition);
+}
+.mobile-toggle button.active{
+  background:var(--or);
+  color:#fff;
+  border-color:var(--or);
+}
+.mobile-toggle button:active{transform:scale(0.97)}
+
+/* ---- 반응형 레이아웃 ---- */
+@media(max-width:860px){
+  .main{
+    grid-template-columns:1fr;
+    min-height:auto;
+  }
+  .mobile-toggle{display:flex}
+
+  .editor{
+    max-height:none;
+    overflow-y:visible;
+    border-right:none;
+    border-bottom:1px solid var(--glass-border);
+  }
+  .pnl{
+    max-height:none;
+    overflow-y:visible;
+    overflow-x:auto;
+  }
+
+  /* 모바일에서 패널 전환 */
+  .main.show-preview .editor{display:none}
+  .main.show-editor .pnl{display:none}
+
+  .cal-grid{grid-template-columns:repeat(2,1fr)}
+
+  /* 미리보기 그리드: 모바일에서 가로 스크롤 */
+  .pgrid{
+    display:flex;
+    flex-direction:row;
+    overflow-x:auto;
+    gap:12px;
+    padding-bottom:8px;
+    -webkit-overflow-scrolling:touch;
+    scroll-snap-type:x mandatory;
+  }
+  .pgrid .pi{
+    flex-shrink:0;
+    scroll-snap-align:start;
+    width:270px;
+  }
+  .pw{width:270px;height:337px}
+}
+
+@media(max-width:480px){
+  .cal-grid{grid-template-columns:1fr}
+  header h1{font-size:15px}
+  header span{display:none}
+}
 </style>
 </head>
 <body>
+
+<!-- 헤더 -->
 <header>
-  <div>
-    <h1>IM 에스테틱 카드뉴스 메이커</h1>
-    <span>053-241-3855 | 범어마크팰리스 2층</span>
+  <div class="header-inner">
+    <div>
+      <h1>IM 에스테틱 카드뉴스 메이커</h1>
+      <span>053-241-3855 | 범어마크팰리스 2층</span>
+    </div>
   </div>
 </header>
+
+<!-- 상단 탭 -->
 <div class="tabs">
   <div class="tab active" onclick="switchTab(0)">캘린더에서 선택</div>
   <div class="tab" onclick="switchTab(1)">직접 입력</div>
 </div>
-<div class="main">
+
+<!-- 모바일 전용 에디터/프리뷰 토글 -->
+<div class="mobile-toggle" id="mobile-toggle">
+  <button class="active" id="mob-editor-btn" onclick="switchMobilePanel('editor')">에디터</button>
+  <button id="mob-preview-btn" onclick="switchMobilePanel('preview')">프리뷰</button>
+</div>
+
+<!-- 메인 레이아웃 -->
+<div class="main show-editor" id="main-grid">
+
+  <!-- 에디터 사이드바 -->
   <div class="editor">
     <div class="panel active" id="panel-a">
       <div class="ib">Thursday 인포그래픽 목록입니다. 클릭하면 에디터가 채워집니다.</div>
@@ -95,6 +428,8 @@ textarea{resize:vertical;min-height:54px}
       <button class="btn btn-p" style="width:100%;margin-bottom:4px" onclick="genTopic()">슬라이드 생성</button>
       <div id="seds-b" style="margin-top:10px"></div>
     </div>
+
+    <!-- 액션바 -->
     <div class="acts" id="actbar" style="display:none">
       <button class="btn btn-p" onclick="dlAll()">전체 다운로드</button>
       <button class="btn btn-o" onclick="cpCanva()">Canva 가이드 복사</button>
@@ -104,6 +439,8 @@ textarea{resize:vertical;min-height:54px}
       </div>
     </div>
   </div>
+
+  <!-- 미리보기 패널 -->
   <div class="pnl">
     <div id="pgrid" class="pgrid"></div>
     <div id="empty" style="text-align:center;padding:60px 20px;color:var(--gr)">
@@ -112,8 +449,20 @@ textarea{resize:vertical;min-height:54px}
     </div>
   </div>
 </div>
+
+<!-- html2canvas 렌더링 영역 -->
 <div id="export-area"></div>
+
+<!-- 플로팅 홈 버튼 -->
+<a href="index.html" class="home-btn" title="홈으로">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+    <polyline points="9 22 9 12 15 12 15 22"/>
+  </svg>
+</a>
+
 <script>
+/* ---- 콘텐츠 데이터 ---- */
 const CP=[
 {id:"1W_Thu",w:"1주차",t:"공간 소개",tp:"infographic",s:[
 {r:"hook",tx:"저희 공간, 한번 들어와 보실래요?",bg:"#FFF8F0"},
@@ -196,7 +545,7 @@ const CP=[
 {r:"cta",tx:"블로그에서 자세히 보기"}]}
 ];
 
-/* ---- SVG icons ---- */
+/* ---- SVG 아이콘 ---- */
 const IC={
 bookmark:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>`,
 phone:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.6 19.79 19.79 0 0 1 1.61 5.06 2 2 0 0 1 3.6 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10.6a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`,
@@ -216,10 +565,10 @@ refresh:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width
 };
 const ic=(n,sz=32,cl="currentColor")=>`<span style="display:inline-flex;width:${sz}px;height:${sz}px;color:${cl};flex-shrink:0">${IC[n]||''}</span>`;
 
-/* ---- state ---- */
+/* ---- 앱 상태 ---- */
 let POST=null,SLIDES=[],IMGS={};
 
-/* ---- init ---- */
+/* ---- 초기화 ---- */
 (()=>{
   const g=document.getElementById('cal-grid');
   g.innerHTML=CP.map(p=>`<div class="cc" id="cc-${p.id}" onclick="selPost('${p.id}')">
@@ -229,11 +578,31 @@ let POST=null,SLIDES=[],IMGS={};
   if(q){const p=CP.find(c=>c.id===q);if(p){selPost(p.id);}}
 })();
 
+/* ---- 상단 탭 전환 ---- */
 function switchTab(i){
   document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('active',i===j));
   document.querySelectorAll('.panel').forEach((p,j)=>p.classList.toggle('active',i===j));
 }
 
+/* ---- 모바일 패널 전환 ---- */
+function switchMobilePanel(panel){
+  const main=document.getElementById('main-grid');
+  const edBtn=document.getElementById('mob-editor-btn');
+  const pvBtn=document.getElementById('mob-preview-btn');
+  if(panel==='preview'){
+    main.classList.remove('show-editor');
+    main.classList.add('show-preview');
+    edBtn.classList.remove('active');
+    pvBtn.classList.add('active');
+  }else{
+    main.classList.remove('show-preview');
+    main.classList.add('show-editor');
+    pvBtn.classList.remove('active');
+    edBtn.classList.add('active');
+  }
+}
+
+/* ---- 포스팅 선택 ---- */
 function selPost(id){
   const p=CP.find(c=>c.id===id);if(!p)return;
   POST=p;SLIDES=p.s.map(s=>({...s,items:s.items?[...s.items]:undefined}));IMGS={};
@@ -242,7 +611,7 @@ function selPost(id){
   buildEditors('seds-a');render();show();
 }
 
-/* ---- editors ---- */
+/* ---- 에디터 빌드 ---- */
 const RL={hook:'훅',step:'스텝',content:'내용',cta:'CTA',myth:'미스',fact:'팩트',checklist:'체크리스트',program:'프로그램',cause:'원인',recommend:'추천대상',highlight:'강조',ugc:'후기'};
 const BGP=['#FFF8F0','#FFFFFF','#4A3728','#F5EDE0'];
 
@@ -300,7 +669,7 @@ function upImg(idx,inp,cid){
   r.readAsDataURL(inp.files[0]);
 }
 
-/* ---- render ---- */
+/* ---- 미리보기 렌더링 ---- */
 function render(){
   const g=document.getElementById('pgrid');
   const n=SLIDES.length;
@@ -325,7 +694,7 @@ function show(){
   document.getElementById('empty').style.display='none';
 }
 
-/* ---- slide HTML ---- */
+/* ---- 슬라이드 HTML 생성 ---- */
 const darkBg=new Set(['myth','program']);
 function defBg(s){
   if(s.bg)return s.bg;
@@ -449,7 +818,7 @@ function footer(){return`
     </div>
   </div>`;}
 
-/* ---- auto recommend ---- */
+/* ---- 키워드 자동 추천 ---- */
 const KM=[
   {k:['수분','건조','촉촉'],tp:'program',tpl:{id:'custom',t:'보습 결케어',tp:'program',s:[
     {r:'hook',tx:'바를 땐 촉촉한데, 금방 다시 건조해져요'},{r:'cause',tt:'원인',tx:"문제는 수분 양이 아니라 '붙잡는 힘'"},
@@ -508,11 +877,11 @@ function genTopic(){
   buildEditors('seds-b');render();show();
 }
 
-/* ---- export ---- */
+/* ---- 내보내기 ---- */
 async function dlOne(idx){
   const el=document.getElementById('pw'+idx);if(!el)return;
   const sf=el.querySelector('.sf');if(!sf)return;
-  setP(true,`슬라이드 ${idx+1} 렌더링...`,0);
+  setP(true,`슬라이드 ${idx+1} 렌더링...`,0,true);
   try{
     const c=await html2canvas(sf,{scale:1,useCORS:true,allowTaint:true,width:1080,height:1350});
     dl(c,`IM_카드뉴스_${POST?.id||'custom'}_${idx+1}.png`);
@@ -523,7 +892,7 @@ async function dlOne(idx){
 async function dlAll(){
   if(!SLIDES.length)return;
   for(let i=0;i<SLIDES.length;i++){
-    setP(true,`${i+1}/${SLIDES.length} 렌더링...`,Math.round(i/SLIDES.length*100));
+    setP(true,`${i+1}/${SLIDES.length} 렌더링...`,Math.round(i/SLIDES.length*100),true);
     const sf=document.getElementById('pw'+i)?.querySelector('.sf');
     if(!sf)continue;
     try{
@@ -549,11 +918,20 @@ function cpCanva(){
 }
 
 function dl(canvas,name){const a=document.createElement('a');a.href=canvas.toDataURL('image/png');a.download=name;a.click();}
-function setP(show,txt='',pct=0){
+
+/* 진행 표시줄: rendering 플래그로 펄스 애니메이션 제어 */
+function setP(show,txt='',pct=0,rendering=false){
   const w=document.getElementById('prog-wrap');
   w.style.display=show?'block':'none';
-  if(show){document.getElementById('prog-txt').textContent=txt;document.getElementById('prog-fill').style.width=pct+'%';}
+  if(show){
+    document.getElementById('prog-txt').textContent=txt;
+    const fill=document.getElementById('prog-fill');
+    fill.style.width=pct+'%';
+    if(rendering)fill.classList.add('rendering');
+    else fill.classList.remove('rendering');
+  }
 }
+
 const e=t=>String(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 </script>
 </body>

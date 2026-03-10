@@ -611,5 +611,14 @@ const App = () => {
 
 ReactDOM.createRoot(document.getElementById('root')).render(<App />);
 </script>
+<style>
+.home-fab{position:fixed;bottom:24px;left:24px;width:44px;height:44px;border-radius:50%;background:#4A3728;color:#FFF8F0;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.25);z-index:9999;transition:background .2s,transform .15s}
+.home-fab:hover{background:#FF8C42;transform:scale(1.08)}
+.home-fab::after{content:'홈으로';position:absolute;left:52px;background:#4A3728;color:#FFF8F0;font-size:12px;font-family:'Pretendard',sans-serif;white-space:nowrap;padding:4px 8px;border-radius:6px;opacity:0;pointer-events:none;transition:opacity .15s}
+.home-fab:hover::after{opacity:1}
+</style>
+<a href="index.html" class="home-fab" aria-label="홈으로">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><polyline points="9 21 9 12 15 12 15 21"/></svg>
+</a>
 </body>
 </html>
