@@ -12,3 +12,4 @@ generated_images/
 content-hub/
 checklist_preview.png
 *.zip
+.vercel

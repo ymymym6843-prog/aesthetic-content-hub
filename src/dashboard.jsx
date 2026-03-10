@@ -29,9 +29,9 @@ function transformDbData(posts, strategies) {
                 image: p.post_images?.[0]?.image_url || '/feed_images/placeholder.svg',
                 slideCount: p.slide_count,
                 templateType: p.template_type,
-                asset: '',
-                aiGuide: '',
-                design: '',
+                asset: p.asset || '',
+                aiGuide: p.ai_guide || '',
+                design: p.design || '',
                 dbId: p.id,
                 status: p.status,
             }))

@@ -10,7 +10,7 @@ import { FeedDetailView } from './components/FeedDetailView';
 import { Layout, Play, MessageCircle, User } from './components/InstagramIcons';
 
 // DB type → feedPosts type 매핑
-const typeMap = { '릴스': 'reel', '캐러셀': 'carousel', '이미지': 'image' };
+const typeMap = { '릴스': 'reel', '캐러셀': 'carousel', '이미지': 'image', '피드': 'image' };
 
 // DB 데이터를 feedPosts 형식으로 변환
 function transformToFeedPosts(posts, strategies) {
@@ -26,7 +26,7 @@ function transformToFeedPosts(posts, strategies) {
             phase: phaseMap[p.week] || '',
             title: p.title,
             image: p.post_images?.[0]?.image_url || './feed_images/placeholder.svg',
-            caption: p.description || p.caption || '',
+            caption: p.caption || p.description || '',
             hashtags: p.tags || '',
             slideCount: p.slide_count,
             templateType: p.template_type,
