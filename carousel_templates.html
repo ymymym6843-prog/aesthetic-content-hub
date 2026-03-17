@@ -533,12 +533,98 @@ body {
 
 /* --- Slide base layouts --- */
 .sl { width: 100%; height: 100%; position: relative; overflow: hidden; }
+.sl::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.025;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index: 1;
+  border-radius: inherit;
+}
 
 /* Warm white base */
-.sl-warm { background: var(--warm-white); }
+.sl-warm { background: radial-gradient(ellipse at 25% 15%, rgba(239,125,49,0.05) 0%, transparent 50%), var(--warm-white); }
 /* Dark warm base */
-.sl-dark { background: var(--dark-warm); }
-.sl-darker { background: var(--darker-warm); }
+.sl-dark { background: radial-gradient(ellipse at 70% 80%, rgba(239,125,49,0.06) 0%, transparent 40%), var(--dark-warm); }
+.sl-darker { background: radial-gradient(ellipse at 50% 50%, rgba(239,125,49,0.04) 0%, transparent 40%), var(--darker-warm); }
+
+/* Decorative circles */
+.sl-deco-circle {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 0.5px solid rgba(239,125,49,0.08);
+  top: -50px;
+  right: -30px;
+  pointer-events: none;
+}
+.sl-deco-circle-sm {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 0.5px solid rgba(239,125,49,0.06);
+  bottom: 100px;
+  left: -15px;
+  pointer-events: none;
+}
+
+/* Double frame for hook slides */
+.sl-double-frame {
+  position: absolute;
+  inset: 8px;
+  border: 0.8px solid rgba(239,125,49,0.2);
+  border-radius: 10px;
+  pointer-events: none;
+}
+.sl-double-frame-inner {
+  position: absolute;
+  inset: 13px;
+  border: 0.4px solid rgba(239,125,49,0.1);
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+/* Watermark letter */
+.sl-watermark {
+  position: absolute;
+  right: 12px;
+  top: 42%;
+  transform: translateY(-50%);
+  font-size: 100px;
+  color: currentColor;
+  opacity: 0.015;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* Corner brackets */
+.sl-corner-tl::before {
+  content: '';
+  position: absolute;
+  top: 10px; left: 10px;
+  width: 12px; height: 12px;
+  border-left: 1px solid rgba(232,69,60,0.25);
+  border-top: 1px solid rgba(232,69,60,0.25);
+  pointer-events: none; z-index: 2;
+}
+.sl-corner-br::after {
+  content: '';
+  position: absolute;
+  bottom: 10px; right: 10px;
+  width: 12px; height: 12px;
+  border-right: 1px solid rgba(232,69,60,0.25);
+  border-bottom: 1px solid rgba(232,69,60,0.25);
+  pointer-events: none; z-index: 2;
+}
+.sl-corner-green::before { border-color: rgba(34,197,94,0.25) !important; }
+.sl-corner-green::after { border-color: rgba(34,197,94,0.25) !important; }
 
 /* Logo mark */
 .sl-logo {
@@ -548,7 +634,17 @@ body {
   font-size: 9px;
   font-weight: 800;
   letter-spacing: 1.5px;
-  color: var(--orange); /* Fixed brand orange */
+  color: var(--orange);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sl-logo::before,
+.sl-logo::after {
+  content: '';
+  width: 14px;
+  height: 0.5px;
+  background: rgba(239,125,49,0.4);
 }
 
 /* Slide inner padding */
@@ -620,11 +716,23 @@ body {
 }
 
 .sl-hook-accent-line {
-  width: 40px;
-  height: 2px;
-  background: var(--orange);
-  border-radius: 1px;
-  margin: 0 auto 24px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 auto 20px;
+  justify-content: center;
+}
+.sl-hook-accent-line::before,
+.sl-hook-accent-line::after {
+  content: '';
+  width: 20px;
+  height: 0.5px;
+}
+.sl-hook-accent-line::before {
+  background: linear-gradient(to right, transparent, rgba(239,125,49,0.5));
+}
+.sl-hook-accent-line::after {
+  background: linear-gradient(to left, transparent, rgba(239,125,49,0.5));
 }
 
 /* Decorative corner brackets */
@@ -695,6 +803,8 @@ body {
   justify-content: center;
   margin-bottom: 20px;
   flex-shrink: 0;
+  box-shadow: 0 0 0 3px rgba(239,125,49,0.04), 0 0 0 4px rgba(239,125,49,0.12);
+  font-family: 'Cormorant Garamond', serif;
 }
 
 .sl-step-num-lg {
@@ -723,11 +833,13 @@ body {
 
 /* Highlight bar */
 .sl-highlight-bar {
-  background: var(--orange-pale);
+  background: rgba(239,125,49,0.04);
   border-left: 3px solid var(--orange);
-  padding: 10px 12px;
-  border-radius: 0 6px 6px 0;
+  border-image: linear-gradient(to bottom, var(--orange), rgba(239,125,49,0.2)) 1;
+  padding: 10px 14px;
+  border-radius: 0 10px 10px 0;
   margin-top: 10px;
+  box-shadow: inset 0 0 20px rgba(239,125,49,0.02);
 }
 
 .sl-highlight-bar p {
@@ -855,6 +967,13 @@ body {
   margin-bottom: 12px;
 }
 
+.sl-myth-x-wrap {
+  box-shadow: 0 0 20px rgba(232,69,60,0.12);
+  background: rgba(232,69,60,0.06);
+  border-radius: 50%;
+  display: inline-flex;
+  padding: 4px;
+}
 .sl-myth-x {
   font-size: 34px;
   margin-bottom: 12px;
@@ -893,11 +1012,23 @@ body {
 }
 
 .sl-fact-bubble {
-  background: white;
-  border-radius: 10px;
-  padding: 12px 14px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+  background: rgba(255,255,255,0.8);
+  border-radius: 12px;
+  padding: 14px 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
   margin-top: 8px;
+  position: relative;
+  border: 0.5px solid rgba(239,125,49,0.1);
+}
+.sl-fact-bubble::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, rgba(34,197,94,0.3), transparent);
 }
 
 /* Review/UGC styles */
@@ -908,12 +1039,12 @@ body {
 }
 
 .sl-quote-mark {
-  font-size: 36px;
+  font-size: 48px;
   color: var(--orange);
-  font-family: Georgia, serif;
+  font-family: 'Cormorant Garamond', serif;
   line-height: 0.8;
-  margin-bottom: 8px;
-  opacity: 0.4;
+  margin-bottom: 6px;
+  opacity: 0.15;
 }
 
 .sl-review-text {
@@ -1095,10 +1226,12 @@ body {
 .sl-program-badge {
   background: var(--dark-warm);
   color: var(--warm-white);
-  border-radius: 10px;
-  padding: 20px;
+  border-radius: 12px;
+  padding: 22px;
   text-align: center;
   flex: 1;
+  box-shadow: 4px 4px 0 -1px rgba(239,125,49,0.04), 4px 4px 0 0 rgba(239,125,49,0.08);
+  border: 0.5px solid rgba(239,125,49,0.15);
 }
 
 .sl-program-name {
@@ -1153,6 +1286,7 @@ body {
   justify-content: center;
   flex-shrink: 0;
   margin-top: 1px;
+  box-shadow: 0 2px 8px rgba(239,125,49,0.25);
 }
 
 .sl-check-icon::after {
@@ -1384,10 +1518,13 @@ body {
           <div class="sl sl-warm">
             <div class="sl-deco-circle"></div>
             <div class="sl-deco-circle-sm"></div>
+            <div class="sl-double-frame"></div>
+            <div class="sl-double-frame-inner"></div>
+            <div class="sl-watermark">M</div>
             <div class="sl-inner">
               <div class="sl-logo">IM AESTHETIC</div>
               <div style="flex:1; display:flex; flex-direction:column; justify-content:center; padding-top:20px;">
-                <div class="sl-hook-accent-line"></div>
+                <div class="sl-hook-accent-line"><span style="width:4px;height:4px;border:0.5px solid rgba(239,125,49,0.6);transform:rotate(45deg);display:inline-block"></span></div>
                 <div class="sl-hook-eyebrow">THURSDAY CARD NEWS</div>
                 <div class="sl-hook-text">
                   세안 후 바로<br><em>당기는 피부,</em><br>이유가 있었어요

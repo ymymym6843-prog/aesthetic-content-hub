@@ -239,8 +239,6 @@ textarea{resize:vertical;min-height:58px}
 
 /* ---- 슬라이드 실제 크기 ---- */
 .sf{width:var(--slide-w);height:var(--slide-h);position:relative;overflow:hidden;font-family:'Pretendard',system-ui,sans-serif}
-.stb{position:absolute;top:0;left:0;right:0;height:3px;background:var(--or)}
-.sind{position:absolute;top:32px;right:48px;font-size:17px;color:rgba(0,0,0,.08);font-weight:400;letter-spacing:3px}
 .sp{padding:100px 88px;height:100%;display:flex;flex-direction:column;justify-content:center}
 
 /* ---- 버튼 ---- */
@@ -937,15 +935,29 @@ function lum(hex){
 function themeAccent(){return(THEMES[currentTheme]||THEMES.warm)['--color-accent']||'#EF7D31';}
 function themePrimary(){return(THEMES[currentTheme]||THEMES.warm)['--color-primary']||'#3D3229';}
 
+/* ---- 프리미엄 헬퍼 ---- */
+function grainOverlay(opacity=0.03){
+  return`<div style="position:absolute;inset:0;opacity:${opacity};pointer-events:none;mix-blend-mode:multiply;z-index:1;background-image:url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div>`;
+}
+function botanicalMotif(color,pos='tr',scale=1){
+  const s=100*scale;const positions={tr:'top:40px;right:40px',bl:'bottom:120px;left:40px'};
+  return`<div style="position:absolute;${positions[pos]||positions.tr};width:${s}px;height:${s}px;opacity:0.06;pointer-events:none;z-index:1"><svg viewBox="0 0 100 100" fill="none" stroke="${color}" stroke-width="0.5"><path d="M80,10 Q50,30 30,60 Q20,80 10,90" opacity="0.8"/><path d="M85,15 Q60,25 40,50 Q30,70 20,85" opacity="0.5"/><path d="M75,5 Q45,35 25,65 Q15,85 5,95" opacity="0.3"/></svg></div>`;
+}
+function diamondDivider(color){
+  return`<div style="display:flex;align-items:center;gap:12px;margin:28px 0"><div style="flex:1;height:0.5px;background:linear-gradient(to right,transparent,${color}50)"></div><div style="width:5px;height:5px;border:1px solid ${color}80;transform:rotate(45deg)"></div><div style="flex:1;height:0.5px;background:linear-gradient(to left,transparent,${color}50)"></div></div>`;
+}
+
 function slideHTML(s,i,n){
   const bg=defBg(s);
   const light=lum(bg)>128;
   const dc=light?'#1A1714':'#FFFFFF';
   const sc=light?'#8C8279':'rgba(255,255,255,.6)';
-  const img=IMGS[i]?`<div style="position:absolute;inset:0;background:url('${IMGS[i]}') center/cover;opacity:.10"></div>`:'';
-  return`<div class="sf" style="background:${bg}">
-    <div class="stb"></div>${img}
-    <div class="sind">${i+1}/${n}</div>
+  const ac=themeAccent();
+  const img=IMGS[i]?`<div style="position:absolute;inset:0;background:url('${IMGS[i]}') center/cover;opacity:.12;z-index:0"></div>`:'';
+  return`<div class="sf" style="background:radial-gradient(ellipse at 25% 15%,${ac}08 0%,transparent 50%),${bg}">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent 5%,${ac}90 30%,${ac} 50%,${ac}90 70%,transparent 95%);opacity:0.7"></div>
+    ${img}${grainOverlay(light?0.03:0.04)}${botanicalMotif(ac,i===0?'tr':'bl',0.8)}
+    <div style="position:absolute;top:28px;right:44px;font-size:13px;color:${dc};opacity:0.12;font-weight:300;letter-spacing:6px;font-family:'Cormorant Garamond',serif">${i+1} / ${n}</div>
     <div class="sp">${inner(s,dc,sc,bg,i,n)}</div>
     ${i===n-1?footer():''}
   </div>`;
@@ -954,154 +966,193 @@ function slideHTML(s,i,n){
 function inner(s,dc,sc,bg,i,n){
   const ac=themeAccent();
   const pr=themePrimary();
-  /* 장식용 라인 */
-  const deco=`<div style="width:40px;height:2px;background:${ac};margin-bottom:28px;border-radius:1px"></div>`;
-  const decoCenter=`<div style="display:flex;justify-content:center;margin-bottom:24px"><div style="width:40px;height:2px;background:${ac};border-radius:1px"></div></div>`;
+  const light=lum(bg)>128;
   switch(s.r){
     case'hook':return`
-      <div style="position:absolute;inset:40px;border:3px solid ${ac};border-radius:30px;pointer-events:none;opacity:0.9"></div>
-      ${POST?.tp==='qa_flip'?`<div style="position:absolute;right:20px;top:40%;font-size:240px;color:rgba(255,255,255,0.05);font-family:'Cormorant Garamond', serif;font-weight:300;transform:translateY(-50%)">?</div>`:''}
+      <div style="position:absolute;inset:36px;border:1px solid ${ac}40;border-radius:28px;pointer-events:none"></div>
+      <div style="position:absolute;inset:44px;border:0.5px solid ${ac}20;border-radius:24px;pointer-events:none"></div>
+      <div style="position:absolute;right:60px;top:50%;transform:translateY(-60%);font-size:320px;color:${dc};opacity:0.015;font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1;pointer-events:none">M</div>
+      ${POST?.tp==='qa_flip'?`<div style="position:absolute;right:20px;top:40%;font-size:240px;color:rgba(255,255,255,0.04);font-family:'Cormorant Garamond',serif;font-weight:300;transform:translateY(-50%)">?</div>`:''}
       <div style="text-align:center;color:${dc};padding:0 40px;word-break:keep-all;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;position:relative;z-index:2">
-        <div style="font-size:14px;font-weight:600;letter-spacing:0.45em;color:${ac};margin-bottom:40px;text-transform:uppercase;font-family:'Cormorant Garamond', serif">IM AESTHETIC</div>
-        ${s.eyebrow?`<div style="font-size:11px;font-weight:700;letter-spacing:0.2em;color:${sc};margin-bottom:16px;text-transform:uppercase">${e(s.eyebrow)}</div>`:''}
-        <div style="font-size:36px;font-weight:600;line-height:1.35;white-space:pre-wrap;letter-spacing:0.01em;font-family:'Noto Serif KR', serif">${e(s.tx)}</div>
-        <div style="display:flex;justify-content:center;margin-top:48px"><div style="width:50px;height:1.5px;background:${ac};border-radius:1px"></div></div>
-        ${s.swipe?`<div style="position:absolute;bottom:60px;left:0;right:0;font-size:11px;color:${sc};letter-spacing:0.1em;opacity:0.8">${e(s.swipe)}</div>`:''}
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:44px">
+          <div style="width:32px;height:0.5px;background:${ac}60"></div>
+          <div style="font-size:13px;font-weight:600;letter-spacing:0.5em;color:${ac};font-family:'Cormorant Garamond',serif;text-transform:uppercase">IM AESTHETIC</div>
+          <div style="width:32px;height:0.5px;background:${ac}60"></div>
+        </div>
+        ${s.eyebrow?`<div style="font-size:10px;font-weight:700;letter-spacing:0.25em;color:${sc};margin-bottom:20px;text-transform:uppercase">${e(s.eyebrow)}</div>`:''}
+        <div style="font-size:38px;font-weight:600;line-height:1.4;white-space:pre-wrap;letter-spacing:-0.01em;font-family:'Noto Serif KR',serif">${e(s.tx)}</div>
+        ${diamondDivider(ac)}
+        ${s.swipe?`<div style="position:absolute;bottom:56px;left:0;right:0;font-size:11px;color:${sc};letter-spacing:0.12em;opacity:0.7">${e(s.swipe)}</div>`:''}
       </div>`;
     case'step':return`
-      <div style="display:flex;align-items:flex-start;gap:44px;word-break:keep-all">
-        <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">
-          <div style="font-size:11px;letter-spacing:0.3em;color:${ac};font-weight:700;margin-bottom:10px;text-transform:uppercase;font-family:'Cormorant Garamond', serif">STEP</div>
-          <div style="width:56px;height:56px;border:1.5px solid ${ac};border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:500;color:${ac};letter-spacing:0.02em;font-family:'Cormorant Garamond', serif">${e(s.n)}</div>
+      <div style="display:flex;align-items:flex-start;gap:48px;word-break:keep-all">
+        <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;position:relative">
+          <div style="font-size:10px;letter-spacing:0.35em;color:${ac};font-weight:700;margin-bottom:12px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">STEP</div>
+          <div style="position:relative;width:60px;height:60px">
+            <div style="position:absolute;inset:-4px;border:0.5px solid ${ac}30;border-radius:50%"></div>
+            <div style="width:60px;height:60px;border:1.5px solid ${ac};border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:400;color:${ac};font-family:'Cormorant Garamond',serif">${e(s.n)}</div>
+          </div>
+          <div style="width:0.5px;height:60px;background:linear-gradient(to bottom,${ac}30,transparent);margin-top:8px"></div>
         </div>
-        <div style="padding-top:4px;flex:1">
-          <div style="font-size:28px;font-weight:600;color:${dc};margin-bottom:16px;letter-spacing:0.01em;font-family:'Noto Serif KR', serif">${e(s.tt)}</div>
-          <div style="width:28px;height:1.5px;background:${ac};margin-bottom:18px;border-radius:1px"></div>
-          <div style="font-size:20px;font-weight:400;color:${sc};line-height:1.7;white-space:pre-wrap;letter-spacing:-0.01em">${e(s.tx)}</div>
+        <div style="padding-top:6px;flex:1;border-left:2px solid ${ac}15;padding-left:32px">
+          <div style="font-size:28px;font-weight:600;color:${dc};margin-bottom:14px;letter-spacing:-0.01em;font-family:'Noto Serif KR',serif">${e(s.tt)}</div>
+          <div style="width:24px;height:1px;background:${ac}60;margin-bottom:18px"></div>
+          <div style="font-size:19px;font-weight:400;color:${sc};line-height:1.75;white-space:pre-wrap">${e(s.tx)}</div>
         </div>
       </div>`;
     case'content':return`
-      <div style="word-break:keep-all">
-        <div style="font-size:12px;letter-spacing:0.4em;color:${ac};font-weight:700;margin-bottom:18px;text-transform:uppercase;font-family:'Cormorant Garamond', serif">${e(s.label||'POINT')}</div>
-        <div style="font-size:28px;font-weight:600;color:${dc};margin-bottom:18px;letter-spacing:0.01em;font-family:'Noto Serif KR', serif">${e(s.tt||'')}</div>
-        ${deco}
-        <div style="font-size:20px;font-weight:400;color:${sc};line-height:1.7;white-space:pre-wrap;letter-spacing:-0.01em">${e(s.tx)}</div>
+      <div style="word-break:keep-all;position:relative">
+        <div style="position:absolute;top:-20px;left:-10px;font-size:80px;color:${ac};opacity:0.05;font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1;pointer-events:none">&ldquo;</div>
+        <div style="font-size:11px;letter-spacing:0.45em;color:${ac};font-weight:700;margin-bottom:20px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">${e(s.label||'POINT')}</div>
+        <div style="font-size:28px;font-weight:600;color:${dc};margin-bottom:16px;letter-spacing:-0.01em;font-family:'Noto Serif KR',serif">${e(s.tt||'')}</div>
+        ${diamondDivider(ac)}
+        <div style="background:${ac}05;border:0.5px solid ${ac}12;border-radius:16px;padding:28px 32px">
+          <div style="font-size:20px;font-weight:400;color:${sc};line-height:1.75;white-space:pre-wrap">${e(s.tx)}</div>
+        </div>
       </div>`;
     case'myth':return`
+      <div style="position:absolute;top:40px;left:40px;width:20px;height:20px;border-left:1.5px solid #E8453C30;border-top:1.5px solid #E8453C30;pointer-events:none"></div>
+      <div style="position:absolute;bottom:40px;right:40px;width:20px;height:20px;border-right:1.5px solid #E8453C30;border-bottom:1.5px solid #E8453C30;pointer-events:none"></div>
       <div style="text-align:center;word-break:keep-all">
-        <div style="width:60px;height:60px;border:1.5px solid #E8453C;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px">
-          <div style="font-size:32px">❌</div>
+        <div style="width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 28px;background:rgba(232,69,60,0.08);box-shadow:0 0 40px rgba(232,69,60,0.1)">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E8453C" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </div>
-        <div style="font-size:11px;font-weight:700;color:#E8453C;letter-spacing:0.5em;margin-bottom:24px;text-transform:uppercase;font-family:'Cormorant Garamond', serif">MYTH</div>
-        <div style="font-size:32px;font-weight:600;color:#fff;line-height:1.5;white-space:pre-wrap;letter-spacing:0.01em;font-family:'Noto Serif KR', serif">${e(s.tx)}</div>
+        <div style="font-size:10px;font-weight:700;color:#E8453C;letter-spacing:0.6em;margin-bottom:28px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">MYTH</div>
+        <div style="font-size:30px;font-weight:500;color:#fff;line-height:1.5;white-space:pre-wrap;letter-spacing:-0.01em;font-family:'Noto Serif KR',serif">${e(s.tx)}</div>
       </div>`;
     case'fact':return`
+      <div style="position:absolute;top:40px;left:40px;width:20px;height:20px;border-left:1.5px solid #22C55E30;border-top:1.5px solid #22C55E30;pointer-events:none"></div>
+      <div style="position:absolute;bottom:40px;right:40px;width:20px;height:20px;border-right:1.5px solid #22C55E30;border-bottom:1.5px solid #22C55E30;pointer-events:none"></div>
       <div style="text-align:center;word-break:keep-all">
-        <div style="width:60px;height:60px;border:1.5px solid #22C55E;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px">
-          <div style="font-size:32px">✅</div>
+        <div style="width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 28px;background:rgba(34,197,94,0.08);box-shadow:0 0 40px rgba(34,197,94,0.08)">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
-        <div style="font-size:11px;letter-spacing:0.5em;margin-bottom:24px;text-transform:uppercase;font-family:'Cormorant Garamond', serif">FACT</div>
-        ${s.tt?`<div style="font-size:24px;font-weight:600;color:${dc};margin-bottom:16px;font-family:'Noto Serif KR', serif">${e(s.tt)}</div>`:''}
-        <div style="background:${light?'rgba(50,40,30,0.03)':'rgba(255,255,255,0.03)'};padding:24px;border-radius:16px;border:1px solid ${ac}20">
-          <div style="font-size:20px;font-weight:500;color:${dc};line-height:1.55;white-space:pre-wrap;letter-spacing:0.01em;outline:none">${e(s.tx)}</div>
+        <div style="font-size:10px;letter-spacing:0.6em;margin-bottom:28px;text-transform:uppercase;font-family:'Cormorant Garamond',serif;color:#22C55E">FACT</div>
+        ${s.tt?`<div style="font-size:24px;font-weight:600;color:${dc};margin-bottom:18px;font-family:'Noto Serif KR',serif">${e(s.tt)}</div>`:''}
+        <div style="position:relative;background:${light?'rgba(34,197,94,0.03)':'rgba(255,255,255,0.04)'};padding:28px 32px;border-radius:16px;border:0.5px solid #22C55E20">
+          <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:60%;height:2px;background:linear-gradient(90deg,transparent,#22C55E40,transparent);border-radius:1px"></div>
+          <div style="font-size:20px;font-weight:500;color:${dc};line-height:1.6;white-space:pre-wrap">${e(s.tx)}</div>
         </div>
       </div>`;
     case'checklist':return`
       <div style="word-break:keep-all">
-        <div style="font-size:12px;letter-spacing:0.4em;color:${ac};font-weight:700;margin-bottom:18px;text-transform:uppercase;font-family:'Cormorant Garamond', serif">${e(s.label||'CHECKLIST')}</div>
-        <div style="font-size:28px;font-weight:600;color:${dc};margin-bottom:18px;letter-spacing:0.02em;font-family:'Noto Serif KR', serif">${e(s.tt||'')}</div>
-        ${deco}
-        ${(s.items||[]).map(it=>`<div style="display:flex;align-items:center;gap:18px;padding:14px 0;border-bottom:1px solid ${dc}0a">
-          <div style="width:20px;height:20px;border:1.5px solid ${ac};border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-            <div style="width:5px;height:5px;background:${ac};border-radius:50%"></div>
+        <div style="font-size:11px;letter-spacing:0.45em;color:${ac};font-weight:700;margin-bottom:20px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">${e(s.label||'CHECKLIST')}</div>
+        <div style="font-size:28px;font-weight:600;color:${dc};margin-bottom:16px;letter-spacing:-0.01em;font-family:'Noto Serif KR',serif">${e(s.tt||'')}</div>
+        ${diamondDivider(ac)}
+        <div style="border:0.5px solid ${ac}15;border-radius:16px;overflow:hidden">
+        ${(s.items||[]).map((it,j)=>`<div style="display:flex;align-items:center;gap:18px;padding:18px 24px;${j%2===0?`background:${ac}04;`:''}${j<(s.items||[]).length-1?`border-bottom:0.5px solid ${ac}0a;`:''}">
+          <div style="width:22px;height:22px;border-radius:5px;background:${ac};display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
-          <span style="font-size:20px;font-weight:500;color:${dc};word-break:keep-all;letter-spacing:-0.01em">${e(it)}</span></div>`).join('')}
+          <span style="font-size:20px;font-weight:500;color:${dc}">${e(it)}</span></div>`).join('')}
+        </div>
       </div>`;
     case'program':return`
       <div style="text-align:center;word-break:keep-all;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%">
-        <div style="font-size:11px;font-weight:600;color:${sc};margin-bottom:28px;letter-spacing:0.4em;text-transform:uppercase;font-family:'Cormorant Garamond', serif">IM SOLUTION</div>
-        <div style="background:${ac}15;border:1px solid ${ac}30;border-radius:24px;padding:52px 40px;width:100%;box-shadow:0 12px 32px rgba(0,0,0,0.1)">
-          <div style="font-size:12px;color:${ac};letter-spacing:0.6em;font-weight:700;margin-bottom:20px;text-transform:uppercase;font-family:'Cormorant Garamond', serif">PROGRAM</div>
-          <div style="font-size:32px;font-weight:600;color:${dc};margin-bottom:24px;line-height:1.2;letter-spacing:0.03em;font-family:'Noto Serif KR', serif">${e(s.name||'')}</div>
-          ${decoCenter}
-          <div style="margin-top:8px">
-            <span style="font-size:18px;color:${sc};font-weight:400;letter-spacing:0.04em">${e(s.tag||'')}</span>
+        <div style="font-size:10px;font-weight:600;color:${sc};margin-bottom:32px;letter-spacing:0.5em;text-transform:uppercase;font-family:'Cormorant Garamond',serif">IM SOLUTION</div>
+        <div style="position:relative;width:100%">
+          <div style="position:absolute;inset:8px -4px -8px 4px;background:${ac}08;border-radius:24px;border:0.5px solid ${ac}10;transform:rotate(1.5deg)"></div>
+          <div style="position:relative;background:${ac}0a;border:1px solid ${ac}25;border-radius:24px;padding:56px 44px;box-shadow:0 16px 40px rgba(0,0,0,0.06)">
+            <div style="font-size:11px;color:${ac};letter-spacing:0.7em;font-weight:700;margin-bottom:24px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">P R O G R A M</div>
+            <div style="font-size:32px;font-weight:600;color:${dc};margin-bottom:20px;line-height:1.3;font-family:'Noto Serif KR',serif">${e(s.name||'')}</div>
+            ${diamondDivider(ac)}
+            <div style="font-size:17px;color:${sc};font-weight:400;letter-spacing:0.03em">${e(s.tag||'')}</div>
           </div>
         </div>
       </div>`;
     case'cause':return`
-      <div style="word-break:keep-all">
-        <div style="font-size:13px;letter-spacing:0.4em;color:${ac};font-weight:700;margin-bottom:18px;text-transform:uppercase;font-family:'Cormorant Garamond', serif">${e(s.label||'WHY')}</div>
-        <div style="font-size:24px;color:${ac};font-weight:700;margin-bottom:16px;letter-spacing:-0.01em">${e(s.tt||'')}</div>
-        ${deco}
-        <div style="font-size:28px;font-weight:600;color:${dc};line-height:1.56;white-space:pre-wrap;letter-spacing:-0.01em;font-family:'Noto Serif KR', serif">${e(s.tx)}</div>
+      <div style="word-break:keep-all;position:relative">
+        <div style="position:absolute;top:-40px;right:0;font-size:180px;color:${ac};opacity:0.03;font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1;pointer-events:none">Why</div>
+        <div style="font-size:11px;letter-spacing:0.45em;color:${ac};font-weight:700;margin-bottom:20px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">${e(s.label||'ANALYSIS')}</div>
+        <div style="font-size:24px;color:${ac};font-weight:700;margin-bottom:14px;font-family:'Noto Serif KR',serif">${e(s.tt||'')}</div>
+        ${diamondDivider(ac)}
+        <div style="border-left:3px solid;border-image:linear-gradient(to bottom,${ac},${ac}20) 1;padding:24px 32px;background:${ac}04;border-radius:0 14px 14px 0;box-shadow:0 4px 20px ${ac}06">
+          <div style="font-size:26px;font-weight:500;color:${dc};line-height:1.6;white-space:pre-wrap;font-family:'Noto Serif KR',serif">${e(s.tx)}</div>
+        </div>
       </div>`;
     case'recommend':return`
       <div style="word-break:keep-all">
-        <div style="font-size:13px;letter-spacing:0.4em;color:${ac};font-weight:700;margin-bottom:18px;text-transform:uppercase;font-family:'Cormorant Garamond', serif">${e(s.label||'FOR YOU')}</div>
-        <div style="font-size:28px;font-weight:600;color:${dc};margin-bottom:18px;letter-spacing:-0.02em;font-family:'Noto Serif KR', serif">이런 분께 추천해요</div>
-        ${deco}
-        ${(s.items||[]).map(it=>{
-          const hasEmoji = /[\uD800-\uDBFF][\uDC00-\uDFFF]/.test(it) || it.length > 20;
-          return `<div style="display:flex;align-items:center;gap:16px;margin-bottom:20px">
-            ${hasEmoji ? `<span style="font-size:20px">${it.split(' ')[0]}</span>` : `<div style="width:6px;height:6px;background:${ac};border-radius:50%;flex-shrink:0"></div>`}
-            <span style="font-size:20px;font-weight:500;color:${dc};letter-spacing:-0.01em">${e(hasEmoji ? it.split(' ').slice(1).join(' ') : it)}</span></div>`;
+        <div style="font-size:11px;letter-spacing:0.45em;color:${ac};font-weight:700;margin-bottom:20px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">${e(s.label||'FOR YOU')}</div>
+        <div style="font-size:26px;font-weight:600;color:${dc};margin-bottom:16px;font-family:'Noto Serif KR',serif">이런 분께 추천해요</div>
+        ${diamondDivider(ac)}
+        ${(s.items||[]).map((it,j)=>{
+          const hasEmoji=/[\uD800-\uDBFF][\uDC00-\uDFFF]/.test(it)||it.length>20;
+          const text=hasEmoji?it.split(' ').slice(1).join(' '):it;
+          const icon=hasEmoji?it.split(' ')[0]:'';
+          return`<div style="display:flex;align-items:center;gap:16px;padding:14px 20px;margin-bottom:8px;background:${ac}04;border:0.5px solid ${ac}10;border-radius:12px">
+            ${hasEmoji?`<span style="font-size:20px;flex-shrink:0">${icon}</span>`:`<div style="width:24px;height:24px;border-radius:50%;background:${ac};display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:11px;color:white;font-weight:700;font-family:'Cormorant Garamond',serif">${String(j+1).padStart(2,'0')}</span></div>`}
+            <span style="font-size:19px;font-weight:500;color:${dc}">${e(text)}</span>
+            <svg style="margin-left:auto;flex-shrink:0;opacity:0.2" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${dc}" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>`;
         }).join('')}
       </div>`;
     case'highlight':return`
-      <div style="border-left:4px solid ${ac};padding:36px 52px;background:${ac}08;border-radius:0 14px 14px 0;word-break:keep-all">
-        <div style="font-size:32px;font-weight:600;color:${dc};line-height:1.55;white-space:pre-wrap;letter-spacing:0.01em;font-family:'Noto Serif KR', serif">${e(s.tx)}</div>
+      <div style="position:relative;border-left:4px solid;border-image:linear-gradient(to bottom,${ac},${ac}30) 1;padding:40px 56px;background:${ac}06;border-radius:0 18px 18px 0;word-break:keep-all;box-shadow:inset 0 0 60px ${ac}03">
+        <div style="position:absolute;top:12px;left:24px;font-size:100px;color:${ac};opacity:0.06;font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1;pointer-events:none">&ldquo;</div>
+        <div style="position:relative;font-size:30px;font-weight:600;color:${dc};line-height:1.55;white-space:pre-wrap;font-family:'Noto Serif KR',serif">${e(s.tx)}</div>
       </div>`;
     case'ugc':return`
-      <div style="text-align:center;word-break:keep-all">
-        <div style="font-size:12px;letter-spacing:0.4em;color:${ac};font-weight:700;margin-bottom:24px;text-transform:uppercase;font-family:'Cormorant Garamond', serif">${e(s.label||'REVIEW')}</div>
-        <div style="font-size:40px;color:${ac};opacity:.20;margin-bottom:16px;font-family:'Cormorant Garamond', serif">&ldquo;</div>
-        <div style="font-size:28px;font-weight:500;font-style:italic;color:${dc};margin-bottom:28px;line-height:1.6;white-space:pre-wrap;letter-spacing:0.01em;font-family:'Noto Serif KR', serif">${e(s.tx)}</div>
-        ${decoCenter}
-        <div style="font-size:18px;font-weight:500;color:${sc};letter-spacing:1px;word-break:keep-all;font-family:'Noto Serif KR', serif">— ${e(s.author||'고객 후기')}</div>
+      <div style="text-align:center;word-break:keep-all;position:relative">
+        <div style="font-size:11px;letter-spacing:0.45em;color:${ac};font-weight:700;margin-bottom:20px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">${e(s.label||'REVIEW')}</div>
+        <div style="display:flex;justify-content:center;gap:4px;margin-bottom:24px">${[1,2,3,4,5].map(()=>`<svg width="18" height="18" viewBox="0 0 24 24" fill="${ac}" opacity="0.7"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`).join('')}</div>
+        <div style="position:relative;background:${ac}04;border:0.5px solid ${ac}15;border-radius:20px;padding:36px 40px;margin-bottom:24px">
+          <div style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-size:60px;color:${ac};opacity:0.1;font-family:'Cormorant Garamond',serif;line-height:1">&ldquo;</div>
+          <div style="font-size:26px;font-weight:500;font-style:italic;color:${dc};line-height:1.65;white-space:pre-wrap;font-family:'Noto Serif KR',serif;position:relative;z-index:2">${e(s.tx)}</div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:12px">
+          <div style="width:20px;height:0.5px;background:${ac}40"></div>
+          <div style="font-size:16px;font-weight:500;color:${sc};letter-spacing:0.05em;font-family:'Noto Serif KR',serif">${e(s.author||'고객 후기')}</div>
+          <div style="width:20px;height:0.5px;background:${ac}40"></div>
+        </div>
       </div>`;
     case'cta':return`
-      <div style="text-align:center;word-break:keep-all;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center">
-        <div style="font-size:12px;letter-spacing:0.6em;color:${ac};font-weight:700;margin-bottom:32px;text-transform:uppercase;font-family:'Cormorant Garamond', serif">SAVE & SHARE</div>
-        <div style="font-size:48px;margin-bottom:20px">🔖</div>
-        <div style="font-size:32px;font-weight:600;color:${dc};line-height:1.45;white-space:pre-wrap;letter-spacing:-0.02em;font-family:'Noto Serif KR', serif">${e(s.tx)}</div>
-        <div style="display:flex;justify-content:center;margin-top:32px"><div style="width:40px;height:2px;background:${ac};border-radius:1px"></div></div>
+      <div style="text-align:center;word-break:keep-all;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:300px;height:300px;border-radius:50%;border:0.5px solid ${ac}08;pointer-events:none"></div>
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:200px;height:200px;border-radius:50%;border:0.5px solid ${ac}06;pointer-events:none"></div>
+        <div style="font-size:11px;letter-spacing:0.6em;color:${ac};font-weight:700;margin-bottom:28px;text-transform:uppercase;font-family:'Cormorant Garamond',serif;position:relative;z-index:2">SAVE & SHARE</div>
+        <div style="margin-bottom:24px;position:relative;z-index:2">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="${ac}" stroke-width="1.5"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div style="font-size:32px;font-weight:600;color:${dc};line-height:1.45;white-space:pre-wrap;font-family:'Noto Serif KR',serif;position:relative;z-index:2;margin-bottom:32px">${e(s.tx)}</div>
+        ${diamondDivider(ac)}
       </div>`;
-    case'ba': return `
+    case'ba':return`
       <div style="display:flex;height:100%;flex-direction:column;justify-content:center">
-        <div style="font-size:11px;letter-spacing:0.4em;color:${ac};font-weight:700;margin-bottom:18px;text-transform:uppercase;font-family:'Cormorant Garamond', serif">${e(s.label||'CASE STUDY')}</div>
-        <div style="display:flex;gap:2px;height:420px;margin-bottom:32px">
-          <div style="flex:1;background:${ac}10;border-radius:14px 0 0 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;border:1px solid ${ac}20">
-            <div style="position:absolute;top:20px;left:20px;background:${ac};color:white;font-size:11px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:0.5px">BEFORE</div>
-            ${IMGS['ba_b_'+i] ? `<img src="${IMGS['ba_b_'+i]}" style="width:100%;height:100%;object-fit:cover">` : `<div style="color:${ac}40">${ic('face',40)}</div>`}
+        <div style="font-size:10px;letter-spacing:0.45em;color:${ac};font-weight:700;margin-bottom:20px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">${e(s.label||'CASE STUDY')}</div>
+        <div style="display:flex;gap:0;height:420px;margin-bottom:32px;position:relative">
+          <div style="flex:1;background:${ac}06;border-radius:16px 0 0 16px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border:0.5px solid ${ac}15">
+            <div style="position:absolute;top:16px;left:16px;background:linear-gradient(135deg,${ac},${ac}cc);color:white;font-size:10px;font-weight:800;padding:5px 14px;border-radius:20px;letter-spacing:0.8px;font-family:'Cormorant Garamond',serif;z-index:2">BEFORE</div>
+            ${IMGS['ba_b_'+i]?`<img src="${IMGS['ba_b_'+i]}" style="width:100%;height:100%;object-fit:cover">`:`<div style="color:${ac}30">${ic('face',40)}</div>`}
           </div>
-          <div style="flex:1;background:${ac}10;border-radius:0 14px 14px 0;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;border:1px solid ${ac}20">
-            <div style="position:absolute;top:20px;left:20px;background:${ac};color:white;font-size:11px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:0.5px">AFTER</div>
-            ${IMGS['ba_a_'+i] ? `<img src="${IMGS['ba_a_'+i]}" style="width:100%;height:100%;object-fit:cover">` : `<div style="color:${ac}40">${ic('face',40)}</div>`}
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:3;width:36px;height:36px;background:${ac};border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px ${ac}40">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+          <div style="flex:1;background:${ac}06;border-radius:0 16px 16px 0;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border:0.5px solid ${ac}15">
+            <div style="position:absolute;top:16px;left:16px;background:linear-gradient(135deg,${ac},${ac}cc);color:white;font-size:10px;font-weight:800;padding:5px 14px;border-radius:20px;letter-spacing:0.8px;font-family:'Cormorant Garamond',serif;z-index:2">AFTER</div>
+            ${IMGS['ba_a_'+i]?`<img src="${IMGS['ba_a_'+i]}" style="width:100%;height:100%;object-fit:cover">`:`<div style="color:${ac}30">${ic('face',40)}</div>`}
           </div>
         </div>
         <div style="display:flex;gap:40px;text-align:center;word-break:keep-all">
-          <div style="flex:1;color:${sc};font-size:18px;line-height:1.6;letter-spacing:-0.01em">${e(s.tx)}</div>
-          <div style="flex:1;color:${dc};font-size:20px;font-weight:600;line-height:1.4;letter-spacing:0.01em;font-family:'Noto Serif KR', serif">${e(s.tt)}</div>
+          <div style="flex:1;color:${sc};font-size:17px;line-height:1.6">${e(s.tx)}</div>
+          <div style="flex:1;color:${dc};font-size:19px;font-weight:600;line-height:1.4;font-family:'Noto Serif KR',serif">${e(s.tt)}</div>
         </div>
-        <div style="display:flex;justify-content:center;margin-top:40px"><div style="width:40px;height:1.5px;background:${ac};border-radius:1px;opacity:0.6"></div></div>
       </div>`;
     default:return`<div style="font-size:26px;font-weight:500;color:${dc};white-space:pre-wrap">${e(s.tx||JSON.stringify(s))}</div>`;
   }
 }
 
 function footer(){
-  const logoPrimary='#3D3229'; // Fixed brand dark
-  const logoAccent='#EF7D31';  // Fixed brand orange
+  const logoAccent='#EF7D31';
   return`
-  <div style="position:absolute;bottom:0;left:0;right:0;padding:32px 88px 40px;border-top:1.5px solid rgba(61,50,41,.06)">
+  <div style="position:absolute;bottom:0;left:0;right:0;padding:32px 88px 40px">
+    <div style="width:100%;height:1px;background:linear-gradient(to right,transparent 5%,${logoAccent}25 25%,${logoAccent}40 50%,${logoAccent}25 75%,transparent 95%);margin-bottom:24px"></div>
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-      <div style="width:3px;height:24px;background:${logoAccent};border-radius:2px;opacity:0.9"></div>
-      <span style="font-size:27px;font-weight:700;color:${logoAccent};letter-spacing:0.35em;font-family:'Cormorant Garamond', serif;text-transform:uppercase">IM AESTHETIC</span>
+      <div style="width:3px;height:24px;background:linear-gradient(to bottom,${logoAccent},${logoAccent}40);border-radius:2px"></div>
+      <span style="font-size:24px;font-weight:600;color:${logoAccent};letter-spacing:0.4em;font-family:'Cormorant Garamond',serif;text-transform:uppercase">IM AESTHETIC</span>
     </div>
-    <div style="display:flex;gap:24px;color:#8C8279;font-size:18px;font-weight:400;letter-spacing:0.02em">
-      <span style="display:flex;align-items:center;gap:6px">${ic('phone',18,logoAccent)} 053-241-3855</span>
-      <span style="display:flex;align-items:center;gap:6px">${ic('mapPin',18,logoAccent)} 범어마크팰리스 2층</span>
+    <div style="display:flex;gap:24px;color:#8C8279;font-size:16px;font-weight:400;letter-spacing:0.02em">
+      <span style="display:flex;align-items:center;gap:6px">${ic('phone',16,logoAccent)} 053-241-3855</span>
+      <span style="display:flex;align-items:center;gap:6px">${ic('mapPin',16,logoAccent)} 범어마크팰리스 2층</span>
     </div>
   </div>`;}
 
