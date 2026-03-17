@@ -947,8 +947,8 @@ function slideHTML(s,i,n){
   const sc=light?'#8C8279':'rgba(255,255,255,.6)';
   const ac=themeAccent();
   const img=IMGS[i]?`<div style="position:absolute;inset:0;background:url('${IMGS[i]}') center/cover;opacity:.12;z-index:0"></div>`:'';
-  return`<div class="sf" style="background:radial-gradient(ellipse at 25% 15%,${ac}08 0%,transparent 50%),${bg}">
-    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent 5%,${ac}90 30%,${ac} 50%,${ac}90 70%,transparent 95%);opacity:0.7"></div>
+  return`<div class="sf" style="background:${bg}">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:${ac};opacity:0.5"></div>
     ${img}
     <div style="position:absolute;top:28px;right:44px;font-size:13px;color:${dc};opacity:0.12;font-weight:300;letter-spacing:6px;font-family:'Cormorant Garamond',serif">${i+1} / ${n}</div>
     <div class="sp">${inner(s,dc,sc,bg,i,n)}</div>
@@ -1215,7 +1215,8 @@ async function dlOne(idx){
   const sz=SIZES[currentSize]||SIZES['4:5'];
   setP(true,`슬라이드 ${idx+1} 렌더링...`,0,true);
   try{
-    const c=await html2canvas(sf,{scale:1,useCORS:true,allowTaint:true,width:sz.w,height:sz.h});
+    const c=await html2canvas(sf,{scale:1,useCORS:true,allowTaint:true,width:sz.w,height:sz.h,
+      onclone:function(doc){doc.querySelectorAll('svg').forEach(s=>s.remove());}});
     dl(c,`IM_카드뉴스_${POST?.id||'custom'}_${idx+1}.png`);
   }catch(ex){alert('렌더링 실패: '+ex.message);}
   setP(false);
@@ -1229,7 +1230,8 @@ async function dlAll(){
     if(!sf)continue;
     try{
       const sz=SIZES[currentSize]||SIZES['4:5'];
-      const c=await html2canvas(sf,{scale:1,useCORS:true,allowTaint:true,width:sz.w,height:sz.h});
+      const c=await html2canvas(sf,{scale:1,useCORS:true,allowTaint:true,width:sz.w,height:sz.h,
+        onclone:function(doc){doc.querySelectorAll('svg').forEach(s=>s.remove());}});
       dl(c,`IM_카드뉴스_${POST?.id||'custom'}_${i+1}.png`);
       await new Promise(r=>setTimeout(r,200));
     }catch(ex){console.error(ex);}
