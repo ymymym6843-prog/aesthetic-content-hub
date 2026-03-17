@@ -762,14 +762,16 @@ function applySize(ratio){
 /* ---- 앱 상태 ---- */
 let POST=null,SLIDES=[],IMGS={};
 
+/* ---- 에디터 빌드 (초기화 전에 필요) ---- */
+const RL={hook:'훅',step:'스텝',content:'내용',cta:'CTA',myth:'미스',fact:'팩트',checklist:'체크리스트',program:'프로그램',cause:'원인',recommend:'추천대상',highlight:'강조',ugc:'후기',ba:'Before & After'};
+const BGP=['#FFF8F0','#FFFFFF','#4A3728','#F5EDE0'];
+
 (/* ---- 초기화 ---- */
 ()=>{
   const g=document.getElementById('cal-grid');
   g.innerHTML=CP.map(p=>`<div class="cc" id="cc-${p.id}" onclick="selPost('${p.id}')">
     <div class="wk">${p.w}</div><div class="ti">${p.t}</div><div class="tp">${p.tp}</div>
   </div>`).join('');
-  
-  buildPresets(); // 동적 프리셋 빌드 추가
   
   const q=new URLSearchParams(location.search).get('post');
   if(q){const p=CP.find(c=>c.id===q);if(p){selPost(p.id);}}
@@ -809,9 +811,6 @@ function selPost(id){
 }
 
 /* ---- 에디터 빌드 ---- */
-const RL={hook:'훅',step:'스텝',content:'내용',cta:'CTA',myth:'미스',fact:'팩트',checklist:'체크리스트',program:'프로그램',cause:'원인',recommend:'추천대상',highlight:'강조',ugc:'후기',ba:'Before & After'};
-const BGP=['#FFF8F0','#FFFFFF','#4A3728','#F5EDE0'];
-
 function buildEditors(cid){
   document.getElementById(cid).innerHTML=SLIDES.map((s,i)=>edHTML(s,i,cid)).join('');
 }
@@ -1436,6 +1435,27 @@ const PRESET_TEMPLATES={
     {r:'cta',tx:'당신도 달라질 수 있습니다'}
   ]}
 };
+
+function buildPresets(){
+  const container=document.getElementById('presets-container');
+  if(!container)return;
+  container.innerHTML=Object.keys(PRESET_TEMPLATES).map(key=>{
+    const p=PRESET_TEMPLATES[key];
+    return `
+      <div class="preset-card" onclick="applyPreset('${key}')" id="preset-${key}">
+        <div class="preset-icon">${p.icon||'📋'}</div>
+        <div>
+          <div class="preset-title">${p.t}</div>
+          <div class="preset-desc">${p.desc||''}</div>
+          <div class="preset-slides">${p.s.length}장</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// 프리셋 빌드 실행 (PRESET_TEMPLATES 정의 후)
+buildPresets();
 
 let currentPresetType=null;
 
