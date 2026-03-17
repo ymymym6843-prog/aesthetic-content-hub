@@ -1209,6 +1209,15 @@ function genTopic(){
 }
 
 /* ---- 내보내기 ---- */
+/* html2canvas createPattern 0-size canvas 에러 방지 */
+(function(){
+  const orig=CanvasRenderingContext2D.prototype.createPattern;
+  CanvasRenderingContext2D.prototype.createPattern=function(img,rep){
+    if(img&&(img.width===0||img.height===0))return null;
+    return orig.call(this,img,rep);
+  };
+})();
+
 /* 8자리 hex(#RRGGBBAA)를 rgba()로 변환 - html2canvas 호환 */
 function fixHex8(html){
   return html.replace(/#([0-9A-Fa-f]{8})\b/g,function(_,h){
