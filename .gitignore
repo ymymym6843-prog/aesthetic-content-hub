@@ -13,3 +13,6 @@ content-hub/
 checklist_preview.png
 *.zip
 .vercel
+*.ai
+.playwright-mcp/
+screenshots/
