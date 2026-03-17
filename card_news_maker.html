@@ -956,7 +956,7 @@ function slideHTML(s,i,n){
   const img=IMGS[i]?`<div style="position:absolute;inset:0;background:url('${IMGS[i]}') center/cover;opacity:.12;z-index:0"></div>`:'';
   return`<div class="sf" style="background:radial-gradient(ellipse at 25% 15%,${ac}08 0%,transparent 50%),${bg}">
     <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent 5%,${ac}90 30%,${ac} 50%,${ac}90 70%,transparent 95%);opacity:0.7"></div>
-    ${img}${grainOverlay(light?0.03:0.04)}${botanicalMotif(ac,i===0?'tr':'bl',0.8)}
+    ${img}${botanicalMotif(ac,i===0?'tr':'bl',0.8)}
     <div style="position:absolute;top:28px;right:44px;font-size:13px;color:${dc};opacity:0.12;font-weight:300;letter-spacing:6px;font-family:'Cormorant Garamond',serif">${i+1} / ${n}</div>
     <div class="sp">${inner(s,dc,sc,bg,i,n)}</div>
     ${i===n-1?footer():''}
