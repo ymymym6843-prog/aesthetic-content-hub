@@ -1209,16 +1209,28 @@ function genTopic(){
 }
 
 /* ---- 내보내기 ---- */
+/* 8자리 hex(#RRGGBBAA)를 rgba()로 변환 - html2canvas 호환 */
+function fixHex8(html){
+  return html.replace(/#([0-9A-Fa-f]{8})\b/g,function(_,h){
+    const r=parseInt(h.slice(0,2),16),g=parseInt(h.slice(2,4),16),b=parseInt(h.slice(4,6),16),a=parseInt(h.slice(6,8),16);
+    return'rgba('+r+','+g+','+b+','+(a/255).toFixed(2)+')';
+  });
+}
+
 async function renderSlide(idx){
   const sz=SIZES[currentSize]||SIZES['4:5'];
   const area=document.getElementById('export-area');
-  /* 렌더링용 컨테이너를 export-area에 원본 크기로 생성 */
-  area.innerHTML=slideHTML(SLIDES[idx],idx,SLIDES.length);
+  /* 렌더링용 컨테이너를 export-area에 원본 크기로 생성 (8자리 hex→rgba 변환) */
+  area.innerHTML=fixHex8(slideHTML(SLIDES[idx],idx,SLIDES.length));
   const sf=area.querySelector('.sf');
   if(!sf)return null;
   sf.style.width=sz.w+'px';sf.style.height=sz.h+'px';
   /* SVG를 빈 span으로 대체 (html2canvas 호환) */
   sf.querySelectorAll('svg').forEach(s=>{const sp=document.createElement('span');s.replaceWith(sp);});
+  /* border-image 제거 (html2canvas 미지원) */
+  sf.querySelectorAll('[style*="border-image"]').forEach(el=>{
+    el.style.borderImage='none';
+  });
   await new Promise(r=>setTimeout(r,100));
   try{
     const c=await html2canvas(sf,{scale:1,useCORS:true,allowTaint:true,logging:false,width:sz.w,height:sz.h});
