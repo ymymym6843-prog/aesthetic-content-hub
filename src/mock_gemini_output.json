@@ -1,0 +1,19 @@
+{
+  "card_news": {
+    "slide_1_hook": "바를 땐 촉촉한데 금방 당긴다면?",
+    "slide_2_pain_point": "수분 크림을 아무리 발라도 피부 속건조가 해결되지 않아 메이크업이 들뜨고 세안 직후 피부가 극도로 예민해진 적 있으신가요?",
+    "slide_3_solution": "하이드로포빈 수분크림은 천연 발효 성분과 아미노산 복합체로 피부 속부터 촘촘하게 수분 장벽을 세워 근본적인 건조함을 해결합니다.",
+    "slide_4_benefit": "단 한 번의 사용으로도 끈적임 없이 촉촉함이 72시간 유지되며, 건강하고 윤기 나는 피부결을 완성해 줍니다.",
+    "slide_5_cta": "지금 프로필 링크에서 피부 전문가가 선택한 하이드로포빈 크림을 만나보세요!"
+  },
+  "image_generation_prompts": {
+    "prompt_1": "A luxurious macro shot of a clear moisturizing cream jar on a soft pastel orange marble background, surrounded by delicate water drops and warm glowing sunlight, professional skincare photography, hyper-realistic, 8k resolution, elegant aesthetic spa vibe",
+    "prompt_2": "A visually satisfying close-up of a smooth, translucent hydration cream texture melting into the skin, soft focus, morning light, subtle peach tones, clean beauty concept, high-end editorial photography"
+  },
+  "video_script": {
+    "hook_scene": "(빠른 클로즈업) 건조하게 갈라진 피부결 위에 크림 한 방울이 닿자마자 물방울로 변하며 스며드는 극적인 순간",
+    "video_generation_prompt": "A high-speed macro video shot showing a drop of translucent hydrating cream touching dry skin and instantly bursting into hundreds of microscopic water droplets, soft warm lighting, ultra-realistic textures, slow motion, cinematic skincare ad style"
+  },
+  "original_image": "https://framerusercontent.com/images/BSNOxjkb7jyl4NWPhHw7iAxRwUM.jpg",
+  "product_name": "하이드로포빈 수분크림"
+}
