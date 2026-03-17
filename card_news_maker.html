@@ -946,12 +946,14 @@ function slideHTML(s,i,n){
   const dc=light?'#1A1714':'#FFFFFF';
   const sc=light?'#8C8279':'rgba(255,255,255,.6)';
   const ac=themeAccent();
-  const img=IMGS[i]?`<div style="position:absolute;inset:0;background:url('${IMGS[i]}') center/cover;opacity:.12;z-index:0"></div>`:'';
+  const img=IMGS[i]?`<div style="position:absolute;inset:0;background:url('${IMGS[i]}') center/cover;opacity:.85;z-index:0"></div>`:'';
+  const hasImg=!!IMGS[i];
   return`<div class="sf" style="background:${bg}">
     <div style="position:absolute;top:0;left:0;right:0;height:2px;background:${ac};opacity:0.5"></div>
     ${img}
-    <div style="position:absolute;top:28px;right:44px;font-size:13px;color:${dc};opacity:0.12;font-weight:300;letter-spacing:6px;font-family:'Cormorant Garamond',serif">${i+1} / ${n}</div>
-    <div class="sp">${inner(s,dc,sc,bg,i,n)}</div>
+    ${hasImg?`<div style="position:absolute;inset:0;background:${bg};opacity:0.55;z-index:1"></div>`:''}
+    <div style="position:absolute;top:28px;right:44px;font-size:13px;color:${dc};opacity:0.12;font-weight:300;letter-spacing:6px;font-family:'Cormorant Garamond',serif;z-index:2">${i+1} / ${n}</div>
+    <div class="sp" style="${hasImg?'position:relative;z-index:2':''}">${inner(s,dc,sc,bg,i,n)}</div>
     ${i===n-1?footer():''}
   </div>`;
 }
