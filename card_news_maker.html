@@ -1209,16 +1209,34 @@ function genTopic(){
 }
 
 /* ---- 내보내기 ---- */
-async function dlOne(idx){
-  const el=document.getElementById('pw'+idx);if(!el)return;
-  const sf=el.querySelector('.sf');if(!sf)return;
+async function renderSlide(idx){
   const sz=SIZES[currentSize]||SIZES['4:5'];
+  const area=document.getElementById('export-area');
+  /* 렌더링용 컨테이너를 export-area에 원본 크기로 생성 */
+  area.innerHTML=slideHTML(SLIDES[idx],idx,SLIDES.length);
+  const sf=area.querySelector('.sf');
+  if(!sf)return null;
+  sf.style.width=sz.w+'px';sf.style.height=sz.h+'px';
+  /* SVG를 빈 span으로 대체 (html2canvas 호환) */
+  sf.querySelectorAll('svg').forEach(s=>{const sp=document.createElement('span');s.replaceWith(sp);});
+  await new Promise(r=>setTimeout(r,100));
+  try{
+    const c=await html2canvas(sf,{scale:1,useCORS:true,allowTaint:true,logging:false,width:sz.w,height:sz.h});
+    area.innerHTML='';
+    return c;
+  }catch(ex){
+    area.innerHTML='';
+    throw ex;
+  }
+}
+
+async function dlOne(idx){
+  if(!SLIDES[idx])return;
   setP(true,`슬라이드 ${idx+1} 렌더링...`,0,true);
   try{
-    const c=await html2canvas(sf,{scale:1,useCORS:true,allowTaint:true,width:sz.w,height:sz.h,
-      onclone:function(doc){doc.querySelectorAll('svg').forEach(s=>s.remove());}});
-    dl(c,`IM_카드뉴스_${POST?.id||'custom'}_${idx+1}.png`);
-  }catch(ex){alert('렌더링 실패: '+ex.message);}
+    const c=await renderSlide(idx);
+    if(c)dl(c,`IM_카드뉴스_${POST?.id||'custom'}_${idx+1}.png`);
+  }catch(ex){console.error('렌더링 실패:',ex);alert('렌더링 실패: '+ex.message);}
   setP(false);
 }
 
@@ -1226,13 +1244,9 @@ async function dlAll(){
   if(!SLIDES.length)return;
   for(let i=0;i<SLIDES.length;i++){
     setP(true,`${i+1}/${SLIDES.length} 렌더링...`,Math.round(i/SLIDES.length*100),true);
-    const sf=document.getElementById('pw'+i)?.querySelector('.sf');
-    if(!sf)continue;
     try{
-      const sz=SIZES[currentSize]||SIZES['4:5'];
-      const c=await html2canvas(sf,{scale:1,useCORS:true,allowTaint:true,width:sz.w,height:sz.h,
-        onclone:function(doc){doc.querySelectorAll('svg').forEach(s=>s.remove());}});
-      dl(c,`IM_카드뉴스_${POST?.id||'custom'}_${i+1}.png`);
+      const c=await renderSlide(i);
+      if(c)dl(c,`IM_카드뉴스_${POST?.id||'custom'}_${i+1}.png`);
       await new Promise(r=>setTimeout(r,200));
     }catch(ex){console.error(ex);}
   }
