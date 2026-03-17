@@ -238,8 +238,8 @@ textarea{resize:vertical;min-height:58px}
 .pw>div{transform:scale(0.25);transform-origin:top left;width:1080px;height:1080px}
 
 /* ---- 슬라이드 실제 크기 ---- */
-.sf{width:var(--slide-w);height:var(--slide-h);position:relative;overflow:hidden;font-family:'Pretendard',system-ui,sans-serif}
-.sp{padding:100px 88px;height:100%;display:flex;flex-direction:column;justify-content:center}
+.sf{width:var(--slide-w);height:var(--slide-h);position:relative;overflow:hidden;font-family:'Pretendard',system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.sp{padding:100px 88px;height:100%;display:flex;flex-direction:column;justify-content:center;word-break:keep-all;overflow-wrap:break-word;line-height:1.6}
 
 /* ---- 버튼 ---- */
 .btn{
@@ -980,7 +980,7 @@ function inner(s,dc,sc,bg,i,n){
           <div style="width:32px;height:0.5px;background:${ac}60"></div>
         </div>
         ${s.eyebrow?`<div style="font-size:10px;font-weight:700;letter-spacing:0.25em;color:${sc};margin-bottom:20px;text-transform:uppercase">${e(s.eyebrow)}</div>`:''}
-        <div style="font-size:38px;font-weight:600;line-height:1.4;white-space:pre-wrap;letter-spacing:-0.01em;font-family:'Noto Serif KR',serif">${e(s.tx)}</div>
+        <div style="font-size:38px;font-weight:600;line-height:1.4;white-space:pre-line;letter-spacing:0.01em;font-family:'Noto Serif KR',serif">${e(s.tx)}</div>
         ${diamondDivider(ac)}
         ${s.swipe?`<div style="position:absolute;bottom:56px;left:0;right:0;font-size:11px;color:${sc};letter-spacing:0.12em;opacity:0.7">${e(s.swipe)}</div>`:''}
       </div>`;
@@ -995,19 +995,19 @@ function inner(s,dc,sc,bg,i,n){
           <div style="width:0.5px;height:60px;background:linear-gradient(to bottom,${ac}30,transparent);margin-top:8px"></div>
         </div>
         <div style="padding-top:6px;flex:1;border-left:2px solid ${ac}15;padding-left:32px">
-          <div style="font-size:28px;font-weight:600;color:${dc};margin-bottom:14px;letter-spacing:-0.01em;font-family:'Noto Serif KR',serif">${e(s.tt)}</div>
+          <div style="font-size:28px;font-weight:600;color:${dc};margin-bottom:14px;letter-spacing:0.01em;font-family:'Noto Serif KR',serif">${e(s.tt)}</div>
           <div style="width:24px;height:1px;background:${ac}60;margin-bottom:18px"></div>
-          <div style="font-size:19px;font-weight:400;color:${sc};line-height:1.75;white-space:pre-wrap">${e(s.tx)}</div>
+          <div style="font-size:19px;font-weight:400;color:${sc};line-height:1.75;white-space:pre-line">${e(s.tx)}</div>
         </div>
       </div>`;
     case'content':return`
       <div style="word-break:keep-all;position:relative">
         <div style="position:absolute;top:-20px;left:-10px;font-size:80px;color:${ac};opacity:0.05;font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1;pointer-events:none">&ldquo;</div>
         <div style="font-size:11px;letter-spacing:0.45em;color:${ac};font-weight:700;margin-bottom:20px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">${e(s.label||'POINT')}</div>
-        <div style="font-size:28px;font-weight:600;color:${dc};margin-bottom:16px;letter-spacing:-0.01em;font-family:'Noto Serif KR',serif">${e(s.tt||'')}</div>
+        <div style="font-size:28px;font-weight:600;color:${dc};margin-bottom:16px;letter-spacing:0.01em;font-family:'Noto Serif KR',serif">${e(s.tt||'')}</div>
         ${diamondDivider(ac)}
         <div style="background:${ac}05;border:0.5px solid ${ac}12;border-radius:16px;padding:28px 32px">
-          <div style="font-size:20px;font-weight:400;color:${sc};line-height:1.75;white-space:pre-wrap">${e(s.tx)}</div>
+          <div style="font-size:20px;font-weight:400;color:${sc};line-height:1.75;white-space:pre-line">${e(s.tx)}</div>
         </div>
       </div>`;
     case'myth':return`
@@ -1018,7 +1018,7 @@ function inner(s,dc,sc,bg,i,n){
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E8453C" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </div>
         <div style="font-size:10px;font-weight:700;color:#E8453C;letter-spacing:0.6em;margin-bottom:28px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">MYTH</div>
-        <div style="font-size:30px;font-weight:500;color:#fff;line-height:1.5;white-space:pre-wrap;letter-spacing:-0.01em;font-family:'Noto Serif KR',serif">${e(s.tx)}</div>
+        <div style="font-size:30px;font-weight:500;color:#fff;line-height:1.5;white-space:pre-line;letter-spacing:0.01em;font-family:'Noto Serif KR',serif">${e(s.tx)}</div>
       </div>`;
     case'fact':return`
       <div style="position:absolute;top:40px;left:40px;width:20px;height:20px;border-left:1.5px solid #22C55E30;border-top:1.5px solid #22C55E30;pointer-events:none"></div>
@@ -1031,13 +1031,13 @@ function inner(s,dc,sc,bg,i,n){
         ${s.tt?`<div style="font-size:24px;font-weight:600;color:${dc};margin-bottom:18px;font-family:'Noto Serif KR',serif">${e(s.tt)}</div>`:''}
         <div style="position:relative;background:${light?'rgba(34,197,94,0.03)':'rgba(255,255,255,0.04)'};padding:28px 32px;border-radius:16px;border:0.5px solid #22C55E20">
           <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:60%;height:2px;background:linear-gradient(90deg,transparent,#22C55E40,transparent);border-radius:1px"></div>
-          <div style="font-size:20px;font-weight:500;color:${dc};line-height:1.6;white-space:pre-wrap">${e(s.tx)}</div>
+          <div style="font-size:20px;font-weight:500;color:${dc};line-height:1.6;white-space:pre-line">${e(s.tx)}</div>
         </div>
       </div>`;
     case'checklist':return`
       <div style="word-break:keep-all">
         <div style="font-size:11px;letter-spacing:0.45em;color:${ac};font-weight:700;margin-bottom:20px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">${e(s.label||'CHECKLIST')}</div>
-        <div style="font-size:28px;font-weight:600;color:${dc};margin-bottom:16px;letter-spacing:-0.01em;font-family:'Noto Serif KR',serif">${e(s.tt||'')}</div>
+        <div style="font-size:28px;font-weight:600;color:${dc};margin-bottom:16px;letter-spacing:0.01em;font-family:'Noto Serif KR',serif">${e(s.tt||'')}</div>
         ${diamondDivider(ac)}
         <div style="border:0.5px solid ${ac}15;border-radius:16px;overflow:hidden">
         ${(s.items||[]).map((it,j)=>`<div style="display:flex;align-items:center;gap:18px;padding:18px 24px;${j%2===0?`background:${ac}04;`:''}${j<(s.items||[]).length-1?`border-bottom:0.5px solid ${ac}0a;`:''}">
@@ -1067,7 +1067,7 @@ function inner(s,dc,sc,bg,i,n){
         <div style="font-size:24px;color:${ac};font-weight:700;margin-bottom:14px;font-family:'Noto Serif KR',serif">${e(s.tt||'')}</div>
         ${diamondDivider(ac)}
         <div style="border-left:3px solid;border-image:linear-gradient(to bottom,${ac},${ac}20) 1;padding:24px 32px;background:${ac}04;border-radius:0 14px 14px 0;box-shadow:0 4px 20px ${ac}06">
-          <div style="font-size:26px;font-weight:500;color:${dc};line-height:1.6;white-space:pre-wrap;font-family:'Noto Serif KR',serif">${e(s.tx)}</div>
+          <div style="font-size:26px;font-weight:500;color:${dc};line-height:1.6;white-space:pre-line;font-family:'Noto Serif KR',serif">${e(s.tx)}</div>
         </div>
       </div>`;
     case'recommend':return`
@@ -1089,7 +1089,7 @@ function inner(s,dc,sc,bg,i,n){
     case'highlight':return`
       <div style="position:relative;border-left:4px solid;border-image:linear-gradient(to bottom,${ac},${ac}30) 1;padding:40px 56px;background:${ac}06;border-radius:0 18px 18px 0;word-break:keep-all;box-shadow:inset 0 0 60px ${ac}03">
         <div style="position:absolute;top:12px;left:24px;font-size:100px;color:${ac};opacity:0.06;font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1;pointer-events:none">&ldquo;</div>
-        <div style="position:relative;font-size:30px;font-weight:600;color:${dc};line-height:1.55;white-space:pre-wrap;font-family:'Noto Serif KR',serif">${e(s.tx)}</div>
+        <div style="position:relative;font-size:30px;font-weight:600;color:${dc};line-height:1.55;white-space:pre-line;font-family:'Noto Serif KR',serif">${e(s.tx)}</div>
       </div>`;
     case'ugc':return`
       <div style="text-align:center;word-break:keep-all;position:relative">
@@ -1097,7 +1097,7 @@ function inner(s,dc,sc,bg,i,n){
         <div style="display:flex;justify-content:center;gap:4px;margin-bottom:24px">${[1,2,3,4,5].map(()=>`<svg width="18" height="18" viewBox="0 0 24 24" fill="${ac}" opacity="0.7"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`).join('')}</div>
         <div style="position:relative;background:${ac}04;border:0.5px solid ${ac}15;border-radius:20px;padding:36px 40px;margin-bottom:24px">
           <div style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-size:60px;color:${ac};opacity:0.1;font-family:'Cormorant Garamond',serif;line-height:1">&ldquo;</div>
-          <div style="font-size:26px;font-weight:500;font-style:italic;color:${dc};line-height:1.65;white-space:pre-wrap;font-family:'Noto Serif KR',serif;position:relative;z-index:2">${e(s.tx)}</div>
+          <div style="font-size:26px;font-weight:500;font-style:italic;color:${dc};line-height:1.65;white-space:pre-line;font-family:'Noto Serif KR',serif;position:relative;z-index:2">${e(s.tx)}</div>
         </div>
         <div style="display:flex;align-items:center;justify-content:center;gap:12px">
           <div style="width:20px;height:0.5px;background:${ac}40"></div>
@@ -1113,7 +1113,7 @@ function inner(s,dc,sc,bg,i,n){
         <div style="margin-bottom:24px;position:relative;z-index:2">
           <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="${ac}" stroke-width="1.5"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
         </div>
-        <div style="font-size:32px;font-weight:600;color:${dc};line-height:1.45;white-space:pre-wrap;font-family:'Noto Serif KR',serif;position:relative;z-index:2;margin-bottom:32px">${e(s.tx)}</div>
+        <div style="font-size:32px;font-weight:600;color:${dc};line-height:1.45;white-space:pre-line;font-family:'Noto Serif KR',serif;position:relative;z-index:2;margin-bottom:32px">${e(s.tx)}</div>
         ${diamondDivider(ac)}
       </div>`;
     case'ba':return`
@@ -1137,7 +1137,7 @@ function inner(s,dc,sc,bg,i,n){
           <div style="flex:1;color:${dc};font-size:19px;font-weight:600;line-height:1.4;font-family:'Noto Serif KR',serif">${e(s.tt)}</div>
         </div>
       </div>`;
-    default:return`<div style="font-size:26px;font-weight:500;color:${dc};white-space:pre-wrap">${e(s.tx||JSON.stringify(s))}</div>`;
+    default:return`<div style="font-size:26px;font-weight:500;color:${dc};white-space:pre-line">${e(s.tx||JSON.stringify(s))}</div>`;
   }
 }
 
