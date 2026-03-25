@@ -1,5 +1,163 @@
 export const strategyData = [
     {
+        week: 0,
+        phase: "Phase 0: 초기 그리드 (웨딩케어 브랜드 런칭)",
+        theme: "6피드 그리드 — 하나의 큰 이미지로 브랜드 각인",
+        goal: "인스타 프로필 첫인상 확립. 6개 피드가 하나의 웨딩케어 비주얼로 연결",
+        posts: [
+            {
+                day: "①", type: "이미지", title: "IM AESTHETIC 로고",
+                image: "/feed_images/grid_01.png",
+                desc: "오렌지 브랜드 카드 + 웨딩 소품 배경. IM AESTHETIC 대형 로고",
+                asset: "Gemini AI 생성 배경 + 텍스트 오버레이",
+                design: "오렌지 틴트 오버레이 + Playfair Display 로고",
+                caption: `IM AESTHETIC,,, 🤍
+
+세 명의 전문가가 만드는,
+당신만의 아름다움. ✨
+
+대구 수성구 범어동 마크팰리스,
+웨딩 전문 에스테틱이 문을 열었습니다.
+
+피부의 결을 읽는 사람,
+몸의 흐름을 따라가는 사람,
+감각으로 마음을 어루만지는 사람 🕯️ —
+
+서로 다른 길을 걸어온 세 명이
+오직 한 분만을 위해 모였어요.
+
+→ 상담은 프로필 링크로 🤍`,
+                tags: "#아이엠에스테틱 #IM에스테틱 #대구웨딩케어 #범어동에스테틱 #수성구피부관리 #웨딩에스테틱 #대구에스테틱 #3인케어시스템"
+            },
+            {
+                day: "②", type: "이미지", title: "당신의 가장 빛나는 날을",
+                image: "/feed_images/grid_02.png",
+                desc: "베이지 배경 + 웨딩 소품. 슬로건 '당신의 가장 빛나는 날을 준비합니다'",
+                asset: "Gemini AI 생성 배경 + 텍스트 오버레이",
+                design: "크림 틴트 오버레이 + 대형 한글 타이포",
+                caption: `당신의 가장 빛나는 날을 준비합니다,,, 💍
+
+결혼을 앞두고
+가장 먼저 준비해야 할 것이 있다면,,,
+
+그건 아마도 🌸
+내 피부 아닐까요.
+
+드레스보다 먼저,
+부케보다 먼저,
+D-day에 가장 빛나는 건
+드레스 위로 드러나는 맑은 피부결이에요. ✨
+
+IM AESTHETIC이 그 준비를
+함께 시작할게요.
+
+→ 저장해두고 참고하세요 💫`,
+                tags: "#아이엠에스테틱 #IM에스테틱 #대구웨딩케어 #범어동에스테틱 #수성구피부관리 #웨딩준비 #신부피부관리 #결혼준비 #예비신부"
+            },
+            {
+                day: "③", type: "이미지", title: "WEDDING CARE",
+                image: "/feed_images/grid_03.png",
+                desc: "오렌지 배경 + 스파 소품. WEDDING CARE 서비스 소개",
+                asset: "Gemini AI 생성 배경 + 텍스트 오버레이",
+                design: "오렌지 틴트 + 영문 타이포 + 서비스 키워드",
+                caption: `WEDDING CARE,,, ✨
+
+💍 D-180부터 D-Day까지
+함께 준비하는 IM 웨딩케어.
+
+피부 · 윤곽 · 바디라인,
+세 명의 전문가가
+하나의 플랜으로 설계합니다. 💫
+
+결혼이라는 특별한 순간을 위해,
+피부의 결부터 바디의 라인까지
+빠짐없이 챙겨드릴게요.
+
+당신이 가장 아름다운 순간,
+IM이 곁에 있을게요. 🤍
+
+→ 웨딩케어 상담 & 예약은 프로필 링크로`,
+                tags: "#아이엠에스테틱 #IM에스테틱 #대구웨딩케어 #범어동에스테틱 #수성구피부관리 #웨딩케어프로그램 #웨딩D180 #맞춤웨딩케어"
+            },
+            {
+                day: "④", type: "이미지", title: "시술 장면 감성컷",
+                image: "/feed_images/grid_04.png",
+                desc: "Gemini 감성 이미지 — 시술 장면 (골든 세럼 도포)",
+                asset: "Gemini AI 생성",
+                design: "감성 사진 + 오렌지 하단 그라데이션 + 워터마크",
+                caption: `손끝에서 전해지는 온기,,, 🕯️
+
+오늘도 한 분만을 위해
+조용히 준비를 시작합니다.
+
+골든 세럼 한 방울이
+피부 위에 닿는 순간,
+결이 기억하고 있던
+본래의 광채가 돌아와요. ✨
+
+웨딩을 앞둔 소중한 피부,
+과한 시술 대신
+결을 살리는 관리가 답이에요. 🌿
+
+IM 에스테틱의 손은
+언제나 정직하게 닿겠습니다.
+
+→ 상담은 프로필 링크로 🤍`,
+                tags: "#아이엠에스테틱 #IM에스테틱 #대구웨딩케어 #범어동에스테틱 #수성구피부관리 #피부관리전문 #메디컬스킨케어 #웨딩피부관리"
+            },
+            {
+                day: "⑤", type: "이미지", title: "부케 & 앰플 스틸라이프",
+                image: "/feed_images/grid_05.png",
+                desc: "Gemini 감성 이미지 — 흰 장미 부케 + 골드 앰플 + 진주",
+                asset: "Gemini AI 생성",
+                design: "감성 사진 + 오렌지 하단 그라데이션 + 워터마크",
+                caption: `가장 아름다운 것들만 모아,,, 💐
+
+흰 장미 한 송이의 순수함,
+골드 앰플 한 방울의 정성,
+진주 한 알의 빛남.
+
+웨딩을 앞둔 당신의 피부에도
+이 정성을 그대로 담고 싶었어요. ✨
+
+IM 에스테틱이 선택하는 성분은
+오직 검증된 것만.
+피부가 기억할 수 있는
+가장 좋은 것만 닿게 해드릴게요. 🌿
+
+→ 저장해두고 참고하세요 💫`,
+                tags: "#아이엠에스테틱 #IM에스테틱 #대구웨딩케어 #범어동에스테틱 #수성구피부관리 #에스테틱앰플 #웨딩준비 #프리미엄스킨케어"
+            },
+            {
+                day: "⑥", type: "이미지", title: "신부 뒷모습 감성컷",
+                image: "/feed_images/grid_06.png",
+                desc: "Gemini 감성 이미지 — 신부 뒷모습, 글로잉 피부, 골든 라이트",
+                asset: "Gemini AI 생성",
+                design: "감성 사진 + 오렌지 하단 그라데이션 + 워터마크",
+                caption: `빛나는 건,,, 💍
+드레스가 아니라
+드레스 위로 드러나는 당신이에요.
+
+어깨 위로 스며드는 골든 라이트,
+올려 묶은 머리 사이로 보이는
+맑은 피부결. ✨
+
+그 빛남은 하루아침에
+만들어지는 게 아니에요.
+
+D-180부터 시작된
+조용한 준비의 결과예요. 🕯️
+
+IM AESTHETIC이 함께한
+가장 빛나는 순간. 🤍
+
+→ 팔로우하고 웨딩케어 소식 받기`,
+                tags: "#아이엠에스테틱 #IM에스테틱 #대구웨딩케어 #범어동에스테틱 #수성구피부관리 #웨딩케어 #신부피부관리 #예비신부 #웨딩에스테틱"
+            }
+        ],
+        focus: "브랜드 런칭, 웨딩케어 각인, 프리미엄 이미지"
+    },
+    {
         week: 1,
         phase: "Phase 1: 브랜드 소개 + 웨딩케어 예고",
         theme: "인스타그램 첫 인사",
@@ -1113,30 +1271,30 @@ IM 윤곽라인의 모든 프로그램은
 
 // Initial 6-grid posts (3x2 seamless wedding care image)
 export const initialGridPosts = [
-    { id: 101, isGridImage: true, gridIndex: 0, title: 'IM AESTHETIC', image: '/feed_images/grid_01.png',
-      caption: 'IM AESTHETIC\n\n✨ 세 명의 전문가가 만드는,\n당신만의 아름다움\n\n웨딩 전문 에스테틱\n수성구 범어동 마크팰리스\n\n→ 상담은 프로필 링크로 🤍',
-      hashtags: '#아이엠에스테틱 #IM에스테틱 #대구웨딩케어 #범어동에스테틱 #수성구피부관리 #웨딩에스테틱 #대구에스테틱',
-      week: 0, day: '', type: 'image', phase: '', status: 'published' },
+    { id: 101, isGridImage: true, gridIndex: 0, title: 'IM AESTHETIC 로고', image: '/feed_images/grid_01.png',
+      caption: 'IM AESTHETIC,,, 🤍\n\n세 명의 전문가가 만드는,\n당신만의 아름다움. ✨\n\n대구 수성구 범어동 마크팰리스,\n웨딩 전문 에스테틱이 문을 열었습니다.\n\n피부의 결을 읽는 사람,\n몸의 흐름을 따라가는 사람,\n감각으로 마음을 어루만지는 사람 🕯️ —\n\n서로 다른 길을 걸어온 세 명이\n오직 한 분만을 위해 모였어요.\n\n→ 상담은 프로필 링크로 🤍',
+      hashtags: '#아이엠에스테틱 #IM에스테틱 #대구웨딩케어 #범어동에스테틱 #수성구피부관리 #웨딩에스테틱 #대구에스테틱 #3인케어시스템',
+      week: 0, day: '①', type: 'image', phase: 'Phase 0: 초기 그리드', status: 'published' },
     { id: 102, isGridImage: true, gridIndex: 1, title: '당신의 가장 빛나는 날을', image: '/feed_images/grid_02.png',
-      caption: '당신의 가장 빛나는 날을,,,\n\n결혼을 앞두고\n가장 먼저 준비해야 할 것이\n있다면,,,\n\n그건 아마도 🌸\n내 피부 아닐까요\n\n→ 저장해두고 참고하세요 💫',
-      hashtags: '#웨딩준비 #신부피부관리 #결혼준비 #웨딩케어 #피부관리루틴 #대구웨딩케어',
-      week: 0, day: '', type: 'image', phase: '', status: 'published' },
-    { id: 103, isGridImage: true, gridIndex: 2, title: '준비합니다', image: '/feed_images/grid_03.png',
-      caption: '준비합니다,,,\n\n🕊️ 드레스보다 먼저\n부케보다 먼저\n\n당신의 피부가\n가장 빛나는 순간을\n\nIM AESTHETIC이 함께할게요 🤍\n\n→ 웨딩케어 상담 DM',
-      hashtags: '#웨딩케어 #웨딩피부관리 #신부관리 #예비신부 #대구웨딩에스테틱 #범어동피부관리',
-      week: 0, day: '', type: 'image', phase: '', status: 'published' },
-    { id: 104, isGridImage: true, gridIndex: 3, title: 'WEDDING CARE', image: '/feed_images/grid_04.png',
-      caption: 'WEDDING CARE\n\n💍 D-180부터 D-Day까지\n함께 준비하는\nIM 웨딩케어\n\n피부 · 윤곽 · 바디라인\n세 명의 전문가가\n하나의 플랜으로 설계합니다 💫\n\n→ 프로필 링크에서 예약',
-      hashtags: '#웨딩케어프로그램 #웨딩D180 #신부피부타임라인 #맞춤웨딩케어 #IM에스테틱',
-      week: 0, day: '', type: 'image', phase: '', status: 'published' },
-    { id: 105, isGridImage: true, gridIndex: 4, title: '웨딩 전문 에스테틱', image: '/feed_images/grid_05.png',
-      caption: '웨딩 전문 에스테틱,,,\n\n피부의 결을 읽는 사람\n몸의 흐름을 따라가는 사람\n감각으로 마음을 어루만지는 사람 🕯️\n\n서로 다른 길을 걸어온\n세 명이 한자리에서 만났어요\n\n→ 3인 케어 시스템 자세히 보기',
-      hashtags: '#3인케어시스템 #에스테틱전문가 #피부관리전문 #대구프리미엄관리 #수성구에스테틱',
-      week: 0, day: '', type: 'image', phase: '', status: 'published' },
-    { id: 106, isGridImage: true, gridIndex: 5, title: '@im.aesthetic.official', image: '/feed_images/grid_06.png',
-      caption: '@im.aesthetic.official\n\n대구 수성구 범어동\n마크팰리스\n\nIM AESTHETIC\n아이엠에스테틱\n\n웨딩케어 | 피부관리 | 바디케어\n\n→ 팔로우하고 웨딩케어 소식 받기 💍',
-      hashtags: '#아이엠에스테틱 #대구에스테틱 #범어동에스테틱 #수성구피부관리 #웨딩케어 #마크팰리스',
-      week: 0, day: '', type: 'image', phase: '', status: 'published' },
+      caption: '당신의 가장 빛나는 날을 준비합니다,,, 💍\n\n결혼을 앞두고\n가장 먼저 준비해야 할 것이 있다면,,,\n\n그건 아마도 🌸\n내 피부 아닐까요.\n\n드레스보다 먼저,\n부케보다 먼저,\nD-day에 가장 빛나는 건\n드레스 위로 드러나는 맑은 피부결이에요. ✨\n\nIM AESTHETIC이 그 준비를\n함께 시작할게요.\n\n→ 저장해두고 참고하세요 💫',
+      hashtags: '#아이엠에스테틱 #IM에스테틱 #대구웨딩케어 #범어동에스테틱 #수성구피부관리 #웨딩준비 #신부피부관리 #결혼준비 #예비신부',
+      week: 0, day: '②', type: 'image', phase: 'Phase 0: 초기 그리드', status: 'published' },
+    { id: 103, isGridImage: true, gridIndex: 2, title: 'WEDDING CARE', image: '/feed_images/grid_03.png',
+      caption: 'WEDDING CARE,,, ✨\n\n💍 D-180부터 D-Day까지\n함께 준비하는 IM 웨딩케어.\n\n피부 · 윤곽 · 바디라인,\n세 명의 전문가가\n하나의 플랜으로 설계합니다. 💫\n\n결혼이라는 특별한 순간을 위해,\n피부의 결부터 바디의 라인까지\n빠짐없이 챙겨드릴게요.\n\n당신이 가장 아름다운 순간,\nIM이 곁에 있을게요. 🤍\n\n→ 웨딩케어 상담 & 예약은 프로필 링크로',
+      hashtags: '#아이엠에스테틱 #IM에스테틱 #대구웨딩케어 #범어동에스테틱 #수성구피부관리 #웨딩케어프로그램 #웨딩D180 #맞춤웨딩케어',
+      week: 0, day: '③', type: 'image', phase: 'Phase 0: 초기 그리드', status: 'published' },
+    { id: 104, isGridImage: true, gridIndex: 3, title: '시술 장면 감성컷', image: '/feed_images/grid_04.png',
+      caption: '손끝에서 전해지는 온기,,, 🕯️\n\n오늘도 한 분만을 위해\n조용히 준비를 시작합니다.\n\n골든 세럼 한 방울이\n피부 위에 닿는 순간,\n결이 기억하고 있던\n본래의 광채가 돌아와요. ✨\n\n웨딩을 앞둔 소중한 피부,\n과한 시술 대신\n결을 살리는 관리가 답이에요. 🌿\n\nIM 에스테틱의 손은\n언제나 정직하게 닿겠습니다.\n\n→ 상담은 프로필 링크로 🤍',
+      hashtags: '#아이엠에스테틱 #IM에스테틱 #대구웨딩케어 #범어동에스테틱 #수성구피부관리 #피부관리전문 #메디컬스킨케어 #웨딩피부관리',
+      week: 0, day: '④', type: 'image', phase: 'Phase 0: 초기 그리드', status: 'published' },
+    { id: 105, isGridImage: true, gridIndex: 4, title: '부케 & 앰플 스틸라이프', image: '/feed_images/grid_05.png',
+      caption: '가장 아름다운 것들만 모아,,, 💐\n\n흰 장미 한 송이의 순수함,\n골드 앰플 한 방울의 정성,\n진주 한 알의 빛남.\n\n웨딩을 앞둔 당신의 피부에도\n이 정성을 그대로 담고 싶었어요. ✨\n\nIM 에스테틱이 선택하는 성분은\n오직 검증된 것만.\n피부가 기억할 수 있는\n가장 좋은 것만 닿게 해드릴게요. 🌿\n\n→ 저장해두고 참고하세요 💫',
+      hashtags: '#아이엠에스테틱 #IM에스테틱 #대구웨딩케어 #범어동에스테틱 #수성구피부관리 #에스테틱앰플 #웨딩준비 #프리미엄스킨케어',
+      week: 0, day: '⑤', type: 'image', phase: 'Phase 0: 초기 그리드', status: 'published' },
+    { id: 106, isGridImage: true, gridIndex: 5, title: '신부 뒷모습 감성컷', image: '/feed_images/grid_06.png',
+      caption: '빛나는 건,,, 💍\n드레스가 아니라\n드레스 위로 드러나는 당신이에요.\n\n어깨 위로 스며드는 골든 라이트,\n올려 묶은 머리 사이로 보이는\n맑은 피부결. ✨\n\n그 빛남은 하루아침에\n만들어지는 게 아니에요.\n\nD-180부터 시작된\n조용한 준비의 결과예요. 🕯️\n\nIM AESTHETIC이 함께한\n가장 빛나는 순간. 🤍\n\n→ 팔로우하고 웨딩케어 소식 받기',
+      hashtags: '#아이엠에스테틱 #IM에스테틱 #대구웨딩케어 #범어동에스테틱 #수성구피부관리 #웨딩케어 #신부피부관리 #예비신부 #웨딩에스테틱',
+      week: 0, day: '⑥', type: 'image', phase: 'Phase 0: 초기 그리드', status: 'published' },
 ];
 
 export const feedPosts = [
