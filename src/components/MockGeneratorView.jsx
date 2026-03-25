@@ -82,7 +82,7 @@ export const MockGeneratorView = ({ mockData, onBack }) => {
                             <span className="text-sm font-bold text-gray-600">Slide {idx + 1}</span>
                             <button
                                 onClick={() => downloadSlide(idx)}
-                                className="text-xs bg-[#FF8C42] text-white px-3 py-1 rounded hover:bg-orange-500 transition-colors tracking-wide font-medium"
+                                className="text-xs bg-[#E8703A] text-white px-3 py-1 rounded hover:bg-orange-500 transition-colors tracking-wide font-medium"
                             >
                                 이미지 다운로드 ↓
                             </button>
@@ -93,13 +93,13 @@ export const MockGeneratorView = ({ mockData, onBack }) => {
                             ref={el => slideRefs.current[idx] = el}
                             className="bg-[#FFF8F0] w-full aspect-[4/5] rounded-[10px] shadow-md relative overflow-hidden font-sans border border-gray-100"
                         >
-                            <div className="absolute top-3 left-4 text-[9px] font-[800] tracking-[1.5px] text-[#FF8C42]">IM AESTHETIC</div>
+                            <div className="absolute top-3 left-4 text-[9px] font-[800] tracking-[1.5px] text-[#E8703A]">IM AESTHETIC</div>
 
                             <div className="h-full pt-12 p-6 flex flex-col">
                                 {slide.type === 'hook' && (
                                     <div className="flex-1 flex flex-col justify-center">
-                                        <div className="w-8 h-1 bg-[#FF8C42] rounded-full mb-4"></div>
-                                        <div className="text-[10px] font-bold tracking-[2px] text-[#FF8C42] mb-3">{slide.eyebrow}</div>
+                                        <div className="w-8 h-1 bg-[#E8703A] rounded-full mb-4"></div>
+                                        <div className="text-[10px] font-bold tracking-[2px] text-[#E8703A] mb-3">{slide.eyebrow}</div>
                                         <h2 className="text-[22px] font-[800] text-[#333333] leading-[1.35] tracking-tight whitespace-pre-line break-keep font-sans">
                                             {slide.title}
                                         </h2>
@@ -109,7 +109,7 @@ export const MockGeneratorView = ({ mockData, onBack }) => {
 
                                 {slide.type === 'text' && (
                                     <div className="pt-2">
-                                        <div className="text-[10px] font-bold tracking-[1.5px] text-[#FF8C42] mb-2 uppercase">{slide.label}</div>
+                                        <div className="text-[10px] font-bold tracking-[1.5px] text-[#E8703A] mb-2 uppercase">{slide.label}</div>
                                         <h3 className="text-[15px] font-bold text-[#333] mb-4">{slide.title} <span className="text-xl">{slide.icon}</span></h3>
                                         <div className="bg-white p-4 rounded-lg shadow-sm border border-orange-50/50">
                                             <p className="text-[13px] text-[#555] leading-[1.7] whitespace-pre-line break-keep">
@@ -121,9 +121,9 @@ export const MockGeneratorView = ({ mockData, onBack }) => {
 
                                 {slide.type === 'solution' && (
                                     <div className="pt-2 flex flex-col h-full">
-                                        <div className="text-[10px] font-bold tracking-[1.5px] text-[#FF8C42] mb-2 uppercase">{slide.label}</div>
+                                        <div className="text-[10px] font-bold tracking-[1.5px] text-[#E8703A] mb-2 uppercase">{slide.label}</div>
                                         <div className="flex-1">
-                                            <p className="text-[12px] text-[#444] leading-[1.6] bg-[#FFE4CC]/30 p-3 rounded-md mb-4 border-l-2 border-[#FF8C42]">
+                                            <p className="text-[12px] text-[#444] leading-[1.6] bg-[#FFE4CC]/30 p-3 rounded-md mb-4 border-l-2 border-[#E8703A]">
                                                 {slide.content}
                                             </p>
                                             {slide.image && (
@@ -138,7 +138,7 @@ export const MockGeneratorView = ({ mockData, onBack }) => {
 
                                 {slide.type === 'cta' && (
                                     <div className="flex-1 flex flex-col items-center justify-center text-center">
-                                        <div className="w-12 h-12 bg-[#FF8C42] rounded-full flex items-center justify-center mb-4 text-white">
+                                        <div className="w-12 h-12 bg-[#E8703A] rounded-full flex items-center justify-center mb-4 text-white">
                                             <Bookmark size={20} />
                                         </div>
                                         <p className="text-[14px] font-[800] text-[#333] leading-[1.5] px-2 mb-6">
@@ -177,7 +177,7 @@ export const MockGeneratorView = ({ mockData, onBack }) => {
 
                     <div>
                         <div className="text-sm font-bold text-gray-500 mb-2">릴스/쇼츠 기획 및 영상 생성 (Sora, Runway)</div>
-                        <div className="p-3 bg-[#FFE4CC]/30 border border-[#FF8C42]/20 rounded mb-2 text-sm text-gray-800">
+                        <div className="p-3 bg-[#FFE4CC]/30 border border-[#E8703A]/20 rounded mb-2 text-sm text-gray-800">
                             <strong>🎬 기획 의도:</strong> {mockData.video_script.hook_scene}
                         </div>
                         <div className="p-3 bg-gray-50 rounded text-xs text-gray-700 font-mono">

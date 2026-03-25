@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IM AESTHETIC - 릴스 커버 메이커</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<style>
+  :root {
+    --orange: #E8703A; --orange-dark: #C85828; --orange-light: #F5A070;
+    --cream: #FFF8F0; --dark: #1A1410; --dark-mid: #2C1810;
+    --text-muted: #9B8A7A; --warm-bg: #FAF6F1;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Pretendard', system-ui, sans-serif;
+    background: var(--warm-bg); color: var(--dark); min-height: 100vh;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: -1;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(232,112,58,0.06), transparent 60%),
+      radial-gradient(ellipse 60% 80% at 85% 90%, rgba(232,112,58,0.04), transparent 50%);
+    pointer-events: none;
+  }
+
+  .app { display: flex; min-height: 100vh; }
+
+  /* Editor */
+  .editor {
+    width: 380px; flex-shrink: 0;
+    background: rgba(255,255,255,0.6); backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(232,112,58,0.08);
+    padding: 36px 28px; overflow-y: auto; max-height: 100vh;
+    position: sticky; top: 0;
+  }
+  .editor h1 { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .editor .sub { font-size: 12px; color: var(--text-muted); margin-bottom: 28px; }
+
+  .section-label {
+    font-size: 10px; font-weight: 800; color: var(--orange);
+    letter-spacing: 3px; text-transform: uppercase;
+    margin: 24px 0 12px; padding-bottom: 8px;
+    border-bottom: 1px solid rgba(232,112,58,0.1);
+  }
+
+  /* Category badges */
+  .cat-row { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  .cat-chip {
+    padding: 8px 16px; border-radius: 50px; font-size: 11px; font-weight: 700;
+    border: 1.5px solid rgba(232,112,58,0.15); background: #fff;
+    color: var(--dark-mid); cursor: pointer; transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .cat-chip.active { background: var(--orange); border-color: var(--orange); color: #fff; }
+  .cat-chip:hover:not(.active) { border-color: var(--orange-light); }
+
+  /* Upload */
+  .upload-box {
+    border: 2px dashed rgba(232,112,58,0.2); border-radius: 16px;
+    padding: 32px 16px; text-align: center; cursor: pointer;
+    transition: all 0.3s; min-height: 160px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    background: rgba(255,255,255,0.5);
+  }
+  .upload-box:hover { border-color: var(--orange); background: rgba(232,112,58,0.03); }
+  .upload-box.has-image { border-style: solid; padding: 6px; }
+  .upload-box .label { font-size: 12px; font-weight: 700; color: var(--text-muted); }
+  .upload-box .hint { font-size: 10px; color: #bbb; }
+  .upload-box img { width: 100%; max-height: 220px; object-fit: cover; border-radius: 10px; }
+  .upload-box input { display: none; }
+
+  /* Fields */
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 12px; font-weight: 600; color: #5D544D; margin-bottom: 5px; }
+  .field input, .field select {
+    width: 100%; padding: 10px 14px; border: 1px solid rgba(44,24,16,0.1);
+    border-radius: 12px; font-size: 13px; font-family: inherit; background: #fff;
+    transition: all 0.2s;
+  }
+  .field input:focus, .field select:focus {
+    outline: none; border-color: var(--orange);
+    box-shadow: 0 0 0 3px rgba(232,112,58,0.1);
+  }
+
+  /* Overlay style */
+  .overlay-row { display: flex; gap: 8px; margin-bottom: 16px; }
+  .overlay-btn {
+    flex: 1; padding: 10px; border: 1.5px solid rgba(44,24,16,0.1);
+    border-radius: 10px; background: #fff; font-family: inherit;
+    font-size: 11px; font-weight: 700; color: var(--dark-mid);
+    cursor: pointer; text-align: center; transition: all 0.2s;
+  }
+  .overlay-btn.active { background: var(--dark-mid); color: #fff; border-color: var(--dark-mid); }
+
+  .btn-export {
+    width: 100%; padding: 16px; margin-top: 16px;
+    background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+    color: #fff; border: none; border-radius: 16px;
+    font-size: 15px; font-weight: 800; font-family: inherit;
+    cursor: pointer; transition: all 0.3s;
+  }
+  .btn-export:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,112,58,0.35); }
+
+  /* Preview */
+  .preview-area { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px; }
+  .preview-wrapper { box-shadow: 0 12px 48px rgba(26,20,16,0.12); border-radius: 4px; overflow: hidden; }
+
+  /* Slide 9:16 (540x960 preview) */
+  .slide {
+    width: 360px; height: 640px;
+    position: relative; overflow: hidden;
+    background: #f0f0f0;
+  }
+  .slide .bg-image {
+    position: absolute; inset: 0; z-index: 0;
+    background: var(--dark-mid);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .slide .bg-image img { width: 100%; height: 100%; object-fit: cover; }
+  .slide .bg-image .placeholder { color: #666; font-size: 12px; text-align: center; }
+
+  /* Orange bottom gradient overlay */
+  .slide .overlay-bottom {
+    position: absolute; bottom: 0; left: 0; right: 0; z-index: 5;
+    height: 55%;
+    background: linear-gradient(to top, rgba(232,112,58,0.92) 0%, rgba(232,112,58,0.6) 40%, transparent 100%);
+  }
+  .slide .overlay-dark {
+    position: absolute; bottom: 0; left: 0; right: 0; z-index: 5;
+    height: 55%;
+    background: linear-gradient(to top, rgba(26,20,16,0.9) 0%, rgba(26,20,16,0.5) 40%, transparent 100%);
+  }
+  .slide .overlay-full {
+    position: absolute; inset: 0; z-index: 5;
+    background: rgba(232,112,58,0.75);
+  }
+
+  /* Top logo */
+  .slide .top-logo {
+    position: absolute; top: 24px; left: 24px; z-index: 10;
+    font-family: 'Playfair Display', serif;
+    font-size: 14px; font-weight: 600; font-style: italic;
+    color: rgba(255,255,255,0.7); letter-spacing: 3px;
+  }
+
+  /* Category badge */
+  .slide .cat-badge {
+    position: absolute; top: 24px; right: 24px; z-index: 10;
+    padding: 5px 14px; border-radius: 50px;
+    font-size: 8px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+    background: rgba(255,255,255,0.2); color: #fff;
+    backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.15);
+  }
+
+  /* Bottom text */
+  .slide .bottom-text {
+    position: absolute; bottom: 0; left: 0; right: 0; z-index: 10;
+    padding: 0 28px 36px; color: #fff;
+  }
+  .slide .bottom-text .title {
+    font-family: 'Pretendard', sans-serif;
+    font-size: 24px; font-weight: 800;
+    line-height: 1.35; margin-bottom: 12px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .slide .bottom-text .sub-info {
+    font-size: 11px; font-weight: 500;
+    opacity: 0.7; letter-spacing: 0.5px;
+  }
+  .slide .bottom-text .brand-mark {
+    margin-top: 16px; padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    font-family: 'Playfair Display', serif;
+    font-size: 10px; font-weight: 500; font-style: italic;
+    letter-spacing: 4px; opacity: 0.5;
+  }
+
+  /* Play icon overlay */
+  .slide .play-icon {
+    position: absolute; top: 50%; left: 50%; z-index: 8;
+    transform: translate(-50%, -70%);
+    width: 56px; height: 56px; border-radius: 50%;
+    background: rgba(255,255,255,0.2); backdrop-filter: blur(6px);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .slide .play-icon svg { margin-left: 3px; }
+
+  .home-fab {
+    position: fixed; bottom: 32px; left: 32px;
+    width: 56px; height: 56px; border-radius: 20px;
+    background: var(--dark); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    z-index: 1000; transition: all 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
+  }
+  .home-fab:hover { background: var(--orange); transform: scale(1.1) rotate(5deg); }
+
+  @media (max-width: 900px) {
+    .app { flex-direction: column; }
+    .editor { width: 100%; max-height: none; position: static; }
+    .slide { width: 280px; height: 497px; }
+  }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="home-fab" title="홈으로">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+  </svg>
+</a>
+
+<div class="app">
+  <div class="editor">
+    <h1>Reels Cover</h1>
+    <p class="sub">릴스 커버 이미지 제작 (1080x1920)</p>
+
+    <div class="section-label">카테고리</div>
+    <div class="cat-row">
+      <button class="cat-chip active" onclick="setCat('wedding')">WEDDING CARE</button>
+      <button class="cat-chip" onclick="setCat('asmr')">ASMR</button>
+      <button class="cat-chip" onclick="setCat('skin')">SKIN CARE</button>
+      <button class="cat-chip" onclick="setCat('body')">BODY CARE</button>
+    </div>
+
+    <div class="section-label">배경 이미지</div>
+    <div class="upload-box" id="bgBox" onclick="document.getElementById('bgInput').click()">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#9B8A7A" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+      <span class="label">시술 사진 또는 영상 캡처</span>
+      <span class="hint">클릭 또는 드래그하여 업로드</span>
+      <input type="file" id="bgInput" accept="image/*" onchange="handleBgImage(this)">
+    </div>
+
+    <div class="section-label">릴스 제목</div>
+    <div class="field">
+      <input type="text" id="reelsTitle" value="손이 기억하는 온도,,," oninput="updatePreview()">
+    </div>
+    <div class="field">
+      <label>부제 (선택)</label>
+      <input type="text" id="reelsSub" value="웨딩 피부 관리 ASMR" oninput="updatePreview()">
+    </div>
+
+    <div class="section-label">오버레이 스타일</div>
+    <div class="overlay-row">
+      <button class="overlay-btn active" onclick="setOverlay('orange')">오렌지</button>
+      <button class="overlay-btn" onclick="setOverlay('dark')">다크</button>
+      <button class="overlay-btn" onclick="setOverlay('full')">풀 오렌지</button>
+    </div>
+
+    <button class="btn-export" onclick="exportPNG()">PNG 내보내기 (1080x1920)</button>
+  </div>
+
+  <div class="preview-area">
+    <div class="preview-wrapper">
+      <div class="slide" id="slide">
+        <div class="bg-image" id="bgImage">
+          <div class="placeholder">배경 이미지를<br>업로드하세요</div>
+        </div>
+
+        <div class="overlay-bottom" id="overlayLayer"></div>
+
+        <div class="top-logo">IM Aesthetic</div>
+        <div class="cat-badge" id="catBadge">WEDDING CARE</div>
+
+        <div class="play-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white" stroke="none">
+            <polygon points="5,3 19,12 5,21"/>
+          </svg>
+        </div>
+
+        <div class="bottom-text">
+          <div class="title" id="previewTitle">손이 기억하는 온도,,,</div>
+          <div class="sub-info" id="previewSub">웨딩 피부 관리 ASMR</div>
+          <div class="brand-mark">IM Aesthetic</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let state = { cat: 'wedding', overlay: 'orange', bgImg: null };
+
+const CATS = { wedding: 'WEDDING CARE', asmr: 'ASMR', skin: 'SKIN CARE', body: 'BODY CARE' };
+
+function setCat(cat) {
+  state.cat = cat;
+  document.querySelectorAll('.cat-chip').forEach(c =>
+    c.classList.toggle('active', c.textContent === CATS[cat]));
+  document.getElementById('catBadge').textContent = CATS[cat];
+}
+
+function setOverlay(type) {
+  state.overlay = type;
+  document.querySelectorAll('.overlay-btn').forEach((b, i) =>
+    b.classList.toggle('active', ['orange','dark','full'][i] === type));
+  const layer = document.getElementById('overlayLayer');
+  layer.className = type === 'orange' ? 'overlay-bottom' : type === 'dark' ? 'overlay-dark' : 'overlay-full';
+}
+
+function handleBgImage(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    state.bgImg = reader.result;
+    document.getElementById('bgImage').innerHTML = `<img src="${reader.result}">`;
+    const box = document.getElementById('bgBox');
+    box.classList.add('has-image');
+    box.innerHTML = `<img src="${reader.result}"><input type="file" id="bgInput" accept="image/*" onchange="handleBgImage(this)">`;
+  };
+  reader.readAsDataURL(file);
+}
+
+function updatePreview() {
+  document.getElementById('previewTitle').textContent = document.getElementById('reelsTitle').value;
+  document.getElementById('previewSub').textContent = document.getElementById('reelsSub').value;
+}
+
+async function exportPNG() {
+  const btn = document.querySelector('.btn-export');
+  btn.disabled = true; btn.textContent = '생성 중...';
+  try {
+    const canvas = await html2canvas(document.getElementById('slide'), {
+      scale: 1080 / 360, useCORS: true, allowTaint: true, backgroundColor: null,
+    });
+    const link = document.createElement('a');
+    link.download = `IM_Reels_${state.cat}_cover.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  } catch (e) { alert('실패: ' + e.message); }
+  finally { btn.disabled = false; btn.textContent = 'PNG 내보내기 (1080x1920)'; }
+}
+
+// Drag & drop
+const bgBox = document.getElementById('bgBox');
+bgBox.addEventListener('dragover', e => { e.preventDefault(); bgBox.style.borderColor = '#E8703A'; });
+bgBox.addEventListener('dragleave', () => { bgBox.style.borderColor = ''; });
+bgBox.addEventListener('drop', e => {
+  e.preventDefault(); bgBox.style.borderColor = '';
+  const file = e.dataTransfer.files[0];
+  if (file?.type.startsWith('image/')) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      state.bgImg = reader.result;
+      document.getElementById('bgImage').innerHTML = `<img src="${reader.result}">`;
+      bgBox.classList.add('has-image');
+      bgBox.innerHTML = `<img src="${reader.result}"><input type="file" id="bgInput" accept="image/*" onchange="handleBgImage(this)">`;
+    };
+    reader.readAsDataURL(file);
+  }
+});
+</script>
+</body>
+</html>

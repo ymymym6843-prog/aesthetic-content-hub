@@ -4,6 +4,16 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --brand-orange: #E8703A;
+  --brand-orange-light: #F5A070;
+  --brand-beige: #F5E8D0;
+  --brand-cream: #FAF4EA;
+  --brand-brown: #2C1810;
+  --brand-brown-mid: #6B4830;
+  --brand-warm-white: #FFF8F0;
+}
+
 body {
   font-family: 'Pretendard', -apple-system, sans-serif;
 }
@@ -36,7 +46,7 @@ body {
 }
 
 .home-fab:hover {
-  background: #FF8C42;
+  background: var(--brand-orange);
   transform: scale(1.08);
 }
 

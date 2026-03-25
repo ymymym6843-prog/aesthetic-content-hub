@@ -22,7 +22,7 @@ function HighlightedCaption({ text, maxLength = 200 }) {
                     <mark
                         key={i}
                         className="rounded px-0.5 font-semibold"
-                        style={{ background: 'rgba(255,140,66,0.18)', color: '#FF8C42' }}
+                        style={{ background: 'rgba(232,112,58,0.18)', color: '#E8703A' }}
                     >
                         {part}
                     </mark>
@@ -50,8 +50,8 @@ function PostPreviewCard({ post, index, onChange }) {
         <div
             className="rounded-2xl border overflow-hidden transition-shadow"
             style={{
-                borderColor: expanded ? '#FF8C42' : '#E5E7EB',
-                boxShadow: expanded ? '0 0 0 2px rgba(255,140,66,0.25)' : undefined,
+                borderColor: expanded ? '#E8703A' : '#E5E7EB',
+                boxShadow: expanded ? '0 0 0 2px rgba(232,112,58,0.25)' : undefined,
             }}
         >
             {/* 카드 헤더 — 항상 표시 */}
@@ -73,7 +73,7 @@ function PostPreviewCard({ post, index, onChange }) {
                     <div className="flex items-center gap-2 mb-0.5">
                         <span
                             className="text-[10px] font-bold uppercase tracking-widest"
-                            style={{ color: '#FF8C42' }}
+                            style={{ color: '#E8703A' }}
                         >
                             {post.type}
                         </span>
@@ -160,7 +160,7 @@ function StepDots({ current, total }) {
                         height: 8,
                         background:
                             current === i + 1
-                                ? '#FF8C42'
+                                ? '#E8703A'
                                 : current > i + 1
                                 ? '#FED7AA'
                                 : '#E5E7EB',
@@ -299,14 +299,14 @@ export const WeekWizard = ({ nextWeek, onComplete, onClose }) => {
                     <div className="flex items-center gap-3">
                         <span
                             className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
-                            style={{ background: '#FF8C42' }}
+                            style={{ background: '#E8703A' }}
                         >
                             <Sparkles size={18} className="text-white" />
                         </span>
                         <div>
                             <div
                                 className="text-[10px] font-black uppercase tracking-widest mb-0.5"
-                                style={{ color: '#FF8C42' }}
+                                style={{ color: '#E8703A' }}
                             >
                                 Week {nextWeek} 생성 마법사
                             </div>
@@ -349,7 +349,7 @@ export const WeekWizard = ({ nextWeek, onComplete, onClose }) => {
                             >
                                 <span
                                     className="w-12 h-12 rounded-2xl flex items-center justify-center text-white text-lg font-black shrink-0"
-                                    style={{ background: '#FF8C42' }}
+                                    style={{ background: '#E8703A' }}
                                 >
                                     {String(nextWeek).padStart(2, '0')}
                                 </span>
@@ -474,8 +474,8 @@ export const WeekWizard = ({ nextWeek, onComplete, onClose }) => {
                                                     key={kw}
                                                     className="px-2 py-0.5 rounded-full text-[10px] font-semibold"
                                                     style={{
-                                                        background: 'rgba(255,140,66,0.12)',
-                                                        color: '#FF8C42',
+                                                        background: 'rgba(232,112,58,0.12)',
+                                                        color: '#E8703A',
                                                     }}
                                                 >
                                                     {kw}
@@ -494,7 +494,7 @@ export const WeekWizard = ({ nextWeek, onComplete, onClose }) => {
                             <p className="text-sm text-gray-500">
                                 아래 3개의 포스트 스켈레톤이 자동 생성되었습니다. 각 카드를
                                 클릭해 제목과 캡션을 편집할 수 있습니다.
-                                <span className="font-semibold" style={{ color: '#FF8C42' }}>
+                                <span className="font-semibold" style={{ color: '#E8703A' }}>
                                     &nbsp;주황색 [항목]
                                 </span>
                                 은 실제 내용으로 교체가 필요한 자리표시자입니다.
@@ -562,7 +562,7 @@ export const WeekWizard = ({ nextWeek, onComplete, onClose }) => {
                                 <div className="flex items-center gap-2 mb-1">
                                     <span
                                         className="w-8 h-8 rounded-xl flex items-center justify-center text-white text-xs font-black"
-                                        style={{ background: '#FF8C42' }}
+                                        style={{ background: '#E8703A' }}
                                     >
                                         {String(nextWeek).padStart(2, '0')}
                                     </span>
@@ -679,7 +679,7 @@ export const WeekWizard = ({ nextWeek, onComplete, onClose }) => {
                             }}
                             disabled={step === 1 && !step1Valid}
                             className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold text-white shadow-md hover:shadow-lg transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-                            style={{ background: '#FF8C42' }}
+                            style={{ background: '#E8703A' }}
                         >
                             다음
                             <ChevronRight size={15} />
@@ -690,7 +690,7 @@ export const WeekWizard = ({ nextWeek, onComplete, onClose }) => {
                             onClick={handleCreate}
                             disabled={creating}
                             className="flex items-center gap-2 px-7 py-2.5 rounded-xl text-sm font-bold text-white shadow-md hover:shadow-lg transition-all disabled:opacity-50"
-                            style={{ background: creating ? '#9CA3AF' : '#FF8C42' }}
+                            style={{ background: creating ? '#9CA3AF' : '#E8703A' }}
                         >
                             <Plus size={15} />
                             {creating ? '생성 중…' : '생성하기'}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles.css';
 
-import { feedPosts as fallbackPosts } from './data/posts';
+import { feedPosts as fallbackPosts, initialGridPosts } from './data/posts';
 import { fetchPosts, fetchWeekStrategies, DEFAULT_CLINIC_ID } from './lib/supabase';
 import { ProfileHeader } from './components/ProfileHeader';
 import { GridView } from './components/GridView';
@@ -40,20 +40,20 @@ const AISetupView = ({ onBack, onComplete }) => {
             <h2 className="text-2xl font-black text-gray-800 mb-2 whitespace-nowrap overflow-hidden text-clip flex items-center gap-2">🪄 AI 마케팅 에셋 생성기</h2>
             <p className="text-sm text-gray-500 mb-8 whitespace-pre-wrap break-keep">블로그 글이나 온라인 쇼핑몰(URL) 주소를 입력해 보세요. Gemini가 내용을 분석하고 즉시 카드뉴스를 기획해 드립니다.</p>
             <div className="bg-[#FFF8F0] p-6 rounded-2xl border border-orange-100 shadow-sm mb-6">
-                <label className="block text-xs font-bold text-[#FF8C42] tracking-wider uppercase mb-2">Target URL</label>
+                <label className="block text-xs font-bold text-[#E8703A] tracking-wider uppercase mb-2">Target URL</label>
                 <div className="flex flex-col sm:flex-row gap-3">
                     <input
                         type="url"
                         value={url}
                         onChange={e => setUrl(e.target.value)}
                         placeholder="https://www.n2spa.co.kr/products/..."
-                        className="flex-1 p-3 border border-orange-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FF8C42] bg-white text-sm"
+                        className="flex-1 p-3 border border-orange-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#E8703A] bg-white text-sm"
                         disabled={loading}
                     />
                     <button
                         onClick={handleGenerate}
                         disabled={loading || !url}
-                        className="bg-[#FF8C42] text-white px-6 py-3 rounded-xl font-bold disabled:opacity-50 hover:bg-orange-600 transition-colors shadow-sm flex items-center justify-center min-w-[120px]"
+                        className="bg-[#E8703A] text-white px-6 py-3 rounded-xl font-bold disabled:opacity-50 hover:bg-orange-600 transition-colors shadow-sm flex items-center justify-center min-w-[120px]"
                     >
                         {loading ? (
                             <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -117,7 +117,10 @@ const App = () => {
                     fetchWeekStrategies(DEFAULT_CLINIC_ID),
                 ]);
                 if (dbPosts.length > 0 && strategies.length > 0) {
-                    setPosts(transformToFeedPosts(dbPosts, strategies));
+                    const transformed = transformToFeedPosts(dbPosts, strategies);
+                    // Prepend initial grid posts (wedding care 6-grid)
+                    const gridReversed = [...initialGridPosts].reverse();
+                    setPosts([...gridReversed, ...transformed]);
                 }
             } catch (err) {
                 console.warn('DB 로드 실패, 폴백 데이터 사용:', err.message);
@@ -136,7 +139,7 @@ const App = () => {
     if (loading) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-gray-50">
-                <div className="w-8 h-8 border-3 border-t-transparent rounded-full animate-spin" style={{ borderColor: '#FF8C42', borderTopColor: 'transparent' }}></div>
+                <div className="w-8 h-8 border-3 border-t-transparent rounded-full animate-spin" style={{ borderColor: '#E8703A', borderTopColor: 'transparent' }}></div>
             </div>
         );
     }
@@ -153,7 +156,7 @@ const App = () => {
                     <div className="fixed bottom-20 right-4 z-[60]">
                         <button
                             onClick={() => setView('ai-setup')}
-                            className="bg-[#FF8C42] text-white px-5 py-3 rounded-full shadow-lg font-bold flex items-center gap-2 hover:scale-105 transition-transform"
+                            className="bg-[#E8703A] text-white px-5 py-3 rounded-full shadow-lg font-bold flex items-center gap-2 hover:scale-105 transition-transform"
                         >
                             <span className="text-xl">✨</span> AI 기획안 만들기
                         </button>
@@ -166,7 +169,7 @@ const App = () => {
                                 <button key={f.key}
                                     onClick={() => setFilter(f.key)}
                                     className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${filter === f.key ? 'text-white shadow-md' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
-                                    style={filter === f.key ? { background: '#FF8C42' } : {}}>
+                                    style={filter === f.key ? { background: '#E8703A' } : {}}>
                                     {f.label}
                                 </button>
                             ))}
@@ -188,10 +191,10 @@ const App = () => {
                 <FeedDetailView post={selectedPost} onBack={() => setView('grid')} />
             )}
             <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-100 h-16 flex items-center justify-around px-4 z-50">
-                <Layout size={24} className={view === 'grid' ? '' : 'text-gray-300'} style={{ color: view === 'grid' ? '#FF8C42' : undefined }} onClick={() => setView('grid')} />
+                <Layout size={24} className={view === 'grid' ? '' : 'text-gray-300'} style={{ color: view === 'grid' ? '#E8703A' : undefined }} onClick={() => setView('grid')} />
                 <Play size={24} className="text-gray-300" />
-                <div className="w-10 h-10 rounded-full p-0.5 flex items-center justify-center shadow-md" style={{ background: 'linear-gradient(135deg,#FF8C42,#FFB085)' }}>
-                    <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-xs font-black" style={{ color: '#FF8C42' }}>IM</div>
+                <div className="w-10 h-10 rounded-full p-0.5 flex items-center justify-center shadow-md" style={{ background: 'linear-gradient(135deg,#E8703A,#F5A070)' }}>
+                    <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-xs font-black" style={{ color: '#E8703A' }}>IM</div>
                 </div>
                 <MessageCircle size={24} className="text-gray-300" />
                 <User size={24} className="text-gray-300" />

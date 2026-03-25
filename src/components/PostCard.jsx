@@ -33,7 +33,7 @@ export const PostCard = ({ post, idx, activeWeek, onSelect }) => {
                 <div className="mb-3">
                     <div className="flex items-center gap-1.5 mb-1.5">
                         <div className={`w-1.5 h-1.5 rounded-full ${post.type === '릴스' ? 'bg-purple-500' : post.type === '캐러셀' ? 'bg-blue-500' : ''}`}
-                            style={post.type !== '릴스' && post.type !== '캐러셀' ? {background:'#FF8C42'} : {}}></div>
+                            style={post.type !== '릴스' && post.type !== '캐러셀' ? {background:'#E8703A'} : {}}></div>
                         <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{post.type}</span>
                     </div>
                     <h4 className="text-lg font-bold transition-colors leading-snug group-hover:text-orange-500">{post.title}</h4>
@@ -41,15 +41,15 @@ export const PostCard = ({ post, idx, activeWeek, onSelect }) => {
                 <p className="text-sm text-gray-500 leading-relaxed flex-grow">{post.desc}</p>
                 {post.slideCount > 0 && (
                     <div className="mt-3 flex items-center gap-2 flex-wrap">
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-black text-white" style={{background:'#FF8C42'}}>{post.slideCount}장</span>
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold border" style={{color:'#FF8C42', borderColor:'rgba(255,140,66,0.3)', background:'rgba(255,140,66,0.05)'}}>{post.templateType}</span>
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-black text-white" style={{background:'#E8703A'}}>{post.slideCount}장</span>
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold border" style={{color:'#E8703A', borderColor:'rgba(232,112,58,0.3)', background:'rgba(232,112,58,0.05)'}}>{post.templateType}</span>
                     </div>
                 )}
                 {post.slideCount > 0 && (
                     <a href={`card_news_maker.html?post=${activeWeek}W_Thu`}
                         onClick={(e) => e.stopPropagation()}
                         className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold px-3 py-1.5 rounded-lg transition-colors hover:bg-orange-50"
-                        style={{color:'#FF8C42'}}>
+                        style={{color:'#E8703A'}}>
                         카드뉴스 만들기 <span style={{fontSize:'14px'}}>&rarr;</span>
                     </a>
                 )}

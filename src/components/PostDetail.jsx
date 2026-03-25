@@ -56,11 +56,11 @@ export const PostDetail = ({ post, activeWeek, copied, onClose, onCopy, onEdit, 
                 <div className="p-6 md:p-8 bg-gray-800 text-white flex items-center justify-between shrink-0">
                     <div className="flex items-center gap-4">
                         <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${post.type === '릴스' ? 'bg-purple-500' : post.type === '캐러셀' ? 'bg-blue-500' : ''}`}
-                            style={post.type !== '릴스' && post.type !== '캐러셀' ? {background:'#FF8C42'} : {}}>
+                            style={post.type !== '릴스' && post.type !== '캐러셀' ? {background:'#E8703A'} : {}}>
                             {post.type === '릴스' ? <Camera size={24} /> : post.type === '캐러셀' ? <LayoutGrid size={24} /> : <MessageSquare size={24} />}
                         </div>
                         <div>
-                            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest" style={{color:'#FF8C42'}}>
+                            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest" style={{color:'#E8703A'}}>
                                 <span>Week {activeWeek}</span><span className="opacity-30">|</span><span>{post.day}요일 {post.type}</span>
                             </div>
                             <h2 className="text-2xl font-bold">{post.title}</h2>
@@ -96,8 +96,8 @@ export const PostDetail = ({ post, activeWeek, copied, onClose, onCopy, onEdit, 
                                     <div className="text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-tight">권장 사진 에셋</div>
                                     <div className="text-sm font-semibold">{post.asset}</div>
                                 </div>
-                                <div className="p-4 rounded-2xl border" style={{background:'rgba(255,140,66,0.05)', borderColor:'rgba(255,140,66,0.2)'}}>
-                                    <div className="text-[10px] font-bold uppercase mb-1 tracking-tight" style={{color:'#FF8C42'}}>디자인 스타일</div>
+                                <div className="p-4 rounded-2xl border" style={{background:'rgba(232,112,58,0.05)', borderColor:'rgba(232,112,58,0.2)'}}>
+                                    <div className="text-[10px] font-bold uppercase mb-1 tracking-tight" style={{color:'#E8703A'}}>디자인 스타일</div>
                                     <div className="text-sm font-semibold">{post.design}</div>
                                 </div>
                             </div>
@@ -114,12 +114,12 @@ export const PostDetail = ({ post, activeWeek, copied, onClose, onCopy, onEdit, 
                                 <BookOpen size={16} /> 업로드용 본문 (수정본)
                             </h3>
                             <button onClick={handleCopyCaption}
-                                className="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full hover:bg-orange-50" style={{color:'#FF8C42'}}>
+                                className="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full hover:bg-orange-50" style={{color:'#E8703A'}}>
                                 {copied ? <Check size={14} /> : <Copy size={14} />}
                                 {copied ? "복사됨!" : "텍스트 복사"}
                             </button>
                         </div>
-                        <div className="p-6 rounded-3xl border relative" style={{background:'#FFF8F0', borderColor:'rgba(255,140,66,0.2)'}}>
+                        <div className="p-6 rounded-3xl border relative" style={{background:'#FFF8F0', borderColor:'rgba(232,112,58,0.2)'}}>
                             <div className="absolute top-4 right-4 text-orange-200"><Star size={24} /></div>
                             <div className="text-base leading-relaxed whitespace-pre-line text-gray-700 font-medium">{post.caption}</div>
                         </div>
@@ -148,7 +148,7 @@ export const PostDetail = ({ post, activeWeek, copied, onClose, onCopy, onEdit, 
                                         <div className="h-full rounded-full transition-all duration-500"
                                             style={{
                                                 width: `${(completedCount / CHECKLIST_ITEMS.length) * 100}%`,
-                                                background: completedCount === CHECKLIST_ITEMS.length ? '#22c55e' : '#FF8C42'
+                                                background: completedCount === CHECKLIST_ITEMS.length ? '#22c55e' : '#E8703A'
                                             }} />
                                     </div>
                                     <span className="text-xs font-bold text-gray-400">{completedCount}/{CHECKLIST_ITEMS.length}</span>

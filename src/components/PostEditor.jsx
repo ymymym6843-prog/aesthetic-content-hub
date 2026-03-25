@@ -76,7 +76,7 @@ export const PostEditor = ({ post, activeWeek, onSave, onDelete, onClose, existi
                 {/* Header */}
                 <div className="p-6 bg-gray-800 text-white flex items-center justify-between shrink-0">
                     <div>
-                        <div className="text-xs font-black uppercase tracking-widest" style={{ color: '#FF8C42' }}>
+                        <div className="text-xs font-black uppercase tracking-widest" style={{ color: '#E8703A' }}>
                             Week {activeWeek} {isNew ? '| NEW POST' : '| EDIT POST'}
                         </div>
                         <h2 className="text-xl font-bold mt-1">{isNew ? '새 게시물 작성' : `"${post.title}" 수정`}</h2>
@@ -204,8 +204,8 @@ export const PostEditor = ({ post, activeWeek, onSave, onDelete, onClose, existi
                                     <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest flex items-center gap-2">
                                         <Eye size={14} /> {form.day}요일 콘텐츠 가이드
                                     </h4>
-                                    <div className="p-4 rounded-2xl border" style={{background:'rgba(255,140,66,0.05)', borderColor:'rgba(255,140,66,0.2)'}}>
-                                        <div className="text-sm font-bold mb-2" style={{color:'#FF8C42'}}>{dayGuide.label} ({dayGuide.type})</div>
+                                    <div className="p-4 rounded-2xl border" style={{background:'rgba(232,112,58,0.05)', borderColor:'rgba(232,112,58,0.2)'}}>
+                                        <div className="text-sm font-bold mb-2" style={{color:'#E8703A'}}>{dayGuide.label} ({dayGuide.type})</div>
                                         <p className="text-sm text-gray-600 leading-relaxed mb-3">{dayGuide.description}</p>
                                         <div className="space-y-1.5">
                                             <div className="text-[10px] font-bold text-gray-400 uppercase">톤: {dayGuide.tone}</div>
@@ -237,7 +237,7 @@ export const PostEditor = ({ post, activeWeek, onSave, onDelete, onClose, existi
                                         {CAROUSEL_SLIDE_GUIDES.map((slide, i) => (
                                             <div key={i} className="p-3 bg-white rounded-xl border border-gray-100">
                                                 <div className="flex items-center gap-2 mb-1">
-                                                    <span className="w-5 h-5 rounded-full text-[10px] font-black text-white flex items-center justify-center" style={{background:'#FF8C42'}}>{i + 1}</span>
+                                                    <span className="w-5 h-5 rounded-full text-[10px] font-black text-white flex items-center justify-center" style={{background:'#E8703A'}}>{i + 1}</span>
                                                     <span className="text-xs font-bold text-gray-700">{slide.role}</span>
                                                 </div>
                                                 <p className="text-[11px] text-gray-500 ml-7">{slide.guide}</p>
@@ -283,7 +283,7 @@ export const PostEditor = ({ post, activeWeek, onSave, onDelete, onClose, existi
                         </button>
                         <button type="submit" onClick={handleSubmit} disabled={saving || !form.title.trim()}
                             className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold text-white shadow-md hover:shadow-lg transition-all disabled:opacity-50"
-                            style={{ background: '#FF8C42' }}>
+                            style={{ background: '#E8703A' }}>
                             <Save size={14} />
                             {saving ? '저장 중...' : (isNew ? '게시물 추가' : '변경사항 저장')}
                         </button>

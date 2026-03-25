@@ -466,7 +466,7 @@ export function generatePostSkeleton(day, programId, weekNum) {
 
     // 제작 가이드
     asset: `[촬영/편집 가이드: ${guide.imageRatio} | ${guide.tone}]`,
-    design: `[디자인 가이드: 브랜드 컬러 #FFF8F0, #FF8C42 | 폰트: Pretendard]`,
+    design: `[디자인 가이드: 브랜드 컬러 #FFF8F0, #E8703A | 폰트: Pretendard]`,
     ai_guide: `[AI 활용 가이드: ${guide.tips[0]}]`,
 
     // 캐러셀 전용

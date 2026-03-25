@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IM AESTHETIC - 하이라이트 커버 생성기</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+  :root {
+    --brand-orange: #E8703A;
+    --brand-orange-dark: #C85828;
+    --brand-orange-light: #F5A070;
+    --brand-cream: #FAF4EA;
+    --brand-brown: #2C1810;
+    --brand-warm-white: #FFF8F0;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --shadow-soft: 0 8px 32px rgba(44, 24, 16, 0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Pretendard', system-ui, sans-serif;
+    background: #F8F5F2;
+    color: var(--brand-brown);
+    min-height: 100vh;
+    padding: 60px 24px;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(232, 112, 58, 0.05) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(232, 112, 58, 0.03) 0px, transparent 50%);
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .page-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 800;
+    color: var(--brand-brown);
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+  }
+  .page-header p {
+    font-size: 15px;
+    color: #8C8279;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+  }
+
+  .main-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .controls {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: var(--shadow-soft);
+    position: sticky;
+    top: 40px;
+  }
+  .controls h3 {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--brand-orange);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    border-bottom: 1px solid rgba(232, 112, 58, 0.1);
+    padding-bottom: 12px;
+  }
+
+  .control-group {
+    margin-bottom: 24px;
+  }
+  .control-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #5D544D;
+    margin-bottom: 8px;
+  }
+  
+  .input-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  input[type="color"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background: none;
+  }
+  input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+  input[type="color"]::-webkit-color-swatch { 
+    border-radius: 10px; 
+    border: 2px solid rgba(0,0,0,0.05);
+  }
+
+  input[type="text"], select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid rgba(44, 24, 16, 0.1);
+    border-radius: 12px;
+    font-size: 14px;
+    font-family: inherit;
+    background: #fff;
+    transition: all 0.2s;
+  }
+  input[type="text"]:focus, select:focus {
+    outline: none;
+    border-color: var(--brand-orange);
+    box-shadow: 0 0 0 4px rgba(232, 112, 58, 0.1);
+  }
+
+  .btn-generate {
+    width: 100%;
+    background: var(--brand-orange);
+    color: #fff;
+    border: none;
+    padding: 16px;
+    border-radius: 16px;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 12px;
+  }
+  .btn-generate:hover {
+    background: var(--brand-orange-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(232, 112, 58, 0.3);
+  }
+
+  .covers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 32px;
+  }
+
+  .cover-item {
+    background: #fff;
+    border-radius: 20px;
+    padding: 24px 16px;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(0,0,0,0.03);
+  }
+  .cover-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+  }
+  .cover-item h4 {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--brand-brown);
+    margin-bottom: 20px;
+  }
+
+  .cover-circle-wrap {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 20px;
+  }
+  /* IG Ring Style */
+  .ig-ring {
+    position: absolute;
+    top: -6px; left: -6px; right: -6px; bottom: -6px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background: linear-gradient(#fff, #fff) padding-box,
+                linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) border-box;
+    z-index: 1;
+  }
+  .cover-circle {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #fff;
+    z-index: 2;
+    background: #f0f0f0;
+  }
+  .cover-circle canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .btn-download {
+    background: #F8F5F2;
+    border: 1px solid rgba(44, 24, 16, 0.1);
+    color: var(--brand-brown);
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+  }
+  .btn-download:hover {
+    background: var(--brand-orange);
+    color: #fff;
+    border-color: var(--brand-orange);
+  }
+
+  .download-all-section {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 48px;
+    border-top: 1px solid rgba(0,0,0,0.05);
+  }
+  .btn-download-all {
+    background: var(--brand-brown);
+    color: #fff;
+    border: none;
+    padding: 18px 48px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 10px 30px rgba(44,24,16,0.2);
+  }
+  .btn-download-all:hover {
+    background: #000;
+    transform: scale(1.05);
+  }
+
+  .home-fab {
+    position: fixed;
+    bottom: 32px;
+    left: 32px;
+    width: 56px;
+    height: 56px;
+    border-radius: 20px;
+    background: var(--brand-brown);
+    color: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    z-index: 1000;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .home-fab:hover {
+    background: var(--brand-orange);
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  @media (max-width: 900px) {
+    .main-container { grid-template-columns: 1fr; }
+    .controls { position: static; }
+  }
+</style>
+
+</head>
+<body>
+
+<a href="index.html" class="home-fab" title="홈으로">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+  </svg>
+</a>
+
+<div class="page-header">
+  <h1>Highlight Studio</h1>
+  <p>Artistic • Intuitive • Premium Assets</p>
+</div>
+
+<div class="main-container">
+  <div class="controls">
+    <h3>Artistic Settings</h3>
+    
+    <div class="control-group">
+      <label>Collection Preset</label>
+      <select id="designPreset" onchange="applyPreset()">
+        <option value="brandClassic">Brand Classic (Identical)</option>
+        <option value="custom">-- Custom Style --</option>
+        <option value="goldSilk">Gold Silk (Luxury)</option>
+        <option value="moonlight">Moonlight (Minimal)</option>
+        <option value="petalSoft">Petal Soft (Dreamy)</option>
+        <option value="deepNoir">Deep Noir (Modern)</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label>Background Style</label>
+      <select id="bgStyle" onchange="generateAll()">
+        <option value="aesthetic">Aesthetic Glow (Best)</option>
+        <option value="solid">Solid Color</option>
+        <option value="linear">Linear Gradient</option>
+        <option value="radial">Radial Gradient</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label>Brand Colors</label>
+      <div class="input-row">
+        <input type="color" id="bgColor" value="#E8703A" oninput="generateAll()" title="Background Color">
+        <input type="color" id="bgColor2" value="#C85828" oninput="generateAll()" title="Secondary Color">
+        <input type="color" id="iconColor" value="#FFFFFF" oninput="generateAll()" title="Icon Primary">
+        <input type="color" id="accentColor" value="#FAF4EA" oninput="generateAll()" title="Icon Accent">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label>Icon Enhancement</label>
+      <div class="input-row" style="margin-top:8px">
+        <label style="display:inline; font-weight:400; cursor:pointer">
+          <input type="checkbox" id="showBlobs" checked onchange="generateAll()"> Background Blob
+        </label>
+        <label style="display:inline; font-weight:400; cursor:pointer">
+          <input type="checkbox" id="showGlow" checked onchange="generateAll()"> Bloom Effect
+        </label>
+        <label style="display:inline; font-weight:400; cursor:pointer">
+          <input type="checkbox" id="showTexture" checked onchange="generateAll()"> Fine Grain
+        </label>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label>Minimalist Typography (Optional)</label>
+      <input type="text" id="bottomText" value="" placeholder="Empty for minimal look" oninput="generateAll()">
+    </div>
+
+    <button class="btn-generate" onclick="generateAll()">Generate Collection</button>
+  </div>
+
+  <div class="covers-grid" id="coversGrid">
+    <!-- Items will be generated here -->
+  </div>
+
+  <div class="download-all-section">
+    <button class="btn-download-all" onclick="downloadAll()">Export All Collections (.png)</button>
+  </div>
+</div>
+
+<script>
+const HIGHLIGHTS = [
+  {
+    name: 'Wedding Care',
+    draw: (ctx, cx, cy, s, color, accent) => {
+      // Flaticon Style: Elegant Diamond Ring
+      ctx.strokeStyle = '#FFF'; ctx.lineWidth = s * 0.05; ctx.lineCap = 'round';
+      const r = s * 0.32, ry = cy + s * 0.15;
+      ctx.beginPath(); ctx.arc(cx, ry, r, 0, Math.PI * 2); ctx.stroke();
+      
+      const dw = s * 0.4, dh = s * 0.3, dy = ry - r;
+      ctx.beginPath();
+      ctx.moveTo(cx - dw/2, dy); ctx.lineTo(cx + dw/2, dy);
+      ctx.lineTo(cx + dw*0.2, dy - dh); ctx.lineTo(cx - dw*0.2, dy - dh);
+      ctx.closePath(); ctx.stroke();
+      // Internal facet line
+      ctx.beginPath(); ctx.moveTo(cx - dw*0.2, dy - dh); ctx.lineTo(cx, dy); ctx.lineTo(cx + dw*0.2, dy - dh); ctx.stroke();
+    }
+  },
+  {
+    name: 'Before & After',
+    draw: (ctx, cx, cy, s, color, accent) => {
+      // Flaticon Style: Geometric Butterfly (Transformation)
+      ctx.strokeStyle = '#FFF'; ctx.lineWidth = s * 0.05; ctx.lineJoin = 'round';
+      
+      const drawWing = (dir) => {
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.bezierCurveTo(cx + dir*s*0.6, cy - s*0.5, cx + dir*s*0.5, cy - s*0.6, cx + dir*s*0.1, cy - s*0.1);
+        ctx.moveTo(cx, cy);
+        ctx.bezierCurveTo(cx + dir*s*0.5, cy + s*0.5, cx + dir*s*0.4, cy + s*0.6, cx + dir*s*0.1, cy + s*0.1);
+        ctx.stroke();
+      };
+      drawWing(1); drawWing(-1);
+      ctx.beginPath(); ctx.moveTo(cx, cy - s*0.3); ctx.lineTo(cx, cy + s*0.3); ctx.stroke();
+    }
+  },
+  {
+    name: 'Programs',
+    draw: (ctx, cx, cy, s, color, accent) => {
+      // Flaticon Style: Minimal Brilliant Diamond
+      ctx.strokeStyle = '#FFF'; ctx.lineWidth = s * 0.06; ctx.lineJoin = 'round';
+      const w = s * 0.8, h = s * 0.7;
+      const tw = w * 0.5;
+      
+      ctx.beginPath();
+      ctx.moveTo(cx - tw/2, cy - h/2); ctx.lineTo(cx + tw/2, cy - h/2);
+      ctx.lineTo(cx + w/2, cy); ctx.lineTo(cx, cy + h/2);
+      ctx.lineTo(cx - w/2, cy); ctx.closePath(); ctx.stroke();
+      
+      ctx.lineWidth = s * 0.03;
+      ctx.beginPath();
+      ctx.moveTo(cx - w/2, cy); ctx.lineTo(cx + w/2, cy);
+      ctx.moveTo(cx - tw/2, cy - h/2); ctx.lineTo(cx, cy); ctx.lineTo(cx + tw/2, cy - h/2);
+      ctx.moveTo(cx, cy); ctx.lineTo(cx, cy + h/2);
+      ctx.stroke();
+    }
+  },
+  {
+    name: 'Reviews',
+    draw: (ctx, cx, cy, s, color, accent) => {
+      // Flaticon Style: Star Speech Bubble
+      ctx.strokeStyle = '#FFF'; ctx.lineWidth = s * 0.06;
+      const r = s * 0.4;
+      
+      ctx.beginPath();
+      ctx.arc(cx, cy - s*0.05, r, Math.PI * 0.2, Math.PI * 0.8, true);
+      ctx.lineTo(cx - s*0.2, cy + s*0.5); ctx.lineTo(cx, cy + r - s*0.05);
+      ctx.stroke();
+      
+      // Centered Star
+      const sr = s * 0.18;
+      ctx.beginPath();
+      for(let i=0; i<5; i++){
+        const a = (i/5)*Math.PI*2 - Math.PI/2;
+        ctx.lineTo(cx+Math.cos(a)*sr, cy+Math.sin(a)*sr - s*0.05);
+        ctx.lineTo(cx+Math.cos(a+Math.PI/5)*(sr*0.4), cy+Math.sin(a+Math.PI/5)*(sr*0.4) - s*0.05);
+      }
+      ctx.closePath(); ctx.stroke();
+    }
+  },
+  {
+    name: 'Location',
+    draw: (ctx, cx, cy, s, color, accent) => {
+      // Flaticon Style: 3-Panel Map + Pin
+      ctx.strokeStyle = '#FFF'; ctx.lineWidth = s * 0.05;
+      const w = s * 0.9, h = s * 0.5;
+      
+      ctx.beginPath();
+      ctx.moveTo(cx - w/2, cy - h/2); ctx.lineTo(cx - w/6, cy - h/2 + s*0.1);
+      ctx.lineTo(cx + w/6, cy - h/2); ctx.lineTo(cx + w/2, cy - h/2 + s*0.1);
+      ctx.lineTo(cx + w/2, cy + h/2); ctx.lineTo(cx + w/6, cy + h/2 - s*0.1);
+      ctx.lineTo(cx - w/6, cy + h/2); ctx.lineTo(cx - w/2, cy + h/2 - s*0.1);
+      ctx.closePath(); ctx.stroke();
+      
+      ctx.beginPath();
+      ctx.moveTo(cx - w/6, cy - h/2 + s*0.1); ctx.lineTo(cx - w/6, cy + h/2);
+      ctx.moveTo(cx + w/6, cy - h/2); ctx.lineTo(cx + w/6, cy + h/2 - s*0.1);
+      ctx.stroke();
+      
+      // Pin
+      ctx.beginPath(); ctx.arc(cx + s*0.2, cy - s*0.1, s*0.12, 0, Math.PI*2); ctx.stroke();
+    }
+  },
+  {
+    name: 'Working Hours',
+    draw: (ctx, cx, cy, s, color, accent) => {
+      // Flaticon Style: Minimalist Clock
+      ctx.strokeStyle = '#FFF'; ctx.lineWidth = s * 0.07;
+      ctx.beginPath(); ctx.arc(cx, cy, s * 0.4, 0, Math.PI * 2); ctx.stroke();
+      
+      ctx.lineWidth = s * 0.05; ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(cx, cy); ctx.lineTo(cx, cy - s * 0.25); // Hour
+      ctx.moveTo(cx, cy); ctx.lineTo(cx + s * 0.2, cy); // Minute
+      ctx.stroke();
+    }
+  },
+  {
+    name: 'Reservation',
+    draw: (ctx, cx, cy, s, color, accent) => {
+      // Flaticon Style: Clean Calendar
+      ctx.strokeStyle = '#FFF'; ctx.lineWidth = s * 0.06;
+      const w = s * 0.7, h = s * 0.7;
+      
+      ctx.beginPath(); ctx.rect(cx - w/2, cy - h/2, w, h); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cx - w/2, cy - h/2 + s*0.15); ctx.lineTo(cx + w/2, cy - h/2 + s*0.15); ctx.stroke();
+      
+      ctx.lineWidth = s * 0.04;
+      // Grid dots
+      for(let x=-1; x<=1; x++) {
+        for(let y=0; y<=1; y++) {
+          ctx.beginPath(); ctx.arc(cx + x*s*0.15, cy + y*s*0.15 + s*0.05, s*0.02, 0, Math.PI*2); ctx.stroke();
+        }
+      }
+    }
+  }
+];
+
+function applyTexture(ctx, w, h) {
+  ctx.save();
+  ctx.globalCompositeOperation = 'overlay';
+  ctx.globalAlpha = 0.05;
+  for (let i = 0; i < 40000; i++) {
+    const x = Math.random() * w, y = Math.random() * h;
+    ctx.fillStyle = Math.random() > 0.5 ? '#000' : '#FFF';
+    ctx.fillRect(x, y, 1, 1);
+  }
+  ctx.restore();
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+function drawBlob(ctx, cx, cy, s, color) {
+  ctx.save();
+  ctx.globalAlpha = 0.15;
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  const points = 6;
+  for (let i = 0; i <= points; i++) {
+    const angle = (i / points) * Math.PI * 2;
+    const dist = s * (0.8 + Math.random() * 0.4);
+    const x = cx + Math.cos(angle) * dist;
+    const y = cy + Math.sin(angle) * dist;
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.quadraticCurveTo(cx, cy, x, y);
+  }
+  ctx.fill();
+  ctx.restore();
+}
+
+function applyPreset() {
+  const p = document.getElementById('designPreset').value;
+  if (p === 'custom') return;
+  
+  const sets = {
+    brandClassic: { bg: '#E8703A', bg2: '#C85828', ic: '#FFFFFF', ac: '#FAF4EA' },
+    goldSilk: { bg: '#FDF7F2', bg2: '#FAF4EA', ic: '#D4AF37', ac: '#9C7A1A' },
+    moonlight: { bg: '#1A1A2E', bg2: '#16213E', ic: '#E94560', ac: '#FFFFFF' },
+    petalSoft: { bg: '#FFF5F5', bg2: '#FFF0F0', ic: '#FFB7B2', ac: '#FF6B6B' },
+    deepNoir: { bg: '#0A0A0A', bg2: '#1A1A1A', ic: '#FFFFFF', ac: '#E8703A' }
+  };
+  
+  const s = sets[p];
+  document.getElementById('bgColor').value = s.bg;
+  document.getElementById('bgColor2').value = s.bg2;
+  document.getElementById('iconColor').value = s.ic;
+  document.getElementById('accentColor').value = s.ac;
+  
+  generateAll();
+}
+
+const fullCanvases = [];
+
+function generateAll() {
+  const bgStyle = document.getElementById('bgStyle').value;
+  const bgColor = document.getElementById('bgColor').value;
+  const bgColor2 = document.getElementById('bgColor2').value;
+  const iconColor = document.getElementById('iconColor').value;
+  const accentColor = document.getElementById('accentColor').value;
+  const bottomText = document.getElementById('bottomText').value;
+  const showBlobs = document.getElementById('showBlobs').checked;
+  const showGlow = document.getElementById('showGlow').checked;
+  const showTexture = document.getElementById('showTexture').checked;
+  
+  const grid = document.getElementById('coversGrid');
+  grid.innerHTML = '';
+  fullCanvases.length = 0;
+
+  HIGHLIGHTS.forEach((hl, i) => {
+    const fullCanvas = document.createElement('canvas');
+    fullCanvas.width = 1080;
+    fullCanvas.height = 1920;
+    const fctx = fullCanvas.getContext('2d');
+
+    // Background
+    if (bgStyle === 'aesthetic') {
+      fctx.fillStyle = bgColor;
+      fctx.fillRect(0, 0, 1080, 1920);
+      const grad = fctx.createRadialGradient(800, 400, 0, 800, 400, 1200);
+      grad.addColorStop(0, bgColor2);
+      grad.addColorStop(1, 'transparent');
+      fctx.fillStyle = grad;
+      fctx.fillRect(0, 0, 1080, 1920);
+    } else if (bgStyle === 'linear') {
+      const grad = fctx.createLinearGradient(0, 0, 0, 1920);
+      grad.addColorStop(0, bgColor);
+      grad.addColorStop(1, bgColor2);
+      fctx.fillStyle = grad;
+      fctx.fillRect(0, 0, 1080, 1920);
+    } else {
+      fctx.fillStyle = bgColor;
+      fctx.fillRect(0, 0, 1080, 1920);
+    }
+
+    if (showTexture) {
+      applyTexture(fctx, 1080, 1920);
+    }
+
+    // Aesthetic Blob
+    if (showBlobs) {
+      drawBlob(fctx, 540, 880, 350, iconColor);
+    }
+
+    // Icon Glow
+    if (showGlow) {
+      fctx.shadowBlur = 60;
+      fctx.shadowColor = iconColor + '66';
+    }
+
+    // Draw Icon
+    hl.draw(fctx, 540, 880, 420, iconColor, accentColor);
+    fctx.shadowBlur = 0;
+
+    // Bottom text
+    if (bottomText) {
+      fctx.fillStyle = iconColor;
+      fctx.textAlign = 'center';
+      fctx.font = '800 68px "Pretendard", sans-serif';
+      fctx.letterSpacing = '10px';
+      fctx.fillText(bottomText, 540, 1180);
+    }
+
+    fullCanvases.push({ canvas: fullCanvas, name: hl.name });
+
+    // Preview
+    const previewCanvas = document.createElement('canvas');
+    previewCanvas.width = 300;
+    previewCanvas.height = 300;
+    const pctx = previewCanvas.getContext('2d');
+    const cropY = (1920 - 1080) / 2;
+    pctx.drawImage(fullCanvas, 0, cropY, 1080, 1080, 0, 0, 300, 300);
+
+    const item = document.createElement('div');
+    item.className = 'cover-item';
+    item.innerHTML = `
+      <h4>${hl.name}</h4>
+      <div class="cover-circle-wrap">
+        <div class="ig-ring"></div>
+        <div class="cover-circle"></div>
+      </div>
+      <button class="btn-download" onclick="downloadSingle(${i})">Export PNG</button>
+    `;
+    item.querySelector('.cover-circle').appendChild(previewCanvas);
+    grid.appendChild(item);
+  });
+}
+
+function downloadSingle(index) {
+  const { canvas, name } = fullCanvases[index];
+  const link = document.createElement('a');
+  link.download = `Premium_Cover_${name.replace(/\s+/g, '_')}.png`;
+  link.href = canvas.toDataURL('image/png', 1.0);
+  link.click();
+}
+
+function downloadAll() {
+  fullCanvases.forEach((item, i) => {
+    setTimeout(() => downloadSingle(i), i * 350);
+  });
+}
+
+window.addEventListener('DOMContentLoaded', generateAll);
+</script>
+</body>
+</html>

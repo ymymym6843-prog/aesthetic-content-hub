@@ -10,6 +10,10 @@ export const GridView = ({ posts, onPostClick, filter }) => {
         })
         : posts;
 
+    // Separate grid-image posts (initial 6) from regular posts
+    const gridPosts = filteredPosts.filter(p => p.isGridImage);
+    const regularPosts = filteredPosts.filter(p => !p.isGridImage);
+
     return (
         <div className="max-w-2xl mx-auto py-2">
             <div className="flex justify-center border-t border-gray-200 mb-2">
@@ -23,12 +27,31 @@ export const GridView = ({ posts, onPostClick, filter }) => {
                     <User size={14} /> 태그됨
                 </button>
             </div>
+
+            {/* Initial 6-grid (seamless wedding care image) */}
+            {gridPosts.length > 0 && (
+                <div className="grid grid-cols-3 gap-0">
+                    {gridPosts.map((post) => (
+                        <div
+                            key={post.id}
+                            className="relative group cursor-pointer overflow-hidden bg-gray-100"
+                            style={{aspectRatio:'1/1.25'}}
+                            onClick={() => onPostClick(post)}
+                        >
+                            <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
+                            <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        </div>
+                    ))}
+                </div>
+            )}
+
+            {/* Regular posts */}
             <div className="grid grid-cols-3 gap-0.5 md:gap-1">
-                {filteredPosts.map((post, index) => (
+                {regularPosts.map((post, index) => (
                     <React.Fragment key={post.id}>
-                        {index % 9 === 0 && (
-                            <div className="col-span-3 px-3 py-2 border-y flex items-center justify-between" style={{background:'#FFF8F0', borderColor:'rgba(255,140,66,0.1)'}}>
-                                <span className="text-xs font-black uppercase tracking-widest" style={{color:'#FF8C42'}}>{post.phase}</span>
+                        {index % 9 === 0 && post.phase && (
+                            <div className="col-span-3 px-3 py-2 border-y flex items-center justify-between" style={{background:'#FFF8F0', borderColor:'rgba(232,112,58,0.1)'}}>
+                                <span className="text-xs font-black uppercase tracking-widest" style={{color:'#E8703A'}}>{post.phase}</span>
                                 <span className="text-xs text-gray-400 font-bold uppercase">Week {post.week} ~</span>
                             </div>
                         )}
@@ -43,11 +66,10 @@ export const GridView = ({ posts, onPostClick, filter }) => {
                                 {post.type === 'carousel' && <Copy size={18} className="text-white" />}
                             </div>
                             {post.slideCount && (
-                                <div className="absolute top-3 left-3 px-1.5 py-0.5 rounded text-[10px] font-black text-white" style={{background:'#FF8C42', filter:'drop-shadow(0 1px 2px rgba(0,0,0,0.3))'}}>
+                                <div className="absolute top-3 left-3 px-1.5 py-0.5 rounded text-[10px] font-black text-white" style={{background:'#E8703A', filter:'drop-shadow(0 1px 2px rgba(0,0,0,0.3))'}}>
                                     {post.slideCount}장
                                 </div>
                             )}
-                            {/* Draft overlay */}
                             {post.status === 'draft' && (
                                 <div className="absolute bottom-2 left-2 px-2 py-0.5 rounded-full text-[9px] font-black bg-black/50 text-white backdrop-blur-sm">
                                     DRAFT

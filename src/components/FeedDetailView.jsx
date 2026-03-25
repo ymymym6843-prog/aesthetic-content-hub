@@ -19,8 +19,8 @@ export const FeedDetailView = ({ post, onBack }) => (
         <div className="flex flex-col">
             <div className="flex items-center justify-between p-3 border-b border-gray-50">
                 <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full p-0.5" style={{background:'linear-gradient(135deg,#FF8C42,#FFB085)'}}>
-                        <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-xs font-black border border-white" style={{color:'#FF8C42'}}>IM</div>
+                    <div className="w-9 h-9 rounded-full p-0.5" style={{background:'linear-gradient(135deg,#E8703A,#F5A070)'}}>
+                        <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-xs font-black border border-white" style={{color:'#E8703A'}}>IM</div>
                     </div>
                     <div>
                         <div className="text-sm font-bold flex items-center gap-1 uppercase">
@@ -40,7 +40,7 @@ export const FeedDetailView = ({ post, onBack }) => (
                 <img src={post.image} alt="" className="w-full h-full object-cover" />
                 {post.type === 'carousel' && (
                     <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-20">
-                        <div className="w-3 h-1.5 rounded-full" style={{background:'#FF8C42'}}></div>
+                        <div className="w-3 h-1.5 rounded-full" style={{background:'#E8703A'}}></div>
                         <div className="w-1.5 h-1.5 rounded-full bg-white/60"></div>
                         <div className="w-1.5 h-1.5 rounded-full bg-white/60"></div>
                     </div>
@@ -53,12 +53,12 @@ export const FeedDetailView = ({ post, onBack }) => (
                         <MessageCircle size={26} className="hover:text-gray-400 cursor-pointer" />
                         <Send size={26} className="hover:text-gray-400 cursor-pointer" />
                     </div>
-                    <Bookmark size={26} className="cursor-pointer" style={{color:'#FF8C42'}} />
+                    <Bookmark size={26} className="cursor-pointer" style={{color:'#E8703A'}} />
                 </div>
                 <div className="text-sm font-bold mb-3">좋아요 1,248개</div>
-                <div className="p-4 rounded-2xl border mb-4" style={{background:'rgba(255,248,240,0.5)',borderColor:'rgba(255,140,66,0.2)'}}>
-                    <div className="flex items-center justify-between mb-3 border-b pb-2" style={{borderColor:'rgba(255,140,66,0.3)'}}>
-                        <span className="text-xs font-black tracking-widest uppercase italic" style={{color:'#FF8C42'}}>Instagram Caption Copy</span>
+                <div className="p-4 rounded-2xl border mb-4" style={{background:'rgba(255,248,240,0.5)',borderColor:'rgba(232,112,58,0.2)'}}>
+                    <div className="flex items-center justify-between mb-3 border-b pb-2" style={{borderColor:'rgba(232,112,58,0.3)'}}>
+                        <span className="text-xs font-black tracking-widest uppercase italic" style={{color:'#E8703A'}}>Instagram Caption Copy</span>
                         <button onClick={() => {
                             const text = post.caption + "\n\n" + post.hashtags;
                             navigator.clipboard.writeText(text).then(() => {
@@ -67,7 +67,7 @@ export const FeedDetailView = ({ post, onBack }) => (
                                 btn.innerHTML = '✓ 복사됨!';
                                 setTimeout(() => { btn.innerHTML = orig; }, 2000);
                             });
-                        }} className="flex items-center gap-1 text-xs font-bold text-white px-2 py-1 rounded-md cursor-pointer" style={{background:'#FF8C42'}}>
+                        }} className="flex items-center gap-1 text-xs font-bold text-white px-2 py-1 rounded-md cursor-pointer" style={{background:'#E8703A'}}>
                             <Copy size={10} /> 본문 복사
                         </button>
                     </div>
@@ -81,7 +81,7 @@ export const FeedDetailView = ({ post, onBack }) => (
                 </div>
                 <div className="text-xs text-gray-400 font-bold uppercase tracking-widest flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <span className="px-2 py-0.5 rounded" style={{background:'rgba(255,140,66,0.1)',color:'#FF8C42'}}>{post.phase}</span>
+                        <span className="px-2 py-0.5 rounded" style={{background:'rgba(232,112,58,0.1)',color:'#E8703A'}}>{post.phase}</span>
                         <span>Week {post.week} - {post.day}</span>
                     </div>
                     <span>2026년 3월 예정</span>

@@ -4,6 +4,12 @@ import axios from 'axios';
 import * as cheerio from 'cheerio';
 import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
@@ -105,6 +111,87 @@ app.post('/api/generate', async (req, res) => {
     } catch (error) {
         console.error('[API Error]', error);
         res.status(500).json({ error: error.message || 'Failed to process the URL' });
+    }
+});
+
+// ===== Gemini Image Generation =====
+app.use(express.json({ limit: '50mb' }));
+
+app.post('/api/generate-image', async (req, res) => {
+    try {
+        const { prompt } = req.body;
+        if (!prompt) return res.status(400).json({ error: 'Prompt is required' });
+
+        console.log(`[API] Gemini 이미지 생성 중...`);
+
+        // Try gemini-2.5-flash-image (supports image generation)
+        const result = await ai.models.generateContent({
+            model: 'gemini-2.5-flash-image',
+            contents: [{ role: 'user', parts: [{ text: prompt }] }],
+            config: {
+                responseModalities: ['IMAGE', 'TEXT'],
+            }
+        });
+
+        // Extract image from response
+        const candidates = result.candidates || [];
+        const parts = candidates[0]?.content?.parts || [];
+        const imagePart = parts.find(p => p.inlineData?.mimeType?.startsWith('image/'));
+
+        if (!imagePart) {
+            // Fallback: try Imagen 4
+            console.log('[API] gemini-2.5-flash-image 실패, imagen-4.0 시도...');
+            const imagenResult = await ai.models.generateImages({
+                model: 'imagen-4.0-generate-001',
+                prompt: prompt,
+                config: { numberOfImages: 1, aspectRatio: '3:4' },
+            });
+
+            if (imagenResult.generatedImages?.length > 0) {
+                const imgData = imagenResult.generatedImages[0].image.imageBytes;
+                return res.json({
+                    image: imgData,
+                    mimeType: 'image/png',
+                    model: 'imagen-4.0',
+                });
+            }
+
+            return res.status(500).json({ error: 'No image generated from either model' });
+        }
+
+        res.json({
+            image: imagePart.inlineData.data,
+            mimeType: imagePart.inlineData.mimeType,
+            model: 'gemini-2.5-flash-image',
+        });
+
+    } catch (error) {
+        console.error('[API Image Error]', error.message);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Save generated images to public/feed_images/
+app.post('/api/save-feed-images', async (req, res) => {
+    try {
+        const { images } = req.body; // array of { filename, data (base64) }
+        const feedDir = path.join(__dirname, 'public', 'feed_images');
+
+        if (!fs.existsSync(feedDir)) fs.mkdirSync(feedDir, { recursive: true });
+
+        const saved = [];
+        for (const img of images) {
+            const filePath = path.join(feedDir, img.filename);
+            const buffer = Buffer.from(img.data, 'base64');
+            fs.writeFileSync(filePath, buffer);
+            saved.push(`/feed_images/${img.filename}`);
+            console.log(`[API] Saved: ${img.filename}`);
+        }
+
+        res.json({ saved });
+    } catch (error) {
+        console.error('[API Save Error]', error.message);
+        res.status(500).json({ error: error.message });
     }
 });
 

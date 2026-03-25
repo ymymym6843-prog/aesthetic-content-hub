@@ -12,7 +12,7 @@ export const WeekNav = ({ strategyData, activeWeek, onSelect, onAddWeek, dbConne
                     className={`w-full flex items-center justify-between p-4 rounded-2xl transition-all duration-300 group ${activeWeek === item.week ? 'bg-gray-800 text-white shadow-xl translate-x-2' : 'bg-white/80 text-gray-500 hover:bg-white hover:shadow-md'}`}>
                     <div className="flex items-center gap-3">
                         <span className={`text-[10px] font-black w-7 h-7 rounded-full flex items-center justify-center border ${activeWeek === item.week ? 'border-orange-400 text-white' : 'bg-gray-100 border-gray-200'}`}
-                            style={activeWeek === item.week ? {background:'#FF8C42'} : {}}>
+                            style={activeWeek === item.week ? {background:'#E8703A'} : {}}>
                             {String(item.week).padStart(2,'0')}
                         </span>
                         <div className="text-left">
@@ -20,7 +20,7 @@ export const WeekNav = ({ strategyData, activeWeek, onSelect, onAddWeek, dbConne
                             <div className="font-bold text-sm leading-tight truncate max-w-[140px]">{item.theme || `주차 로드맵 ${String(item.week).padStart(2,'0')}`}</div>
                         </div>
                     </div>
-                    <ChevronRight size={16} className={activeWeek === item.week ? '' : 'text-gray-300'} style={activeWeek === item.week ? {color:'#FF8C42'} : {}} />
+                    <ChevronRight size={16} className={activeWeek === item.week ? '' : 'text-gray-300'} style={activeWeek === item.week ? {color:'#E8703A'} : {}} />
                 </button>
             ))}
         </div>

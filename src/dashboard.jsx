@@ -208,7 +208,7 @@ const App = () => {
         return (
             <div className="min-h-screen flex items-center justify-center" style={{background:'#FFF8F0'}}>
                 <div className="text-center">
-                    <div className="w-8 h-8 border-3 border-t-transparent rounded-full animate-spin mx-auto mb-4" style={{borderColor:'#FF8C42', borderTopColor:'transparent'}}></div>
+                    <div className="w-8 h-8 border-3 border-t-transparent rounded-full animate-spin mx-auto mb-4" style={{borderColor:'#E8703A', borderTopColor:'transparent'}}></div>
                     <p className="text-gray-400 text-sm">Loading...</p>
                 </div>
             </div>
@@ -220,7 +220,7 @@ const App = () => {
     return (
         <div className="min-h-screen p-4 md:p-10 font-sans" style={{background:'#FFF8F0', color:'#333'}}>
             <header className="max-w-6xl mx-auto mb-12 flex flex-col items-center">
-                <div className="px-5 py-1.5 rounded-full text-xs font-bold mb-4 border tracking-widest uppercase flex items-center gap-2" style={{background:'rgba(255,140,66,0.1)', color:'#FF8C42', borderColor:'rgba(255,140,66,0.2)'}}>
+                <div className="px-5 py-1.5 rounded-full text-xs font-bold mb-4 border tracking-widest uppercase flex items-center gap-2" style={{background:'rgba(232,112,58,0.1)', color:'#E8703A', borderColor:'rgba(232,112,58,0.2)'}}>
                     <span className={`w-2 h-2 rounded-full ${dbConnected ? 'bg-green-400' : 'bg-gray-300'}`}></span>
                     IM AESTHETIC SNS CONTENT HUB
                 </div>
@@ -236,20 +236,20 @@ const App = () => {
                     <div className="mt-6 w-full max-w-md">
                         <div className="flex items-center justify-between mb-2">
                             <div className="flex items-center gap-2 text-sm font-bold text-gray-500">
-                                <BarChart size={16} style={{color:'#FF8C42'}} />
+                                <BarChart size={16} style={{color:'#E8703A'}} />
                                 발행 현황
                             </div>
-                            <span className="text-sm font-black" style={{color:'#FF8C42'}}>{publishedCount}/{totalCount} ({progressPct}%)</span>
+                            <span className="text-sm font-black" style={{color:'#E8703A'}}>{publishedCount}/{totalCount} ({progressPct}%)</span>
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
                             <div className="h-full rounded-full transition-all duration-700"
-                                style={{width: `${progressPct}%`, background: progressPct === 100 ? '#22c55e' : '#FF8C42'}} />
+                                style={{width: `${progressPct}%`, background: progressPct === 100 ? '#22c55e' : '#E8703A'}} />
                         </div>
                     </div>
                 )}
 
                 <div className="mt-4 flex gap-3">
-                    <a href="card_news_maker.html" className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold text-white shadow-md hover:shadow-lg transition-all" style={{background:'#FF8C42'}}>
+                    <a href="card_news_maker.html" className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold text-white shadow-md hover:shadow-lg transition-all" style={{background:'#E8703A'}}>
                         <LayoutGrid size={16} /> 카드뉴스 메이커
                     </a>
                 </div>
@@ -268,23 +268,23 @@ const App = () => {
                     <div className="p-8 md:p-10 border-b border-gray-50 bg-gray-800 text-white">
                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                             <div>
-                                <div className="flex items-center gap-2 mb-2" style={{color:'#FF8C42'}}>
+                                <div className="flex items-center gap-2 mb-2" style={{color:'#E8703A'}}>
                                     <Sparkles size={16} />
                                     <span className="text-xs font-black uppercase tracking-widest italic">{activeData.phase}</span>
                                 </div>
                                 <h2 className="text-3xl font-bold tracking-tight">{activeData.theme}</h2>
                             </div>
                             <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-xl backdrop-blur-md border border-white/5">
-                                <Clock size={16} style={{color:'#FF8C42'}} />
+                                <Clock size={16} style={{color:'#E8703A'}} />
                                 <span className="text-sm font-bold tracking-tight">화·목·토 실전 업로드</span>
                             </div>
                         </div>
                     </div>
 
                     <div className="p-8 md:p-10 flex-grow">
-                        <div className="mb-10 p-6 rounded-3xl border relative overflow-hidden group" style={{background:'#FFF8F0', borderColor:'rgba(255,140,66,0.1)'}}>
+                        <div className="mb-10 p-6 rounded-3xl border relative overflow-hidden group" style={{background:'#FFF8F0', borderColor:'rgba(232,112,58,0.1)'}}>
                             <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity"><Award size={80} /></div>
-                            <div className="flex items-center gap-2 mb-2 font-black text-xs tracking-widest uppercase" style={{color:'#FF8C42'}}>
+                            <div className="flex items-center gap-2 mb-2 font-black text-xs tracking-widest uppercase" style={{color:'#E8703A'}}>
                                 <CheckCircle2 size={16} /><span>Strategy Goal</span>
                             </div>
                             <p className="text-gray-700 text-lg font-medium leading-relaxed italic">
@@ -294,13 +294,13 @@ const App = () => {
 
                         <div className="flex items-center justify-between mb-6">
                             <h3 className="text-xl font-bold flex items-center gap-2">
-                                <LayoutGrid size={22} style={{color:'#FF8C42'}} />
+                                <LayoutGrid size={22} style={{color:'#E8703A'}} />
                                 콘텐츠 상세 기획 (클릭하여 확인)
                             </h3>
                             {dbConnected && (
                                 <button onClick={() => setEditorPost(null)}
                                     className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold text-white shadow-md hover:shadow-lg transition-all"
-                                    style={{background:'#FF8C42'}}>
+                                    style={{background:'#E8703A'}}>
                                     <Plus size={14} /> 새 게시물
                                 </button>
                             )}
@@ -322,7 +322,7 @@ const App = () => {
                     <div className="px-10 py-6 bg-gray-50 border-t border-gray-100 flex flex-wrap gap-8 items-center justify-center">
                         {[{code:'Yu',role:'Skin Expert',name:'유수정 전문가'},{code:'Woo',role:'Body Expert',name:'우연우 전문가'},{code:'Kim',role:'Wellness Dir',name:'김은경 디렉터'}].map((e,i) => (
                             <div key={i} className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm font-bold text-[10px]" style={{color:'#FF8C42'}}>{e.code}</div>
+                                <div className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm font-bold text-[10px]" style={{color:'#E8703A'}}>{e.code}</div>
                                 <div className="flex flex-col">
                                     <span className="text-[10px] font-black text-gray-400 uppercase tracking-tighter italic">{e.role}</span>
                                     <span className="text-xs font-bold">{e.name}</span>
