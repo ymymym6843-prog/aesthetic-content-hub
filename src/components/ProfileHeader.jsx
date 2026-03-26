@@ -40,11 +40,11 @@ const PinIcon = ({ size = 20 }) => (
 );
 
 const HIGHLIGHTS = [
-    { name: '웨딩케어', icon: RingIcon },
-    { name: '비포&애프터', icon: SparkleIcon },
-    { name: '프로그램', icon: ClipboardIcon },
-    { name: '후기', icon: HeartMailIcon },
-    { name: '오시는길', icon: PinIcon },
+    { name: '웨딩케어', image: '/highlight_covers/01_wedding_care.jpeg' },
+    { name: '비포&애프터', image: '/highlight_covers/02_before_after.jpeg' },
+    { name: '후기', image: '/highlight_covers/03_review.jpeg' },
+    { name: '오시는길', image: '/highlight_covers/04_location.jpeg' },
+    { name: '예약', image: '/highlight_covers/05_reservation.jpeg' },
 ];
 
 export const ProfileHeader = () => (
@@ -116,14 +116,11 @@ export const ProfileHeader = () => (
             <div className="flex gap-5 w-full overflow-x-auto py-4 no-scrollbar justify-center">
                 {HIGHLIGHTS.map((item, i) => (
                     <div key={i} className="flex flex-col items-center gap-2 flex-shrink-0">
-                        <div className="w-16 h-16 rounded-full p-0.5 shadow-sm flex items-center justify-center cursor-pointer"
-                            style={{
-                                background: 'linear-gradient(135deg, #E8703A, #F5A070)',
-                                color: '#fff'
-                            }}>
-                            <div className="w-full h-full rounded-full flex items-center justify-center"
-                                style={{background: 'linear-gradient(135deg, #E8703A, #C85828)'}}>
-                                <item.icon size={22} />
+                        <div className="w-16 h-16 rounded-full p-0.5 shadow-sm cursor-pointer"
+                            style={{ background: 'linear-gradient(135deg, #E8703A, #F5A070, #E8703A)' }}>
+                            <div className="w-full h-full rounded-full overflow-hidden border-2 border-white">
+                                <img src={item.image} alt={item.name}
+                                    className="w-full h-full object-cover" />
                             </div>
                         </div>
                         <span className="text-xs font-semibold text-gray-600">{item.name}</span>

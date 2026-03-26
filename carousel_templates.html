@@ -16,9 +16,9 @@
 :root {
   --warm-white: #FAF8F5; /* 더 세련된 오프화이트 */
   --orange: #E8703A; /* 공식 사이트 오렌지 */
-  --charcoal: #111827; /* 딥 차콜 */
-  --dark-warm: #3D3229; /* 정제된 다크 브라운 */
-  --darker-warm: #2C241E;
+  --charcoal: #3D2E24; /* 웜 차콜 (오렌지 계열) */
+  --dark-warm: #E8703A; /* 브랜드 오렌지 */
+  --darker-warm: #C85828; /* 딥 오렌지 */
   --orange-light: #FDE8D9;
   --orange-pale: #FEF3EB;
   --gray-soft: #F9FAFB;
@@ -39,7 +39,7 @@
 body {
   font-family: var(--font-body);
   background: #FAF8F5;
-  color: #3D3229;
+  color: #3D2E24;
   min-height: 100vh;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -548,8 +548,10 @@ body {
 /* Warm white base */
 .sl-warm { background: radial-gradient(ellipse at 25% 15%, rgba(239,125,49,0.05) 0%, transparent 50%), var(--warm-white); }
 /* Dark warm base */
-.sl-dark { background: radial-gradient(ellipse at 70% 80%, rgba(239,125,49,0.06) 0%, transparent 40%), var(--dark-warm); }
-.sl-darker { background: radial-gradient(ellipse at 50% 50%, rgba(239,125,49,0.04) 0%, transparent 40%), var(--darker-warm); }
+.sl-dark { background: radial-gradient(ellipse at 70% 80%, rgba(255,255,255,0.08) 0%, transparent 40%), var(--dark-warm); color: #fff; }
+.sl-darker { background: radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.06) 0%, transparent 40%), var(--darker-warm); color: #fff; }
+.sl-ivory { background: radial-gradient(ellipse at 50% 30%, rgba(232,112,58,0.04) 0%, transparent 60%), #FFF8F0; }
+.sl-beige { background: radial-gradient(ellipse at 30% 70%, rgba(232,112,58,0.03) 0%, transparent 50%), #F5E8D0; }
 
 /* Decorative circles */
 .sl-deco-circle {
@@ -670,7 +672,7 @@ body {
   font-family: var(--font-headings);
   font-size: 36px; /* Further reduced for extreme elegance */
   font-weight: 600;
-  color: #111827;
+  color: #3D2E24;
   line-height: 1.35;
   letter-spacing: 0.01em;
   word-break: keep-all;
@@ -1392,20 +1394,20 @@ body {
       <div class="swatch-label">오렌지 포인트<br><span class="swatch-hex">#E8703A</span></div>
     </div>
     <div class="swatch-group">
-      <div class="swatch" style="background:#111827;"></div>
-      <div class="swatch-label">차콜 (주 텍스트)<br><span class="swatch-hex">#111827</span></div>
+      <div class="swatch" style="background:#C85828;"></div>
+      <div class="swatch-label">딥 오렌지<br><span class="swatch-hex">#C85828</span></div>
     </div>
     <div class="swatch-group">
-      <div class="swatch" style="background:#3D3229;"></div>
-      <div class="swatch-label">다크 브라운 (강조 배경)<br><span class="swatch-hex">#3D3229</span></div>
+      <div class="swatch" style="background:#F5E8D0;"></div>
+      <div class="swatch-label">베이지<br><span class="swatch-hex">#F5E8D0</span></div>
     </div>
     <div class="swatch-group">
-      <div class="swatch" style="background:#FDE8D9;"></div>
-      <div class="swatch-label">오렌지 연한톤<br><span class="swatch-hex">#FDE8D9</span></div>
+      <div class="swatch" style="background:#FFF8F0; border:1px solid #EEE;"></div>
+      <div class="swatch-label">아이보리<br><span class="swatch-hex">#FFF8F0</span></div>
     </div>
     <div class="swatch-group">
-      <div class="swatch" style="background:#F9FAFB; border:1px solid #DDD;"></div>
-      <div class="swatch-label">소프트 그레이<br><span class="swatch-hex">#F9FAFB</span></div>
+      <div class="swatch" style="background:#3D2E24;"></div>
+      <div class="swatch-label">웜 차콜 (텍스트)<br><span class="swatch-hex">#3D2E24</span></div>
     </div>
   </div>
 

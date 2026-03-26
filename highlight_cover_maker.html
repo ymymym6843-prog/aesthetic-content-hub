@@ -359,143 +359,43 @@
 </div>
 
 <script>
+// Highlight covers using Flaticon PNG icons
 const HIGHLIGHTS = [
-  {
-    name: 'Wedding Care',
-    draw: (ctx, cx, cy, s, color, accent) => {
-      // Flaticon Style: Elegant Diamond Ring
-      ctx.strokeStyle = '#FFF'; ctx.lineWidth = s * 0.05; ctx.lineCap = 'round';
-      const r = s * 0.32, ry = cy + s * 0.15;
-      ctx.beginPath(); ctx.arc(cx, ry, r, 0, Math.PI * 2); ctx.stroke();
-      
-      const dw = s * 0.4, dh = s * 0.3, dy = ry - r;
-      ctx.beginPath();
-      ctx.moveTo(cx - dw/2, dy); ctx.lineTo(cx + dw/2, dy);
-      ctx.lineTo(cx + dw*0.2, dy - dh); ctx.lineTo(cx - dw*0.2, dy - dh);
-      ctx.closePath(); ctx.stroke();
-      // Internal facet line
-      ctx.beginPath(); ctx.moveTo(cx - dw*0.2, dy - dh); ctx.lineTo(cx, dy); ctx.lineTo(cx + dw*0.2, dy - dh); ctx.stroke();
-    }
-  },
-  {
-    name: 'Before & After',
-    draw: (ctx, cx, cy, s, color, accent) => {
-      // Flaticon Style: Geometric Butterfly (Transformation)
-      ctx.strokeStyle = '#FFF'; ctx.lineWidth = s * 0.05; ctx.lineJoin = 'round';
-      
-      const drawWing = (dir) => {
-        ctx.beginPath();
-        ctx.moveTo(cx, cy);
-        ctx.bezierCurveTo(cx + dir*s*0.6, cy - s*0.5, cx + dir*s*0.5, cy - s*0.6, cx + dir*s*0.1, cy - s*0.1);
-        ctx.moveTo(cx, cy);
-        ctx.bezierCurveTo(cx + dir*s*0.5, cy + s*0.5, cx + dir*s*0.4, cy + s*0.6, cx + dir*s*0.1, cy + s*0.1);
-        ctx.stroke();
-      };
-      drawWing(1); drawWing(-1);
-      ctx.beginPath(); ctx.moveTo(cx, cy - s*0.3); ctx.lineTo(cx, cy + s*0.3); ctx.stroke();
-    }
-  },
-  {
-    name: 'Programs',
-    draw: (ctx, cx, cy, s, color, accent) => {
-      // Flaticon Style: Minimal Brilliant Diamond
-      ctx.strokeStyle = '#FFF'; ctx.lineWidth = s * 0.06; ctx.lineJoin = 'round';
-      const w = s * 0.8, h = s * 0.7;
-      const tw = w * 0.5;
-      
-      ctx.beginPath();
-      ctx.moveTo(cx - tw/2, cy - h/2); ctx.lineTo(cx + tw/2, cy - h/2);
-      ctx.lineTo(cx + w/2, cy); ctx.lineTo(cx, cy + h/2);
-      ctx.lineTo(cx - w/2, cy); ctx.closePath(); ctx.stroke();
-      
-      ctx.lineWidth = s * 0.03;
-      ctx.beginPath();
-      ctx.moveTo(cx - w/2, cy); ctx.lineTo(cx + w/2, cy);
-      ctx.moveTo(cx - tw/2, cy - h/2); ctx.lineTo(cx, cy); ctx.lineTo(cx + tw/2, cy - h/2);
-      ctx.moveTo(cx, cy); ctx.lineTo(cx, cy + h/2);
-      ctx.stroke();
-    }
-  },
-  {
-    name: 'Reviews',
-    draw: (ctx, cx, cy, s, color, accent) => {
-      // Flaticon Style: Star Speech Bubble
-      ctx.strokeStyle = '#FFF'; ctx.lineWidth = s * 0.06;
-      const r = s * 0.4;
-      
-      ctx.beginPath();
-      ctx.arc(cx, cy - s*0.05, r, Math.PI * 0.2, Math.PI * 0.8, true);
-      ctx.lineTo(cx - s*0.2, cy + s*0.5); ctx.lineTo(cx, cy + r - s*0.05);
-      ctx.stroke();
-      
-      // Centered Star
-      const sr = s * 0.18;
-      ctx.beginPath();
-      for(let i=0; i<5; i++){
-        const a = (i/5)*Math.PI*2 - Math.PI/2;
-        ctx.lineTo(cx+Math.cos(a)*sr, cy+Math.sin(a)*sr - s*0.05);
-        ctx.lineTo(cx+Math.cos(a+Math.PI/5)*(sr*0.4), cy+Math.sin(a+Math.PI/5)*(sr*0.4) - s*0.05);
-      }
-      ctx.closePath(); ctx.stroke();
-    }
-  },
-  {
-    name: 'Location',
-    draw: (ctx, cx, cy, s, color, accent) => {
-      // Flaticon Style: 3-Panel Map + Pin
-      ctx.strokeStyle = '#FFF'; ctx.lineWidth = s * 0.05;
-      const w = s * 0.9, h = s * 0.5;
-      
-      ctx.beginPath();
-      ctx.moveTo(cx - w/2, cy - h/2); ctx.lineTo(cx - w/6, cy - h/2 + s*0.1);
-      ctx.lineTo(cx + w/6, cy - h/2); ctx.lineTo(cx + w/2, cy - h/2 + s*0.1);
-      ctx.lineTo(cx + w/2, cy + h/2); ctx.lineTo(cx + w/6, cy + h/2 - s*0.1);
-      ctx.lineTo(cx - w/6, cy + h/2); ctx.lineTo(cx - w/2, cy + h/2 - s*0.1);
-      ctx.closePath(); ctx.stroke();
-      
-      ctx.beginPath();
-      ctx.moveTo(cx - w/6, cy - h/2 + s*0.1); ctx.lineTo(cx - w/6, cy + h/2);
-      ctx.moveTo(cx + w/6, cy - h/2); ctx.lineTo(cx + w/6, cy + h/2 - s*0.1);
-      ctx.stroke();
-      
-      // Pin
-      ctx.beginPath(); ctx.arc(cx + s*0.2, cy - s*0.1, s*0.12, 0, Math.PI*2); ctx.stroke();
-    }
-  },
-  {
-    name: 'Working Hours',
-    draw: (ctx, cx, cy, s, color, accent) => {
-      // Flaticon Style: Minimalist Clock
-      ctx.strokeStyle = '#FFF'; ctx.lineWidth = s * 0.07;
-      ctx.beginPath(); ctx.arc(cx, cy, s * 0.4, 0, Math.PI * 2); ctx.stroke();
-      
-      ctx.lineWidth = s * 0.05; ctx.lineCap = 'round';
-      ctx.beginPath();
-      ctx.moveTo(cx, cy); ctx.lineTo(cx, cy - s * 0.25); // Hour
-      ctx.moveTo(cx, cy); ctx.lineTo(cx + s * 0.2, cy); // Minute
-      ctx.stroke();
-    }
-  },
-  {
-    name: 'Reservation',
-    draw: (ctx, cx, cy, s, color, accent) => {
-      // Flaticon Style: Clean Calendar
-      ctx.strokeStyle = '#FFF'; ctx.lineWidth = s * 0.06;
-      const w = s * 0.7, h = s * 0.7;
-      
-      ctx.beginPath(); ctx.rect(cx - w/2, cy - h/2, w, h); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(cx - w/2, cy - h/2 + s*0.15); ctx.lineTo(cx + w/2, cy - h/2 + s*0.15); ctx.stroke();
-      
-      ctx.lineWidth = s * 0.04;
-      // Grid dots
-      for(let x=-1; x<=1; x++) {
-        for(let y=0; y<=1; y++) {
-          ctx.beginPath(); ctx.arc(cx + x*s*0.15, cy + y*s*0.15 + s*0.05, s*0.02, 0, Math.PI*2); ctx.stroke();
-        }
-      }
-    }
-  }
+  { name: 'Wedding Care', iconWhite: '/icons/wedding.png', iconOrange: '/icons/wedding_orange.png' },
+  { name: 'Before & After', iconWhite: '/icons/butterfly.png', iconOrange: '/icons/butterfly_orange.png' },
+  { name: 'Programs', iconWhite: '/icons/clipboard.png', iconOrange: '/icons/clipboard_orange.png' },
+  { name: 'Reviews', iconWhite: '/icons/review.png', iconOrange: '/icons/review_orange.png' },
+  { name: 'Location', iconWhite: '/icons/location.png', iconOrange: '/icons/location_orange.png' },
+  { name: 'Reservation', iconWhite: '/icons/reservation.png', iconOrange: '/icons/reservation_orange.png' }
 ];
+
+// Preload all icon images
+const iconCache = {};
+function preloadIcons() {
+  return Promise.all(HIGHLIGHTS.flatMap(hl => [
+    new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => { iconCache[hl.iconWhite] = img; resolve(); };
+      img.onerror = resolve;
+      img.src = hl.iconWhite;
+    }),
+    new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => { iconCache[hl.iconOrange] = img; resolve(); };
+      img.onerror = resolve;
+      img.src = hl.iconOrange;
+    })
+  ]));
+}
+
+// Draw PNG icon on canvas (centered, scaled)
+function drawIcon(ctx, iconSrc, cx, cy, size) {
+  const img = iconCache[iconSrc];
+  if (!img) return;
+  const x = cx - size / 2;
+  const y = cy - size / 2;
+  ctx.drawImage(img, x, y, size, size);
+}
 
 function applyTexture(ctx, w, h) {
   ctx.save();
@@ -620,8 +520,10 @@ function generateAll() {
       fctx.shadowColor = iconColor + '66';
     }
 
-    // Draw Icon
-    hl.draw(fctx, 540, 880, 420, iconColor, accentColor);
+    // Draw PNG icon (choose white or orange based on icon color setting)
+    const isWhiteIcon = iconColor === '#FFFFFF' || iconColor === '#ffffff' || iconColor === 'white';
+    const iconSrc = isWhiteIcon ? hl.iconWhite : hl.iconOrange;
+    drawIcon(fctx, iconSrc, 540, 880, 420);
     fctx.shadowBlur = 0;
 
     // Bottom text
@@ -672,7 +574,9 @@ function downloadAll() {
   });
 }
 
-window.addEventListener('DOMContentLoaded', generateAll);
+window.addEventListener('DOMContentLoaded', () => {
+  preloadIcons().then(() => generateAll());
+});
 </script>
 </body>
 </html>
