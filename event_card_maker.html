@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이벤트 카드 메이커 | IM AESTHETIC</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<style>
+:root {
+  --orange: #E8703A;
+  --orange-dark: #C85828;
+  --orange-glow: rgba(232,112,58,0.15);
+  --cream: #FFF8F0;
+  --warm-bg: #FAF6F1;
+  --dark: #1A1410;
+  --dark-mid: #3D3229;
+  --text: #1A1410;
+  --text-muted: #9B8A7A;
+  --border: rgba(232,112,58,0.08);
+  --shadow: 0 4px 24px rgba(26,20,16,0.06);
+  --shadow-hover: 0 20px 60px rgba(26,20,16,0.12);
+  --radius: 20px;
+  --ease: cubic-bezier(0.22, 0.68, 0, 1.2);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition: .3s ease;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Pretendard', system-ui, sans-serif;
+  background: var(--warm-bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(232,112,58,0.06), transparent 60%),
+    radial-gradient(ellipse 60% 80% at 85% 90%, rgba(232,112,58,0.04), transparent 50%),
+    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(255,248,240,0.5), transparent 70%);
+  pointer-events: none;
+}
+
+/* ════════ HEADER ════════ */
+header {
+  background: var(--dark);
+  padding: 40px 32px 36px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 50% 120%, rgba(232,112,58,0.12), transparent 70%),
+    radial-gradient(ellipse 40% 40% at 80% 20%, rgba(232,112,58,0.05), transparent);
+  pointer-events: none;
+}
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px; font-weight: 400;
+  color: #FAF8F5; letter-spacing: 10px;
+  text-transform: uppercase;
+  position: relative; z-index: 1;
+}
+header .subtitle {
+  font-size: 12px; font-weight: 400;
+  color: rgba(255,248,240,0.3);
+  letter-spacing: 3px; text-transform: uppercase;
+  position: relative; z-index: 1;
+  margin-top: 8px;
+}
+.accent-line {
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, var(--orange) 20%, var(--orange) 80%, transparent 100%);
+}
+
+/* ════════ LAYOUT ════════ */
+.workspace {
+  display: grid;
+  grid-template-columns: 200px 1fr 320px;
+  gap: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  min-height: calc(100vh - 160px);
+}
+
+/* ════════ LEFT: PRESET SELECTOR ════════ */
+.preset-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.preset-panel h3 {
+  font-size: 11px; font-weight: 700;
+  color: var(--orange); letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.preset-thumb {
+  background: #fff;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 14px 12px;
+  cursor: pointer;
+  transition: all var(--transition);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+.preset-thumb:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+.preset-thumb.active {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(232,112,58,0.15);
+}
+.preset-thumb .thumb-icon {
+  font-size: 24px;
+  margin-bottom: 6px;
+}
+.preset-thumb .thumb-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.4;
+}
+.preset-thumb .thumb-sub {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ════════ CENTER: PREVIEW ════════ */
+.preview-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.preview-wrapper {
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 1080 / 1350;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 40px rgba(26,20,16,0.12);
+}
+.preview-wrapper .canvas-scaler {
+  width: 1080px;
+  height: 1350px;
+  transform-origin: top left;
+  position: absolute;
+  top: 0; left: 0;
+}
+.export-actions {
+  display: flex; gap: 12px;
+}
+.btn-export {
+  background: var(--dark);
+  color: #FAF8F5;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex; align-items: center; gap: 8px;
+}
+.btn-export:hover {
+  background: var(--orange);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(232,112,58,0.35);
+}
+.btn-export svg { width: 16px; height: 16px; }
+
+/* ════════ RIGHT: EDIT PANEL ════════ */
+.edit-panel {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  box-shadow: var(--shadow);
+  overflow-y: auto;
+  max-height: calc(100vh - 200px);
+}
+.edit-panel h3 {
+  font-size: 11px; font-weight: 700;
+  color: var(--orange); letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.edit-panel h3::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, var(--border), transparent);
+}
+.field-group {
+  margin-bottom: 16px;
+}
+.field-group label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+.field-group input,
+.field-group textarea {
+  width: 100%;
+  border: 1px solid rgba(232,112,58,0.15);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--cream);
+  transition: border-color var(--transition);
+  resize: vertical;
+}
+.field-group input:focus,
+.field-group textarea:focus {
+  outline: none;
+  border-color: var(--orange);
+}
+.field-group textarea {
+  min-height: 60px;
+}
+.field-sep {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 18px 0;
+}
+
+/* ════════ CARD CANVAS STYLES ════════ */
+.event-card {
+  width: 1080px;
+  height: 1350px;
+  background: #FFF8F0;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Pretendard', system-ui, sans-serif;
+}
+
+/* Decorative elements */
+.card-deco-circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(232,112,58,0.12);
+  pointer-events: none;
+}
+.card-deco-line {
+  position: absolute;
+  background: rgba(232,112,58,0.15);
+  pointer-events: none;
+}
+
+/* Card header */
+.card-header {
+  text-align: center;
+  padding: 80px 80px 0;
+}
+.card-header .logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--orange);
+  letter-spacing: 10px;
+  text-transform: uppercase;
+}
+.card-header .logo-line {
+  width: 60px;
+  height: 2px;
+  background: var(--orange);
+  margin: 20px auto;
+}
+
+/* Card title area */
+.card-title-area {
+  text-align: center;
+  padding: 20px 80px;
+}
+.card-title-area .main-title {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 52px;
+  font-weight: 800;
+  color: var(--dark);
+  line-height: 1.3;
+  letter-spacing: -0.5px;
+}
+.card-title-area .sub-title {
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-top: 16px;
+  line-height: 1.5;
+}
+
+/* Card body */
+.card-body {
+  padding: 30px 80px;
+}
+
+/* Card footer */
+.card-footer {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: var(--dark);
+  padding: 36px 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-footer .footer-ig {
+  font-size: 20px;
+  color: rgba(255,248,240,0.6);
+  letter-spacing: 1px;
+}
+.card-footer .footer-addr {
+  font-size: 18px;
+  color: rgba(255,248,240,0.35);
+  letter-spacing: 0.5px;
+}
+
+/* ═══ Preset 1: Wedding Care ═══ */
+.preset-wedding .program-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 30px;
+}
+.preset-wedding .program-item {
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 20px rgba(26,20,16,0.04);
+  border-left: 4px solid var(--orange);
+}
+.preset-wedding .program-name {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--dark);
+}
+.preset-wedding .program-sessions {
+  font-size: 18px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+.preset-wedding .program-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--orange);
+  white-space: nowrap;
+}
+
+/* ═══ Preset 2: Season Event ═══ */
+.preset-season .event-badge {
+  display: inline-block;
+  background: var(--orange);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+  padding: 8px 28px;
+  border-radius: 50px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.preset-season .event-details {
+  background: #fff;
+  border-radius: 16px;
+  padding: 40px;
+  margin-top: 20px;
+  box-shadow: 0 2px 20px rgba(26,20,16,0.04);
+  text-align: center;
+}
+.preset-season .event-desc {
+  font-size: 24px;
+  color: var(--dark-mid);
+  line-height: 1.8;
+  white-space: pre-line;
+}
+.preset-season .event-period {
+  margin-top: 28px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(232,112,58,0.1);
+  font-size: 22px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+.preset-season .event-period strong {
+  color: var(--orange);
+  font-weight: 700;
+}
+
+/* ═══ Preset 3: First Visit ═══ */
+.preset-first .benefits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 30px;
+}
+.preset-first .benefit-item {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px 36px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 2px 20px rgba(26,20,16,0.04);
+}
+.preset-first .benefit-num {
+  width: 48px; height: 48px;
+  background: var(--orange);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.preset-first .benefit-text {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--dark);
+  line-height: 1.4;
+}
+.preset-first .cta-box {
+  text-align: center;
+  margin-top: 40px;
+}
+.preset-first .cta-btn {
+  display: inline-block;
+  background: var(--orange);
+  color: #fff;
+  font-size: 26px;
+  font-weight: 700;
+  padding: 20px 60px;
+  border-radius: 60px;
+  letter-spacing: 2px;
+  box-shadow: 0 8px 30px rgba(232,112,58,0.3);
+}
+
+/* ═══ Preset 4: Referral ═══ */
+.preset-referral .referral-desc {
+  text-align: center;
+  font-size: 24px;
+  color: var(--dark-mid);
+  line-height: 1.7;
+  margin-top: 10px;
+  padding: 0 20px;
+}
+.preset-referral .referral-boxes {
+  display: flex;
+  gap: 24px;
+  margin-top: 36px;
+}
+.preset-referral .ref-box {
+  flex: 1;
+  background: #fff;
+  border-radius: 16px;
+  padding: 36px 28px;
+  text-align: center;
+  box-shadow: 0 2px 20px rgba(26,20,16,0.04);
+}
+.preset-referral .ref-box .ref-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+.preset-referral .ref-box .ref-label {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--orange);
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+.preset-referral .ref-box .ref-benefit {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--dark);
+  line-height: 1.5;
+}
+.preset-referral .ref-note {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 18px;
+  color: var(--text-muted);
+}
+
+/* ════════ HOME FAB ════════ */
+.home-btn {
+  position: fixed;
+  bottom: 24px; left: 24px;
+  width: 48px; height: 48px;
+  background: var(--dark);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  transition: all var(--transition);
+  text-decoration: none;
+}
+.home-btn:hover {
+  background: var(--orange);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(232,112,58,0.35);
+}
+.home-btn:active { transform: scale(0.95); }
+.home-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+/* ════════ FOOTER ════════ */
+footer {
+  background: var(--dark);
+  padding: 24px; text-align: center;
+  position: relative;
+}
+footer::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(232,112,58,0.2), transparent);
+}
+footer p {
+  color: rgba(255,248,240,0.3);
+  font-size: 12px; letter-spacing: 0.5px;
+}
+footer .brand-foot {
+  font-family: 'Playfair Display', serif;
+  color: rgba(255,248,240,0.15);
+  font-size: 14px; letter-spacing: 6px;
+  margin-bottom: 6px;
+}
+
+/* ════════ RESPONSIVE ════════ */
+@media (max-width: 1100px) {
+  .workspace {
+    grid-template-columns: 1fr;
+    padding: 20px 16px;
+  }
+  .preset-panel {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 10px;
+  }
+  .preset-thumb { min-width: 140px; }
+  .edit-panel { max-height: none; }
+}
+@media (max-width: 540px) {
+  header h1 { font-size: 24px; letter-spacing: 5px; }
+  header { padding: 32px 16px 28px; }
+}
+
+/* Hidden export area */
+#export-area {
+  position: fixed;
+  left: -9999px;
+  top: 0;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>IM Aesthetic</h1>
+  <p class="subtitle">Event Card Maker</p>
+</header>
+<div class="accent-line"></div>
+
+<div class="workspace">
+  <!-- LEFT: Preset Selector -->
+  <div class="preset-panel">
+    <h3>Templates</h3>
+    <div class="preset-thumb active" onclick="selectPreset(0)">
+      <div class="thumb-icon">💍</div>
+      <div class="thumb-title">웨딩케어 스페셜</div>
+      <div class="thumb-sub">패키지 안내</div>
+    </div>
+    <div class="preset-thumb" onclick="selectPreset(1)">
+      <div class="thumb-icon">🌿</div>
+      <div class="thumb-title">시즌 이벤트</div>
+      <div class="thumb-sub">계절별 프로모션</div>
+    </div>
+    <div class="preset-thumb" onclick="selectPreset(2)">
+      <div class="thumb-icon">✨</div>
+      <div class="thumb-title">첫 방문 혜택</div>
+      <div class="thumb-sub">신규 고객 혜택</div>
+    </div>
+    <div class="preset-thumb" onclick="selectPreset(3)">
+      <div class="thumb-icon">🤍</div>
+      <div class="thumb-title">친구 추천</div>
+      <div class="thumb-sub">추천 이벤트</div>
+    </div>
+  </div>
+
+  <!-- CENTER: Preview -->
+  <div class="preview-panel">
+    <div class="preview-wrapper" id="previewWrapper">
+      <div class="canvas-scaler" id="canvasScaler">
+        <!-- Card will be rendered here -->
+      </div>
+    </div>
+    <div class="export-actions">
+      <button class="btn-export" onclick="exportPNG()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        PNG 다운로드
+      </button>
+    </div>
+  </div>
+
+  <!-- RIGHT: Edit Panel -->
+  <div class="edit-panel" id="editPanel">
+    <!-- Fields populated by JS per preset -->
+  </div>
+</div>
+
+<!-- Hidden export area -->
+<div id="export-area"></div>
+
+<!-- Home FAB -->
+<a href="index.html" class="home-btn" title="홈으로">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+    <polyline points="9 22 9 12 15 12 15 22"/>
+  </svg>
+</a>
+
+<footer>
+  <p class="brand-foot">IM AESTHETIC</p>
+  <p>이벤트 카드 메이커 &middot; 2026</p>
+</footer>
+
+<script>
+// ════════ PRESET DATA ════════
+const presets = [
+  {
+    id: 'wedding',
+    title: '웨딩케어 스페셜 패키지',
+    subtitle: '당신의 가장 빛나는 날을 위한,,,',
+    programs: [
+      { name: 'IM 웨딩 결케어', sessions: '10회', price: '가격 미정' },
+      { name: 'IM 웨딩 윤곽케어', sessions: '10회', price: '가격 미정' },
+      { name: 'IM 웨딩 바디케어', sessions: '10회', price: '가격 미정' }
+    ],
+    ig: '@im.aesthetic.official',
+    addr: '대구 수성구 범어동 마크팰리스'
+  },
+  {
+    id: 'season',
+    seasonLabel: 'SPRING EVENT',
+    title: '봄맞이 특별 이벤트',
+    subtitle: '봄을 맞아 특별한 혜택을 준비했어요 🌿',
+    details: '전 관리 프로그램\n첫 회 50% 할인\n\n2회 이상 등록 시\n홈케어 키트 증정',
+    periodStart: '2026.04.01',
+    periodEnd: '2026.04.30',
+    ig: '@im.aesthetic.official',
+    addr: '대구 수성구 범어동 마크팰리스'
+  },
+  {
+    id: 'first',
+    title: '첫 방문 고객 특별 혜택',
+    subtitle: '처음 오시는 분들을 위해 준비했어요 ✨',
+    benefits: [
+      '무료 피부 · 체형 분석 상담',
+      '첫 관리 30% 할인',
+      '3인 케어 시스템 체험'
+    ],
+    cta: '지금 예약하세요',
+    ig: '@im.aesthetic.official',
+    addr: '대구 수성구 범어동 마크팰리스'
+  },
+  {
+    id: 'referral',
+    title: '소중한 사람과 함께',
+    subtitle: '함께 오면 더 좋은 혜택이 있어요 🤍',
+    desc: '소중한 친구에게 IM에스테틱을 추천해주세요.\n함께 아름다워지는 특별한 경험을 선물하세요.',
+    referrerBenefit: '다음 관리 20% 할인\n+ 홈케어 제품 증정',
+    friendBenefit: '첫 관리 40% 할인\n+ 무료 상담',
+    note: '추천 횟수 제한 없음 💫',
+    ig: '@im.aesthetic.official',
+    addr: '대구 수성구 범어동 마크팰리스'
+  }
+];
+
+let currentPreset = 0;
+let currentData = JSON.parse(JSON.stringify(presets[0]));
+
+// ════════ PRESET SELECTION ════════
+function selectPreset(idx) {
+  currentPreset = idx;
+  currentData = JSON.parse(JSON.stringify(presets[idx]));
+  document.querySelectorAll('.preset-thumb').forEach((el, i) => {
+    el.classList.toggle('active', i === idx);
+  });
+  buildEditPanel();
+  renderCard();
+}
+
+// ════════ EDIT PANEL BUILDER ════════
+function buildEditPanel() {
+  const panel = document.getElementById('editPanel');
+  const d = currentData;
+  let html = '<h3>Edit Card</h3>';
+
+  if (currentPreset === 0) {
+    // Wedding
+    html += field('title', '제목', d.title);
+    html += field('subtitle', '부제목', d.subtitle);
+    html += '<hr class="field-sep">';
+    d.programs.forEach((p, i) => {
+      html += `<div class="field-group"><label>프로그램 ${i+1} 이름</label><input data-key="prog_name_${i}" value="${esc(p.name)}" oninput="updateProg(${i},'name',this.value)"></div>`;
+      html += `<div class="field-group"><label>프로그램 ${i+1} 회차</label><input data-key="prog_sess_${i}" value="${esc(p.sessions)}" oninput="updateProg(${i},'sessions',this.value)"></div>`;
+      html += `<div class="field-group"><label>프로그램 ${i+1} 가격</label><input data-key="prog_price_${i}" value="${esc(p.price)}" oninput="updateProg(${i},'price',this.value)"></div>`;
+      if (i < d.programs.length - 1) html += '<hr class="field-sep">';
+    });
+  } else if (currentPreset === 1) {
+    // Season
+    html += field('seasonLabel', '이벤트 뱃지', d.seasonLabel);
+    html += field('title', '제목', d.title);
+    html += field('subtitle', '부제목', d.subtitle);
+    html += '<hr class="field-sep">';
+    html += fieldArea('details', '이벤트 내용', d.details);
+    html += field('periodStart', '시작일', d.periodStart);
+    html += field('periodEnd', '종료일', d.periodEnd);
+  } else if (currentPreset === 2) {
+    // First visit
+    html += field('title', '제목', d.title);
+    html += field('subtitle', '부제목', d.subtitle);
+    html += '<hr class="field-sep">';
+    d.benefits.forEach((b, i) => {
+      html += `<div class="field-group"><label>혜택 ${i+1}</label><input data-key="benefit_${i}" value="${esc(b)}" oninput="updateBenefit(${i},this.value)"></div>`;
+    });
+    html += '<hr class="field-sep">';
+    html += field('cta', 'CTA 텍스트', d.cta);
+  } else if (currentPreset === 3) {
+    // Referral
+    html += field('title', '제목', d.title);
+    html += field('subtitle', '부제목', d.subtitle);
+    html += '<hr class="field-sep">';
+    html += fieldArea('desc', '설명', d.desc);
+    html += fieldArea('referrerBenefit', '추천인 혜택', d.referrerBenefit);
+    html += fieldArea('friendBenefit', '친구 혜택', d.friendBenefit);
+    html += field('note', '안내 문구', d.note);
+  }
+
+  // Common footer fields
+  html += '<hr class="field-sep">';
+  html += field('ig', '인스타그램', d.ig);
+  html += field('addr', '주소', d.addr);
+
+  panel.innerHTML = html;
+}
+
+function field(key, label, val) {
+  return `<div class="field-group"><label>${label}</label><input data-key="${key}" value="${esc(val)}" oninput="updateField('${key}',this.value)"></div>`;
+}
+function fieldArea(key, label, val) {
+  return `<div class="field-group"><label>${label}</label><textarea data-key="${key}" oninput="updateField('${key}',this.value)">${esc(val)}</textarea></div>`;
+}
+function esc(s) { return String(s).replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
+
+function updateField(key, val) {
+  currentData[key] = val;
+  renderCard();
+}
+function updateProg(idx, prop, val) {
+  currentData.programs[idx][prop] = val;
+  renderCard();
+}
+function updateBenefit(idx, val) {
+  currentData.benefits[idx] = val;
+  renderCard();
+}
+
+// ════════ CARD RENDERER ════════
+function renderCard() {
+  const d = currentData;
+  const scaler = document.getElementById('canvasScaler');
+  let html = '';
+
+  // Decorative elements
+  html += `<div class="card-deco-circle" style="width:300px;height:300px;top:-80px;right:-60px;border-width:1.5px;"></div>`;
+  html += `<div class="card-deco-circle" style="width:200px;height:200px;bottom:140px;left:-60px;"></div>`;
+  html += `<div class="card-deco-line" style="width:1px;height:120px;top:60px;right:100px;"></div>`;
+  html += `<div class="card-deco-line" style="width:80px;height:1px;bottom:160px;left:80px;"></div>`;
+
+  if (currentPreset === 0) {
+    html += renderWedding(d);
+  } else if (currentPreset === 1) {
+    html += renderSeason(d);
+  } else if (currentPreset === 2) {
+    html += renderFirst(d);
+  } else if (currentPreset === 3) {
+    html += renderReferral(d);
+  }
+
+  scaler.innerHTML = `<div class="event-card ${getPresetClass()}">${html}</div>`;
+  scalePreview();
+}
+
+function getPresetClass() {
+  return ['preset-wedding','preset-season','preset-first','preset-referral'][currentPreset];
+}
+
+function renderWedding(d) {
+  let progs = '';
+  d.programs.forEach(p => {
+    progs += `
+      <div class="program-item">
+        <div>
+          <div class="program-name">${sanitize(p.name)}</div>
+          <div class="program-sessions">${sanitize(p.sessions)}</div>
+        </div>
+        <div class="program-price">${sanitize(p.price)}</div>
+      </div>`;
+  });
+  return `
+    <div class="card-header">
+      <div class="logo-text">IM Aesthetic</div>
+      <div class="logo-line"></div>
+    </div>
+    <div class="card-title-area">
+      <div class="main-title">${sanitize(d.title)}</div>
+      <div class="sub-title">${sanitize(d.subtitle)}</div>
+    </div>
+    <div class="card-body">
+      <div class="program-list">${progs}</div>
+    </div>
+    <div class="card-footer">
+      <div class="footer-ig">${sanitize(d.ig)}</div>
+      <div class="footer-addr">${sanitize(d.addr)}</div>
+    </div>`;
+}
+
+function renderSeason(d) {
+  return `
+    <div class="card-header">
+      <div class="logo-text">IM Aesthetic</div>
+      <div class="logo-line"></div>
+    </div>
+    <div class="card-title-area" style="padding-top:10px;">
+      <div class="event-badge">${sanitize(d.seasonLabel)}</div>
+      <div class="main-title" style="margin-top:16px;">${sanitize(d.title)}</div>
+      <div class="sub-title">${sanitize(d.subtitle)}</div>
+    </div>
+    <div class="card-body">
+      <div class="event-details">
+        <div class="event-desc">${sanitize(d.details)}</div>
+        <div class="event-period">
+          <strong>${sanitize(d.periodStart)}</strong> ~ <strong>${sanitize(d.periodEnd)}</strong>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="footer-ig">${sanitize(d.ig)}</div>
+      <div class="footer-addr">${sanitize(d.addr)}</div>
+    </div>`;
+}
+
+function renderFirst(d) {
+  let items = '';
+  d.benefits.forEach((b, i) => {
+    items += `
+      <div class="benefit-item">
+        <div class="benefit-num">${i+1}</div>
+        <div class="benefit-text">${sanitize(b)}</div>
+      </div>`;
+  });
+  return `
+    <div class="card-header">
+      <div class="logo-text">IM Aesthetic</div>
+      <div class="logo-line"></div>
+    </div>
+    <div class="card-title-area">
+      <div class="main-title">${sanitize(d.title)}</div>
+      <div class="sub-title">${sanitize(d.subtitle)}</div>
+    </div>
+    <div class="card-body">
+      <div class="benefits-list">${items}</div>
+      <div class="cta-box">
+        <div class="cta-btn">${sanitize(d.cta)}</div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="footer-ig">${sanitize(d.ig)}</div>
+      <div class="footer-addr">${sanitize(d.addr)}</div>
+    </div>`;
+}
+
+function renderReferral(d) {
+  return `
+    <div class="card-header">
+      <div class="logo-text">IM Aesthetic</div>
+      <div class="logo-line"></div>
+    </div>
+    <div class="card-title-area">
+      <div class="main-title">${sanitize(d.title)}</div>
+      <div class="sub-title">${sanitize(d.subtitle)}</div>
+    </div>
+    <div class="card-body">
+      <div class="referral-desc">${sanitize(d.desc)}</div>
+      <div class="referral-boxes">
+        <div class="ref-box">
+          <div class="ref-icon">💫</div>
+          <div class="ref-label">추천인 혜택</div>
+          <div class="ref-benefit">${sanitize(d.referrerBenefit)}</div>
+        </div>
+        <div class="ref-box">
+          <div class="ref-icon">✨</div>
+          <div class="ref-label">친구 혜택</div>
+          <div class="ref-benefit">${sanitize(d.friendBenefit)}</div>
+        </div>
+      </div>
+      <div class="ref-note">${sanitize(d.note)}</div>
+    </div>
+    <div class="card-footer">
+      <div class="footer-ig">${sanitize(d.ig)}</div>
+      <div class="footer-addr">${sanitize(d.addr)}</div>
+    </div>`;
+}
+
+function sanitize(s) {
+  return String(s || '').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+}
+
+// ════════ SCALE PREVIEW ════════
+function scalePreview() {
+  const wrapper = document.getElementById('previewWrapper');
+  const scaler = document.getElementById('canvasScaler');
+  const wrapW = wrapper.clientWidth;
+  const scale = wrapW / 1080;
+  scaler.style.transform = `scale(${scale})`;
+  wrapper.style.height = (1350 * scale) + 'px';
+}
+
+// ════════ EXPORT ════════
+async function exportPNG() {
+  const btn = document.querySelector('.btn-export');
+  const origText = btn.innerHTML;
+  btn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 생성 중...';
+  btn.style.pointerEvents = 'none';
+
+  try {
+    // Clone card to export area at full size
+    const exportArea = document.getElementById('export-area');
+    const card = document.querySelector('.event-card');
+    const clone = card.cloneNode(true);
+    clone.style.transform = 'none';
+    exportArea.innerHTML = '';
+    exportArea.appendChild(clone);
+
+    const canvas = await html2canvas(clone, {
+      width: 1080,
+      height: 1350,
+      scale: 1,
+      useCORS: true,
+      backgroundColor: '#FFF8F0',
+      logging: false
+    });
+
+    exportArea.innerHTML = '';
+
+    const link = document.createElement('a');
+    const names = ['wedding_care','season_event','first_visit','referral'];
+    link.download = `im_aesthetic_${names[currentPreset]}_${Date.now()}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  } catch(e) {
+    console.error('Export failed:', e);
+    alert('이미지 생성에 실패했습니다. 다시 시도해주세요.');
+  }
+
+  btn.innerHTML = origText;
+  btn.style.pointerEvents = '';
+}
+
+// ════════ INIT ════════
+window.addEventListener('DOMContentLoaded', () => {
+  selectPreset(0);
+});
+window.addEventListener('resize', scalePreview);
+</script>
+</body>
+</html>

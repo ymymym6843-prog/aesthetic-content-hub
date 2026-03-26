@@ -3,192 +3,105 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IM AESTHETIC - 하이라이트 커버 생성기</title>
+<title>IM AESTHETIC - Highlight Covers</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
   :root {
-    --brand-orange: #E8703A;
-    --brand-orange-dark: #C85828;
-    --brand-orange-light: #F5A070;
-    --brand-cream: #FAF4EA;
-    --brand-brown: #2C1810;
-    --brand-warm-white: #FFF8F0;
-    --glass-bg: rgba(255, 255, 255, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.4);
-    --shadow-soft: 0 8px 32px rgba(44, 24, 16, 0.08);
+    --orange: #E8703A;
+    --orange-dark: #C85828;
+    --cream: #FFF8F0;
+    --dark: #1A1410;
+    --warm-bg: #FAF6F1;
+    --text-muted: #9B8A7A;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: 'Pretendard', system-ui, sans-serif;
-    background: #F8F5F2;
-    color: var(--brand-brown);
+    background: var(--warm-bg);
+    color: var(--dark);
     min-height: 100vh;
-    padding: 60px 24px;
-    background-image: 
-      radial-gradient(at 0% 0%, rgba(232, 112, 58, 0.05) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, rgba(232, 112, 58, 0.03) 0px, transparent 50%);
+    padding: 60px 24px 100px;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: -1;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(232,112,58,0.06), transparent 60%),
+      radial-gradient(ellipse 60% 80% at 85% 90%, rgba(232,112,58,0.04), transparent 50%);
+    pointer-events: none;
   }
 
   .page-header {
     text-align: center;
-    margin-bottom: 64px;
+    margin-bottom: 56px;
   }
   .page-header h1 {
     font-family: 'Playfair Display', serif;
     font-size: 42px;
-    font-weight: 800;
-    color: var(--brand-brown);
-    letter-spacing: -1px;
+    font-weight: 700;
+    color: var(--dark);
     margin-bottom: 12px;
   }
   .page-header p {
     font-size: 15px;
-    color: #8C8279;
-    letter-spacing: 0.5px;
-    font-weight: 500;
+    color: var(--text-muted);
+    line-height: 1.7;
   }
-
-  .main-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 350px 1fr;
-    gap: 40px;
-    align-items: start;
-  }
-
-  .controls {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    padding: 32px;
-    box-shadow: var(--shadow-soft);
-    position: sticky;
-    top: 40px;
-  }
-  .controls h3 {
-    font-size: 12px;
-    font-weight: 800;
-    color: var(--brand-orange);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-bottom: 24px;
-    border-bottom: 1px solid rgba(232, 112, 58, 0.1);
-    padding-bottom: 12px;
-  }
-
-  .control-group {
-    margin-bottom: 24px;
-  }
-  .control-group label {
-    display: block;
-    font-size: 13px;
-    font-weight: 700;
-    color: #5D544D;
-    margin-bottom: 8px;
-  }
-  
-  .input-row {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 12px;
-  }
-
-  input[type="color"] {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 44px;
-    height: 44px;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    background: none;
-  }
-  input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
-  input[type="color"]::-webkit-color-swatch { 
-    border-radius: 10px; 
-    border: 2px solid rgba(0,0,0,0.05);
-  }
-
-  input[type="text"], select {
-    width: 100%;
-    padding: 12px 16px;
-    border: 1px solid rgba(44, 24, 16, 0.1);
-    border-radius: 12px;
-    font-size: 14px;
-    font-family: inherit;
-    background: #fff;
-    transition: all 0.2s;
-  }
-  input[type="text"]:focus, select:focus {
-    outline: none;
-    border-color: var(--brand-orange);
-    box-shadow: 0 0 0 4px rgba(232, 112, 58, 0.1);
-  }
-
-  .btn-generate {
-    width: 100%;
-    background: var(--brand-orange);
-    color: #fff;
-    border: none;
-    padding: 16px;
-    border-radius: 16px;
-    font-size: 15px;
-    font-weight: 800;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  .page-header .badge {
+    display: inline-block;
     margin-top: 12px;
-  }
-  .btn-generate:hover {
-    background: var(--brand-orange-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(232, 112, 58, 0.3);
+    padding: 6px 16px;
+    background: var(--orange);
+    color: #fff;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
   }
 
   .covers-grid {
+    max-width: 960px;
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 32px;
   }
 
-  .cover-item {
+  .cover-card {
     background: #fff;
-    border-radius: 20px;
-    padding: 24px 16px;
+    border-radius: 24px;
+    padding: 28px 20px;
     text-align: center;
+    box-shadow: 0 4px 24px rgba(26,20,16,0.06);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid rgba(0,0,0,0.03);
   }
-  .cover-item:hover {
+  .cover-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.06);
-  }
-  .cover-item h4 {
-    font-size: 14px;
-    font-weight: 800;
-    color: var(--brand-brown);
-    margin-bottom: 20px;
+    box-shadow: 0 16px 48px rgba(26,20,16,0.1);
   }
 
-  .cover-circle-wrap {
+  .cover-card h3 {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 20px;
+    letter-spacing: 0.3px;
+  }
+
+  .cover-preview {
     position: relative;
-    width: 140px;
-    height: 140px;
+    width: 160px;
+    height: 160px;
     margin: 0 auto 20px;
   }
-  /* IG Ring Style */
   .ig-ring {
     position: absolute;
-    top: -6px; left: -6px; right: -6px; bottom: -6px;
+    inset: -5px;
     border-radius: 50%;
-    border: 2px solid transparent;
+    border: 2.5px solid transparent;
     background: linear-gradient(#fff, #fff) padding-box,
-                linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) border-box;
-    z-index: 1;
+                linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888) border-box;
   }
   .cover-circle {
     position: relative;
@@ -196,86 +109,121 @@
     height: 100%;
     border-radius: 50%;
     overflow: hidden;
-    border: 4px solid #fff;
+    border: 3px solid #fff;
     z-index: 2;
-    background: #f0f0f0;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
   }
-  .cover-circle canvas {
+  .cover-circle img {
     width: 100%;
     height: 100%;
-    display: block;
+    object-fit: cover;
+  }
+
+  .cover-info {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    letter-spacing: 0.3px;
   }
 
   .btn-download {
-    background: #F8F5F2;
-    border: 1px solid rgba(44, 24, 16, 0.1);
-    color: var(--brand-brown);
-    padding: 10px 20px;
-    border-radius: 12px;
+    width: 100%;
+    padding: 12px;
+    background: var(--warm-bg);
+    border: 1px solid rgba(232,112,58,0.15);
+    color: var(--dark);
+    border-radius: 14px;
     font-size: 13px;
     font-weight: 700;
+    font-family: inherit;
     cursor: pointer;
-    transition: all 0.2s;
-    width: 100%;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
   }
   .btn-download:hover {
-    background: var(--brand-orange);
+    background: var(--orange);
     color: #fff;
-    border-color: var(--brand-orange);
+    border-color: var(--orange);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(232,112,58,0.25);
+  }
+  .btn-download svg {
+    width: 16px; height: 16px;
   }
 
   .download-all-section {
-    grid-column: 1 / -1;
+    max-width: 960px;
+    margin: 48px auto 0;
     text-align: center;
-    margin-top: 48px;
-    padding-top: 48px;
+    padding-top: 40px;
     border-top: 1px solid rgba(0,0,0,0.05);
   }
   .btn-download-all {
-    background: var(--brand-brown);
+    background: var(--dark);
     color: #fff;
     border: none;
     padding: 18px 48px;
     border-radius: 50px;
     font-size: 16px;
     font-weight: 800;
+    font-family: inherit;
     cursor: pointer;
     transition: all 0.3s;
-    box-shadow: 0 10px 30px rgba(44,24,16,0.2);
+    box-shadow: 0 10px 30px rgba(26,20,16,0.2);
   }
   .btn-download-all:hover {
-    background: #000;
+    background: var(--orange);
     transform: scale(1.05);
   }
 
-  .home-fab {
-    position: fixed;
-    bottom: 32px;
-    left: 32px;
-    width: 56px;
-    height: 56px;
+  .usage-guide {
+    max-width: 960px;
+    margin: 56px auto 0;
+    background: #fff;
     border-radius: 20px;
-    background: var(--brand-brown);
-    color: #FFF;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 32px;
+    box-shadow: 0 4px 24px rgba(26,20,16,0.04);
+  }
+  .usage-guide h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 16px;
+  }
+  .usage-guide ol {
+    padding-left: 20px;
+    color: #5D544D;
+    font-size: 14px;
+    line-height: 2.2;
+  }
+  .usage-guide li strong {
+    color: var(--orange);
+  }
+
+  .home-fab {
+    position: fixed; bottom: 32px; left: 32px;
+    width: 56px; height: 56px; border-radius: 20px;
+    background: var(--dark); color: #fff;
+    display: flex; align-items: center; justify-content: center;
     text-decoration: none;
     box-shadow: 0 8px 24px rgba(0,0,0,0.2);
     z-index: 1000;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
-  .home-fab:hover {
-    background: var(--brand-orange);
-    transform: scale(1.1) rotate(5deg);
-  }
+  .home-fab:hover { background: var(--orange); transform: scale(1.1) rotate(5deg); }
 
-  @media (max-width: 900px) {
-    .main-container { grid-template-columns: 1fr; }
-    .controls { position: static; }
+  @media (max-width: 768px) {
+    .covers-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .page-header h1 { font-size: 32px; }
+  }
+  @media (max-width: 480px) {
+    .covers-grid { grid-template-columns: 1fr; max-width: 280px; }
   }
 </style>
-
 </head>
 <body>
 
@@ -286,297 +234,74 @@
 </a>
 
 <div class="page-header">
-  <h1>Highlight Studio</h1>
-  <p>Artistic • Intuitive • Premium Assets</p>
+  <h1>Highlight Covers</h1>
+  <p>IM AESTHETIC 인스타그램 하이라이트 커버 이미지<br>1:1 정사각형 · 오렌지 브랜드 컬러 · 라인아트 아이콘</p>
+  <div class="badge">1080 x 1080px</div>
 </div>
 
-<div class="main-container">
-  <div class="controls">
-    <h3>Artistic Settings</h3>
-    
-    <div class="control-group">
-      <label>Collection Preset</label>
-      <select id="designPreset" onchange="applyPreset()">
-        <option value="brandClassic">Brand Classic (Identical)</option>
-        <option value="custom">-- Custom Style --</option>
-        <option value="goldSilk">Gold Silk (Luxury)</option>
-        <option value="moonlight">Moonlight (Minimal)</option>
-        <option value="petalSoft">Petal Soft (Dreamy)</option>
-        <option value="deepNoir">Deep Noir (Modern)</option>
-      </select>
-    </div>
+<div class="covers-grid" id="coversGrid"></div>
 
-    <div class="control-group">
-      <label>Background Style</label>
-      <select id="bgStyle" onchange="generateAll()">
-        <option value="aesthetic">Aesthetic Glow (Best)</option>
-        <option value="solid">Solid Color</option>
-        <option value="linear">Linear Gradient</option>
-        <option value="radial">Radial Gradient</option>
-      </select>
-    </div>
+<div class="download-all-section">
+  <button class="btn-download-all" onclick="downloadAll()">전체 다운로드</button>
+</div>
 
-    <div class="control-group">
-      <label>Brand Colors</label>
-      <div class="input-row">
-        <input type="color" id="bgColor" value="#E8703A" oninput="generateAll()" title="Background Color">
-        <input type="color" id="bgColor2" value="#C85828" oninput="generateAll()" title="Secondary Color">
-        <input type="color" id="iconColor" value="#FFFFFF" oninput="generateAll()" title="Icon Primary">
-        <input type="color" id="accentColor" value="#FAF4EA" oninput="generateAll()" title="Icon Accent">
-      </div>
-    </div>
-
-    <div class="control-group">
-      <label>Icon Enhancement</label>
-      <div class="input-row" style="margin-top:8px">
-        <label style="display:inline; font-weight:400; cursor:pointer">
-          <input type="checkbox" id="showBlobs" checked onchange="generateAll()"> Background Blob
-        </label>
-        <label style="display:inline; font-weight:400; cursor:pointer">
-          <input type="checkbox" id="showGlow" checked onchange="generateAll()"> Bloom Effect
-        </label>
-        <label style="display:inline; font-weight:400; cursor:pointer">
-          <input type="checkbox" id="showTexture" checked onchange="generateAll()"> Fine Grain
-        </label>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <label>Minimalist Typography (Optional)</label>
-      <input type="text" id="bottomText" value="" placeholder="Empty for minimal look" oninput="generateAll()">
-    </div>
-
-    <button class="btn-generate" onclick="generateAll()">Generate Collection</button>
-  </div>
-
-  <div class="covers-grid" id="coversGrid">
-    <!-- Items will be generated here -->
-  </div>
-
-  <div class="download-all-section">
-    <button class="btn-download-all" onclick="downloadAll()">Export All Collections (.png)</button>
-  </div>
+<div class="usage-guide">
+  <h3>How to Use</h3>
+  <ol>
+    <li>원하는 커버의 <strong>다운로드</strong> 버튼을 클릭합니다</li>
+    <li>인스타그램 앱 → 프로필 → 해당 하이라이트 → <strong>하이라이트 편집</strong></li>
+    <li><strong>커버 변경</strong> → 다운로드한 이미지를 선택합니다</li>
+    <li>원형 크롭 영역을 조절하여 아이콘이 중앙에 오도록 맞춥니다</li>
+    <li>모든 하이라이트에 동일한 스타일을 적용하면 <strong>프리미엄 통일감</strong>이 완성됩니다</li>
+  </ol>
 </div>
 
 <script>
-// Highlight covers using Flaticon PNG icons
-const HIGHLIGHTS = [
-  { name: 'Wedding Care', iconWhite: '/icons/wedding.png', iconOrange: '/icons/wedding_orange.png' },
-  { name: 'Before & After', iconWhite: '/icons/butterfly.png', iconOrange: '/icons/butterfly_orange.png' },
-  { name: 'Programs', iconWhite: '/icons/clipboard.png', iconOrange: '/icons/clipboard_orange.png' },
-  { name: 'Reviews', iconWhite: '/icons/review.png', iconOrange: '/icons/review_orange.png' },
-  { name: 'Location', iconWhite: '/icons/location.png', iconOrange: '/icons/location_orange.png' },
-  { name: 'Reservation', iconWhite: '/icons/reservation.png', iconOrange: '/icons/reservation_orange.png' }
+const COVERS = [
+  { name: '웨딩케어', file: '01_wedding_care.jpeg', desc: 'Wedding Care' },
+  { name: '비포&애프터', file: '02_before_after.jpeg', desc: 'Before & After' },
+  { name: '후기', file: '03_review.jpeg', desc: 'Reviews' },
+  { name: '오시는길', file: '04_location.jpeg', desc: 'Location' },
+  { name: '예약', file: '05_reservation.jpeg', desc: 'Reservation' },
+  { name: '이벤트', file: '06_event.jpeg', desc: 'Event' },
 ];
 
-// Preload all icon images
-const iconCache = {};
-function preloadIcons() {
-  return Promise.all(HIGHLIGHTS.flatMap(hl => [
-    new Promise((resolve) => {
-      const img = new Image();
-      img.onload = () => { iconCache[hl.iconWhite] = img; resolve(); };
-      img.onerror = resolve;
-      img.src = hl.iconWhite;
-    }),
-    new Promise((resolve) => {
-      const img = new Image();
-      img.onload = () => { iconCache[hl.iconOrange] = img; resolve(); };
-      img.onerror = resolve;
-      img.src = hl.iconOrange;
-    })
-  ]));
-}
+const grid = document.getElementById('coversGrid');
 
-// Draw PNG icon on canvas (centered, scaled)
-function drawIcon(ctx, iconSrc, cx, cy, size) {
-  const img = iconCache[iconSrc];
-  if (!img) return;
-  const x = cx - size / 2;
-  const y = cy - size / 2;
-  ctx.drawImage(img, x, y, size, size);
-}
-
-function applyTexture(ctx, w, h) {
-  ctx.save();
-  ctx.globalCompositeOperation = 'overlay';
-  ctx.globalAlpha = 0.05;
-  for (let i = 0; i < 40000; i++) {
-    const x = Math.random() * w, y = Math.random() * h;
-    ctx.fillStyle = Math.random() > 0.5 ? '#000' : '#FFF';
-    ctx.fillRect(x, y, 1, 1);
-  }
-  ctx.restore();
-}
-
-function roundRect(ctx, x, y, w, h, r) {
-  ctx.beginPath();
-  ctx.moveTo(x + r, y);
-  ctx.lineTo(x + w - r, y);
-  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
-  ctx.lineTo(x + w, y + h - r);
-  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-  ctx.lineTo(x + r, y + h);
-  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
-  ctx.lineTo(x, y + r);
-  ctx.quadraticCurveTo(x, y, x + r, y);
-  ctx.closePath();
-}
-
-function drawBlob(ctx, cx, cy, s, color) {
-  ctx.save();
-  ctx.globalAlpha = 0.15;
-  ctx.fillStyle = color;
-  ctx.beginPath();
-  const points = 6;
-  for (let i = 0; i <= points; i++) {
-    const angle = (i / points) * Math.PI * 2;
-    const dist = s * (0.8 + Math.random() * 0.4);
-    const x = cx + Math.cos(angle) * dist;
-    const y = cy + Math.sin(angle) * dist;
-    if (i === 0) ctx.moveTo(x, y);
-    else ctx.quadraticCurveTo(cx, cy, x, y);
-  }
-  ctx.fill();
-  ctx.restore();
-}
-
-function applyPreset() {
-  const p = document.getElementById('designPreset').value;
-  if (p === 'custom') return;
-  
-  const sets = {
-    brandClassic: { bg: '#E8703A', bg2: '#C85828', ic: '#FFFFFF', ac: '#FAF4EA' },
-    goldSilk: { bg: '#FDF7F2', bg2: '#FAF4EA', ic: '#D4AF37', ac: '#9C7A1A' },
-    moonlight: { bg: '#1A1A2E', bg2: '#16213E', ic: '#E94560', ac: '#FFFFFF' },
-    petalSoft: { bg: '#FFF5F5', bg2: '#FFF0F0', ic: '#FFB7B2', ac: '#FF6B6B' },
-    deepNoir: { bg: '#0A0A0A', bg2: '#1A1A1A', ic: '#FFFFFF', ac: '#E8703A' }
-  };
-  
-  const s = sets[p];
-  document.getElementById('bgColor').value = s.bg;
-  document.getElementById('bgColor2').value = s.bg2;
-  document.getElementById('iconColor').value = s.ic;
-  document.getElementById('accentColor').value = s.ac;
-  
-  generateAll();
-}
-
-const fullCanvases = [];
-
-function generateAll() {
-  const bgStyle = document.getElementById('bgStyle').value;
-  const bgColor = document.getElementById('bgColor').value;
-  const bgColor2 = document.getElementById('bgColor2').value;
-  const iconColor = document.getElementById('iconColor').value;
-  const accentColor = document.getElementById('accentColor').value;
-  const bottomText = document.getElementById('bottomText').value;
-  const showBlobs = document.getElementById('showBlobs').checked;
-  const showGlow = document.getElementById('showGlow').checked;
-  const showTexture = document.getElementById('showTexture').checked;
-  
-  const grid = document.getElementById('coversGrid');
-  grid.innerHTML = '';
-  fullCanvases.length = 0;
-
-  HIGHLIGHTS.forEach((hl, i) => {
-    const fullCanvas = document.createElement('canvas');
-    fullCanvas.width = 1080;
-    fullCanvas.height = 1920;
-    const fctx = fullCanvas.getContext('2d');
-
-    // Background
-    if (bgStyle === 'aesthetic') {
-      fctx.fillStyle = bgColor;
-      fctx.fillRect(0, 0, 1080, 1920);
-      const grad = fctx.createRadialGradient(800, 400, 0, 800, 400, 1200);
-      grad.addColorStop(0, bgColor2);
-      grad.addColorStop(1, 'transparent');
-      fctx.fillStyle = grad;
-      fctx.fillRect(0, 0, 1080, 1920);
-    } else if (bgStyle === 'linear') {
-      const grad = fctx.createLinearGradient(0, 0, 0, 1920);
-      grad.addColorStop(0, bgColor);
-      grad.addColorStop(1, bgColor2);
-      fctx.fillStyle = grad;
-      fctx.fillRect(0, 0, 1080, 1920);
-    } else {
-      fctx.fillStyle = bgColor;
-      fctx.fillRect(0, 0, 1080, 1920);
-    }
-
-    if (showTexture) {
-      applyTexture(fctx, 1080, 1920);
-    }
-
-    // Aesthetic Blob
-    if (showBlobs) {
-      drawBlob(fctx, 540, 880, 350, iconColor);
-    }
-
-    // Icon Glow
-    if (showGlow) {
-      fctx.shadowBlur = 60;
-      fctx.shadowColor = iconColor + '66';
-    }
-
-    // Draw PNG icon (choose white or orange based on icon color setting)
-    const isWhiteIcon = iconColor === '#FFFFFF' || iconColor === '#ffffff' || iconColor === 'white';
-    const iconSrc = isWhiteIcon ? hl.iconWhite : hl.iconOrange;
-    drawIcon(fctx, iconSrc, 540, 880, 420);
-    fctx.shadowBlur = 0;
-
-    // Bottom text
-    if (bottomText) {
-      fctx.fillStyle = iconColor;
-      fctx.textAlign = 'center';
-      fctx.font = '800 68px "Pretendard", sans-serif';
-      fctx.letterSpacing = '10px';
-      fctx.fillText(bottomText, 540, 1180);
-    }
-
-    fullCanvases.push({ canvas: fullCanvas, name: hl.name });
-
-    // Preview
-    const previewCanvas = document.createElement('canvas');
-    previewCanvas.width = 300;
-    previewCanvas.height = 300;
-    const pctx = previewCanvas.getContext('2d');
-    const cropY = (1920 - 1080) / 2;
-    pctx.drawImage(fullCanvas, 0, cropY, 1080, 1080, 0, 0, 300, 300);
-
-    const item = document.createElement('div');
-    item.className = 'cover-item';
-    item.innerHTML = `
-      <h4>${hl.name}</h4>
-      <div class="cover-circle-wrap">
-        <div class="ig-ring"></div>
-        <div class="cover-circle"></div>
+COVERS.forEach((cover, i) => {
+  const card = document.createElement('div');
+  card.className = 'cover-card';
+  card.innerHTML = `
+    <h3>${cover.name}</h3>
+    <div class="cover-preview">
+      <div class="ig-ring"></div>
+      <div class="cover-circle">
+        <img src="/highlight_covers/${cover.file}" alt="${cover.name}" loading="lazy">
       </div>
-      <button class="btn-download" onclick="downloadSingle(${i})">Export PNG</button>
-    `;
-    item.querySelector('.cover-circle').appendChild(previewCanvas);
-    grid.appendChild(item);
-  });
-}
+    </div>
+    <div class="cover-info">${cover.desc}</div>
+    <button class="btn-download" onclick="downloadCover('${cover.file}', '${cover.name}')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      다운로드
+    </button>
+  `;
+  grid.appendChild(card);
+});
 
-function downloadSingle(index) {
-  const { canvas, name } = fullCanvases[index];
+function downloadCover(file, name) {
   const link = document.createElement('a');
-  link.download = `Premium_Cover_${name.replace(/\s+/g, '_')}.png`;
-  link.href = canvas.toDataURL('image/png', 1.0);
+  link.href = `/highlight_covers/${file}`;
+  link.download = `IM_Highlight_${name}.jpeg`;
   link.click();
 }
 
 function downloadAll() {
-  fullCanvases.forEach((item, i) => {
-    setTimeout(() => downloadSingle(i), i * 350);
+  COVERS.forEach((cover, i) => {
+    setTimeout(() => downloadCover(cover.file, cover.name), i * 300);
   });
 }
-
-window.addEventListener('DOMContentLoaded', () => {
-  preloadIcons().then(() => generateAll());
-});
 </script>
 </body>
 </html>

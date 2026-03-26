@@ -1,45 +1,105 @@
 # IM_AESTHETICS
 
-## 프로젝트 개요
-AI 기반 에스테틱 콘텐츠 허브. Google Generative AI와 Supabase를 활용해 에스테틱 관련 콘텐츠를 생성, 관리, 공유한다.
+## Project Overview
+IM AESTHETIC (아이엠에스테틱) - Daegu premium aesthetic clinic content management system.
+Google Generative AI + Supabase for Instagram content creation, management, and preview.
+
+**Positioning**: Wedding care specialist (웨딩케어 전문)
+**3 Directors**: Yu Sujeong (skincare), Woo Yeonwoo (body alignment), Kim Eunkyung (7-sense therapy)
+**Core concept**: 3-person care system (3인 케어 시스템)
 
 ## Tech Stack
-- **Frontend**: React 18, Vite, Tailwind CSS
-- **Backend**: Express.js (API 서버)
+- **Frontend**: React 18, Vite 6, Tailwind CSS 3
+- **Backend**: Express.js (API server, port 3001)
 - **AI**: Google Generative AI (Gemini)
 - **DB / Auth**: Supabase
-- **기타**: Axios, Cheerio (웹 스크래핑), HTML2Canvas (캡처)
+- **Other**: Axios, Cheerio (scraping), HTML2Canvas (capture)
+- **Deploy**: Vercel (from root directory)
 
 ## Commands
 ```bash
-npm run dev        # 개발 서버 실행
-npm run build      # 프로덕션 빌드
-npm run preview    # 빌드 미리보기
+npm run dev        # Dev server (Vite)
+npm run build      # Production build
+npm run preview    # Preview build
+node server.js     # API server (port 3001)
 ```
 
 ## Directory Structure
 ```
 IM_AESTHETICS/
-└── src/
-    ├── components/          # 재사용 UI 컴포넌트
-    ├── data/                # 정적 데이터, 목업
-    ├── lib/                 # 외부 서비스 클라이언트 (Supabase, Gemini)
-    ├── dashboard.jsx        # 메인 대시보드 페이지
-    └── instagram-preview.jsx # Instagram 스타일 미리보기 컴포넌트
+├── index.html                    # PIN lock + hub menu (vanilla JS)
+├── dashboard.html                # React: 12-week content dashboard
+├── instagram_preview_react.html  # React: feed grid preview
+├── card_news_maker.html          # Standalone: card news maker (8 presets)
+├── carousel_templates.html       # Standalone: 5 carousel design guides
+├── canva_templates.html          # Canva template hub (10 templates, iframe embed)
+├── event_card_maker.html         # Standalone: event/promo card maker (4 presets)
+├── highlight_cover_maker.html    # Standalone: highlight cover generator
+├── reels_cover_maker.html        # Standalone: reels cover maker
+├── review_overlay_maker.html     # Standalone: review overlay maker
+├── 현장촬영_체크리스트.html        # Standalone: photo checklist
+├── server.js                     # Express API (scraping + Gemini + image save)
+├── src/
+│   ├── components/               # React UI components (ProfileHeader, etc.)
+│   ├── data/                     # Static data (posts.js with 12-week strategy)
+│   ├── lib/                      # Supabase, Gemini clients
+│   ├── styles.css                # Tailwind + brand CSS vars
+│   ├── dashboard.jsx             # Dashboard page
+│   └── instagram-preview.jsx     # Feed preview page
+├── public/
+│   ├── feed_images/              # Feed grid images (grid_a_*, grid_c_*)
+│   ├── highlight_covers/         # 6 highlight cover JPEGs
+│   ├── logo-*.svg                # Logo variants (orange, white, dark)
+│   └── im-symbol.svg             # IM symbol mark
+└── docs/                         # Guides & references (10 markdown files)
 ```
 
+## Brand Constants
+- **Brand color**: `#E8703A` (orange) — CSS var `--brand-orange`
+- **Dark**: `#1A1410`
+- **Cream bg**: `#FFF8F0`
+- **EN font**: Playfair Display
+- **KR font**: Pretendard / Noto Sans KR
+- **Account**: @im.aesthetic.official
+- **Location**: Daegu Suseong-gu Beomeo-dong Mark Palace
+
 ## Core Rules
-- `.jsx` 확장자 사용 (TypeScript 미적용 프로젝트).
-- Supabase / Google AI API 키는 반드시 환경변수로 관리한다. 코드에 하드코딩 금지.
-- Cheerio 스크래핑 로직은 Express 백엔드에서만 실행한다. 브라우저 직접 스크래핑 금지.
-- HTML2Canvas 캡처는 클라이언트에서만 실행한다.
-- 컴포넌트는 `components/`에, 페이지 단위 파일은 `src/` 루트에 위치한다.
+- `.jsx` extension (no TypeScript).
+- Supabase / Google AI API keys via env vars only. No hardcoding.
+- Cheerio scraping only on Express backend. No browser scraping.
+- HTML2Canvas capture on client only.
+- Components in `components/`, page files in `src/` root.
+- No "since" expression (directors have different career lengths).
+- Customer anonymity only (30대 예비신부님 style).
+- Emoji whitelist: 🤍✨💫🌿💍 (no face emojis).
 
 ## Key Modules
-- `lib/`: Supabase 클라이언트, Google Generative AI 초기화
-- `dashboard.jsx`: 콘텐츠 피드, AI 생성 인터페이스 메인 페이지
-- `instagram-preview.jsx`: 콘텐츠 Instagram 포맷 미리보기 및 HTML2Canvas 캡처
-- Express 서버: Cheerio 기반 외부 콘텐츠 스크래핑 API 엔드포인트
+- `lib/`: Supabase client, Google Generative AI init
+- `dashboard.jsx`: Content feed, AI generation interface
+- `instagram-preview.jsx`: Instagram format preview + HTML2Canvas capture
+- `server.js`: Cheerio scraping + Gemini content/image generation APIs
+- `src/data/posts.js`: 12-week strategy data + feed post captions/hashtags
+
+## HTML Pages (11 total)
+| Page | Type | Description |
+|------|------|-------------|
+| `index.html` | Vanilla JS | PIN lock + 10-menu hub |
+| `dashboard.html` | React | 12-week content calendar |
+| `instagram_preview_react.html` | React | Feed grid preview |
+| `card_news_maker.html` | Standalone | Card news maker (8 presets, PNG export) |
+| `carousel_templates.html` | Standalone | 5 carousel design guide templates |
+| `canva_templates.html` | Standalone | Canva template hub (10 templates, iframe embed) |
+| `event_card_maker.html` | Standalone | Event/promo card maker (4 presets) |
+| `highlight_cover_maker.html` | Standalone | Highlight cover generator (6 covers) |
+| `reels_cover_maker.html` | Standalone | Reels cover image maker |
+| `review_overlay_maker.html` | Standalone | Review overlay image maker |
+| `현장촬영_체크리스트.html` | Standalone | Photo shoot checklist |
+
+## Supabase DB
+- **Project ID**: tqbbkxadeqlnwnbqwikk
+- **Tables**: clinics, directors, week_strategies, posts, post_images
+- **clinic_id**: '00000000-0000-0000-0000-000000000001'
+- **Env vars**: VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY
 
 ## Current Status
-개발 중. AI 콘텐츠 생성 및 대시보드 UI 구현 단계.
+2026 wedding care renewal complete. Content pipeline + Canva template system operational.

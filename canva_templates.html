@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IM AESTHETIC - Canva Templates</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #E8703A;
+  --orange-dark: #C85828;
+  --cream: #FFF8F0;
+  --warm-bg: #FAF6F1;
+  --dark: #1A1410;
+  --dark-mid: #3D3229;
+  --text-muted: #9B8A7A;
+  --border: rgba(232,112,58,0.08);
+  --shadow: 0 4px 24px rgba(26,20,16,0.06);
+  --shadow-hover: 0 16px 48px rgba(26,20,16,0.12);
+  --radius: 20px;
+  --ease: cubic-bezier(0.22, 0.68, 0, 1.2);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Pretendard', system-ui, sans-serif;
+  background: var(--warm-bg);
+  color: var(--dark);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(232,112,58,0.06), transparent 60%),
+    radial-gradient(ellipse 60% 80% at 85% 90%, rgba(232,112,58,0.04), transparent 50%);
+  pointer-events: none;
+}
+
+/* ════════ HEADER ════════ */
+.page-header {
+  background: var(--dark);
+  padding: 56px 32px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.page-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 50% 50% at 50% 40%, rgba(232,112,58,0.08), transparent),
+    radial-gradient(ellipse 80% 40% at 50% 100%, rgba(232,112,58,0.05), transparent);
+  pointer-events: none;
+}
+.page-header::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, var(--orange) 20%, var(--orange) 80%, transparent 100%);
+}
+.page-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px; font-weight: 400;
+  color: #FAF8F5;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+  position: relative;
+}
+.page-header .subtitle {
+  font-size: 13px; font-weight: 400;
+  color: rgba(255,248,240,0.35);
+  letter-spacing: 3px;
+  margin-top: 8px;
+  position: relative;
+}
+.page-header .template-count {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 6px 20px;
+  background: rgba(232,112,58,0.15);
+  border: 1px solid rgba(232,112,58,0.3);
+  border-radius: 50px;
+  color: var(--orange);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+/* ════════ MAIN ════════ */
+main {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 48px 32px 80px;
+}
+
+/* ════════ CATEGORY SECTION ════════ */
+.category {
+  margin-bottom: 56px;
+}
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.category-icon {
+  width: 44px; height: 44px;
+  background: var(--orange);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(232,112,58,0.25);
+  flex-shrink: 0;
+}
+.category-icon svg { width: 22px; height: 22px; }
+.category-title {
+  font-size: 22px; font-weight: 800;
+  color: var(--dark);
+  letter-spacing: -0.3px;
+}
+.category-count {
+  font-size: 12px; font-weight: 600;
+  color: var(--text-muted);
+  background: rgba(0,0,0,0.04);
+  padding: 4px 12px;
+  border-radius: 50px;
+}
+.category-line {
+  flex: 1; height: 1px;
+  background: linear-gradient(90deg, var(--border), transparent 80%);
+}
+
+/* ════════ TEMPLATE GRID ════════ */
+.template-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* ════════ TEMPLATE CARD ════════ */
+.template-card {
+  background: #fff;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(0,0,0,0.03);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+.template-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+}
+.template-card::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: linear-gradient(180deg, var(--orange), var(--orange-dark));
+  transform: scaleY(0); transform-origin: bottom;
+  transition: transform 0.4s var(--ease);
+  z-index: 2;
+}
+.template-card:hover::before { transform: scaleY(1); }
+
+/* Preview area — 4:5 aspect ratio to match templates */
+.template-preview {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FAF4EA;
+}
+
+/* Canva embed */
+.pv-embed {
+  width: 100%; height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.pv-embed iframe {
+  width: 100%; height: 100%;
+  border: none;
+  pointer-events: none;
+  background: #FAF4EA;
+}
+.pv-embed .pv-overlay {
+  position: absolute; inset: 0;
+  z-index: 2; cursor: pointer;
+}
+.pv-embed .pv-loading {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: var(--text-muted); font-weight: 600;
+  background: #FAF4EA;
+  z-index: 1;
+  transition: opacity 0.4s;
+}
+.pv-embed.loaded .pv-loading { opacity: 0; pointer-events: none; }
+
+/* Placeholder visual */
+.preview-visual {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ════════ MINI PREVIEW (CSS recreation of each template) ════════ */
+.pv {
+  width:100%; height:100%; position:relative; overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Pretendard',sans-serif;
+}
+
+/* ── B&A 1: Beige pastel 좌우분할 ── */
+.pv-ba1 { background:#FAF4EA; }
+.pv-ba1 .pv-brand { position:absolute; top:14px; left:16px; font-family:'Playfair Display',serif; font-size:9px; color:var(--orange); letter-spacing:2px; font-weight:600; }
+.pv-ba1 .pv-cols { display:flex; width:100%; height:100%; padding:36px 16px 28px; gap:8px; }
+.pv-ba1 .pv-col { flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; }
+.pv-ba1 .pv-photo { flex:1; width:100%; border-radius:10px; border:2px solid rgba(232,112,58,0.25); }
+.pv-ba1 .pv-col:first-child .pv-photo { background:linear-gradient(135deg,#E8DFD4,#D8CFC4); }
+.pv-ba1 .pv-col:last-child .pv-photo { background:linear-gradient(135deg,#F5E8DA,#EDDDCC); }
+.pv-ba1 .pv-lbl { font-size:8px; font-weight:800; letter-spacing:2px; color:var(--orange); }
+.pv-ba1 .pv-info { position:absolute; bottom:10px; left:0; right:0; text-align:center; font-size:7px; color:var(--text-muted); }
+
+/* ── B&A 2: Minimalist 세리프 ── */
+.pv-ba2 { background:#FFF8F0; flex-direction:column; gap:8px; }
+.pv-ba2 .pv-ser { font-family:'Playfair Display',serif; font-style:italic; font-size:15px; color:var(--dark-mid); opacity:0.8; }
+.pv-ba2 .pv-row { display:flex; gap:10px; }
+.pv-ba2 .pv-img { width:90px; height:100px; border-radius:4px; position:relative; }
+.pv-ba2 .pv-img.bf { background:linear-gradient(180deg,#E8DDD0,#D5C9BC); }
+.pv-ba2 .pv-img.af { background:linear-gradient(180deg,#F5E8D8,#EDDCC8); }
+.pv-ba2 .pv-tag { position:absolute; bottom:4px; left:50%; transform:translateX(-50%); font-size:6px; font-weight:700; color:#fff; background:rgba(0,0,0,0.4); padding:1px 6px; border-radius:3px; white-space:nowrap; }
+
+/* ── B&A 3: 한국어 프로그램 ── */
+.pv-ba3 { background:linear-gradient(180deg,#FAF4EA,#F0E6D6); flex-direction:column; gap:6px; padding:16px; }
+.pv-ba3 .pv-hd { font-size:10px; font-weight:800; color:var(--dark); }
+.pv-ba3 .pv-sub { font-size:7px; color:var(--orange); font-weight:600; }
+.pv-ba3 .pv-pair { display:flex; gap:8px; margin-top:4px; }
+.pv-ba3 .pv-box { width:80px; height:72px; border-radius:8px; background:linear-gradient(135deg,#E5DCD2,#D8CFC4); display:flex; flex-direction:column; align-items:center; justify-content:flex-end; padding-bottom:6px; }
+.pv-ba3 .pv-box span { font-size:7px; font-weight:700; color:#fff; background:var(--orange); padding:2px 8px; border-radius:10px; }
+.pv-ba3 .pv-btm { font-size:6px; color:var(--text-muted); margin-top:4px; }
+
+/* ── B&A 4: 오렌지 라벨 강조 ── */
+.pv-ba4 { background:#FFF5EC; }
+.pv-ba4 .pv-wrap { display:flex; gap:6px; align-items:center; }
+.pv-ba4 .pv-card { width:76px; height:88px; border-radius:6px; background:linear-gradient(135deg,#E8DDD0,#D8CFC4); position:relative; }
+.pv-ba4 .pv-card .pv-lb { position:absolute; top:6px; left:6px; font-size:7px; font-weight:800; color:#fff; background:var(--orange); padding:2px 6px; border-radius:3px; letter-spacing:0.5px; }
+.pv-ba4 .pv-vs { font-size:12px; font-weight:800; color:var(--orange); }
+
+/* ── B&A 5: 정보형 CTA ── */
+.pv-ba5 { background:#FAF4EA; flex-direction:column; gap:6px; padding:14px; }
+.pv-ba5 .pv-logo { font-family:'Playfair Display',serif; font-size:10px; color:var(--dark); font-weight:600; letter-spacing:3px; }
+.pv-ba5 .pv-line { width:60px; height:1.5px; background:var(--orange); }
+.pv-ba5 .pv-photos { display:flex; gap:6px; }
+.pv-ba5 .pv-ph { width:70px; height:78px; border-radius:6px; background:linear-gradient(135deg,#E5DCD2,#D8CFC4); }
+.pv-ba5 .pv-desc { font-size:7px; color:var(--dark-mid); font-weight:600; text-align:center; }
+.pv-ba5 .pv-acct { font-size:7px; color:var(--orange); font-weight:700; }
+
+/* ── CN 1: 스텝별 웨딩팁 ── */
+.pv-cn1 { background:var(--cream); flex-direction:column; padding:18px 20px; gap:4px; align-items:flex-start; }
+.pv-cn1 .pv-logo { font-family:'Playfair Display',serif; font-size:8px; color:var(--orange); letter-spacing:2px; font-weight:600; border-bottom:1.5px solid var(--orange); padding-bottom:4px; width:100%; }
+.pv-cn1 .pv-hook { font-size:16px; font-weight:900; color:var(--dark); line-height:1.25; margin-top:6px; }
+.pv-cn1 .pv-hook em { color:var(--orange); font-style:normal; }
+.pv-cn1 .pv-comma { color:var(--text-muted); }
+.pv-cn1 .pv-badge { display:inline-block; margin-top:8px; padding:4px 12px; background:rgba(232,112,58,0.08); border-radius:20px; font-size:7px; color:var(--text-muted); font-weight:600; }
+
+/* ── CN 2: 정보형 카드뉴스 ── */
+.pv-cn2 { background:linear-gradient(180deg,#FFF8F0,#FAF0E4); flex-direction:column; gap:6px; padding:16px 18px; align-items:flex-start; }
+.pv-cn2 .pv-hdr { display:flex; align-items:center; gap:6px; width:100%; }
+.pv-cn2 .pv-logo { font-family:'Playfair Display',serif; font-size:8px; color:var(--orange); font-weight:600; }
+.pv-cn2 .pv-ln { flex:1; height:1px; background:rgba(232,112,58,0.2); }
+.pv-cn2 .pv-card { background:#fff; border-radius:8px; padding:12px; width:100%; flex:1; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+.pv-cn2 .pv-tt { font-size:11px; font-weight:800; color:var(--dark); margin-bottom:4px; }
+.pv-cn2 .pv-bd { font-size:8px; color:var(--text-muted); line-height:1.6; }
+
+/* ── CN 3: D-day 타임라인 ── */
+.pv-cn3 { background:#FAF4EA; flex-direction:column; gap:2px; padding:14px 18px; align-items:flex-start; }
+.pv-cn3 .pv-ti { display:flex; align-items:center; gap:8px; width:100%; }
+.pv-cn3 .pv-dot { width:22px; height:22px; border-radius:50%; background:var(--orange); display:flex; align-items:center; justify-content:center; font-size:8px; color:#fff; font-weight:800; flex-shrink:0; }
+.pv-cn3 .pv-tx { font-size:9px; font-weight:700; color:var(--dark); }
+.pv-cn3 .pv-bar { height:14px; width:2px; background:rgba(232,112,58,0.2); margin-left:10px; }
+
+/* ── CN 4: 가격표 이벤트 ── */
+.pv-cn4 { background:linear-gradient(135deg,#FFF8F0,#F8EDE0); flex-direction:column; gap:6px; padding:16px 18px; }
+.pv-cn4 .pv-title { font-size:11px; font-weight:900; color:var(--dark); text-align:center; letter-spacing:-0.3px; }
+.pv-cn4 .pv-sub { font-size:7px; color:var(--orange); text-align:center; font-style:italic; }
+.pv-cn4 .pv-list { display:flex; flex-direction:column; gap:4px; width:100%; margin-top:4px; }
+.pv-cn4 .pv-row { display:flex; justify-content:space-between; align-items:center; padding:6px 10px; background:#fff; border-radius:6px; border-left:2px solid var(--orange); }
+.pv-cn4 .pv-nm { font-size:8px; font-weight:700; color:var(--dark); }
+.pv-cn4 .pv-pr { font-size:8px; font-weight:800; color:var(--orange); }
+
+/* ── RV 1: 별점 리뷰 ── */
+.pv-rv1 { background:linear-gradient(135deg,#FDF9F4,#F5EBE0); flex-direction:column; gap:8px; }
+.pv-rv1 .pv-stars { color:var(--orange); font-size:16px; letter-spacing:3px; }
+.pv-rv1 .pv-qt { font-size:11px; color:var(--dark-mid); font-style:italic; text-align:center; max-width:200px; line-height:1.6; }
+.pv-rv1 .pv-who { font-size:8px; color:var(--text-muted); font-weight:600; }
+
+/* ── RV 2: 감성 드라이플라워 ── */
+.pv-rv2 { background:linear-gradient(135deg,#FFF8F0,#F3E6D6); flex-direction:column; gap:4px; position:relative; }
+.pv-rv2::before { content:''; position:absolute; top:20px; right:20px; width:60px; height:60px; border-radius:50%; background:rgba(232,112,58,0.06); }
+.pv-rv2::after { content:''; position:absolute; bottom:30px; left:15px; width:40px; height:40px; border-radius:50%; background:rgba(232,112,58,0.04); }
+.pv-rv2 .pv-rr { font-family:'Playfair Display',serif; font-style:italic; font-size:16px; color:var(--dark-mid); opacity:0.8; }
+.pv-rv2 .pv-qt { font-size:10px; color:var(--text-muted); text-align:center; max-width:180px; line-height:1.6; margin-top:4px; }
+.pv-rv2 .pv-src { font-size:7px; color:var(--orange); font-weight:600; margin-top:4px; }
+
+/* Status badge */
+.status-badge {
+  position: absolute;
+  top: 12px; right: 12px;
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-size: 10px; font-weight: 800;
+  letter-spacing: 0.5px;
+  z-index: 2;
+}
+.status-badge.done {
+  background: var(--orange);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(232,112,58,0.3);
+}
+.status-badge.wip {
+  background: rgba(0,0,0,0.06);
+  color: var(--text-muted);
+}
+
+/* Card body */
+.template-body {
+  padding: 20px 24px 24px;
+}
+.template-name {
+  font-size: 16px; font-weight: 800;
+  color: var(--dark);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+.template-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.template-tags {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 16px;
+}
+.template-tag {
+  font-size: 11px; font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 50px;
+  background: rgba(232,112,58,0.08);
+  color: var(--orange);
+}
+
+/* Open in Canva button */
+.btn-canva {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 13px 20px;
+  background: var(--dark);
+  color: #FAF8F5;
+  border: none;
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+.btn-canva:hover {
+  background: var(--orange);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(232,112,58,0.3);
+}
+.btn-canva svg { width: 18px; height: 18px; }
+
+/* ════════ CHECKLIST ════════ */
+.checklist-section {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 36px;
+  box-shadow: var(--shadow);
+  margin-top: 20px;
+}
+.checklist-section h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 20px;
+}
+.checklist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 10px;
+}
+.checklist-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  color: var(--dark-mid);
+  transition: background 0.2s;
+}
+.checklist-item:hover {
+  background: rgba(232,112,58,0.04);
+}
+.checklist-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--orange);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+.checklist-item code {
+  background: rgba(232,112,58,0.1);
+  color: var(--orange);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+/* ════════ HOME FAB ════════ */
+.home-fab {
+  position: fixed; bottom: 32px; left: 32px;
+  width: 56px; height: 56px; border-radius: 20px;
+  background: var(--dark); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  z-index: 1000;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.home-fab:hover { background: var(--orange); transform: scale(1.1) rotate(5deg); }
+
+/* ════════ RESPONSIVE ════════ */
+@media (max-width: 768px) {
+  .page-header h1 { font-size: 28px; letter-spacing: 6px; }
+  main { padding: 32px 20px 60px; }
+  .template-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .checklist-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .template-grid { grid-template-columns: 1fr; max-width: 340px; margin: 0 auto; }
+  .page-header { padding: 40px 20px 36px; }
+  .page-header h1 { font-size: 24px; letter-spacing: 4px; }
+}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="home-fab" title="Home">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+  </svg>
+</a>
+
+<div class="page-header">
+  <h1>Canva Templates</h1>
+  <p class="subtitle">IM AESTHETIC Customized Templates</p>
+  <div class="template-count">10 TEMPLATES</div>
+</div>
+
+<main>
+
+<!-- ═══ BEFORE & AFTER ═══ -->
+<div class="category">
+  <div class="category-header">
+    <div class="category-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="4" width="8" height="16" rx="1"/><rect x="14" y="4" width="8" height="16" rx="1"/>
+        <path d="M6 8v4M4 10h4" opacity=".5"/><path d="M16 8l4 4M20 8l-4 4" opacity=".5"/>
+      </svg>
+    </div>
+    <div class="category-title">Before & After</div>
+    <span class="category-count">5 templates</span>
+
+    <div class="category-line"></div>
+  </div>
+
+  <div class="template-grid" id="ba-grid"></div>
+</div>
+
+<!-- ═══ CARD NEWS ═══ -->
+<div class="category">
+  <div class="category-header">
+    <div class="category-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="4" y="6" width="16" height="12" rx="2"/><rect x="6" y="4" width="16" height="12" rx="2" fill="none"/>
+        <line x1="8" y1="10" x2="18" y2="10" opacity=".5"/><line x1="8" y1="13" x2="14" y2="13" opacity=".5"/>
+      </svg>
+    </div>
+    <div class="category-title">Card News</div>
+    <span class="category-count">3 templates</span>
+    <div class="category-line"></div>
+  </div>
+
+  <div class="template-grid" id="cn-grid"></div>
+</div>
+
+<!-- ═══ REVIEW ═══ -->
+<div class="category">
+  <div class="category-header">
+    <div class="category-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      </svg>
+    </div>
+    <div class="category-title">Review</div>
+    <span class="category-count">2 templates</span>
+    <div class="category-line"></div>
+  </div>
+
+  <div class="template-grid" id="rv-grid"></div>
+</div>
+
+<!-- ═══ CHECKLIST ═══ -->
+<div class="checklist-section">
+  <h3>Customizing Checklist</h3>
+  <div class="checklist-grid">
+    <div class="checklist-item"><span class="checklist-dot"></span>Main color <code>#E8703A</code></div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Dark color <code>#1A1410</code></div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Background <code>#FFF8F0</code> cream</div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Display font: Playfair Display</div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Body font: Noto Sans KR</div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Brand: "IM AESTHETIC" (Playfair italic)</div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Account: @im.aesthetic.official</div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Slogan: 당신의 가장 빛나는 날을 준비합니다</div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Emoji: only 🤍✨💫🌿💍</div>
+    <div class="checklist-item"><span class="checklist-dot"></span>No "since" expression</div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Customer: anonymous only (30대 예비신부님)</div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Location: 대구 수성구 범어동 마크팰리스</div>
+  </div>
+</div>
+
+</main>
+
+<script>
+// ═══ Helper: convert canva edit URL → embed URL ═══
+function toEmbed(editUrl) {
+  return editUrl.replace('/edit', '/view?embed');
+}
+function toView(editUrl) {
+  return editUrl.replace('/edit', '/view');
+}
+
+// ═══ TEMPLATE DATA — all with real Canva embed ═══
+const BA_URLS = [
+  'https://www.canva.com/design/DAHFA-nMz-Y/L-E3hQu7Y4krfC0ABhxrGA/edit',
+  'https://www.canva.com/design/DAHFDf-aSc8/whLIhYI1XLX6hCpXp9RdZw/edit',
+  'https://www.canva.com/design/DAHFBFlXNxE/a6b_S_uAOK0KqZw3m4GeLg/edit',
+  'https://www.canva.com/design/DAHFDWFKdhA/qnMDjWa7WlLu6CK0FJV9Zw/edit',
+  'https://www.canva.com/design/DAHFAZ2ghV4/fifr6cPrUjcOMjTcxj1EqQ/edit'
+];
+const CN_URLS = [
+  'https://www.canva.com/design/DAHFBelohsk/FSC3NG7yAPYGIRd3zKvcCA/edit',
+  'https://www.canva.com/design/DAHFBN9hEyA/4kFLro6nCbqJEmqX6AqBSA/edit',
+  'https://www.canva.com/design/DAHFBOChXZ8/GV1ZijVgHxHxI-McJF8kQw/edit'
+];
+const RV_URLS = [
+  'https://www.canva.com/design/DAHFDf-4Hos/XHL5-egJSs6I4rVU2zTyGg/edit',
+  'https://www.canva.com/design/DAHFCRrZoE0/Im6FeGtQS0oZ7ArEzPy8_w/edit'
+];
+
+const TEMPLATES = {
+  ba: [
+    { name: 'IM 웨딩케어 B&A', desc: '오렌지 라벨 · 회차별 변화 · 거북목/숄더/통증 태그', url: BA_URLS[0], tags: ['1080x1350', 'Orange', '회차별'] },
+    { name: '스킨케어 에스테틱 B&A', desc: '한국어 구조 · 브랜드명 + B&A + 프로그램 설명', url: BA_URLS[1], tags: ['1080x1350', '한국어', '정보형'] },
+    { name: 'Beige Minimal B&A', desc: '미니멀 프리미엄 · Before/시술전 한영 병기 라벨', url: BA_URLS[2], tags: ['1080x1080', 'Minimal', '세리프'] },
+    { name: '실제고객 B&A (회차별)', desc: '1회차→8회차→16회차 · 오렌지 넘버링 변화 기록', url: BA_URLS[3], tags: ['1080x1350', '회차별', '변화 기록'] },
+    { name: 'Beige Pastel B&A', desc: '베이지 좌우 분할 · Orange/Cream 2가지 배리에이션', url: BA_URLS[4], tags: ['1080x1080', 'Beige', '좌우 분할'] }
+  ],
+  cn: [
+    { name: '웨딩 피부관리 팁 (스텝별)', desc: '크림 배경 + 오렌지 넘버링 · 결관리→D-DAY역산→3인 케어', url: CN_URLS[0], tags: ['1080x1350', '스텝별', '웨딩 소품'] },
+    { name: '이벤트/가격표 카드', desc: '웨딩케어 스페셜 패키지 · 3종 가격표', url: CN_URLS[1], tags: ['1080x1350', '가격표', '이벤트'] },
+    { name: '웨딩케어 타임라인', desc: '베이지 톤 + 라운드 카드 · 결혼 6개월 전부터 타임라인', url: CN_URLS[2], tags: ['1080x1350', '타임라인', '넘버링'] }
+  ],
+  rv: [
+    { name: '웨딩케어 리뷰 카드', desc: '별점 + 리뷰 텍스트 + 고객 정보', url: RV_URLS[0], tags: ['1080x1350', '별점', '고객 후기'] },
+    { name: '리뷰 카드 (감성형)', desc: '크림 배경 + 드라이플라워 감성 · 네이버/카톡 리뷰', url: RV_URLS[1], tags: ['1080x1350', '감성', '드라이플라워'] }
+  ]
+};
+
+// ═══ RENDER ═══
+function renderCard(t) {
+  const embedUrl = toEmbed(t.url);
+  const viewUrl = t.url; // edit URL so user can edit directly
+  return `
+    <div class="template-card">
+      <div class="template-preview">
+        <div class="pv-embed">
+          <div class="pv-loading">Loading...</div>
+          <iframe src="${embedUrl}" loading="lazy" allowfullscreen allow="fullscreen"
+            onload="this.parentElement.classList.add('loaded')"></iframe>
+          <a href="${viewUrl}" target="_blank" rel="noopener" class="pv-overlay"></a>
+        </div>
+        <span class="status-badge done">CUSTOMIZED</span>
+      </div>
+      <div class="template-body">
+        <div class="template-name">${t.name}</div>
+        <div class="template-desc">${t.desc}</div>
+        <div class="template-tags">
+          ${t.tags.map(tag => `<span class="template-tag">${tag}</span>`).join('')}
+        </div>
+        <a class="btn-canva" href="${viewUrl}" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          Open in Canva
+        </a>
+      </div>
+    </div>`;
+}
+
+document.getElementById('ba-grid').innerHTML = TEMPLATES.ba.map(renderCard).join('');
+document.getElementById('cn-grid').innerHTML = TEMPLATES.cn.map(renderCard).join('');
+document.getElementById('rv-grid').innerHTML = TEMPLATES.rv.map(renderCard).join('');
+</script>
+</body>
+</html>
