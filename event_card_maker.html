@@ -505,30 +505,6 @@ header .subtitle {
   color: var(--text-muted);
 }
 
-/* ════════ HOME FAB ════════ */
-.home-btn {
-  position: fixed;
-  bottom: 24px; left: 24px;
-  width: 48px; height: 48px;
-  background: var(--dark);
-  color: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  transition: all var(--transition);
-  text-decoration: none;
-}
-.home-btn:hover {
-  background: var(--orange);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(232,112,58,0.35);
-}
-.home-btn:active { transform: scale(0.95); }
-.home-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
-
 /* ════════ FOOTER ════════ */
 footer {
   background: var(--dark);
@@ -637,14 +613,6 @@ footer .brand-foot {
 
 <!-- Hidden export area -->
 <div id="export-area"></div>
-
-<!-- Home FAB -->
-<a href="index.html" class="home-btn" title="홈으로">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-    <polyline points="9 22 9 12 15 12 15 22"/>
-  </svg>
-</a>
 
 <footer>
   <p class="brand-foot">IM AESTHETIC</p>
@@ -1001,5 +969,6 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 window.addEventListener('resize', scalePreview);
 </script>
+<script src="/nav-shared.js"></script>
 </body>
 </html>
