@@ -326,7 +326,7 @@ textarea{resize:vertical;min-height:58px}
   margin-top:8px;max-height:0;overflow:hidden;
   transition:max-height .3s ease,opacity .3s ease;opacity:0;
 }
-.img-picker.open{max-height:400px;opacity:1}
+.img-picker.open{max-height:999px;opacity:1}
 .img-picker img{
   width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:8px;
   cursor:pointer;border:2px solid transparent;
@@ -1276,7 +1276,68 @@ const e=t=>String(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g
 
 /* ---- Unsplash 무료 이미지 뱅크 (에스테틱/뷰티 특화) ---- */
 /* Unsplash License: 무료 상업적 사용 가능, 출처 표기 권장 */
+/* 2026-03 확장: 14 카테고리, 카테고리당 8~10개 */
 const IMG_BANK={
+  /* ── 웨딩/브라이달 (핵심 포지셔닝) ── */
+  wedding:[
+    'https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80',
+    'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600&q=80',
+    'https://images.unsplash.com/photo-1460978812857-470ed1c77af0?w=600&q=80',
+    'https://images.unsplash.com/photo-1550005809-91ad75fb315f?w=600&q=80',
+    'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&q=80',
+    'https://images.unsplash.com/photo-1595407753234-0882f1e77954?w=600&q=80',
+    'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=600&q=80',
+    'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=600&q=80',
+    'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=600&q=80',
+    'https://images.unsplash.com/photo-1614618648856-0a129ee19483?w=600&q=80',
+  ],
+  /* ── 바디케어/체형관리 ── */
+  body:[
+    'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80',
+    'https://images.unsplash.com/photo-1570174006382-148305ce4972?w=600&q=80',
+    'https://images.unsplash.com/photo-1591343395082-e120087004b4?w=600&q=80',
+    'https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=600&q=80',
+    'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80',
+    'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&q=80',
+    'https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&q=80',
+    'https://images.unsplash.com/photo-1626006864202-946131e379dd?w=600&q=80',
+    'https://images.unsplash.com/photo-1610402601271-5b4bd5b3eba4?w=600&q=80',
+    'https://images.unsplash.com/photo-1639162906614-0603b0ae95fd?w=600&q=80',
+  ],
+  /* ── 비포애프터/피부 결과 ── */
+  beforeafter:[
+    'https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?w=600&q=80',
+    'https://images.unsplash.com/photo-1629380107393-523a2e0a5270?w=600&q=80',
+    'https://images.unsplash.com/photo-1611594547712-9e5d7da58684?w=600&q=80',
+    'https://images.unsplash.com/photo-1609357871098-cb7d10b4a2d5?w=600&q=80',
+    'https://images.unsplash.com/photo-1505944270255-72b8c68c6a70?w=600&q=80',
+    'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80',
+    'https://images.unsplash.com/photo-1532926381893-7542290edf1d?w=600&q=80',
+    'https://images.unsplash.com/photo-1519824145371-296894a0daa9?w=600&q=80',
+  ],
+  /* ── 헤드스파/두피관리 ── */
+  headspa:[
+    'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&q=80',
+    'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80',
+    'https://images.unsplash.com/photo-1551246187-63e0ecad25de?w=600&q=80',
+    'https://images.unsplash.com/photo-1620750711353-90ad7fdab145?w=600&q=80',
+    'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=600&q=80',
+    'https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=600&q=80',
+    'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80',
+    'https://images.unsplash.com/photo-1520703191175-c1aa2dcd8a36?w=600&q=80',
+  ],
+  /* ── 상담/Q&A ── */
+  consultation:[
+    'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=80',
+    'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=80',
+    'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&q=80',
+    'https://images.unsplash.com/photo-1581056771107-24ca5f033842?w=600&q=80',
+    'https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=600&q=80',
+    'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=600&q=80',
+    'https://images.unsplash.com/photo-1659989693434-727c2b1b8367?w=600&q=80',
+    'https://images.unsplash.com/photo-1590650153855-d9e808231d41?w=600&q=80',
+  ],
+  /* ── 기존 카테고리 (확장) ── */
   skincare:[
     'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80',
     'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80',
@@ -1284,6 +1345,10 @@ const IMG_BANK={
     'https://images.unsplash.com/photo-1612817288484-6f916006741a?w=600&q=80',
     'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=600&q=80',
     'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&q=80',
+    'https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?w=600&q=80',
+    'https://images.unsplash.com/photo-1609357871098-cb7d10b4a2d5?w=600&q=80',
+    'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80',
+    'https://images.unsplash.com/photo-1590439471364-192aa70c0b53?w=600&q=80',
   ],
   spa:[
     'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80',
@@ -1292,6 +1357,10 @@ const IMG_BANK={
     'https://images.unsplash.com/photo-1552693673-1bf958298935?w=600&q=80',
     'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=600&q=80',
     'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=600&q=80',
+    'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=600&q=80',
+    'https://images.unsplash.com/photo-1596178060671-7a80dc8059ea?w=600&q=80',
+    'https://images.unsplash.com/photo-1559599101-f09722fb4948?w=600&q=80',
+    'https://images.unsplash.com/photo-1583416750470-965b2707b355?w=600&q=80',
   ],
   interior:[
     'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80',
@@ -1300,6 +1369,10 @@ const IMG_BANK={
     'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&q=80',
     'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80',
     'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80',
+    'https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=600&q=80',
+    'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80',
+    'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&q=80',
+    'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=600&q=80',
   ],
   aromatherapy:[
     'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=600&q=80',
@@ -1308,6 +1381,10 @@ const IMG_BANK={
     'https://images.unsplash.com/photo-1474979266404-7f28db3dc1a1?w=600&q=80',
     'https://images.unsplash.com/photo-1602928321679-560bb453f190?w=600&q=80',
     'https://images.unsplash.com/photo-1599948128020-9a44505b0d1b?w=600&q=80',
+    'https://images.unsplash.com/photo-1587017539504-67cfbddac569?w=600&q=80',
+    'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=600&q=80',
+    'https://images.unsplash.com/photo-1572635196184-84e35138cf62?w=600&q=80',
+    'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=600&q=80',
   ],
   massage:[
     'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=600&q=80',
@@ -1316,6 +1393,10 @@ const IMG_BANK={
     'https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=600&q=80',
     'https://images.unsplash.com/photo-1559599101-f09722fb4948?w=600&q=80',
     'https://images.unsplash.com/photo-1596178060671-7a80dc8059ea?w=600&q=80',
+    'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80',
+    'https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=600&q=80',
+    'https://images.unsplash.com/photo-1591343395082-e120087004b4?w=600&q=80',
+    'https://images.unsplash.com/photo-1519824145371-296894a0daa9?w=600&q=80',
   ],
   serum:[
     'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600&q=80',
@@ -1324,6 +1405,10 @@ const IMG_BANK={
     'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&q=80',
     'https://images.unsplash.com/photo-1617897903246-719242758050?w=600&q=80',
     'https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?w=600&q=80',
+    'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=600&q=80',
+    'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=600&q=80',
+    'https://images.unsplash.com/photo-1590439471364-192aa70c0b53?w=600&q=80',
+    'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80',
   ],
   face:[
     'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=600&q=80',
@@ -1331,31 +1416,60 @@ const IMG_BANK={
     'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&q=80',
     'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=600&q=80',
     'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80',
+    'https://images.unsplash.com/photo-1505944270255-72b8c68c6a70?w=600&q=80',
+    'https://images.unsplash.com/photo-1519824145371-296894a0daa9?w=600&q=80',
+    'https://images.unsplash.com/photo-1532926381893-7542290edf1d?w=600&q=80',
+    'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=600&q=80',
+    'https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?w=600&q=80',
   ],
   wellness:[
     'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&q=80',
     'https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=600&q=80',
     'https://images.unsplash.com/photo-1552196563-55cd4e45efb3?w=600&q=80',
     'https://images.unsplash.com/photo-1600618528240-fb9fc964b853?w=600&q=80',
+    'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&q=80',
+    'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80',
+    'https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&q=80',
+    'https://images.unsplash.com/photo-1599447421416-3414500d18a5?w=600&q=80',
+    'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80',
+    'https://images.unsplash.com/photo-1588286840104-8957b019727f?w=600&q=80',
   ],
   promo:[
     'https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?w=600&q=80',
     'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80',
     'https://images.unsplash.com/photo-1540555700478-4be289fbec6d?w=600&q=80',
+    'https://images.unsplash.com/photo-1549465220-1a8b9238f760?w=600&q=80',
+    'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=600&q=80',
+    'https://images.unsplash.com/photo-1557821552-17105176677c?w=600&q=80',
+    'https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=600&q=80',
+    'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&q=80',
+    'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&q=80',
+    'https://images.unsplash.com/photo-1583416750470-965b2707b355?w=600&q=80',
   ],
 };
 
 /* ---- 키워드 → 카테고리 매핑 ---- */
 const KEYWORD_MAP=[
-  {keys:['결','피부결','세안','클렌징','수분','보습','장벽','건조'],cat:'skincare'},
-  {keys:['공간','인테리어','라운지','룸','파우더','조명'],cat:'interior'},
-  {keys:['아로마','오일','향','디퓨저','허브'],cat:'aromatherapy'},
-  {keys:['마사지','수기','근막','림프','이완','풀림'],cat:'massage'},
-  {keys:['세럼','앰플','에센스','토너','크림','성분'],cat:'serum'},
-  {keys:['윤곽','볼륨','리프팅','탄력','주름','팔자'],cat:'face'},
+  /* 웨딩 (최우선 매칭) */
+  {keys:['웨딩','신부','브라이달','드레스','부케','반지','예식','D-day','결혼','혼주','웨딩케어','신부관리','예비신부','웨딩준비'],cat:'wedding'},
+  /* 바디/체형 */
+  {keys:['바디','체형','팔뚝','등살','윤곽','라인','슬리밍','셀룰라이트','복부','허벅지','힙업','보디'],cat:'body'},
+  /* 비포애프터 */
+  {keys:['비포','애프터','전후','변화','결과','임상','무보정','효과','개선'],cat:'beforeafter'},
+  /* 헤드스파 */
+  {keys:['헤드스파','두피','탈모','모발','샴푸','스칼프','헤드'],cat:'headspa'},
+  /* 상담/Q&A */
+  {keys:['상담','질문','Q&A','궁금','문의','예약','FAQ','답변','컨설팅'],cat:'consultation'},
+  /* 기존 카테고리 */
+  {keys:['결','피부결','세안','클렌징','수분','보습','장벽','건조','피부관리','스킨케어'],cat:'skincare'},
+  {keys:['공간','인테리어','라운지','룸','파우더','조명','분위기'],cat:'interior'},
+  {keys:['아로마','오일','향','디퓨저','허브','캔들'],cat:'aromatherapy'},
+  {keys:['마사지','수기','근막','림프','이완','풀림','경락'],cat:'massage'},
+  {keys:['세럼','앰플','에센스','토너','크림','성분','제품'],cat:'serum'},
+  {keys:['볼륨','리프팅','탄력','주름','팔자','페이셜'],cat:'face'},
   {keys:['피로','스트레스','숙면','두통','나른','뭉침'],cat:'wellness'},
-  {keys:['프로모션','이벤트','할인','예약','캘린더','4월'],cat:'promo'},
-  {keys:['힐링','웰니스','명상','차','릴렉스'],cat:'wellness'},
+  {keys:['프로모션','이벤트','할인','캘린더','특가','오픈','기념'],cat:'promo'},
+  {keys:['힐링','웰니스','명상','차','릴렉스','요가'],cat:'wellness'},
   {keys:['관리','케어','프로그램'],cat:'spa'},
 ];
 
