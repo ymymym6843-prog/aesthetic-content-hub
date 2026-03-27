@@ -598,10 +598,8 @@ function renderCard(t) {
   return `
     <div class="template-card">
       <div class="template-preview">
-        <div class="pv-embed">
+        <div class="pv-embed" data-embed-url="${embedUrl}">
           <div class="pv-loading">Loading...</div>
-          <iframe src="${embedUrl}" loading="lazy" allowfullscreen allow="fullscreen"
-            onload="this.parentElement.classList.add('loaded')"></iframe>
           <a href="${viewUrl}" target="_blank" rel="noopener" class="pv-overlay"></a>
         </div>
         <span class="status-badge done">CUSTOMIZED</span>
@@ -626,6 +624,29 @@ function renderCard(t) {
 document.getElementById('ba-grid').innerHTML = TEMPLATES.ba.map(renderCard).join('');
 document.getElementById('cn-grid').innerHTML = TEMPLATES.cn.map(renderCard).join('');
 document.getElementById('rv-grid').innerHTML = TEMPLATES.rv.map(renderCard).join('');
+
+// Lazy-load iframes only when visible in viewport
+(function() {
+  const embeds = document.querySelectorAll('.pv-embed[data-embed-url]');
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const url = el.getAttribute('data-embed-url');
+        if (url && !el.querySelector('iframe')) {
+          const iframe = document.createElement('iframe');
+          iframe.src = url;
+          iframe.allowFullscreen = true;
+          iframe.setAttribute('allow', 'fullscreen');
+          iframe.onload = function() { el.classList.add('loaded'); };
+          el.insertBefore(iframe, el.querySelector('.pv-overlay'));
+        }
+        observer.unobserve(el);
+      }
+    });
+  }, { rootMargin: '200px 0px' });
+  embeds.forEach(function(el) { observer.observe(el); });
+})();
 </script>
 </body>
 </html>
