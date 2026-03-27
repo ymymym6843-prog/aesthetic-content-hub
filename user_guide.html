@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IM AESTHETIC - 사용 가이드</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #E8703A;
+    --orange-lt: rgba(232,112,58,0.08);
+    --cream: #FFF8F0;
+    --dark: #1A1410;
+    --dark-mid: #3D3229;
+    --brown: #2C1810;
+    --brown-lt: #9B7A5A;
+    --gray: #888;
+    --white: #FEFCF8;
+    --radius: 16px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Pretendard', system-ui, sans-serif;
+    background: #F7F3EE;
+    color: var(--dark);
+    line-height: 1.8;
+  }
+
+  /* Header */
+  .guide-header {
+    background: var(--dark);
+    padding: 60px 32px 52px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .guide-header::before {
+    content:''; position:absolute; inset:0;
+    background: radial-gradient(ellipse 60% 80% at 50% 120%, rgba(232,112,58,0.12), transparent 70%);
+    pointer-events: none;
+  }
+  .guide-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px; font-weight: 500;
+    color: #FAF8F5; letter-spacing: 8px;
+    text-transform: uppercase;
+    position: relative;
+  }
+  .guide-header .subtitle {
+    font-size: 14px; color: rgba(255,248,240,0.4);
+    letter-spacing: 3px; margin-top: 10px;
+    position: relative;
+  }
+  .accent-line { height: 3px; background: linear-gradient(90deg, transparent, var(--orange) 20%, var(--orange) 80%, transparent); }
+
+  /* Container */
+  .container { max-width: 880px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  /* TOC */
+  .toc {
+    background: #fff; border-radius: var(--radius);
+    padding: 28px 32px; margin-bottom: 48px;
+    box-shadow: 0 2px 16px rgba(26,20,16,0.06);
+  }
+  .toc h2 {
+    font-size: 16px; font-weight: 800; color: var(--orange);
+    letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .toc ol { padding-left: 20px; }
+  .toc li { margin-bottom: 8px; }
+  .toc a {
+    color: var(--dark); text-decoration: none;
+    font-size: 15px; font-weight: 600;
+    transition: color .2s;
+  }
+  .toc a:hover { color: var(--orange); }
+
+  /* Section */
+  .section { margin-bottom: 56px; }
+  .section-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--orange); color: #fff;
+    font-size: 14px; font-weight: 700;
+    margin-right: 12px; flex-shrink: 0;
+  }
+  .section h2 {
+    display: flex; align-items: center;
+    font-size: 22px; font-weight: 800;
+    color: var(--dark); margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid rgba(232,112,58,0.15);
+  }
+  .section p { font-size: 15px; color: #555; margin-bottom: 16px; }
+
+  /* Screenshot */
+  .screenshot {
+    border-radius: 12px; overflow: hidden;
+    box-shadow: 0 4px 24px rgba(26,20,16,0.1);
+    margin: 20px 0 24px;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .screenshot img { width: 100%; display: block; }
+  .screenshot-caption {
+    background: #fff; padding: 12px 16px;
+    font-size: 13px; color: var(--gray);
+    text-align: center; font-weight: 500;
+  }
+
+  /* Step list */
+  .steps { list-style: none; padding: 0; counter-reset: step; }
+  .steps li {
+    position: relative; padding: 16px 20px 16px 56px;
+    margin-bottom: 12px;
+    background: #fff; border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(26,20,16,0.04);
+    font-size: 15px;
+  }
+  .steps li::before {
+    counter-increment: step;
+    content: counter(step);
+    position: absolute; left: 16px; top: 16px;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--orange-lt); color: var(--orange);
+    font-size: 13px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .steps li strong { color: var(--orange); }
+
+  /* Tip box */
+  .tip {
+    background: linear-gradient(135deg, var(--orange), #C85828);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    color: #fff; margin: 20px 0;
+  }
+  .tip .tip-label {
+    font-size: 11px; font-weight: 800;
+    letter-spacing: 3px; text-transform: uppercase;
+    opacity: 0.7; margin-bottom: 8px;
+  }
+  .tip p { color: rgba(255,255,255,0.9); margin: 0; font-size: 14px; }
+
+  /* Page table */
+  .page-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(26,20,16,0.06); margin: 16px 0 24px; }
+  .page-table th { background: var(--dark); color: #fff; padding: 12px 16px; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-align: left; }
+  .page-table td { padding: 12px 16px; font-size: 14px; border-bottom: 1px solid #F0E8DC; background: #fff; }
+  .page-table tr:last-child td { border-bottom: none; }
+  .page-table .page-name { font-weight: 700; color: var(--dark); }
+  .page-table .page-desc { color: #666; }
+
+  /* Footer */
+  .guide-footer {
+    background: var(--dark); padding: 32px;
+    text-align: center; color: rgba(255,248,240,0.3);
+    font-size: 12px; letter-spacing: 1px;
+  }
+
+  @media (max-width: 768px) {
+    .guide-header h1 { font-size: 24px; letter-spacing: 4px; }
+    .container { padding: 32px 16px 60px; }
+    .section h2 { font-size: 18px; }
+  }
+  @media print {
+    .guide-header { padding: 24px; }
+    .guide-header h1 { font-size: 20px; color: #000; }
+    .screenshot { box-shadow: none; border: 1px solid #ddd; }
+  }
+</style>
+</head>
+<body>
+
+<div class="guide-header">
+  <h1>User Guide</h1>
+  <div class="subtitle">IM AESTHETIC Content Management System</div>
+</div>
+<div class="accent-line"></div>
+
+<div class="container">
+
+  <!-- TOC -->
+  <div class="toc">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#login">로그인 (PIN 입력)</a></li>
+      <li><a href="#hub">허브 메뉴 (홈 화면)</a></li>
+      <li><a href="#nav">페이지 이동 (사이드바)</a></li>
+      <li><a href="#strategy">전략 & 분석 자료</a></li>
+      <li><a href="#tools">콘텐츠 제작 도구</a></li>
+      <li><a href="#export">이미지 다운로드 & 활용</a></li>
+      <li><a href="#tips">유용한 팁</a></li>
+    </ol>
+  </div>
+
+  <!-- 1. 로그인 -->
+  <div class="section" id="login">
+    <h2><span class="section-num">1</span> 로그인 (PIN 입력)</h2>
+    <p>웹 브라우저에서 사이트에 접속하면 PIN 입력 화면이 나타납니다.</p>
+    <ol class="steps">
+      <li>숫자 키패드에서 <strong>4자리 PIN</strong>을 입력합니다</li>
+      <li>올바른 PIN을 입력하면 자동으로 홈 화면으로 이동합니다</li>
+      <li>PIN이 틀리면 빨간색으로 흔들림 효과가 나타납니다 &mdash; 다시 입력해주세요</li>
+    </ol>
+    <div class="tip">
+      <div class="tip-label">Tip</div>
+      <p>PIN을 모르시면 담당자에게 문의해주세요. 보안을 위해 이 가이드에는 PIN을 기재하지 않습니다.</p>
+    </div>
+  </div>
+
+  <!-- 2. 허브 메뉴 -->
+  <div class="section" id="hub">
+    <h2><span class="section-num">2</span> 허브 메뉴 (홈 화면)</h2>
+    <p>PIN 입력 후 나타나는 메인 화면입니다. 모든 페이지로 이동할 수 있는 중앙 허브 역할을 합니다.</p>
+    <div class="screenshot">
+      <img src="/guide_images/01_pin.png" alt="홈 화면">
+      <div class="screenshot-caption">홈 화면 &mdash; 전략 & 분석(상단) + 콘텐츠 도구(하단)</div>
+    </div>
+    <p>화면은 크게 두 영역으로 나뉩니다:</p>
+    <ol class="steps">
+      <li><strong>Strategy & Analysis</strong> &mdash; 프로필 리뉴얼 가이드, 2026 트렌드 분석 등 전략 자료</li>
+      <li><strong>Tools & Pages</strong> &mdash; 카드뉴스, 하이라이트 커버, 이벤트 카드 등 제작 도구 10종</li>
+    </ol>
+    <p>원하는 카드를 클릭하면 해당 페이지로 바로 이동합니다.</p>
+  </div>
+
+  <!-- 3. 사이드바 -->
+  <div class="section" id="nav">
+    <h2><span class="section-num">3</span> 페이지 이동 (사이드바)</h2>
+    <p>모든 페이지의 <strong>좌측 하단</strong>에 집 모양 버튼이 있습니다. 이 버튼을 누르면 사이드바 메뉴가 열립니다.</p>
+    <div class="screenshot">
+      <img src="/guide_images/03_sidebar.png" alt="사이드바 메뉴">
+      <div class="screenshot-caption">사이드바 메뉴 &mdash; 전체 페이지 목록 + 현재 페이지 하이라이트(주황색)</div>
+    </div>
+    <ol class="steps">
+      <li>좌측 하단의 <strong>집 모양 버튼</strong>을 탭합니다</li>
+      <li>사이드바가 열리면 원하는 페이지를 선택합니다</li>
+      <li><strong>Home</strong>을 누르면 홈 화면으로 돌아갑니다</li>
+      <li>사이드바 바깥 영역을 탭하거나 <strong>ESC</strong> 키를 누르면 닫힙니다</li>
+    </ol>
+    <div class="tip">
+      <div class="tip-label">Tip</div>
+      <p>현재 보고 있는 페이지는 주황색으로 표시되어 어디에 있는지 바로 알 수 있습니다.</p>
+    </div>
+  </div>
+
+  <!-- 4. 전략 자료 -->
+  <div class="section" id="strategy">
+    <h2><span class="section-num">4</span> 전략 & 분석 자료</h2>
+    <p>인스타그램 운영 방향을 확인하는 레퍼런스 문서입니다. 콘텐츠 제작 전에 먼저 확인하세요.</p>
+    <table class="page-table">
+      <thead>
+        <tr><th>페이지</th><th>내용</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="page-name">프로필 리뉴얼 가이드</td>
+          <td class="page-desc">인스타 프로필 비포&애프터 비교, 바이오 전략, 하이라이트 구성, 캡션 예시, 링크트리 전략</td>
+        </tr>
+        <tr>
+          <td class="page-name">2026 트렌드 분석</td>
+          <td class="page-desc">경쟁 에스테틱 7개 계정 심층 분석, 트렌드 키워드, 전략 비교표, IM 전략 제언</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>이 자료는 읽기 전용입니다. 별도의 조작 없이 스크롤하며 확인하시면 됩니다.</p>
+  </div>
+
+  <!-- 5. 제작 도구 -->
+  <div class="section" id="tools">
+    <h2><span class="section-num">5</span> 콘텐츠 제작 도구</h2>
+    <p>인스타그램에 올릴 이미지와 콘텐츠를 직접 만드는 도구들입니다.</p>
+
+    <table class="page-table">
+      <thead>
+        <tr><th>페이지</th><th>용도</th><th>사용법</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="page-name">콘텐츠 대시보드</td>
+          <td class="page-desc">12주 콘텐츠 캘린더</td>
+          <td class="page-desc">주차별 포스트 확인, 수정, 상태 관리</td>
+        </tr>
+        <tr>
+          <td class="page-name">피드 프리뷰</td>
+          <td class="page-desc">인스타 피드 미리보기</td>
+          <td class="page-desc">3열 그리드로 전체 피드 구성 확인</td>
+        </tr>
+        <tr>
+          <td class="page-name">카드뉴스 메이커</td>
+          <td class="page-desc">카드뉴스 슬라이드 제작</td>
+          <td class="page-desc">캘린더에서 선택 또는 직접 입력 &rarr; 슬라이드 생성 &rarr; PNG 다운로드</td>
+        </tr>
+        <tr>
+          <td class="page-name">하이라이트 커버</td>
+          <td class="page-desc">인스타 하이라이트 아이콘</td>
+          <td class="page-desc">6종 커버 중 원하는 것 다운로드 &rarr; 인스타 하이라이트 편집에서 적용</td>
+        </tr>
+        <tr>
+          <td class="page-name">이벤트 카드 메이커</td>
+          <td class="page-desc">프로모션/가격표 카드</td>
+          <td class="page-desc">프리셋 선택 &rarr; 텍스트 수정 &rarr; PNG 다운로드</td>
+        </tr>
+        <tr>
+          <td class="page-name">릴스 커버 메이커</td>
+          <td class="page-desc">릴스 커버 이미지</td>
+          <td class="page-desc">텍스트/배경 설정 &rarr; 1080x1920 PNG 다운로드</td>
+        </tr>
+        <tr>
+          <td class="page-name">리뷰 오버레이</td>
+          <td class="page-desc">리뷰 피드 이미지</td>
+          <td class="page-desc">네이버/카톡 리뷰 텍스트 입력 &rarr; 오버레이 이미지 생성 &rarr; 다운로드</td>
+        </tr>
+        <tr>
+          <td class="page-name">캔바 템플릿</td>
+          <td class="page-desc">Canva 연동 템플릿 10종</td>
+          <td class="page-desc">"Open in Canva" 클릭 &rarr; Canva에서 직접 편집</td>
+        </tr>
+        <tr>
+          <td class="page-name">캐러셀 가이드</td>
+          <td class="page-desc">캐러셀 디자인 가이드</td>
+          <td class="page-desc">5가지 템플릿 디자인 방향 참고용</td>
+        </tr>
+        <tr>
+          <td class="page-name">촬영 체크리스트</td>
+          <td class="page-desc">현장 촬영 가이드</td>
+          <td class="page-desc">체크박스 체크 + 메모 작성 (자동 저장됨)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="screenshot">
+      <img src="/guide_images/02_card_news.png" alt="카드뉴스 메이커">
+      <div class="screenshot-caption">카드뉴스 메이커 &mdash; 좌측에서 주차 선택 &rarr; 우측에 슬라이드 생성</div>
+    </div>
+
+    <div class="screenshot">
+      <img src="/guide_images/04_highlight.png" alt="하이라이트 커버">
+      <div class="screenshot-caption">하이라이트 커버 &mdash; 다운로드 버튼으로 개별/전체 다운로드</div>
+    </div>
+  </div>
+
+  <!-- 6. 다운로드 -->
+  <div class="section" id="export">
+    <h2><span class="section-num">6</span> 이미지 다운로드 & 활용</h2>
+    <p>제작한 이미지를 인스타그램에 올리는 과정입니다.</p>
+    <ol class="steps">
+      <li>각 메이커에서 이미지를 완성합니다</li>
+      <li><strong>다운로드</strong> 또는 <strong>PNG 내보내기</strong> 버튼을 클릭합니다</li>
+      <li>다운로드된 이미지 파일을 확인합니다 (보통 Downloads 폴더)</li>
+      <li>인스타그램 앱에서 <strong>새 게시물</strong>을 만들고 이미지를 첨부합니다</li>
+      <li>대시보드에서 해당 포스트의 캡션과 해시태그를 복사하여 붙여넣습니다</li>
+    </ol>
+    <div class="tip">
+      <div class="tip-label">Tip</div>
+      <p>카드뉴스 메이커에서는 "전체 다운로드" 버튼으로 모든 슬라이드를 한 번에 받을 수 있습니다. 개별 슬라이드 하단의 다운로드 아이콘으로 낱개 다운로드도 가능합니다.</p>
+    </div>
+  </div>
+
+  <!-- 7. 팁 -->
+  <div class="section" id="tips">
+    <h2><span class="section-num">7</span> 유용한 팁</h2>
+    <ol class="steps">
+      <li><strong>촬영 체크리스트</strong>는 체크 상태와 메모가 브라우저에 자동 저장됩니다. 현장에서 체크한 내용이 다음에 열어도 유지됩니다</li>
+      <li><strong>캔바 템플릿</strong>은 "Open in Canva"를 눌러 Canva 사이트에서 직접 편집합니다. IM 브랜드 컬러가 이미 적용되어 있어 텍스트만 수정하면 됩니다</li>
+      <li>모든 이미지는 인스타그램 최적 사이즈로 생성됩니다 &mdash; 피드: <strong>1080x1350</strong> (4:5), 릴스/스토리: <strong>1080x1920</strong> (9:16)</li>
+      <li>PC에서 작업 후 이미지를 <strong>카카오톡 나에게 보내기</strong>로 전송하면 모바일에서 바로 인스타에 올릴 수 있습니다</li>
+      <li>문제가 생기면 브라우저를 <strong>새로고침</strong>(F5)해보세요. 대부분의 표시 문제가 해결됩니다</li>
+    </ol>
+  </div>
+
+</div>
+
+<div class="guide-footer">
+  IM AESTHETIC &middot; Daegu Suseong-gu &middot; Wedding Care Specialist
+</div>
+
+<script src="/nav-shared.js"></script>
+</body>
+</html>

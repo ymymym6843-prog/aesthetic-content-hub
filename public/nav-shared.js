@@ -4,6 +4,7 @@
     { section: 'Strategy & Analysis' },
     { name: 'Profile Renewal', title: '\ud504\ub85c\ud544 \ub9ac\ub274\uc5bc \uac00\uc774\ub4dc', href: '/instagram_profile_renewal_1.html', icon: '\ud83d\udcf1' },
     { name: 'Trend Analysis', title: '2026 \ud2b8\ub80c\ub4dc \ubd84\uc11d', href: '/trend_analysis_2026.html', icon: '\ud83d\udcca' },
+    { name: 'User Guide', title: '\uc0ac\uc6a9 \uac00\uc774\ub4dc', href: '/user_guide.html', icon: '\ud83d\udcd6' },
     { section: 'Contents Tools' },
     { name: 'Dashboard', title: '\ucf58\ud150\uce20 \ub300\uc2dc\ubcf4\ub4dc', href: '/dashboard.html', icon: '\ud83d\udccb' },
     { name: 'Feed Preview', title: '\ud53c\ub4dc \ud504\ub9ac\ubdf0', href: '/instagram_preview_react.html', icon: '\ud83d\uddbc' },
