@@ -18,6 +18,8 @@ export default defineConfig({
         eventcard: resolve(__dirname, 'event_card_maker.html'),
         review: resolve(__dirname, 'review_overlay_maker.html'),
         reels: resolve(__dirname, 'reels_cover_maker.html'),
+        profileRenewal: resolve(__dirname, 'instagram_profile_renewal_1.html'),
+        trendAnalysis: resolve(__dirname, 'trend_analysis_2026.html'),
       },
     },
   },

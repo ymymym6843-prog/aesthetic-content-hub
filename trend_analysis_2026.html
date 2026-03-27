@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>2026 에스테틱 인스타그램 트렌드 심층 분석</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+  :root {
+    --orange:#E8703A; --orange-lt:#F5A070; --beige:#F5E8D0;
+    --cream:#FAF4EA; --brown:#2C1810; --brown-mid:#6B4830;
+    --brown-lt:#9B7A5A; --white:#FEFCF8; --gray:#888; --gray-lt:#F2F2F2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;word-break:keep-all}
+  body{font-family:'Noto Sans KR',sans-serif;background:#F4EEE6;color:var(--brown);padding:48px 24px}
+  .doc{max-width:960px;margin:0 auto}
+
+  /* ── 헤더 ── */
+  .doc-header{text-align:center;margin-bottom:56px}
+  .doc-header .eyebrow{font-size:13px;letter-spacing:6px;color:var(--orange);font-weight:700;margin-bottom:12px}
+  .doc-header h1{font-size:36px;font-weight:900;color:var(--brown);line-height:1.3;margin-bottom:14px}
+  .doc-header .sub{font-size:15px;color:var(--gray);line-height:1.8}
+
+  /* ── 섹션 ── */
+  .section{margin-bottom:64px}
+  .section-hd{display:flex;align-items:center;gap:14px;margin-bottom:28px;padding-bottom:14px;border-bottom:2px solid var(--beige)}
+  .section-hd .num{width:36px;height:36px;border-radius:50%;background:var(--orange);color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .section-hd h2{font-size:22px;font-weight:700;color:var(--brown)}
+
+  /* ── 계정 카드 그리드 ── */
+  .account-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .acct-card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 4px 20px rgba(44,24,16,.07)}
+  .acct-top{padding:20px 22px 0;display:flex;align-items:flex-start;gap:14px}
+  .acct-avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+  .acct-meta .name{font-size:15px;font-weight:700;color:var(--brown);margin-bottom:3px}
+  .acct-meta .stats{font-size:12px;color:var(--gray)}
+  .acct-body{padding:16px 22px 22px}
+  .tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+  .tag{font-size:11px;padding:4px 10px;border-radius:20px;font-weight:600;letter-spacing:1px}
+  .tag.orange{background:#FEE8DB;color:var(--orange)}
+  .tag.blue{background:#DBE8FE;color:#3B5BDB}
+  .tag.green{background:#D8F3DC;color:#2D6A4F}
+  .tag.pink{background:#FFE0E6;color:#C9184A}
+  .tag.gray{background:#F0F0F0;color:#555}
+  .tag.gold{background:#FFF3CD;color:#856404}
+  .acct-body h4{font-size:14px;font-weight:700;color:var(--brown-mid);margin:14px 0 6px}
+  .acct-body p{font-size:13px;color:#555;line-height:1.8}
+  .acct-body .caption-ex{background:var(--cream);border-left:3px solid var(--orange);border-radius:0 8px 8px 0;padding:12px 14px;font-size:13px;color:var(--brown-mid);line-height:1.85;margin-top:8px;font-style:italic}
+  .acct-body .caption-ex .em{color:var(--orange);font-style:normal;font-weight:600}
+
+  /* ── 인사이트 박스 ── */
+  .insight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .insight-box{background:#fff;border-radius:16px;padding:22px;box-shadow:0 4px 16px rgba(44,24,16,.06)}
+  .insight-box .ico{font-size:32px;margin-bottom:12px}
+  .insight-box h4{font-size:15px;font-weight:700;color:var(--brown);margin-bottom:8px}
+  .insight-box p{font-size:13px;color:#666;line-height:1.8}
+
+  /* ── 비교표 ── */
+  .compare-table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 16px rgba(44,24,16,.07)}
+  .compare-table th{background:var(--brown);color:#fff;padding:14px 16px;font-size:13px;font-weight:700;letter-spacing:1px;text-align:left}
+  .compare-table td{padding:14px 16px;font-size:13px;border-bottom:1px solid #F0E8DC;color:#444;line-height:1.7;vertical-align:top}
+  .compare-table tr:last-child td{border-bottom:none}
+  .compare-table tr:nth-child(even) td{background:#FDFAF6}
+  .acct-nm{font-weight:700;color:var(--brown)}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
+
+  /* ── 트렌드 키워드 ── */
+  .kw-cloud{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0}
+  .kw{padding:8px 18px;border-radius:50px;font-size:14px;font-weight:600;letter-spacing:1px}
+  .kw.lg{font-size:18px;padding:10px 24px}
+  .kw.sm{font-size:12px;padding:6px 14px}
+
+  /* ── IM 전략 제언 ── */
+  .strategy-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+  .strat-card{background:#fff;border-radius:16px;padding:22px;border-top:4px solid var(--orange);box-shadow:0 4px 16px rgba(44,24,16,.06)}
+  .strat-card.alt{border-top-color:var(--brown-lt)}
+  .strat-card h4{font-size:15px;font-weight:700;color:var(--brown);margin-bottom:10px}
+  .strat-card ul{padding-left:0;list-style:none}
+  .strat-card li{font-size:13px;color:#555;line-height:2;padding-left:16px;position:relative}
+  .strat-card li::before{content:"→";position:absolute;left:0;color:var(--orange);font-weight:700}
+
+  /* ── 캡션 갤러리 ── */
+  .caption-gallery{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+  .cap-item{background:#fff;border-radius:14px;padding:18px;box-shadow:0 2px 10px rgba(44,24,16,.06)}
+  .cap-type{font-size:11px;font-weight:700;letter-spacing:3px;color:var(--orange);margin-bottom:8px}
+  .cap-txt{font-size:13px;color:#444;line-height:1.9;white-space:pre-line}
+  .cap-tags{margin-top:10px;font-size:11px;color:#aaa;line-height:1.8}
+
+  /* ── 히트맵 스타일 피드 분위기 분석 ── */
+  .heatmap{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin:16px 0}
+  .hm-cell{height:32px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;font-weight:700}
+
+  /* ── 최종 요약 박스 ── */
+  .summary-box{background:linear-gradient(135deg,var(--brown) 0%,#3D2010 100%);border-radius:20px;padding:36px;color:#fff}
+  .summary-box h3{font-size:22px;font-weight:700;margin-bottom:20px;color:var(--orange)}
+  .summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .summary-item h4{font-size:14px;font-weight:700;color:rgba(255,255,255,.6);letter-spacing:2px;margin-bottom:10px}
+  .summary-item ul{list-style:none}
+  .summary-item li{font-size:14px;color:rgba(255,255,255,.85);line-height:2.1;padding-left:18px;position:relative}
+  .summary-item li::before{content:"✦";position:absolute;left:0;color:var(--orange);font-size:11px}
+
+  .divider{height:1px;background:var(--beige);margin:48px 0}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<!-- ══ 헤더 ══ -->
+<div class="doc-header">
+  <p class="eyebrow">INSTAGRAM DEEP ANALYSIS 2026</p>
+  <h1>국내 에스테틱 인스타그램<br>피드 트렌드 심층 분석 보고서</h1>
+  <p class="sub">직접 방문 분석 7개 계정 · @water_up_skin / @miinbongaon_official / @onnuu.c<br>
+  @ne.an.e.skin / @treatz.spa / @beauty_pansy_ / @oha.aesthetic_<br>
+  IM AESTHETIC (@im.aesthetic.official) 리뉴얼 전략 적용</p>
+</div>
+
+
+<!-- ══ SECTION 1: 계정별 분석 ══ -->
+<div class="section">
+  <div class="section-hd"><div class="num">1</div><h2>계정별 피드 심층 분석</h2></div>
+  <div class="account-grid">
+
+    <!-- water_up_skin -->
+    <div class="acct-card">
+      <div class="acct-top">
+        <div class="acct-avatar" style="background:#1A1A1A">WS</div>
+        <div class="acct-meta">
+          <div class="name">@water_up_skin</div>
+          <div class="stats">게시물 797 · 팔로워 6,395 · 대구</div>
+        </div>
+      </div>
+      <div class="acct-body">
+        <div class="tag-row">
+          <span class="tag gray">릴스 90%</span>
+          <span class="tag pink">강렬한 에너지</span>
+          <span class="tag orange">비포&애프터</span>
+          <span class="tag gray">텍스트 오버레이 강조</span>
+        </div>
+        <h4>🎨 피드 분위기 & 비주얼 전략</h4>
+        <p>다크톤 배경에 굵고 강렬한 텍스트 오버레이가 특징. 핑크·레드·블랙의 고대비 컬러 조합. 릴스 위주 운영으로 화면 점령감 극대화. 브랜드 로고(MULOREUN AESTHETIC)를 하단에 일관성 있게 표기.</p>
+        <h4>✍️ 캡션 스타일</h4>
+        <p>전문 지식을 쉬운 말로 설명하는 교육형 롱폼 캡션. "???", "‼️" 등 감탄 부호로 강조. 고객 눈높이에 맞춘 구어체. "백번 설명 듣는것 보다 직접 한번 받아보시는게" 같은 체험 유도 CTA가 특징적.</p>
+        <div class="caption-ex">
+          <span class="em">물오른피부의 야심작인 [윤곽 밸런스]는</span><br>
+          일반적인 얼굴축소와는 기본 개념 자체가 다르고<br>
+          바라보는 시선이 다르기때문에<br>
+          결과 또한 차원이 다릅니다.‼️<br><br>
+          얼굴축소를 하는데 석고를 안뜬다???<br>
+          <span class="em">백번 설명 듣는것 보다 직접 한번 받아보시는게</span>
+        </div>
+        <h4>💡 핵심 성공 전략</h4>
+        <p>하이라이트를 교육 콘텐츠로 세분화(물오른교육, 피부임상, 바디임상). 전문성과 결과물을 데이터처럼 축적. 팬덤 형성(칭찬감옥, 물오른VVIP).</p>
+      </div>
+    </div>
+
+    <!-- onnuu.c -->
+    <div class="acct-card">
+      <div class="acct-top">
+        <div class="acct-avatar" style="background:#C8965A">ON</div>
+        <div class="acct-meta">
+          <div class="name">@onnuu.c</div>
+          <div class="stats">게시물 695 · 팔로워 1,961 · 대구 웨딩/신부</div>
+        </div>
+      </div>
+      <div class="acct-body">
+        <div class="tag-row">
+          <span class="tag gold">웨딩 특화</span>
+          <span class="tag orange">혼합형 피드</span>
+          <span class="tag green">제품리뷰 병행</span>
+          <span class="tag pink">일상감</span>
+        </div>
+        <h4>🎨 피드 분위기 & 비주얼 전략</h4>
+        <p>따뜻한 핑크·베이지 계열의 생활감 있는 사진과 제품 리뷰가 혼재. 전문 에스테틱 피드라기보다 친한 언니·동생 느낌. 신생아 사진 등 개인 일상도 공유하여 친밀도 극대화. 하이라이트 'wedding'에 신부 케어 집중.</p>
+        <h4>✍️ 캡션 스타일</h4>
+        <p>친밀한 구어체 + 성분 설명을 자연스럽게 결합. "~아시죠", "~하셔요", "...💕" 같은 애교체. 공백·줄바꿈 활용 여유 있는 레이아웃. 제품 추천 이유를 개인 경험으로 풀어냄.</p>
+        <div class="caption-ex">
+          <span class="em">실리스카 지금 온앤유에서 공구중인거 아시죠</span><br>
+          베스트 제품이라면 아직은 오인트먼트 크림이 원탑이 아닐까요! ❤️<br><br>
+          손상된 피부 장벽은 보호 기능이 떨어지게 되고<br>
+          외부 오염물질의 침투에 약해 피부 속 수분과 전해질이 증발되어<br>
+          피부 표면과 깊은 진피까지 데미지를 입게 되죠 😫<br><br>
+          <span class="em">남들이 좋아서 따라 쓰지 말고<br>내가 사용하는 제품의 성분과 효능은 잘 알아보고 사셔야죠</span>
+        </div>
+        <h4>💡 핵심 성공 전략</h4>
+        <p>웨딩·신부 키워드 하이라이트 전진 배치. 가격표 공개로 신뢰 구축. 제품 공동구매로 팔로워 참여 유도.</p>
+      </div>
+    </div>
+
+    <!-- treatz.spa -->
+    <div class="acct-card">
+      <div class="acct-top">
+        <div class="acct-avatar" style="background:#1A1A2E">TR</div>
+        <div class="acct-meta">
+          <div class="name">@treatz.spa</div>
+          <div class="stats">게시물 57 · 팔로워 5,365 · 강남 웨딩</div>
+        </div>
+      </div>
+      <div class="acct-body">
+        <div class="tag-row">
+          <span class="tag blue">프리미엄 미니멀</span>
+          <span class="tag gold">웨딩 특화</span>
+          <span class="tag gray">비주얼 우선</span>
+          <span class="tag gray">영문 아이덴티티</span>
+        </div>
+        <h4>🎨 피드 분위기 & 비주얼 전략</h4>
+        <p>다크/아이보리 투톤. 군더더기 없는 완벽한 미니멀리즘. 강남 프리미엄 스파의 럭셔리감을 시각적으로 구현. 게시물 57개로도 5,365 팔로워 달성한 고퀄리티 전략의 정수. 헤드스파 전문 이미지로 차별화.</p>
+        <h4>✍️ 캡션 스타일</h4>
+        <p><strong>2026 트렌드의 핵심 레퍼런스.</strong> 캡션 없이 해시태그만 사용하는 극단적 미니멀. 이미지가 모든 메시지를 전달. 이벤트 게시물만 텍스트 구성. 영문 해시태그 선호(#treatzspa #강남구청 #웨딩).</p>
+        <div class="caption-ex">
+          <span class="em">#헤드스파 #treatzspa #트리츠스파 #강남구청 #웨딩</span><br><br>
+          <span style="color:#aaa;font-size:12px;">(이게 전부 — 나머지는 비주얼이 말한다)</span>
+        </div>
+        <h4>💡 핵심 성공 전략</h4>
+        <p>게시물 수보다 질. 57개로 5천 팔로워는 콘텐츠 밀도의 승리. 영어 브랜딩으로 글로벌·고급 이미지. 하이라이트 커버도 완전 화이트 통일.</p>
+      </div>
+    </div>
+
+    <!-- beauty_pansy_ -->
+    <div class="acct-card">
+      <div class="acct-top">
+        <div class="acct-avatar" style="background:#E8703A">BP</div>
+        <div class="acct-meta">
+          <div class="name">@beauty_pansy_</div>
+          <div class="stats">게시물 437 · 팔로워 3,733 · 인천 청라</div>
+        </div>
+      </div>
+      <div class="acct-body">
+        <div class="tag-row">
+          <span class="tag orange">오렌지 브랜딩</span>
+          <span class="tag pink">100% 무보정 임상</span>
+          <span class="tag orange">신뢰성 최우선</span>
+          <span class="tag green">맞춤 케어</span>
+        </div>
+        <h4>🎨 피드 분위기 & 비주얼 전략</h4>
+        <p><strong>IM AESTHETIC와 브랜드 컬러가 동일(오렌지)한 핵심 레퍼런스.</strong> 비포&애프터를 피드 전면에 배치. 브랜드 워터마크를 모든 이미지에 일관 적용. 실제 피부 상태를 그대로 보여주는 용기 있는 전략.</p>
+        <h4>✍️ 캡션 스타일</h4>
+        <p>전문성 + 신뢰감 중심. "100% 무보정 임상"을 전면 강조. 피부 원인(호르몬, 생활패턴)까지 분석한 통합 케어 접근법 설명. "커스터마이징" 키워드 반복 사용.</p>
+        <div class="caption-ex">
+          <span class="em">뷰티팬지의 100% 무보정 임상입니다.</span><br><br>
+          🩹 호르몬 변화로 홍조와 열꽃<br><br>
+          상열감과 열꽃 때문에 스트레스 받아서 방문해주신 고객님입니다.<br>
+          단순 피부관리만? ❌<br>
+          <span class="em">뷰티팬지만의 테라피를 접목시키고 라이프 스타일을 고려해<br>생활 패턴, 식습관 등을 같이 개선시켜드렸습니다!!</span>
+        </div>
+        <h4>💡 핵심 성공 전략</h4>
+        <p>무보정 선언으로 역설적 신뢰도 획득. 단순 시술 소개 아닌 생활습관 통합 관리 포지셔닝. 오렌지 하이라이트 커버 전체 통일.</p>
+      </div>
+    </div>
+
+    <!-- ne.an.e.skin -->
+    <div class="acct-card">
+      <div class="acct-top">
+        <div class="acct-avatar" style="background:#F06090">NE</div>
+        <div class="acct-meta">
+          <div class="name">@ne.an.e.skin</div>
+          <div class="stats">게시물 816 · 팔로워 389 · 대구 달서/성서</div>
+        </div>
+      </div>
+      <div class="acct-body">
+        <div class="tag-row">
+          <span class="tag pink">Q&A 형식</span>
+          <span class="tag green">정보성 카드뉴스</span>
+          <span class="tag orange">웨딩케어 이벤트</span>
+          <span class="tag gray">동안탄력 특화</span>
+        </div>
+        <h4>🎨 피드 분위기 & 비주얼 전략</h4>
+        <p>핑크·라이트베이지 계열의 따뜻한 톤. 정보성 카드뉴스 시리즈(동안탄력얼굴 Q&A)가 피드의 중심축. 실제 고객 얼굴 사진을 과감하게 활용. WEDDING CARE 이미지 카드 별도 제작.</p>
+        <h4>✍️ 캡션 스타일</h4>
+        <p>Q&A 대화 형식이 특징적. 독자의 궁금증을 먼저 제시하고 답변하는 구조. "가능합니다!", "당연히 가능합니다" 같은 자신감 있는 단정 어조. 전문 용어를 쉽게 풀어쓰는 친절함.</p>
+        <div class="caption-ex">
+          <span class="em">동안탄력얼굴 받기 전, 고객분들이 많이 물어보시는 Q&A</span><br><br>
+          💬 홍조, 트러블, 예민피부도 관리받을 수 있나요?<br><br>
+          🌸 당연히 가능합니다.<br>
+          내안에스킨앤바디에서는 고객님의 피부 상태를 먼저 확인한 후<br>
+          자극을 최소화한 맞춤 관리로 진행하고 있답니다.
+        </div>
+        <h4>💡 핵심 성공 전략</h4>
+        <p>시리즈 콘텐츠로 저장·공유율 극대화. 고객 FAQ를 콘텐츠로 전환. 웨딩케어 이벤트를 시즌별 기획.</p>
+      </div>
+    </div>
+
+    <!-- oha.aesthetic_ -->
+    <div class="acct-card">
+      <div class="acct-top">
+        <div class="acct-avatar" style="background:#003087">OHA</div>
+        <div class="acct-meta">
+          <div class="name">@oha.aesthetic_</div>
+          <div class="stats">게시물 1,517 · 팔로워 3.3만 · 수원·대구·부산</div>
+        </div>
+      </div>
+      <div class="acct-body">
+        <div class="tag-row">
+          <span class="tag blue">딥블루 브랜딩</span>
+          <span class="tag blue">전국 체인</span>
+          <span class="tag green">기업형 스케일</span>
+          <span class="tag gold">결과 증명</span>
+        </div>
+        <h4>🎨 피드 분위기 & 비주얼 전략</h4>
+        <p>딥블루/네이비 브랜드 컬러로 완벽한 통일감. 비행기·도시 이미지 등 스케일 큰 비주얼로 성장 스토리 연출. 화이트 인테리어 공간 사진과 시술 장면 균형 있게 배치. "SKIN FOR YOUR PRECIOUS MOMENT. YOU DESERVE TO SHINE." 영문 슬로건 적극 활용.</p>
+        <h4>✍️ 캡션 스타일</h4>
+        <p>신뢰도와 규모를 수치로 증명하는 캡션. "수만건의 임상 결과", "수천건의 실제 만족 후기", "운동선수, 인플루언서 고객님들의 선택". 공백을 활용한 여유 있는 레이아웃. "단순한 관리가 아닌" 차별화 멘트 반복.</p>
+        <div class="caption-ex">
+          <span class="em">수많은 회원님들이 꾸준히 찾아주시는 이유 🔥</span><br>
+          오하에스테틱은 결과로 증명합니다 ✨<br><br>
+          ✔️ 끊임없이 이어지는 소개 방문<br>
+          ✔️ 재방문율을 높이는 찐단골 관리샵<br>
+          ✔️ 운동선수, 인플루언서 고객님들의 선택<br><br>
+          단순한 관리가 아닌,<br>
+          <span class="em">한 분 한 분 피부와 바디 상태를 꼼꼼하게 체크하고<br>꼭 필요한 관리를 컨설팅 해드리는</span> 오하에스테틱
+        </div>
+        <h4>💡 핵심 성공 전략</h4>
+        <p>전국 확장 스토리를 콘텐츠로 활용. 하이라이트에 오픈 이벤트·지점 소개 전략. "SKIN FOR YOUR PRECIOUS MOMENT" 슬로건의 고급 포지셔닝.</p>
+      </div>
+    </div>
+
+  </div><!-- /account-grid -->
+</div><!-- /section -->
+
+
+<!-- ══ SECTION 2: 피드 컬러 & 무드 히트맵 ══ -->
+<div class="section">
+  <div class="section-hd"><div class="num">2</div><h2>피드 컬러 시스템 & 무드 비교</h2></div>
+  <table class="compare-table">
+    <tr>
+      <th>계정</th><th>주 컬러</th><th>피드 무드</th><th>콘텐츠 비율</th><th>팔로워 대비 성과</th>
+    </tr>
+    <tr>
+      <td><span class="acct-nm">@water_up_skin</span></td>
+      <td><span class="dot" style="background:#1A1A1A"></span>블랙/<span class="dot" style="background:#FF69B4"></span>핑크</td>
+      <td>강렬·에너지·전문성</td>
+      <td>릴스 90% / 정보 10%</td>
+      <td>⭐⭐⭐⭐ 게시물 대비 높음</td>
+    </tr>
+    <tr>
+      <td><span class="acct-nm">@onnuu.c</span></td>
+      <td><span class="dot" style="background:#F5C6A0"></span>핑크/<span class="dot" style="background:#E8C89A"></span>베이지</td>
+      <td>친근·일상·신뢰</td>
+      <td>일상 50% / 정보 30% / 제품 20%</td>
+      <td>⭐⭐⭐ 대구 웨딩 특화 채널</td>
+    </tr>
+    <tr>
+      <td><span class="acct-nm">@treatz.spa</span></td>
+      <td><span class="dot" style="background:#1A1A2E"></span>다크/<span class="dot" style="background:#F5F0E8"></span>아이보리</td>
+      <td>럭셔리·미니멀·프리미엄</td>
+      <td>비주얼 70% / 이벤트 30%</td>
+      <td>⭐⭐⭐⭐⭐ 게시물 57개에 5천+ 🏆</td>
+    </tr>
+    <tr>
+      <td><span class="acct-nm">@beauty_pansy_</span></td>
+      <td><span class="dot" style="background:#E8703A"></span>오렌지/<span class="dot" style="background:#FFFFFF"></span>화이트</td>
+      <td>신뢰·전문·결과중심</td>
+      <td>비포애프터 60% / 정보 40%</td>
+      <td>⭐⭐⭐⭐ 오렌지 브랜딩 성공사례</td>
+    </tr>
+    <tr>
+      <td><span class="acct-nm">@ne.an.e.skin</span></td>
+      <td><span class="dot" style="background:#F06090"></span>핑크/<span class="dot" style="background:#FEF0E8"></span>크림</td>
+      <td>정보·친근·교육</td>
+      <td>카드뉴스 50% / 임상 50%</td>
+      <td>⭐⭐ 게시물 수 대비 팔로워 낮음</td>
+    </tr>
+    <tr>
+      <td><span class="acct-nm">@oha.aesthetic_</span></td>
+      <td><span class="dot" style="background:#003087"></span>딥블루/<span class="dot" style="background:#FFFFFF"></span>화이트</td>
+      <td>기업·스케일·증명</td>
+      <td>릴스 40% / 카드뉴스 30% / 이벤트 30%</td>
+      <td>⭐⭐⭐⭐⭐ 3.3만 업계 최상위</td>
+    </tr>
+    <tr style="background:#FFF5EE">
+      <td><span class="acct-nm" style="color:var(--orange)">@im.aesthetic.official</span></td>
+      <td><span class="dot" style="background:#E8703A"></span>오렌지/<span class="dot" style="background:#F5E8D0"></span>베이지</td>
+      <td>전문·신뢰 (현재 구축 중)</td>
+      <td>인물소개 50% / 공간 30% / 팀 20%</td>
+      <td>🔧 현재 리뉴얼 준비 중</td>
+    </tr>
+  </table>
+</div>
+
+
+<!-- ══ SECTION 3: 2026 핵심 트렌드 인사이트 ══ -->
+<div class="section">
+  <div class="section-hd"><div class="num">3</div><h2>2026 에스테틱 인스타그램 핵심 트렌드</h2></div>
+
+  <div class="kw-cloud">
+    <span class="kw lg" style="background:#E8703A;color:#fff">감성 일기체 캡션</span>
+    <span class="kw lg" style="background:#2C1810;color:#fff">비주얼 미니멀리즘</span>
+    <span class="kw lg" style="background:#C8965A;color:#fff">결과 증명 콘텐츠</span>
+    <span class="kw" style="background:#FEE8DB;color:#E8703A">Q&A 시리즈</span>
+    <span class="kw" style="background:#DBE8FE;color:#3B5BDB">웨딩케어 포지셔닝</span>
+    <span class="kw" style="background:#D8F3DC;color:#2D6A4F">하이라이트 전략</span>
+    <span class="kw sm" style="background:#F0F0F0;color:#555">짧은 캡션 + 해시태그</span>
+    <span class="kw sm" style="background:#F0F0F0;color:#555">줄임표,,, 여운체</span>
+    <span class="kw sm" style="background:#F0F0F0;color:#555">100% 무보정 임상</span>
+    <span class="kw sm" style="background:#F0F0F0;color:#555">커스터마이징 강조</span>
+    <span class="kw sm" style="background:#F0F0F0;color:#555">영문 슬로건</span>
+    <span class="kw sm" style="background:#F0F0F0;color:#555">공백·줄바꿈 활용</span>
+  </div>
+
+  <div class="insight-grid">
+    <div class="insight-box">
+      <div class="ico">✍️</div>
+      <h4>트렌드 ① 감성 일기체 + 전문성 공존</h4>
+      <p>딱딱한 시술 설명 대신 "오늘도 당신의 피부에 가장 정직하게 닿겠습니다" 같은 감성 카피로 시작. 이후 전문 정보를 자연스럽게 이어감. <strong>감성 30% + 정보 70%</strong>의 황금 비율이 대세.</p>
+    </div>
+    <div class="insight-box">
+      <div class="ico">🖼️</div>
+      <h4>트렌드 ② 비주얼이 텍스트보다 우선</h4>
+      <p>treatz.spa의 성공처럼 게시물 57개에 5천+ 팔로워는 이미지 퀄리티가 전부임을 증명. 영상·사진 퀄리티에 집중하고 캡션은 최소화하는 흐름. 특히 프리미엄 포지션일수록 이 경향이 강함.</p>
+    </div>
+    <div class="insight-box">
+      <div class="ico">💍</div>
+      <h4>트렌드 ③ 웨딩케어 포지셔닝 경쟁 심화</h4>
+      <p>대구·서울 할 것 없이 웨딩케어는 2026 에스테틱의 가장 뜨거운 키워드. onnuu.c, ne.an.e.skin, treatz.spa 모두 웨딩 하이라이트 운영. 차별화된 스토리텔링이 생존 조건.</p>
+    </div>
+    <div class="insight-box">
+      <div class="ico">📊</div>
+      <h4>트렌드 ④ 수치·증거로 신뢰 구축</h4>
+      <p>"수만건의 임상", "재방문율 1위", "98% 만족도" 등 수치화된 신뢰 지표 제시가 필수. 단순한 "잘 합니다"보다 구체적 숫자와 사례가 저장·공유율을 높임.</p>
+    </div>
+    <div class="insight-box">
+      <div class="ico">📱</div>
+      <h4>트렌드 ⑤ 릴스 + 카드뉴스 교차 운영</h4>
+      <p>릴스는 노출·도달(새 팔로워), 카드뉴스는 저장·공유(기존 팔로워 유지)로 역할 분리. 두 형식을 교차 업로드하는 계정이 팔로워 성장률 현저히 높음.</p>
+    </div>
+    <div class="insight-box">
+      <div class="ico">⭕</div>
+      <h4>트렌드 ⑥ 하이라이트 = 제2의 웹사이트</h4>
+      <p>하이라이트를 체계적으로 운영하는 계정이 이탈률 낮음. 가격·프로그램·후기·오시는길 등 방문 전 확인하는 정보를 하이라이트로 커버. 커버 디자인 통일이 프리미엄 이미지 구축의 핵심.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ SECTION 4: 캡션 스타일 심층 분석 ══ -->
+<div class="section">
+  <div class="section-hd"><div class="num">4</div><h2>캡션 스타일 유형 분류 & 실전 예시</h2></div>
+  <div class="caption-gallery">
+
+    <div class="cap-item">
+      <div class="cap-type">TYPE A · 감성 일기체 (2026 핫트렌드)</div>
+      <div class="cap-txt">손이 기억하는 온도,,,
+
+오늘도 당신의 피부에
+가장 정직하게 닿겠습니다 🤍
+
+결혼을 앞둔 당신에게,,
+드레스보다 먼저 준비해야 할 게
+있다면,,
+
+그건 아마도 내 피부 아닐까요</div>
+      <div class="cap-tags">#웨딩케어 #에스테틱 #피부관리</div>
+    </div>
+
+    <div class="cap-item">
+      <div class="cap-type">TYPE B · 전문 교육형 (신뢰 구축)</div>
+      <div class="cap-txt">웨딩 D-180, 피부 관리를
+지금 시작해야 하는 이유 💡
+
+결혼 6개월 전부터
+피부 재생 사이클을 정상화해야
+메이크업 밀착력이 극대화돼요.
+
+✔️ 피부 장벽 강화
+✔️ 색소 침착 개선
+✔️ 모공 최소화
+
+→ 저장해두고 참고하세요</div>
+      <div class="cap-tags">#웨딩준비 #신부피부관리 #결혼준비</div>
+    </div>
+
+    <div class="cap-item">
+      <div class="cap-type">TYPE C · 결과 증명형 (전환율 최고)</div>
+      <div class="cap-txt">3개월이
+이만큼 달라집니다,,,
+
+고객님이 직접 보내주신
+솔직한 변화예요 🤍
+
+스튜디오에서 메이크업 언니가
+피부 너무 좋다고 칭찬해줬을 때
+눈물이 날 뻔했어요.
+
+→ 상담은 프로필 링크로</div>
+      <div class="cap-tags">#비포애프터 #피부변화 #에스테틱효과</div>
+    </div>
+
+    <div class="cap-item">
+      <div class="cap-type">TYPE D · Q&A 참여형</div>
+      <div class="cap-txt">웨딩케어, 이런 질문 많이 받아요 💬
+
+Q. 예민한 피부도 받을 수 있나요?
+
+A. 당연히 가능해요 🌸
+오히려 예민한 피부일수록
+관리 전후 차이가 더 극적이에요.
+
+피부 상태 먼저 파악하고
+자극 최소화한 맞춤 케어로 진행해요
+
+→ 더 궁금한 점은 DM으로!</div>
+      <div class="cap-tags">#피부관리Q&A #에스테틱상담</div>
+    </div>
+
+    <div class="cap-item">
+      <div class="cap-type">TYPE E · 이벤트·CTA형</div>
+      <div class="cap-txt">💍 웨딩케어 스페셜 패키지
+
+D-180부터 D-Day까지
+함께 준비하는 IM 웨딩케어
+
+이번 달 첫 상담 고객님께
+체험 관리를 증정해드려요 🤍
+
+↓ 예약은 아래 링크로
+www.imtherapy.co.kr
+
+*선착순 마감이라 서두르세요!</div>
+      <div class="cap-tags">#웨딩케어이벤트 #에스테틱이벤트</div>
+    </div>
+
+    <div class="cap-item">
+      <div class="cap-type">TYPE F · 미니멀형 (treatz 스타일)</div>
+      <div class="cap-txt">
+
+
+[이미지가 모든 것을 말한다]
+
+
+
+</div>
+      <div class="cap-tags">#imaesthetic #웨딩케어 #범어동에스테틱<br>#대구에스테틱 #수성구피부관리</div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══ SECTION 5: IM AESTHETIC 전략 제언 ══ -->
+<div class="section">
+  <div class="section-hd"><div class="num">5</div><h2>IM AESTHETIC 맞춤 콘텐츠 전략 제언</h2></div>
+
+  <div class="strategy-cards">
+    <div class="strat-card">
+      <h4>🎨 피드 비주얼 전략</h4>
+      <ul>
+        <li>오렌지(#E8703A) + 베이지(#F5E8D0) 교차 배색 유지</li>
+        <li>treatz.spa처럼 고퀄리티 이미지 소수 승부</li>
+        <li>웨딩 드레스·꽃·반지 등 감성 소품 적극 활용</li>
+        <li>전문가 사진은 흰 가운 통일로 신뢰감</li>
+        <li>공간(원목·따뜻한 조명) 사진 비중 높이기</li>
+        <li>모든 게시물에 IM 로고 워터마크 삽입</li>
+      </ul>
+    </div>
+    <div class="strat-card">
+      <h4>✍️ 캡션 & 해시태그 전략</h4>
+      <ul>
+        <li>첫 2줄은 감성 카피 (더보기 전 노출)</li>
+        <li>",,," "..." 여운체로 감성 연출</li>
+        <li>오하처럼 공백 활용한 여유 있는 레이아웃</li>
+        <li>매 게시물 "저장 & 공유" CTA 포함</li>
+        <li>지역 해시태그 필수: #범어동에스테틱 #수성구피부관리 #대구웨딩케어</li>
+        <li>시즌 해시태그: #2026웨딩 #웨딩준비 #신부피부관리</li>
+      </ul>
+    </div>
+    <div class="strat-card alt">
+      <h4>📅 콘텐츠 캘린더 (주 3회)</h4>
+      <ul>
+        <li><strong>월요일:</strong> 릴스 (시술 테크닉 ASMR)</li>
+        <li><strong>수요일:</strong> 카드뉴스 (웨딩케어 정보)</li>
+        <li><strong>금요일:</strong> 비포&애프터 (실제 결과)</li>
+        <li>월 1회: 이벤트 공지 게시물</li>
+        <li>월 2회: 고객 후기 인용 게시물</li>
+        <li>스토리: 매일 업로드 (예약 현황, 비하인드)</li>
+      </ul>
+    </div>
+    <div class="strat-card">
+      <h4>💡 oha 벤치마킹 포인트</h4>
+      <ul>
+        <li>"SKIN FOR YOUR PRECIOUS MOMENT" 류의 영문 슬로건 제작</li>
+        <li>수치화된 신뢰 지표 ("since 2008", "관리 고객 ○○명")</li>
+        <li>결과 증명 먼저 → 프로그램 소개 순서</li>
+        <li>✔️ 체크마크 리스트로 차별화 포인트 정리</li>
+        <li>한 줄짜리 강렬한 문장으로 섹션 구분</li>
+      </ul>
+    </div>
+    <div class="strat-card">
+      <h4>🔥 beauty_pansy_ 벤치마킹</h4>
+      <ul>
+        <li>오렌지 컬러 동일 → 브랜딩 방향성 참고 최적</li>
+        <li>"무보정 임상" 신뢰 선언 방식 차용</li>
+        <li>생활패턴·호르몬 통합 관리 포지셔닝</li>
+        <li>비포&애프터에 원인 분석 캡션 결합</li>
+        <li>하이라이트 커버를 오렌지 계열로 통일</li>
+      </ul>
+    </div>
+    <div class="strat-card alt">
+      <h4>💎 treatz.spa 벤치마킹</h4>
+      <ul>
+        <li>게시물 수보다 퀄리티 집중 전략</li>
+        <li>영문 하이라이트 제목 (collab/spa/you 스타일)</li>
+        <li>캡션 최소화 + 이미지로 프리미엄 연출</li>
+        <li>헤드스파·웨딩 특화 영상으로 차별화</li>
+        <li>브랜드 로고를 영상 오프닝에 노출</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class="divider"></div>
+
+<!-- ══ 최종 요약 ══ -->
+<div class="summary-box">
+  <h3>🎯 IM AESTHETIC 2026 인스타그램 리뉴얼 핵심 요약</h3>
+  <div class="summary-grid">
+    <div class="summary-item">
+      <h4>WHAT · 무엇을 만들 것인가</h4>
+      <ul>
+        <li>오렌지×베이지 교차 감성 피드</li>
+        <li>웨딩케어 타임라인 카드뉴스 시리즈</li>
+        <li>시술 ASMR 릴스 (손·피부·음악)</li>
+        <li>100% 실제 비포&애프터 (무보정 선언)</li>
+        <li>전문가 3인 스토리텔링 시리즈</li>
+      </ul>
+    </div>
+    <div class="summary-item">
+      <h4>HOW · 어떻게 표현할 것인가</h4>
+      <ul>
+        <li>첫 2줄: 감성 일기체 ,,, 여운체</li>
+        <li>중간: 수치·결과로 신뢰 구축</li>
+        <li>마지막: 저장/링크 CTA 필수</li>
+        <li>IM AESTHETIC 로고 워터마크 전체 통일</li>
+        <li>"당신의 가장 빛나는 날" 슬로건 반복 노출</li>
+      </ul>
+    </div>
+    <div class="summary-item">
+      <h4>WHY · 왜 이 방향인가</h4>
+      <ul>
+        <li>오렌지 브랜드 컬러 = beauty_pansy_ 성공 검증</li>
+        <li>웨딩케어 = 2026 가장 뜨거운 에스테틱 키워드</li>
+        <li>감성체 = 2026 캡션 트렌드 핵심</li>
+        <li>since 2008 경력 = 신뢰 자산 적극 활용</li>
+        <li>대구 수성구 = 지역 SEO 선점 기회</li>
+      </ul>
+    </div>
+    <div class="summary-item">
+      <h4>BENCHMARK · 목표 계정</h4>
+      <ul>
+        <li>비주얼 퀄리티 → @treatz.spa</li>
+        <li>오렌지 브랜딩 → @beauty_pansy_</li>
+        <li>웨딩 포지셔닝 → @onnuu.c</li>
+        <li>결과 증명 캡션 → @oha.aesthetic_</li>
+        <li>정보성 카드뉴스 → @ne.an.e.skin</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center;padding:32px;color:var(--brown-lt);font-size:13px;line-height:2;margin-top:32px">
+  <strong style="color:var(--orange)">IM AESTHETIC</strong> · @im.aesthetic.official<br>
+  2026 인스타그램 트렌드 심층 분석 보고서<br>
+  직접 방문 분석 7개 계정 기반 · www.imtherapy.co.kr
+</div>
+
+</div><!-- /doc -->
+</body>
+</html>

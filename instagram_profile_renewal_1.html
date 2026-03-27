@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IM AESTHETIC - 인스타그램 프로필 리뉴얼 가이드</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+  :root {
+    --orange: #E8703A;
+    --orange-lt: #F5A070;
+    --beige: #F5E8D0;
+    --beige-dk: #E0CEAE;
+    --cream: #FAF4EA;
+    --brown: #2C1810;
+    --brown-mid: #6B4830;
+    --brown-lt: #9B7A5A;
+    --white: #FEFCF8;
+    --gray: #8A8A8A;
+    --gray-lt: #F0F0F0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; word-break: keep-all; }
+
+  body {
+    font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+    background: #F7F3EE;
+    padding: 40px 20px;
+    color: var(--brown);
+  }
+
+  .page-title {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .page-title h1 {
+    font-size: 32px; font-weight: 700;
+    color: var(--brown); margin-bottom: 10px;
+  }
+  .page-title p { font-size: 16px; color: var(--gray); }
+
+  .section { margin-bottom: 60px; }
+  .section-title {
+    font-size: 20px; font-weight: 700;
+    color: var(--orange); letter-spacing: 2px;
+    margin-bottom: 24px; padding-bottom: 12px;
+    border-bottom: 2px solid var(--beige-dk);
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  /* ── 비교 카드 ── */
+  .compare-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 24px; margin-bottom: 32px;
+  }
+  .compare-card {
+    background: #fff; border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(44,24,16,0.08);
+  }
+  .compare-card .card-header {
+    padding: 14px 20px;
+    font-size: 14px; font-weight: 700;
+    letter-spacing: 2px;
+  }
+  .compare-card.before .card-header { background: #E8E8E8; color: #555; }
+  .compare-card.after  .card-header { background: var(--orange); color: #fff; }
+  .compare-card .card-body { padding: 20px; }
+
+  /* ── 프로필 목업 ── */
+  .profile-mock {
+    background: #fff; border-radius: 16px;
+    padding: 24px; overflow: hidden;
+  }
+  .profile-top {
+    display: flex; align-items: flex-start; gap: 20px;
+    margin-bottom: 16px;
+  }
+  .avatar {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--orange), #C85828);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; color: #fff; font-weight: 700;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .avatar.gradient-ring::before {
+    content: '';
+    position: absolute; inset: -3px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--orange), #FAD0A0, var(--orange));
+    z-index: -1;
+  }
+  .profile-stats {
+    display: flex; gap: 28px; flex: 1;
+    justify-content: flex-end; padding-top: 8px;
+  }
+  .stat { text-align: center; }
+  .stat .num { font-size: 18px; font-weight: 700; color: var(--brown); }
+  .stat .label { font-size: 12px; color: var(--gray); }
+  .profile-name {
+    font-size: 15px; font-weight: 700;
+    color: var(--brown); margin-bottom: 6px;
+  }
+  .profile-category {
+    font-size: 12px; color: var(--gray);
+    margin-bottom: 8px;
+  }
+  .profile-bio {
+    font-size: 13px; color: #333;
+    line-height: 1.75;
+  }
+  .profile-bio .em { color: var(--orange); font-weight: 600; }
+  .profile-link {
+    margin-top: 8px; font-size: 13px;
+    color: #00376B; font-weight: 500;
+  }
+
+  /* 하이라이트 */
+  .highlights {
+    display: flex; gap: 14px;
+    margin-top: 16px; padding-top: 16px;
+    border-top: 1px solid #F0F0F0;
+    overflow-x: auto;
+  }
+  .hl-item { text-align: center; flex-shrink: 0; }
+  .hl-circle {
+    width: 60px; height: 60px; border-radius: 50%;
+    border: 2px solid #DBDBDB;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin-bottom: 6px;
+    background: var(--cream);
+  }
+  .hl-circle.active {
+    border-color: transparent;
+    background: linear-gradient(135deg, var(--orange), #FAD0A0);
+  }
+  .hl-label { font-size: 11px; color: #333; }
+
+  /* 텍스트 비교 항목 */
+  .text-compare { display: flex; flex-direction: column; gap: 16px; }
+  .tc-row {
+    background: #fff; border-radius: 14px; overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .tc-label {
+    background: var(--beige); padding: 8px 18px;
+    font-size: 13px; font-weight: 700;
+    color: var(--brown-mid); letter-spacing: 2px;
+  }
+  .tc-content {
+    display: grid; grid-template-columns: 1fr 1fr;
+  }
+  .tc-before, .tc-after {
+    padding: 16px 18px; font-size: 14px;
+    line-height: 1.7;
+  }
+  .tc-before {
+    background: #FAFAFA; color: #777;
+    border-right: 1px solid #EDEDED;
+    text-decoration: line-through;
+    text-decoration-color: #CCC;
+  }
+  .tc-after {
+    color: var(--brown); background: #FFF9F4;
+  }
+  .tc-after .point { color: var(--orange); font-weight: 600; }
+  .badge-b { font-size: 11px; background: #E8E8E8; color: #888; padding: 2px 8px; border-radius: 20px; margin-right: 6px; }
+  .badge-a { font-size: 11px; background: var(--orange); color: #fff; padding: 2px 8px; border-radius: 20px; margin-right: 6px; }
+
+  /* 캡션 예시 카드 */
+  .caption-cards {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+  .caption-card {
+    background: #fff; border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(44,24,16,0.08);
+  }
+  .cc-top {
+    height: 110px; display: flex;
+    align-items: center; justify-content: center;
+    font-size: 44px;
+  }
+  .cc-top.orange { background: linear-gradient(135deg, var(--orange), #C85828); }
+  .cc-top.beige  { background: linear-gradient(135deg, var(--beige), var(--beige-dk)); }
+  .cc-top.dark   { background: linear-gradient(135deg, #2C1810, #3D2010); }
+  .cc-body { padding: 18px; }
+  .cc-type { font-size: 12px; font-weight: 700; color: var(--orange); letter-spacing: 3px; margin-bottom: 10px; }
+  .cc-text { font-size: 13px; color: #444; line-height: 1.9; }
+  .cc-tags { margin-top: 10px; font-size: 12px; color: #999; line-height: 1.8; }
+
+  /* 하이라이트 전략 */
+  .hl-strategy {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+  }
+  .hls-item {
+    background: #fff; border-radius: 16px;
+    padding: 20px 14px; text-align: center;
+    box-shadow: 0 4px 16px rgba(44,24,16,0.06);
+  }
+  .hls-icon {
+    width: 64px; height: 64px; border-radius: 50%;
+    margin: 0 auto 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+  }
+  .hls-name { font-size: 14px; font-weight: 700; color: var(--brown); margin-bottom: 6px; }
+  .hls-desc { font-size: 12px; color: var(--gray); line-height: 1.6; }
+
+  /* 팁 박스 */
+  .tip-box {
+    background: linear-gradient(135deg, var(--orange), #C85828);
+    border-radius: 20px; padding: 28px 32px; color: #fff;
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+  }
+  .tip-item h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; letter-spacing: 1px; }
+  .tip-item p { font-size: 13px; line-height: 1.75; opacity: 0.9; }
+
+  /* 링크 전략 */
+  .link-box {
+    background: #fff; border-radius: 20px;
+    padding: 28px; box-shadow: 0 4px 20px rgba(44,24,16,0.08);
+    display: flex; align-items: center; gap: 28px;
+  }
+  .linktree-mock {
+    background: linear-gradient(180deg, #E8703A 0%, #C85828 100%);
+    border-radius: 16px; padding: 24px 20px;
+    min-width: 220px; text-align: center; color: #fff;
+  }
+  .lt-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+  .lt-btn {
+    background: rgba(255,255,255,0.2);
+    border-radius: 50px; padding: 10px 20px;
+    font-size: 13px; margin-bottom: 10px;
+    border: 1px solid rgba(255,255,255,0.4);
+  }
+  .link-text { flex: 1; }
+  .link-text h3 { font-size: 18px; font-weight: 700; color: var(--brown); margin-bottom: 12px; }
+  .link-text ul { list-style: none; }
+  .link-text li {
+    font-size: 14px; color: var(--brown-mid);
+    line-height: 2; padding-left: 20px; position: relative;
+  }
+  .link-text li::before {
+    content: '→'; position: absolute; left: 0;
+    color: var(--orange);
+  }
+
+  /* 네임태그 예시 */
+  .nametag-options {
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+  .nt-option {
+    background: #fff; border-radius: 12px;
+    padding: 14px 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    font-size: 14px; color: var(--brown);
+    border-left: 4px solid var(--beige-dk);
+  }
+  .nt-option.best { border-left-color: var(--orange); }
+  .nt-option .rec { font-size: 11px; color: var(--orange); font-weight: 700; letter-spacing: 2px; }
+</style>
+</head>
+<body>
+
+<div class="page-title">
+  <h1>📱 IM AESTHETIC 인스타그램 프로필 리뉴얼 가이드</h1>
+  <p>@im.aesthetic.official · 2026 트렌드 반영 · 웨딩케어 포지셔닝</p>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     SECTION 1: 비포 앤 애프터 프로필 목업
+══════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">📌 프로필 비포 & 애프터</div>
+  <div class="compare-grid">
+
+    <!-- BEFORE -->
+    <div class="compare-card before">
+      <div class="card-header">⬅ BEFORE · 현재 프로필</div>
+      <div class="card-body">
+        <div class="profile-mock">
+          <div class="profile-top">
+            <div class="avatar">IM</div>
+            <div class="profile-stats">
+              <div class="stat"><div class="num">6</div><div class="label">게시물</div></div>
+              <div class="stat"><div class="num">8</div><div class="label">팔로워</div></div>
+              <div class="stat"><div class="num">0</div><div class="label">팔로우</div></div>
+            </div>
+          </div>
+          <div class="profile-name">범어동 웨딩관리 · 윤곽 · 팔뚝살 | 아이엠에스테틱</div>
+          <div class="profile-category">건강/뷰티</div>
+          <div class="profile-bio">
+            𝑰𝑴 𝑨𝑬𝑺𝑻𝑯𝑬𝑻𝑰𝑪<br>
+            📍수성구 범어동 에스테틱, 결국 여기로 옵니다✨<br>
+            혼자가 아닌 팀이 설계하는 관리<br>
+            체계적인 관리로 만드는 확실한 변화
+          </div>
+          <div class="profile-link">🔗 litt.ly/im.aesthetic</div>
+          <div class="highlights">
+            <div class="hl-item">
+              <div class="hl-circle">+</div>
+              <div class="hl-label">신규</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AFTER -->
+    <div class="compare-card after">
+      <div class="card-header">✨ AFTER · 리뉴얼 프로필</div>
+      <div class="card-body">
+        <div class="profile-mock">
+          <div class="profile-top">
+            <div class="avatar gradient-ring">IM</div>
+            <div class="profile-stats">
+              <div class="stat"><div class="num">6</div><div class="label">게시물</div></div>
+              <div class="stat"><div class="num">8</div><div class="label">팔로워</div></div>
+              <div class="stat"><div class="num">0</div><div class="label">팔로우</div></div>
+            </div>
+          </div>
+          <div class="profile-name">IM AESTHETIC 아이엠에스테틱 | 대구 웨딩케어</div>
+          <div class="profile-category">건강/뷰티 · 스킨케어 전문점</div>
+          <div class="profile-bio">
+            <span class="em">🤍 당신의 가장 빛나는 날을 준비합니다</span><br>
+            ─────────────────<br>
+            ✦ 웨딩 전문 에스테틱 <span class="em">since 2008</span><br>
+            ✦ 수성구 범어동 · 맞춤 설계 관리<br>
+            ✦ 웨딩케어 | 피부관리 | 바디케어<br>
+            ─────────────────<br>
+            👇 웨딩케어 상담 & 예약
+          </div>
+          <div class="profile-link">🔗 litt.ly/im.aesthetic</div>
+          <div class="highlights">
+            <div class="hl-item">
+              <div class="hl-circle active">💍</div>
+              <div class="hl-label">웨딩케어</div>
+            </div>
+            <div class="hl-item">
+              <div class="hl-circle active">✨</div>
+              <div class="hl-label">비포애프터</div>
+            </div>
+            <div class="hl-item">
+              <div class="hl-circle active">📋</div>
+              <div class="hl-label">프로그램</div>
+            </div>
+            <div class="hl-item">
+              <div class="hl-circle active">💌</div>
+              <div class="hl-label">후기</div>
+            </div>
+            <div class="hl-item">
+              <div class="hl-circle active">📍</div>
+              <div class="hl-label">오시는길</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     SECTION 2: 항목별 상세 비교
+══════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">🔍 항목별 상세 변경 가이드</div>
+  <div class="text-compare">
+
+    <div class="tc-row">
+      <div class="tc-label">① 프로필 이름 (NAME)</div>
+      <div class="tc-content">
+        <div class="tc-before">
+          <span class="badge-b">BEFORE</span><br>
+          범어동 웨딩관리 · 윤곽 · 팔뚝살 | 아이엠에스테틱
+          <br><br><small style="color:#AAA">⚠ 키워드 과다, 감성 없음, 영문 미포함</small>
+        </div>
+        <div class="tc-after">
+          <span class="badge-a">AFTER</span><br>
+          <span class="point">IM AESTHETIC 아이엠에스테틱 | 대구 웨딩케어</span>
+          <br><br><small style="color:#888">✔ 영문 브랜드명 선두 배치<br>✔ 지역 + 핵심 서비스 키워드<br>✔ 검색 SEO 최적화</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc-row">
+      <div class="tc-label">② 프로필 바이오 (BIO) — 150자 이내</div>
+      <div class="tc-content">
+        <div class="tc-before">
+          <span class="badge-b">BEFORE</span><br>
+          𝑰𝑴 𝑨𝑬𝑺𝑻𝑯𝑬𝑻𝑰𝑪<br>
+          📍수성구 범어동 에스테틱, 결국 여기로 옵니다✨<br>
+          혼자가 아닌 팀이 설계하는 관리<br>
+          체계적인 관리로 만드는 확실한 변화
+          <br><br><small style="color:#AAA">⚠ 서체 특수문자 검색 불가, 감성 희박</small>
+        </div>
+        <div class="tc-after">
+          <span class="badge-a">AFTER</span><br>
+          <span class="point">🤍 당신의 가장 빛나는 날을 준비합니다</span><br>
+          ─────────────────<br>
+          ✦ 웨딩 전문 에스테틱 <span class="point">since 2008</span><br>
+          ✦ 수성구 범어동 · 맞춤 설계 관리<br>
+          ✦ 웨딩케어 | 피부관리 | 바디케어<br>
+          ─────────────────<br>
+          👇 웨딩케어 상담 & 예약
+          <br><br><small style="color:#888">✔ 감성 카피 → 정보 → CTA 3단 구조<br>✔ 구분선으로 시각적 정리<br>✔ 링크 클릭 유도</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc-row">
+      <div class="tc-label">③ 카테고리 설정</div>
+      <div class="tc-content">
+        <div class="tc-before">
+          <span class="badge-b">BEFORE</span><br>
+          건강/뷰티
+          <br><br><small style="color:#AAA">⚠ 너무 넓은 카테고리</small>
+        </div>
+        <div class="tc-after">
+          <span class="badge-a">AFTER</span><br>
+          <span class="point">스킨케어 서비스</span> 또는 <span class="point">스파 / 뷰티 살롱</span>
+          <br><br><small style="color:#888">✔ 더 구체적인 카테고리로 타겟 검색 노출 증가</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc-row">
+      <div class="tc-label">④ 프로필 사진</div>
+      <div class="tc-content">
+        <div class="tc-before">
+          <span class="badge-b">BEFORE</span><br>
+          기본 로고 또는 텍스트형
+          <br><br><small style="color:#AAA">⚠ 소형 화면에서 인식 어려움</small>
+        </div>
+        <div class="tc-after">
+          <span class="badge-a">AFTER</span><br>
+          <span class="point">오렌지 배경 + 흰색 IM 이니셜 로고</span><br>
+          또는 원형 아이콘 형태의 브랜드 심벌
+          <br><br><small style="color:#888">✔ 72px 원형 안에서 명확히 보이는 디자인<br>✔ 브랜드 컬러(오렌지) 활용으로 통일감</small>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     SECTION 3: 하이라이트 전략
+══════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">⭕ 스토리 하이라이트 구성 전략</div>
+  <div class="hl-strategy">
+    <div class="hls-item">
+      <div class="hls-icon" style="background:linear-gradient(135deg,#E8703A,#C85828);">💍</div>
+      <div class="hls-name">웨딩케어</div>
+      <div class="hls-desc">웨딩 시즌별<br>관리 프로그램<br>소개</div>
+    </div>
+    <div class="hls-item">
+      <div class="hls-icon" style="background:linear-gradient(135deg,#F5E8D0,#E0CEAE);">✨</div>
+      <div class="hls-name">비포&애프터</div>
+      <div class="hls-desc">실제 고객<br>피부 변화<br>결과 모음</div>
+    </div>
+    <div class="hls-item">
+      <div class="hls-icon" style="background:linear-gradient(135deg,#E8703A,#FAD0A0);">📋</div>
+      <div class="hls-name">프로그램</div>
+      <div class="hls-desc">전체 케어<br>메뉴 & 가격<br>안내</div>
+    </div>
+    <div class="hls-item">
+      <div class="hls-icon" style="background:linear-gradient(135deg,#C85828,#E8703A);">💌</div>
+      <div class="hls-name">리얼후기</div>
+      <div class="hls-desc">고객 영상·<br>텍스트 후기<br>모음</div>
+    </div>
+    <div class="hls-item">
+      <div class="hls-icon" style="background:linear-gradient(135deg,#F5E8D0,#C8965A);">📍</div>
+      <div class="hls-name">오시는길</div>
+      <div class="hls-desc">범어동 위치·<br>주차안내·<br>예약방법</div>
+    </div>
+  </div>
+  <div style="margin-top:16px;background:#FFF9F4;border-radius:12px;padding:16px 20px;font-size:13px;color:#6B4830;line-height:1.8;border-left:4px solid var(--orange);">
+    💡 <strong>하이라이트 커버 팁:</strong> 모든 하이라이트 커버를 <strong>오렌지/베이지 계열 통일 디자인</strong>으로 제작하면 프로필 전체가 훨씬 고급스러워 보여요. Canva 또는 위에서 제작한 HTML로 커버 이미지 만들기 가능합니다!
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     SECTION 4: 2026 캡션 스타일 가이드
+══════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">✍️ 2026 캡션 스타일 가이드 (피드 유형별)</div>
+  <div class="caption-cards">
+
+    <div class="caption-card">
+      <div class="cc-top orange">🎬</div>
+      <div class="cc-body">
+        <div class="cc-type">릴스 영상 캡션</div>
+        <div class="cc-text">
+          손이 기억하는 온도,,<br><br>
+          오늘도 당신의 피부에<br>
+          가장 정직하게 닿겠습니다 🤍<br><br>
+          → 저장하고 천천히 보세요
+        </div>
+        <div class="cc-tags">#에스테틱 #피부관리 #웨딩케어<br>#범어동에스테틱 #대구에스테틱</div>
+      </div>
+    </div>
+
+    <div class="caption-card">
+      <div class="cc-top beige">📰</div>
+      <div class="cc-body">
+        <div class="cc-type">정보성 카드뉴스 캡션</div>
+        <div class="cc-text">
+          결혼 6개월 전부터<br>
+          이걸 알았더라면 좋았을 텐데,,<br><br>
+          신부 피부 타임라인<br>
+          전부 담았어요 💍<br><br>
+          → 저장 필수 ✦
+        </div>
+        <div class="cc-tags">#웨딩준비 #신부피부관리 #결혼준비<br>#웨딩케어 #피부관리루틴</div>
+      </div>
+    </div>
+
+    <div class="caption-card">
+      <div class="cc-top dark">⬜</div>
+      <div class="cc-body">
+        <div class="cc-type">비포&애프터 캡션</div>
+        <div class="cc-text">
+          3개월이<br>
+          이만큼 달라집니다,,,<br><br>
+          고객님이 직접 보내주신<br>
+          솔직한 변화예요 🤍<br><br>
+          → 상담은 프로필 링크로
+        </div>
+        <div class="cc-tags">#피부변화 #에스테틱효과 #비포애프터<br>#피부관리전후 #진짜후기</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:20px;">
+    <div class="tip-box">
+      <div class="tip-item">
+        <h4>💬 캡션 길이</h4>
+        <p>첫 2줄이 핵심<br>(더보기 전에 보임)<br>짧은 감성 카피로<br>클릭 유도 필수</p>
+      </div>
+      <div class="tip-item">
+        <h4>✦ 줄임표 & 쉼표</h4>
+        <p>",,," "..." 활용으로<br>여운과 감성 연출<br>2026 트렌드 핵심<br>요소예요</p>
+      </div>
+      <div class="tip-item">
+        <h4>#️⃣ 해시태그</h4>
+        <p>캡션 맨 아래 5~10개<br>지역태그 필수 포함<br>시즌 태그 주기적<br>업데이트 추천</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     SECTION 5: 링크 전략
+══════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">🔗 프로필 링크 최적화</div>
+  <div class="link-box">
+    <div class="linktree-mock">
+      <div class="lt-title">litt.ly/im.aesthetic</div>
+      <div class="lt-btn">💍 웨딩케어 상담 예약</div>
+      <div class="lt-btn">📋 프로그램 & 가격 안내</div>
+      <div class="lt-btn">📍 오시는 길</div>
+      <div class="lt-btn">🌐 공식 홈페이지</div>
+      <div class="lt-btn">💬 카카오 채널 문의</div>
+    </div>
+    <div class="link-text">
+      <h3>링크 구성 추천 순서</h3>
+      <ul>
+        <li>가장 클릭이 필요한 <strong>웨딩케어 예약</strong>을 최상단에</li>
+        <li>결정 전 확인하는 <strong>프로그램 & 가격</strong>을 2번째로</li>
+        <li>방문 전 체크하는 <strong>오시는 길</strong>은 3번째</li>
+        <li><strong>홈페이지</strong>로 브랜드 신뢰도 강화</li>
+        <li><strong>카카오 채널</strong>로 빠른 DM 유도</li>
+        <li>시즌별로 <strong>이벤트 링크</strong> 추가·교체 가능</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     SECTION 6: 프로필명 옵션
+══════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">📝 프로필 이름 옵션 (30자 이내)</div>
+  <div class="nametag-options">
+    <div class="nt-option best">
+      <div class="rec">⭐ BEST</div>
+      IM AESTHETIC 아이엠에스테틱 | 대구 웨딩케어
+    </div>
+    <div class="nt-option">
+      아이엠에스테틱 | 범어동 웨딩케어 전문
+    </div>
+    <div class="nt-option">
+      IM에스테틱 대구 | 웨딩피부관리
+    </div>
+    <div class="nt-option">
+      아이엠에스테틱 | 수성구 웨딩케어
+    </div>
+  </div>
+  <div style="margin-top:14px;background:#FFF9F4;border-radius:12px;padding:14px 18px;font-size:13px;color:#6B4830;line-height:1.8;border-left:4px solid var(--orange);">
+    💡 <strong>이름 SEO 팁:</strong> 인스타그램 이름 필드는 <strong>검색에 직접 반영</strong>됩니다. "웨딩케어", "에스테틱", "대구/수성구" 키워드를 포함시키면 지역 검색 노출에 유리해요!
+  </div>
+</div>
+
+
+<div style="text-align:center;padding:32px;color:#9B7A5A;font-size:13px;line-height:2;">
+  <strong style="color:var(--orange);">IM AESTHETIC</strong> · @im.aesthetic.official<br>
+  프로필 리뉴얼 가이드 · 2026 트렌드 반영<br>
+  www.imtherapy.co.kr
+</div>
+
+</body>
+</html>
