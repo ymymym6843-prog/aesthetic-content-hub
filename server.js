@@ -13,9 +13,17 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
+import dbRoutes from './server/routes/db-routes.js';
+
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// MariaDB API routes
+app.use(dbRoutes);
+
+// Serve uploaded images
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
