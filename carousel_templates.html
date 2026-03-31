@@ -390,8 +390,8 @@ body::before {
 /* Slide mockup */
 .slide-mockup {
   flex-shrink: 0;
-  width: 320px; /* 크기 확대 */
-  height: 400px;
+  width: 416px; /* +30% for better detail visibility */
+  height: 520px;
   border-radius: var(--radius-slide);
   box-shadow: var(--shadow);
   position: relative;
@@ -1385,7 +1385,7 @@ body::before {
   .principle-grid { grid-template-columns: 1fr 1fr; }
   .annotation-card { grid-template-columns: 1fr; }
   .page-header h1 { font-size: 22px; }
-  .slide-mockup { width: 220px; height: 275px; }
+  .slide-mockup { width: 286px; height: 358px; }
 }
 </style>
 </head>
@@ -1434,22 +1434,34 @@ body::before {
       <div class="swatch" style="background:#3D2E24;"></div>
       <div class="swatch-label">웜 차콜 (텍스트)<br><span class="swatch-hex">#3D2E24</span></div>
     </div>
+    <div class="swatch-group">
+      <div class="swatch" style="background:#D4A04A; box-shadow: 0 2px 8px rgba(212,160,74,0.25);"></div>
+      <div class="swatch-label">골드 (Gold)<br><span class="swatch-hex">#D4A04A</span></div>
+    </div>
   </div>
 
   <!-- Font hierarchy -->
   <div style="margin-bottom:8px; font-size:12px; font-weight:600; color:#888; letter-spacing:1px; text-transform:uppercase;">폰트 위계</div>
   <div class="font-hierarchy" style="margin-bottom:28px;">
     <div class="font-row">
-      <div class="font-meta">제목<br>36px(Hook) / 28px(Title)<br>Med-Bold 600 / LH 1.3</div>
-      <div class="font-preview-title" style="font-size: 28px; font-weight: 600;">피부 고민, 이젠 끝.</div>
+      <div class="font-meta">훅 제목<br>48px / SemiBold 600<br>Noto Serif KR · LH 1.4</div>
+      <div class="font-preview-title" style="font-size: 32px; font-weight: 600; font-family: 'Noto Serif KR', serif;">피부 고민, 이젠 끝.</div>
     </div>
     <div class="font-row">
-      <div class="font-meta">본문<br>18px / Regular 400<br>라인하이트 1.65</div>
-      <div class="font-preview-body" style="font-size: 18px;">전문가 3인이 함께 케어합니다</div>
+      <div class="font-meta">스텝 제목<br>34px / SemiBold 600<br>Noto Serif KR · LH 1.4</div>
+      <div class="font-preview-title" style="font-size: 22px; font-weight: 600; font-family: 'Noto Serif KR', serif;">1단계 피부 분석 케어</div>
     </div>
     <div class="font-row">
-      <div class="font-meta">캡션<br>18px / Light 300<br>라인하이트 1.7</div>
-      <div class="font-preview-caption">스와이프로 자세히 확인하세요 →</div>
+      <div class="font-meta">본문<br>24–26px / Regular 400<br>라인하이트 1.75</div>
+      <div class="font-preview-body" style="font-size: 17px;">전문가 3인이 함께 케어합니다</div>
+    </div>
+    <div class="font-row">
+      <div class="font-meta">레이블 (POINT / STEP)<br>18px / Bold 700<br>Cormorant Garamond · Uppercase</div>
+      <div class="font-preview-caption" style="font-size: 13px; font-family: 'Cormorant Garamond', serif; font-weight: 700; letter-spacing: 0.45em; text-transform: uppercase; color: var(--orange);">POINT</div>
+    </div>
+    <div class="font-row">
+      <div class="font-meta">스와이프 안내 / 소문자<br>11px / Regular<br>라인하이트 1.5</div>
+      <div class="font-preview-caption" style="font-size: 11px; color: #bbb; letter-spacing: 0.12em;">스와이프로 자세히 확인하세요 →</div>
     </div>
   </div>
 
@@ -1485,6 +1497,50 @@ body::before {
       <div class="p-icon">✍️</div>
       <div class="p-title">텍스트 10~15단어</div>
       <div class="p-desc">슬라이드당 제목 포함 최대 15단어. 간결할수록 임팩트가 강합니다.</div>
+    </div>
+  </div>
+
+  <!-- Accessibility & Readability Guidelines -->
+  <div style="margin-top:40px; margin-bottom:8px; font-size:12px; font-weight:600; color:#888; letter-spacing:1px; text-transform:uppercase;">접근성 · 가독성 기준</div>
+  <div style="background:white; border-radius:14px; padding:24px 28px; box-shadow:var(--shadow-sm); margin-bottom:32px; border-left:4px solid var(--orange);">
+    <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:16px;">
+      <div style="display:flex; gap:12px; align-items:flex-start;">
+        <div style="width:36px; height:36px; border-radius:8px; background:var(--orange-pale); color:var(--orange); font-size:16px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">Aa</div>
+        <div>
+          <div style="font-size:12px; font-weight:700; color:var(--charcoal); margin-bottom:3px;">최소 폰트 크기</div>
+          <div style="font-size:11px; color:#6B7280; line-height:1.6;">프리뷰 기준 11px (실제 슬라이드 기준)</div>
+        </div>
+      </div>
+      <div style="display:flex; gap:12px; align-items:flex-start;">
+        <div style="width:36px; height:36px; border-radius:8px; background:var(--orange-pale); color:var(--orange); font-size:16px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">◑</div>
+        <div>
+          <div style="font-size:12px; font-weight:700; color:var(--charcoal); margin-bottom:3px;">텍스트-배경 대비</div>
+          <div style="font-size:11px; color:#6B7280; line-height:1.6;">4.5:1 이상 (WCAG AA 기준)</div>
+        </div>
+      </div>
+      <div style="display:flex; gap:12px; align-items:flex-start;">
+        <div style="width:36px; height:36px; border-radius:8px; background:#FFF0EE; border:1px solid rgba(232,112,58,0.25); flex-shrink:0; overflow:hidden;">
+          <div style="width:100%; height:100%; background:#E8703A; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; color:#FFFFFF; letter-spacing:0.02em;">IM</div>
+        </div>
+        <div>
+          <div style="font-size:12px; font-weight:700; color:var(--charcoal); margin-bottom:3px;">오렌지 배경 텍스트</div>
+          <div style="font-size:11px; color:#6B7280; line-height:1.6;">오렌지(#E8703A) 위 텍스트는 반드시 흰색(#FFFFFF) 사용</div>
+        </div>
+      </div>
+      <div style="display:flex; gap:12px; align-items:flex-start;">
+        <div style="width:36px; height:36px; border-radius:8px; background:#1A1410; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; color:#FFF8F0; flex-shrink:0; letter-spacing:0.02em;">IM</div>
+        <div>
+          <div style="font-size:12px; font-weight:700; color:var(--charcoal); margin-bottom:3px;">다크 배경 텍스트</div>
+          <div style="font-size:11px; color:#6B7280; line-height:1.6;">다크(#1A1410) 위 텍스트는 크림(#FFF8F0) 또는 골드(#D4A04A) 사용</div>
+        </div>
+      </div>
+      <div style="display:flex; gap:12px; align-items:flex-start;">
+        <div style="width:36px; height:36px; border-radius:8px; background:var(--orange-pale); color:var(--orange); font-size:16px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">¶</div>
+        <div>
+          <div style="font-size:12px; font-weight:700; color:var(--charcoal); margin-bottom:3px;">본문 행간</div>
+          <div style="font-size:11px; color:#6B7280; line-height:1.6;">1.6~1.8 (가독성 확보)</div>
+        </div>
+      </div>
     </div>
   </div>
 
