@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IM AESTHETIC - B/A 오버레이 메이커</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <style>
   :root {
@@ -246,13 +246,19 @@
     flex-shrink: 0;
   }
   .sbs-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px; font-weight: 700;
-    letter-spacing: 6px; text-transform: uppercase;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 28px; font-weight: 600;
+    letter-spacing: 12px; text-transform: uppercase;
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+  }
+  .sbs-title::before, .sbs-title::after {
+    content: ''; display: block; width: 40px; height: 1px;
+    background: currentColor; opacity: 0.3; flex-shrink: 0;
   }
   .sbs-subtitle {
-    font-size: 11px; letter-spacing: 2px;
-    margin-top: 3px; opacity: 0.6;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 13px; letter-spacing: 3px; font-weight: 500;
+    margin-top: 6px; opacity: 0.5; font-style: italic;
   }
   .sbs-images {
     flex: 1; display: flex; position: relative;
@@ -318,9 +324,9 @@
     text-align: center; flex-shrink: 0;
   }
   .vert-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px; font-weight: 700;
-    letter-spacing: 6px; text-transform: uppercase;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 28px; font-weight: 600;
+    letter-spacing: 12px; text-transform: uppercase;
   }
   .vert-images {
     flex: 1; display: flex; flex-direction: column;
@@ -384,9 +390,9 @@
   .diag-title {
     position: absolute; top: 20px; left: 0; right: 0;
     text-align: center; z-index: 10;
-    font-family: 'Playfair Display', serif;
-    font-size: 20px; font-weight: 700;
-    letter-spacing: 6px; text-transform: uppercase;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 28px; font-weight: 600;
+    letter-spacing: 12px; text-transform: uppercase;
   }
 
   /* ===== BOTTOM BAR (shared) ===== */
@@ -538,7 +544,7 @@
 
   <!-- ===== EDITOR SIDEBAR ===== -->
   <div class="editor">
-    <h1>Before &amp; After</h1>
+    <h1>Before · After</h1>
     <p class="sub">비포 앤 애프터 이미지 제작</p>
 
     <!-- Image upload -->
@@ -658,7 +664,7 @@
         <!-- ===== SIDE-BY-SIDE LAYOUT ===== -->
         <div class="ba-side-by-side" id="layoutSBS">
           <div class="sbs-top-bar">
-            <div class="sbs-title" id="sbsTitle">BEFORE &amp; AFTER</div>
+            <div class="sbs-title" id="sbsTitle">BEFORE  ·  AFTER</div>
             <div class="sbs-subtitle" id="sbsSubtitle">3개월 웨딩 피부관리</div>
           </div>
           <div class="sbs-images">
@@ -684,7 +690,7 @@
         <!-- ===== VERTICAL LAYOUT ===== -->
         <div class="ba-vertical" id="layoutVert" style="display:none">
           <div class="vert-header">
-            <div class="vert-title" id="vertTitle">BEFORE &amp; AFTER</div>
+            <div class="vert-title" id="vertTitle">BEFORE  ·  AFTER</div>
           </div>
           <div class="vert-images">
             <div class="vert-panel" id="vertBefore">
@@ -705,7 +711,7 @@
             <div class="panel-placeholder" id="diagAfterPlaceholder" style="width:100%;height:100%;display:flex;align-items:center;justify-content:flex-end;padding-right:14%;opacity:0.35;font-size:11px;font-weight:600;letter-spacing:1px;">AFTER</div>
           </div>
           <div class="diag-line" id="diagLine"></div>
-          <div class="diag-title" id="diagTitle">BEFORE &amp; AFTER</div>
+          <div class="diag-title" id="diagTitle">BEFORE  ·  AFTER</div>
           <div class="diag-badge-before" id="diagBadgeBefore" style="display:none">BEFORE</div>
           <div class="diag-badge-after" id="diagBadgeAfter" style="display:none">AFTER</div>
         </div>
