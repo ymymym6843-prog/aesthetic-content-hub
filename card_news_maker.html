@@ -971,7 +971,7 @@ const CP=[
 {r:"highlight",tx:"D-Day에 가장 빛나는 피부를 위해\n결부터 살려야 합니다"},
 {r:"cta",tx:"→ 어떤 성분을 쓰는지 궁금하면 DM!"}]},
 {id:"7W_Thu",w:"7주차",t:"웨딩케어 Myth vs Fact",tp:"qa_flip",s:[
-{r:"hook",tx:"결혼 전 관리,,, 이것만은 알고 받으세요",bg:"#4A3728"},
+{r:"hook",tx:"결혼 전 관리,,, 이것만은 알고 받으세요",bg:"#E8703A"},
 {r:"myth",tx:"결혼 한 달 전에 시작하면 충분하다"},
 {r:"fact",tx:"피부 재생 주기는 28일. 최소 3~6개월 전 시작이 권장됩니다"},
 {r:"myth",tx:"얼굴만 관리하면 된다"},
@@ -1307,15 +1307,15 @@ function show(){
 }
 
 /* ---- 슬라이드 HTML 생성 ---- */
-const darkBg=new Set(['myth','program']);
+const darkBg=new Set([]);
 
-/* 테마 인식 기본 배경색 */
+/* 테마 인식 기본 배경색 — warm tones only */
 function defBg(s){
   if(s.bg)return s.bg;
   const t=THEMES[currentTheme]||THEMES.warm;
-  if(s.r==='myth')return t['--brand-dark-mid']||'#5C4A3A';
-  if(s.r==='program')return t['--color-primary']||'#3D3229';
-  if(s.r==='hook'&&POST?.tp==='qa_flip')return t['--color-primary']||'#3D3229';
+  if(s.r==='myth')return '#F5E8D8';
+  if(s.r==='program')return t['--color-primary']||'#E8703A';
+  if(s.r==='hook'&&POST?.tp==='qa_flip')return '#E8703A';
   return t['--color-bg']||'#FAF8F5';
 }
 
@@ -1410,7 +1410,7 @@ function inner(s,dc,sc,bg,i,n){
           <span style="font-size:32px;color:#E8453C;font-weight:700;font-family:'Cormorant Garamond',serif">X</span>
         </div>
         <div style="font-size:18px;font-weight:700;color:#E8453C;letter-spacing:0.6em;margin-bottom:32px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">MYTH</div>
-        <div style="font-size:36px;font-weight:500;color:#fff;line-height:1.5;white-space:pre-line;letter-spacing:0.01em;font-family:'Noto Serif KR',serif">${e(s.tx)}</div>
+        <div style="font-size:36px;font-weight:500;color:#3D2E24;line-height:1.5;white-space:pre-line;letter-spacing:0.01em;font-family:'Noto Serif KR',serif">${e(s.tx)}</div>
       </div>`;
     case'fact':return`
       <div style="position:absolute;top:40px;left:40px;width:20px;height:20px;border-left:1.5px solid #22C55E30;border-top:1.5px solid #22C55E30;pointer-events:none"></div>
@@ -1560,7 +1560,7 @@ const KM=[
     {r:'hook',tx:'왼쪽 오른쪽, 왜 얼굴이 다를까요?'},{r:'cause',tt:'원인',tx:'근막 방향성 + 습관의 축적'},
     {r:'program',name:'IM 비대칭윤곽케어',tag:'조화로운 흐름이 만드는 자연스러운 균형'},{r:'cta',tx:'DM으로 문의해 주세요'}]}},
   {k:['오해','미신','아프','통증','잘못'],tp:'qa_flip',tpl:{id:'custom',t:'Myth vs Fact',tp:'qa_flip',s:[
-    {r:'hook',tx:'피부 관리, 잘못 알고 계신 거 아닌가요?',bg:'#4A3728'},
+    {r:'hook',tx:'피부 관리, 잘못 알고 계신 거 아닌가요?',bg:'#E8703A'},
     {r:'myth',tx:'세게 눌러야 효과 있다'},{r:'fact',tx:'과한 자극은 오히려 피부를 긴장시킵니다'},
     {r:'cta',tx:'저장하고 공유해 주세요'}]}}
 ];
@@ -1580,7 +1580,7 @@ const DEF_TPLS={
     {r:'content',tt:'포인트 2',tx:'내용을 입력하세요'},{r:'highlight',tx:'핵심 메시지'},
     {r:'cta',tx:'저장하고 공유해 주세요'}]}),
   qa_flip:(t)=>({id:'custom',t,tp:'qa_flip',s:[
-    {r:'hook',tx:t,bg:'#4A3728'},{r:'myth',tx:'잘못된 상식'},{r:'fact',tx:'올바른 정보'},
+    {r:'hook',tx:t,bg:'#E8703A'},{r:'myth',tx:'잘못된 상식'},{r:'fact',tx:'올바른 정보'},
     {r:'cta',tx:'저장하고 공유해 주세요'}]}),
   program:(t)=>({id:'custom',t,tp:'program',s:[
     {r:'hook',tx:t},{r:'cause',tt:'원인',tx:'원인을 입력하세요'},
@@ -2022,7 +2022,7 @@ const PRESET_TEMPLATES={
     {r:'cta',tx:'도움이 되셨다면\n저장해 두세요!'}
   ]},
   qa:{id:'preset_qa',t:'② 질문→답변 플립형',tp:'qa_flip',icon:'❓',desc:'오해/진실 대비 · 저장률 최강',s:[
-    {r:'hook',eyebrow:'IM FACT CHECK',tx:'자외선차단제,\n실내에서도 꼭\n발라야 할까요?',swipe:'→ 결과 확인하기',bg:'#4A3728'},
+    {r:'hook',eyebrow:'IM FACT CHECK',tx:'자외선차단제,\n실내에서도 꼭\n발라야 할까요?',swipe:'→ 결과 확인하기',bg:'#E8703A'},
     {r:'myth',tx:'실내에 있으면 자외선이 없으니까 선크림은 필요 없어요'},
     {r:'fact',tt:'유리창을 통과하는 UVA',tx:'유리창을 통과하는 UVA는 피부 노화의 주범. 실내에서도 창가 근처라면 자외선 노출이 발생합니다.'},
     {r:'myth',tx:'SPF 50이면 하루 종일 효과가 지속되지 않나요?'},
