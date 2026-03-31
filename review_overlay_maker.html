@@ -521,13 +521,21 @@ async function exportPNG() {
   const btn = document.querySelector('.btn-export');
   btn.disabled = true; btn.textContent = '생성 중...';
   try {
-    const canvas = await html2canvas(document.getElementById('slide'), {
-      scale: 2, useCORS: true, allowTaint: true, backgroundColor: null,
+    const el = document.getElementById('slide');
+    const canvas = await html2canvas(el, {
+      width: 1080, height: 1350,
+      scale: 1, useCORS: true, allowTaint: true, backgroundColor: null,
     });
-    const link = document.createElement('a');
-    link.download = `IM_Review_${state.source}_${state.bg}.png`;
-    link.href = canvas.toDataURL('image/png');
-    link.click();
+    canvas.toBlob(function(blob) {
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.download = `IM_Review_${state.source}_${state.bg}.png`;
+      link.href = url;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }, 'image/png');
   } catch (e) {
     alert('내보내기 실패: ' + e.message);
   } finally {

@@ -1260,8 +1260,16 @@ async function exportPNG() {
     const link = document.createElement('a');
     const names = ['wedding_care','season_event','first_visit','referral'];
     link.download = `im_aesthetic_${names[currentPreset]}_${Date.now()}.png`;
-    link.href = canvas.toDataURL('image/png');
-    link.click();
+    canvas.toBlob(function(blob) {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.download = link.download;
+      a.href = url;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }, 'image/png');
   } catch(e) {
     console.error('Export failed:', e);
     alert('이미지 생성에 실패했습니다. 다시 시도해주세요.');
