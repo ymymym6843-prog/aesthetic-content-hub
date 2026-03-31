@@ -2,6 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2026 에스테틱 인스타그램 트렌드 심층 분석</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -107,6 +108,20 @@
   .summary-item li::before{content:"✦";position:absolute;left:0;color:var(--orange);font-size:11px}
 
   .divider{height:1px;background:var(--beige);margin:48px 0}
+
+  @media(max-width:768px){
+    .doc{padding:24px 16px}
+    .page-header h1{font-size:24px;letter-spacing:4px}
+    .insight-grid,.account-grid{grid-template-columns:1fr}
+    .benchmark-grid{grid-template-columns:1fr}
+    .summary-grid{grid-template-columns:1fr}
+    h2{font-size:20px}
+  }
+  @media(max-width:480px){
+    .page-header{padding:28px 16px 24px}
+    .page-header h1{font-size:20px;letter-spacing:3px}
+    .comparison-table{overflow-x:auto}
+  }
 </style>
 </head>
 <body>

@@ -523,8 +523,7 @@ async function exportPNG() {
   try {
     const el = document.getElementById('slide');
     const canvas = await html2canvas(el, {
-      width: 1080, height: 1350,
-      scale: 1, useCORS: true, allowTaint: true, backgroundColor: null,
+      scale: 2, useCORS: true, allowTaint: true, backgroundColor: null,
     });
     canvas.toBlob(function(blob) {
       const url = URL.createObjectURL(blob);
@@ -554,9 +553,9 @@ reviewBox.addEventListener('drop', e => {
     const reader = new FileReader();
     reader.onload = () => {
       state.reviewImage = reader.result;
-      document.getElementById('screenshotFrame').innerHTML = `<img src="${reader.result}">`;
+      document.getElementById('screenshotFrame').innerHTML = `<img src="${reader.result}" alt="리뷰 스크린샷">`;
       reviewBox.classList.add('has-image');
-      reviewBox.innerHTML = `<img src="${reader.result}"><input type="file" id="reviewInput" accept="image/*" onchange="handleReviewImage(this)">`;
+      reviewBox.innerHTML = `<img src="${reader.result}" alt="리뷰 스크린샷" style="width:100%;height:100%;object-fit:cover;border-radius:8px"><input type="file" id="reviewInput" accept="image/*" onchange="handleReviewImage(this)">`;
     };
     reader.readAsDataURL(file);
   }

@@ -339,10 +339,10 @@ function handleBgImage(input) {
   const reader = new FileReader();
   reader.onload = () => {
     state.bgImg = reader.result;
-    document.getElementById('bgImage').innerHTML = `<img src="${reader.result}">`;
+    document.getElementById('bgImage').innerHTML = `<img src="${reader.result}" alt="업로드된 이미지">`;
     const box = document.getElementById('bgBox');
     box.classList.add('has-image');
-    box.innerHTML = `<img src="${reader.result}"><input type="file" id="bgInput" accept="image/*" onchange="handleBgImage(this)">`;
+    box.innerHTML = `<img src="${reader.result}" alt="업로드된 이미지"><input type="file" id="bgInput" accept="image/*" onchange="handleBgImage(this)">`;
   };
   reader.readAsDataURL(file);
 }
@@ -378,9 +378,9 @@ bgBox.addEventListener('drop', e => {
     const reader = new FileReader();
     reader.onload = () => {
       state.bgImg = reader.result;
-      document.getElementById('bgImage').innerHTML = `<img src="${reader.result}">`;
+      document.getElementById('bgImage').innerHTML = `<img src="${reader.result}" alt="업로드된 이미지">`;
       bgBox.classList.add('has-image');
-      bgBox.innerHTML = `<img src="${reader.result}"><input type="file" id="bgInput" accept="image/*" onchange="handleBgImage(this)">`;
+      bgBox.innerHTML = `<img src="${reader.result}" alt="업로드된 이미지"><input type="file" id="bgInput" accept="image/*" onchange="handleBgImage(this)">`;
     };
     reader.readAsDataURL(file);
   }
