@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap');
+  /* Playfair Display loaded via <link> tag above */
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -35,33 +35,62 @@
     margin: 0 auto;
   }
 
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(232,112,58,0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(232,112,58,0.02) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
   /* ========== HEADER ========== */
   header {
     position: sticky;
     top: 0;
     z-index: 100;
     text-align: center;
-    padding: 28px 24px 24px;
+    padding: 40px 32px 36px;
     margin: 0 -20px 32px;
-    background: var(--brand-dark);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 4px solid var(--brand-orange);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    background: #FFF8F0;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(232,112,58,0.12);
+    box-shadow: 0 4px 16px rgba(61,46,36,0.06);
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(ellipse at 30% 50%, rgba(232,112,58,0.06) 0%, transparent 70%),
+                radial-gradient(ellipse at 70% 50%, rgba(232,112,58,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, #E8703A, transparent);
   }
 
   header .brand {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
     font-size: 28px;
-    color: white;
-    letter-spacing: 4px;
+    color: #3D2E24;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
   }
 
   header h1 {
     font-size: 18px;
     font-weight: 700;
-    color: rgba(255, 255, 255, 0.5);
+    color: #9B8A7A;
     margin-top: 8px;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -69,7 +98,7 @@
 
   header .date {
     font-size: 13px;
-    color: rgba(255, 248, 240, 0.55);
+    color: #9B8A7A;
     margin-top: 4px;
   }
 
@@ -99,7 +128,7 @@
     font-size: 13px;
     font-weight: 800;
     flex-shrink: 0;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Playfair Display', serif;
     box-shadow: 0 4px 12px rgba(239, 125, 49, 0.3);
   }
 
@@ -400,7 +429,7 @@
   }
 
   footer .brand-sm {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Playfair Display', serif;
     font-weight: 700;
     color: #E8703A;
     font-size: 12px;
@@ -540,7 +569,7 @@
 <header>
   <div class="brand">IM AESTHETIC</div>
   <h1>현장촬영 체크리스트</h1>
-  <div class="date">촬영일: <input type="date" id="shootDate" style="background:rgba(255,248,240,0.15);border:1px solid rgba(255,248,240,0.3);color:#FFF8F0;font-family:inherit;font-size:13px;padding:4px 10px;border-radius:6px;outline:none;cursor:pointer" oninput="saveAll()"></div>
+  <div class="date">촬영일: <input type="date" id="shootDate" style="background:#fff;border:1px solid rgba(232,112,58,0.25);color:#3D2E24;font-family:inherit;font-size:13px;padding:4px 10px;border-radius:6px;outline:none;cursor:pointer" oninput="saveAll()"></div>
 </header>
 
 <!-- 툴바 -->

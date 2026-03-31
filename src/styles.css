@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Pretendard:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -10,7 +10,10 @@
   --brand-beige: #F5E8D0;
   --brand-cream: #FAF4EA;
   --brand-brown: #2C1810;
+  --brand-brown-dark: #1A1410;
   --brand-brown-mid: #6B4830;
+  --brand-gold: #D4A04A;
+  --brand-muted: #9B8A7A;
   --brand-warm-white: #FFF8F0;
 }
 
@@ -25,47 +28,4 @@ body {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-
-.home-fab {
-  position: fixed;
-  bottom: 24px;
-  left: 24px;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: #4A3728;
-  color: #FFF8F0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-  z-index: 9999;
-  transition: background 0.2s ease, transform 0.15s ease;
-}
-
-.home-fab:hover {
-  background: var(--brand-orange);
-  transform: scale(1.08);
-}
-
-.home-fab::after {
-  content: '\D640\C73C\B85C';
-  position: absolute;
-  left: 52px;
-  background: #4A3728;
-  color: #FFF8F0;
-  font-size: 12px;
-  font-family: 'Pretendard', -apple-system, sans-serif;
-  white-space: nowrap;
-  padding: 4px 8px;
-  border-radius: 6px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.15s ease;
-}
-
-.home-fab:hover::after {
-  opacity: 1;
 }

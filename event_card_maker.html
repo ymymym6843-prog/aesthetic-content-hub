@@ -49,36 +49,46 @@ body::before {
 
 /* ════════ HEADER ════════ */
 header {
-  background: var(--dark);
+  background: #FFF8F0;
   padding: 40px 32px 36px;
   text-align: center;
   position: relative;
   overflow: hidden;
+  border-bottom: 1px solid rgba(232,112,58,0.12);
 }
 header::before {
-  content: ''; position: absolute; inset: 0;
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
   background:
-    radial-gradient(ellipse 60% 80% at 50% 120%, rgba(232,112,58,0.12), transparent 70%),
-    radial-gradient(ellipse 40% 40% at 80% 20%, rgba(232,112,58,0.05), transparent);
+    radial-gradient(ellipse at 30% 50%, rgba(232,112,58,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse at 70% 50%, rgba(232,112,58,0.04) 0%, transparent 60%);
   pointer-events: none;
+}
+header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #E8703A, transparent);
 }
 header h1 {
   font-family: 'Playfair Display', serif;
   font-size: 36px; font-weight: 400;
-  color: #FAF8F5; letter-spacing: 10px;
+  color: #3D2E24; letter-spacing: 10px;
   text-transform: uppercase;
   position: relative; z-index: 1;
 }
 header .subtitle {
   font-size: 12px; font-weight: 400;
-  color: rgba(255,248,240,0.3);
+  color: #9B8A7A;
   letter-spacing: 3px; text-transform: uppercase;
   position: relative; z-index: 1;
   margin-top: 8px;
 }
 .accent-line {
-  height: 3px;
-  background: linear-gradient(90deg, transparent 0%, var(--orange) 20%, var(--orange) 80%, transparent 100%);
+  display: none; /* replaced by header::after */
 }
 
 /* ════════ LAYOUT ════════ */
@@ -316,7 +326,7 @@ header .subtitle {
 .card-footer {
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  background: var(--dark);
+  background: var(--orange);
   padding: 36px 80px;
   display: flex;
   justify-content: space-between;
@@ -324,12 +334,12 @@ header .subtitle {
 }
 .card-footer .footer-ig {
   font-size: 20px;
-  color: rgba(255,248,240,0.6);
+  color: rgba(255,255,255,0.8);
   letter-spacing: 1px;
 }
 .card-footer .footer-addr {
   font-size: 18px;
-  color: rgba(255,248,240,0.35);
+  color: rgba(255,255,255,0.6);
   letter-spacing: 0.5px;
 }
 
@@ -552,12 +562,198 @@ footer .brand-foot {
   left: -9999px;
   top: 0;
 }
+
+/* ════════ IMAGE UPLOAD SECTION ════════ */
+.img-upload-zone {
+  border: 2px dashed rgba(232,112,58,0.35);
+  border-radius: 12px;
+  padding: 20px 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition);
+  background: var(--cream);
+  position: relative;
+}
+.img-upload-zone:hover,
+.img-upload-zone.drag-over {
+  border-color: var(--orange);
+  background: rgba(232,112,58,0.05);
+}
+.img-upload-zone .upload-icon {
+  width: 32px;
+  height: 32px;
+  margin: 0 auto 8px;
+  color: rgba(232,112,58,0.5);
+}
+.img-upload-zone .upload-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+  line-height: 1.5;
+}
+.img-upload-zone input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+.img-preview-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+.img-preview-thumb {
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 2px solid rgba(232,112,58,0.2);
+  flex-shrink: 0;
+}
+.btn-remove-img {
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  background: #c0392b;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity var(--transition);
+  letter-spacing: 0.3px;
+}
+.btn-remove-img:hover { opacity: 0.8; }
+.range-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+.range-row label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  white-space: nowrap;
+  min-width: 38px;
+}
+.range-row input[type="range"] {
+  flex: 1;
+  accent-color: var(--orange);
+  height: 4px;
+  cursor: pointer;
+}
+.range-row .range-val {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--orange);
+  min-width: 32px;
+  text-align: right;
+}
+.pos-options {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+.pos-btn {
+  flex: 1;
+  padding: 7px 4px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: inherit;
+  border-radius: 8px;
+  border: 1px solid rgba(232,112,58,0.2);
+  background: var(--cream);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition);
+  letter-spacing: 0.2px;
+}
+.pos-btn:hover { border-color: var(--orange); color: var(--orange); }
+.pos-btn.active {
+  background: var(--orange);
+  color: #fff;
+  border-color: var(--orange);
+}
+/* Card image layer */
+.card-bg-image {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+.card-bg-image.pos-cover {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.card-bg-image.pos-bottom {
+  bottom: 0; left: 0; right: 0;
+  width: 100%;
+  height: 50%;
+  object-fit: cover;
+  object-position: center top;
+}
+.card-bg-image.pos-right {
+  top: 0; right: 0; bottom: 0;
+  width: 40%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+/* Gradient overlay for text readability */
+.card-bg-gradient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+.card-bg-gradient.pos-cover {
+  background: linear-gradient(
+    160deg,
+    rgba(255,248,240,0.72) 0%,
+    rgba(255,248,240,0.55) 50%,
+    rgba(255,248,240,0.65) 100%
+  );
+}
+.card-bg-gradient.pos-bottom {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255,248,240,0.0) 45%,
+    rgba(255,248,240,0.85) 55%,
+    rgba(255,248,240,1) 70%
+  );
+}
+.card-bg-gradient.pos-right {
+  background: linear-gradient(
+    to right,
+    rgba(255,248,240,1) 0%,
+    rgba(255,248,240,0.9) 50%,
+    rgba(255,248,240,0.2) 65%,
+    rgba(255,248,240,0.0) 100%
+  );
+}
+/* Ensure card content sits above image layers */
+.event-card .card-header,
+.event-card .card-title-area,
+.event-card .card-body,
+.event-card .card-footer,
+.event-card .card-deco-circle,
+.event-card .card-deco-line {
+  position: relative;
+  z-index: 2;
+}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>IM Aesthetic</h1>
+  <h1>IM AESTHETIC</h1>
   <p class="subtitle">Event Card Maker</p>
 </header>
 <div class="accent-line"></div>
@@ -674,6 +870,11 @@ const presets = [
 let currentPreset = 0;
 let currentData = JSON.parse(JSON.stringify(presets[0]));
 
+// ════════ IMAGE UPLOAD STATE ════════
+let uploadedImage = null;   // data URL string or null
+let imageOpacity = 80;      // 50–100
+let imagePosition = 'cover'; // 'cover' | 'bottom' | 'right'
+
 // ════════ PRESET SELECTION ════════
 function selectPreset(idx) {
   currentPreset = idx;
@@ -737,7 +938,107 @@ function buildEditPanel() {
   html += field('ig', '인스타그램', d.ig);
   html += field('addr', '주소', d.addr);
 
+  // Image upload section
+  html += '<hr class="field-sep">';
+  html += buildImageUploadSection();
+
   panel.innerHTML = html;
+
+  // Re-attach drag events after innerHTML update
+  initUploadZone();
+}
+
+function buildImageUploadSection() {
+  const thumbHtml = uploadedImage
+    ? `<div class="img-preview-row">
+        <img class="img-preview-thumb" src="${uploadedImage}" alt="preview">
+        <button class="btn-remove-img" onclick="removeImage()">이미지 제거</button>
+       </div>`
+    : '';
+
+  const activeCover  = imagePosition === 'cover'  ? ' active' : '';
+  const activeBottom = imagePosition === 'bottom' ? ' active' : '';
+  const activeRight  = imagePosition === 'right'  ? ' active' : '';
+
+  return `
+    <h3>배경 이미지</h3>
+    <div class="img-upload-zone" id="imgUploadZone">
+      <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+        <polyline points="21 15 16 10 5 21"/>
+      </svg>
+      <div class="upload-label">클릭하여 이미지 업로드<br><span style="font-weight:400;font-size:10px;">JPG, PNG, WEBP</span></div>
+      <input type="file" id="imgFileInput" accept="image/*" onchange="handleImageUpload(event)">
+    </div>
+    ${thumbHtml}
+    <div class="range-row" style="margin-top:12px;">
+      <label>투명도</label>
+      <input type="range" min="50" max="100" value="${imageOpacity}"
+             oninput="updateImageOpacity(this.value)" id="opacityRange">
+      <span class="range-val" id="opacityVal">${imageOpacity}%</span>
+    </div>
+    <div class="field-group" style="margin-top:10px;">
+      <label>이미지 위치</label>
+      <div class="pos-options">
+        <button class="pos-btn${activeCover}"  onclick="updateImagePosition('cover')">전체 배경</button>
+        <button class="pos-btn${activeBottom}" onclick="updateImagePosition('bottom')">하단</button>
+        <button class="pos-btn${activeRight}"  onclick="updateImagePosition('right')">우측</button>
+      </div>
+    </div>`;
+}
+
+function initUploadZone() {
+  const zone = document.getElementById('imgUploadZone');
+  if (!zone) return;
+  zone.addEventListener('dragover', e => {
+    e.preventDefault();
+    zone.classList.add('drag-over');
+  });
+  zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault();
+    zone.classList.remove('drag-over');
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) readImageFile(file);
+  });
+}
+
+function handleImageUpload(e) {
+  const file = e.target.files[0];
+  if (file) readImageFile(file);
+}
+
+function readImageFile(file) {
+  const reader = new FileReader();
+  reader.onload = ev => {
+    uploadedImage = ev.target.result;
+    buildEditPanel();
+    renderCard();
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeImage() {
+  uploadedImage = null;
+  buildEditPanel();
+  renderCard();
+}
+
+function updateImageOpacity(val) {
+  imageOpacity = parseInt(val, 10);
+  const valEl = document.getElementById('opacityVal');
+  if (valEl) valEl.textContent = imageOpacity + '%';
+  renderCard();
+}
+
+function updateImagePosition(pos) {
+  imagePosition = pos;
+  // Update button active states without full rebuild
+  document.querySelectorAll('.pos-btn').forEach(btn => btn.classList.remove('active'));
+  const map = { cover: 0, bottom: 1, right: 2 };
+  const btns = document.querySelectorAll('.pos-btn');
+  if (btns[map[pos]]) btns[map[pos]].classList.add('active');
+  renderCard();
 }
 
 function field(key, label, val) {
@@ -766,6 +1067,13 @@ function renderCard() {
   const d = currentData;
   const scaler = document.getElementById('canvasScaler');
   let html = '';
+
+  // Background image layer (behind all content)
+  if (uploadedImage) {
+    const opacityVal = imageOpacity / 100;
+    html += `<img class="card-bg-image pos-${imagePosition}" src="${uploadedImage}" style="opacity:${opacityVal};" alt="">`;
+    html += `<div class="card-bg-gradient pos-${imagePosition}"></div>`;
+  }
 
   // Decorative elements
   html += `<div class="card-deco-circle" style="width:300px;height:300px;top:-80px;right:-60px;border-width:1.5px;"></div>`;
@@ -805,7 +1113,7 @@ function renderWedding(d) {
   });
   return `
     <div class="card-header">
-      <div class="logo-text">IM Aesthetic</div>
+      <div class="logo-text">IM AESTHETIC</div>
       <div class="logo-line"></div>
     </div>
     <div class="card-title-area">
@@ -824,7 +1132,7 @@ function renderWedding(d) {
 function renderSeason(d) {
   return `
     <div class="card-header">
-      <div class="logo-text">IM Aesthetic</div>
+      <div class="logo-text">IM AESTHETIC</div>
       <div class="logo-line"></div>
     </div>
     <div class="card-title-area" style="padding-top:10px;">
@@ -857,7 +1165,7 @@ function renderFirst(d) {
   });
   return `
     <div class="card-header">
-      <div class="logo-text">IM Aesthetic</div>
+      <div class="logo-text">IM AESTHETIC</div>
       <div class="logo-line"></div>
     </div>
     <div class="card-title-area">
@@ -879,7 +1187,7 @@ function renderFirst(d) {
 function renderReferral(d) {
   return `
     <div class="card-header">
-      <div class="logo-text">IM Aesthetic</div>
+      <div class="logo-text">IM AESTHETIC</div>
       <div class="logo-line"></div>
     </div>
     <div class="card-title-area">
@@ -952,8 +1260,16 @@ async function exportPNG() {
     const link = document.createElement('a');
     const names = ['wedding_care','season_event','first_visit','referral'];
     link.download = `im_aesthetic_${names[currentPreset]}_${Date.now()}.png`;
-    link.href = canvas.toDataURL('image/png');
-    link.click();
+    canvas.toBlob(function(blob) {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.download = link.download;
+      a.href = url;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }, 'image/png');
   } catch(e) {
     console.error('Export failed:', e);
     alert('이미지 생성에 실패했습니다. 다시 시도해주세요.');
@@ -966,6 +1282,7 @@ async function exportPNG() {
 // ════════ INIT ════════
 window.addEventListener('DOMContentLoaded', () => {
   selectPreset(0);
+  // initUploadZone is called inside buildEditPanel after each render
 });
 window.addEventListener('resize', scalePreview);
 </script>

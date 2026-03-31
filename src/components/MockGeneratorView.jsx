@@ -40,7 +40,7 @@ export const MockGeneratorView = ({ mockData, onBack }) => {
             label: '고객 핵심 고민',
             title: '이런 고민 있으시죠?',
             content: mockData.card_news.slide_2_pain_point,
-            icon: '🤔'
+            icon: '💫'
         },
         {
             type: 'solution',

@@ -68,11 +68,11 @@ export const ProfileHeader = () => (
                         </div>
                     </div>
 
-                    {/* Stats */}
+                    {/* Stats — mock preview data */}
                     <div className="flex justify-center md:justify-start gap-8 mb-5">
-                        <span className="text-sm"><strong>6</strong> 게시물</span>
-                        <span className="text-sm"><strong>8</strong> 팔로워</span>
-                        <span className="text-sm"><strong>0</strong> 팔로잉</span>
+                        <span className="text-sm"><strong>{posts?.length || 6}</strong> 게시물</span>
+                        <span className="text-sm"><strong>—</strong> 팔로워</span>
+                        <span className="text-sm"><strong>—</strong> 팔로잉</span>
                     </div>
 
                     {/* Bio - 3-tier structure */}

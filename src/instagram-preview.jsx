@@ -19,7 +19,7 @@ const AISetupView = ({ onBack, onComplete }) => {
         if (!url) return alert('URL을 입력해주세요.');
         setLoading(true);
         try {
-            const res = await fetch('http://localhost:3001/api/generate', {
+            const res = await fetch('/api/generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ url })
@@ -85,7 +85,7 @@ function transformToFeedPosts(posts, strategies) {
             type: typeMap[p.type] || p.type,
             phase: phaseMap[p.week] || '',
             title: p.title,
-            image: p.post_images?.[0]?.image_url || './feed_images/placeholder.svg',
+            image: p.post_images?.[0]?.image_url || '/feed_images/placeholder.svg',
             caption: p.caption || p.description || '',
             hashtags: p.tags || '',
             slideCount: p.slide_count,

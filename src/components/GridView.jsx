@@ -80,7 +80,7 @@ export const GridView = ({ posts, onPostClick, filter }) => {
                                     <div className="flex items-center gap-1"><Heart size={20} fill="white" /> 124</div>
                                     <div className="flex items-center gap-1"><MessageCircle size={20} fill="white" /> 18</div>
                                 </div>
-                                <div className="text-xs mt-2 font-bold opacity-80">Click to read caption</div>
+                                <div className="text-xs mt-2 font-bold opacity-80">캡션 보기</div>
                             </div>
                         </div>
                     </React.Fragment>

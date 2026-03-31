@@ -15,8 +15,9 @@ export default async function handler(req, res) {
       delete updates.id;
       delete updates.post_images;
 
-      const keys = Object.keys(updates);
-      if (keys.length === 0) return res.status(400).json({ error: 'No fields to update' });
+      const ALLOWED_COLS = ['week','day','type','title','sub_title','caption','hashtags','image_prompt','status','publish_checklist','content_type','target_audience','key_message','cta'];
+      const keys = Object.keys(updates).filter(k => ALLOWED_COLS.includes(k));
+      if (keys.length === 0) return res.status(400).json({ error: 'No valid fields to update' });
 
       const setClause = keys.map(k => `\`${k}\` = ?`).join(', ');
       const values = keys.map(k => updates[k]);

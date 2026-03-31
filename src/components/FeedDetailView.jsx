@@ -24,7 +24,7 @@ export const FeedDetailView = ({ post, onBack }) => (
                     </div>
                     <div>
                         <div className="text-sm font-bold flex items-center gap-1 uppercase">
-                            im_aesthetic_official <Check size={12} className="bg-blue-500 text-white rounded-full p-0.5" />
+                            im.aesthetic.official <Check size={12} className="bg-blue-500 text-white rounded-full p-0.5" />
                         </div>
                         <div className="text-xs text-gray-500 flex items-center gap-0.5 italic"><MapPin size={10} /> 대구 수성구 범어동 마크팰리스</div>
                     </div>
@@ -72,7 +72,7 @@ export const FeedDetailView = ({ post, onBack }) => (
                         </button>
                     </div>
                     <div className="text-sm leading-relaxed mb-4 text-gray-800 whitespace-pre-line">
-                        <span className="font-bold text-gray-900 underline decoration-orange-400 underline-offset-4">im_aesthetic_official</span>
+                        <span className="font-bold text-gray-900 underline decoration-orange-400 underline-offset-4">im.aesthetic.official</span>
                         {"\n"}{post.caption}
                     </div>
                     <div className="text-sm text-blue-800 font-medium leading-relaxed cursor-pointer hover:underline">
