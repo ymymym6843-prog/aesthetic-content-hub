@@ -5,8 +5,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const supabase = createClient(
-  'https://tqbbkxadeqlnwnbqwikk.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRxYmJreGFkZXFsbnduYnF3aWtrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMzY0NDUsImV4cCI6MjA4ODcxMjQ0NX0.3bYLNflnB1kL6IoMPGd-mlYx11SOSX0AJtEMTMEHIpQ'
+  process.env.VITE_SUPABASE_URL,
+  process.env.VITE_SUPABASE_ANON_KEY
 );
 
 async function migrate() {

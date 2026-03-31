@@ -17,7 +17,7 @@ import dbRoutes from './server/routes/db-routes.js';
 
 const app = express();
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
 
 // MariaDB API routes
 app.use(dbRoutes);
@@ -123,8 +123,6 @@ app.post('/api/generate', async (req, res) => {
 });
 
 // ===== Gemini Image Generation =====
-app.use(express.json({ limit: '50mb' }));
-
 app.post('/api/generate-image', async (req, res) => {
     try {
         const { prompt } = req.body;
