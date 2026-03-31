@@ -85,7 +85,7 @@
     '<div class="im-nav-overlay" id="imNavOverlay"></div>' +
     '<nav class="im-nav-sidebar" id="imNavSidebar">' +
       '<div class="im-nav-header">' +
-        '<div class="im-nav-brand">IM Aesthetic</div>' +
+        '<div class="im-nav-brand">IM AESTHETIC</div>' +
         '<div class="im-nav-sub">Wedding Care Specialist</div>' +
       '</div>' +
       '<a class="im-nav-home" href="/index.html">' +
