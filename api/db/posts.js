@@ -13,12 +13,20 @@ export default async function handler(req, res) {
         'SELECT * FROM posts WHERE clinic_id = ? ORDER BY week, sort_order',
         [clinic_id]
       );
-      for (const post of posts) {
-        const [images] = await pool.query(
-          'SELECT id, image_url, slide_index, alt_text FROM post_images WHERE post_id = ? ORDER BY slide_index',
-          [post.id]
+      const postIds = posts.map(p => p.id);
+      let imageMap = {};
+      if (postIds.length > 0) {
+        const [allImages] = await pool.query(
+          'SELECT id, post_id, image_url, slide_index, alt_text FROM post_images WHERE post_id IN (?) ORDER BY post_id, slide_index',
+          [postIds]
         );
-        post.post_images = images;
+        for (const img of allImages) {
+          if (!imageMap[img.post_id]) imageMap[img.post_id] = [];
+          imageMap[img.post_id].push(img);
+        }
+      }
+      for (const post of posts) {
+        post.post_images = imageMap[post.id] || [];
         if (typeof post.publish_checklist === 'string') {
           try { post.publish_checklist = JSON.parse(post.publish_checklist); } catch {}
         }

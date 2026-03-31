@@ -1,3 +1,5 @@
+// SYNC NOTE: This Express router mirrors api/db/*.js (Vercel serverless).
+// Changes here MUST be applied to the corresponding Vercel handler and vice versa.
 import { Router } from 'express';
 import crypto from 'crypto';
 import multer from 'multer';
@@ -42,16 +44,23 @@ router.get('/api/db/posts', async (req, res) => {
       'SELECT * FROM posts WHERE clinic_id = ? ORDER BY week, sort_order',
       [clinic_id]
     );
-    // Attach post_images to each post
-    for (const post of posts) {
-      const [images] = await pool.query(
-        'SELECT id, image_url, slide_index, alt_text FROM post_images WHERE post_id = ? ORDER BY slide_index',
-        [post.id]
+    // Batch fetch all images in one query
+    const postIds = posts.map(p => p.id);
+    let imageMap = {};
+    if (postIds.length > 0) {
+      const [allImages] = await pool.query(
+        'SELECT id, post_id, image_url, slide_index, alt_text FROM post_images WHERE post_id IN (?) ORDER BY post_id, slide_index',
+        [postIds]
       );
-      post.post_images = images;
-      // Parse JSON field
+      for (const img of allImages) {
+        if (!imageMap[img.post_id]) imageMap[img.post_id] = [];
+        imageMap[img.post_id].push(img);
+      }
+    }
+    for (const post of posts) {
+      post.post_images = imageMap[post.id] || [];
       if (typeof post.publish_checklist === 'string') {
-        try { post.publish_checklist = JSON.parse(post.publish_checklist); } catch { /* keep as-is */ }
+        try { post.publish_checklist = JSON.parse(post.publish_checklist); } catch {}
       }
     }
     res.json(posts);
