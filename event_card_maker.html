@@ -757,6 +757,23 @@ footer .brand-foot {
   position: relative;
   z-index: 2;
 }
+
+/* ---- Server Load Modal ---- */
+.modal-overlay {
+  position:fixed;inset:0;background:rgba(0,0,0,0.3);z-index:10000;
+  display:flex;align-items:center;justify-content:center;
+}
+.modal-content {
+  background:#FFF8F0;border-radius:16px;width:360px;max-height:70vh;
+  overflow:hidden;box-shadow:0 20px 60px rgba(61,46,36,0.15);
+}
+.modal-header {
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 20px;border-bottom:1px solid rgba(232,112,58,0.1);
+}
+.modal-header h3 { font-size:16px;font-weight:700;color:#3D2E24;margin:0; }
+.modal-body { max-height:50vh;overflow-y:auto; }
+.session-item:hover { background:rgba(232,112,58,0.04); }
 </style>
 </head>
 <body>
@@ -808,6 +825,10 @@ footer .brand-foot {
         PNG 다운로드
       </button>
       <button onclick="clearSaved()" style="padding:12px 24px;border-radius:12px;border:1px solid rgba(232,112,58,0.3);background:transparent;color:#9B8A7A;font-size:13px;font-weight:600;cursor:pointer;margin-top:8px;width:100%">새로 시작</button>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button onclick="serverSave()" style="flex:1;padding:12px;border-radius:12px;border:1px solid #E8703A;background:rgba(232,112,58,0.05);color:#E8703A;font-size:13px;font-weight:600;cursor:pointer">서버에 저장</button>
+        <button onclick="serverLoad()" style="flex:1;padding:12px;border-radius:12px;border:1px solid rgba(232,112,58,0.3);background:transparent;color:#9B8A7A;font-size:13px;font-weight:600;cursor:pointer">불러오기</button>
+      </div>
     </div>
   </div>
 
@@ -1299,6 +1320,8 @@ async function exportPNG() {
 
 // ════════ AUTOSAVE / AUTOLOAD ════════
 const STORAGE_KEY = 'im_event_state';
+const TOOL_NAME = 'event';
+let _currentSessionId = null;
 let _saveTimer;
 function collectState() {
   return {
@@ -1358,6 +1381,112 @@ window.addEventListener('DOMContentLoaded', () => {
   if (autoLoad()) showToast('이전 작업을 불러왔습니다');
 });
 window.addEventListener('resize', scalePreview);
+
+// ════════ Server Session Management ════════
+async function serverSave() {
+  const data = collectState();
+  const serverData = {...data};
+  delete serverData.reviewImage; delete serverData.bgImg;
+  delete serverData.uploadedImage; delete serverData.imgs;
+
+  const name = prompt('세션 이름을 입력하세요:', '') || '이름없음';
+
+  try {
+    if (_currentSessionId) {
+      await fetch('/api/db/maker-sessions/' + _currentSessionId, {
+        method: 'PUT',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ work_data: serverData, session_name: name })
+      });
+      showToast('서버에 저장되었습니다');
+    } else {
+      const res = await fetch('/api/db/maker-sessions', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ tool: TOOL_NAME, session_name: name, work_data: serverData })
+      });
+      const result = await res.json();
+      _currentSessionId = result.id;
+      showToast('서버에 저장되었습니다');
+    }
+  } catch(e) {
+    showToast('서버 저장 실패: ' + e.message);
+  }
+}
+
+async function serverLoad() {
+  try {
+    const res = await fetch('/api/db/maker-sessions?tool=' + TOOL_NAME);
+    const sessions = await res.json();
+    if (!sessions.length) { showToast('저장된 작업이 없습니다'); return; }
+    showLoadModal(sessions);
+  } catch(e) {
+    showToast('불러오기 실패: ' + e.message);
+  }
+}
+
+async function loadSession(id) {
+  try {
+    const res = await fetch('/api/db/maker-sessions/' + id);
+    const session = await res.json();
+    _currentSessionId = session.id;
+    restoreState(session.work_data);
+    closeLoadModal();
+    showToast('"' + (session.session_name || '이름없음') + '" 불러왔습니다');
+  } catch(e) {
+    showToast('불러오기 실패');
+  }
+}
+
+async function deleteSession(id, el) {
+  if (!confirm('이 세션을 삭제하시겠습니까?')) return;
+  try {
+    await fetch('/api/db/maker-sessions/' + id, { method: 'DELETE' });
+    el.closest('.session-item').remove();
+    if (_currentSessionId === id) _currentSessionId = null;
+  } catch(e) { showToast('삭제 실패'); }
+}
+
+function showLoadModal(sessions) {
+  let modal = document.getElementById('loadModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'loadModal';
+    modal.innerHTML = '<div class="modal-overlay" onclick="closeLoadModal()"><div class="modal-content" onclick="event.stopPropagation()"><div class="modal-header"><h3>저장된 작업</h3><button onclick="closeLoadModal()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#9B8A7A">&times;</button></div><div class="modal-body" id="sessionList"></div></div></div>';
+    document.body.appendChild(modal);
+  }
+
+  const list = document.getElementById('sessionList');
+  if (!sessions.length) {
+    list.innerHTML = '<p style="color:#9B8A7A;text-align:center;padding:24px">저장된 작업이 없습니다</p>';
+  } else {
+    list.innerHTML = sessions.map(s => {
+      const date = new Date(s.updated_at);
+      const ago = timeAgo(date);
+      return '<div class="session-item" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid rgba(232,112,58,0.08);cursor:pointer" onclick="loadSession(\'' + s.id + '\')">' +
+        '<div style="flex:1">' +
+        '<div style="font-weight:600;color:#3D2E24;font-size:14px">' + (s.session_name || '이름없음') + '</div>' +
+        '<div style="font-size:11px;color:#9B8A7A;margin-top:2px">' + ago + '</div>' +
+        '</div>' +
+        '<button onclick="event.stopPropagation();deleteSession(\'' + s.id + '\',this)" style="background:none;border:none;color:#9B8A7A;cursor:pointer;font-size:16px;padding:4px 8px" title="삭제">&times;</button>' +
+        '</div>';
+    }).join('');
+  }
+  modal.style.display = 'block';
+}
+
+function closeLoadModal() {
+  const m = document.getElementById('loadModal');
+  if (m) m.style.display = 'none';
+}
+
+function timeAgo(date) {
+  const s = Math.floor((Date.now() - date) / 1000);
+  if (s < 60) return '방금 전';
+  if (s < 3600) return Math.floor(s/60) + '분 전';
+  if (s < 86400) return Math.floor(s/3600) + '시간 전';
+  return Math.floor(s/86400) + '일 전';
+}
 </script>
 <div class="autosave-toast" id="autoToast"></div>
 <script src="/nav-shared.js"></script>

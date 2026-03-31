@@ -275,4 +275,93 @@ router.post('/api/db/upload', upload.single('file'), (req, res) => {
   }
 });
 
+// ═══════════════════════════════════════
+// MAKER SESSIONS
+// ═══════════════════════════════════════
+
+// GET /api/db/maker-sessions?tool=review
+router.get('/api/db/maker-sessions', async (req, res) => {
+  try {
+    const { tool } = req.query;
+    const [rows] = await pool.query(
+      'SELECT id, tool, session_name, created_at, updated_at FROM maker_sessions WHERE tool = ? ORDER BY updated_at DESC',
+      [tool]
+    );
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET /api/db/maker-sessions/:id
+router.get('/api/db/maker-sessions/:id', async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT * FROM maker_sessions WHERE id = ?', [req.params.id]);
+    if (rows.length === 0) return res.status(404).json({ error: 'Session not found' });
+    const result = rows[0];
+    if (typeof result.work_data === 'string') {
+      try { result.work_data = JSON.parse(result.work_data); } catch {}
+    }
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST /api/db/maker-sessions
+router.post('/api/db/maker-sessions', async (req, res) => {
+  try {
+    const { tool, session_name, work_data } = req.body;
+    const id = req.body.id || uuid();
+    const data = typeof work_data === 'object' ? JSON.stringify(work_data) : work_data;
+    await pool.query(
+      'INSERT INTO maker_sessions (id, tool, session_name, work_data) VALUES (?, ?, ?, ?)',
+      [id, tool, session_name || null, data]
+    );
+    const [rows] = await pool.query('SELECT * FROM maker_sessions WHERE id = ?', [id]);
+    const result = rows[0];
+    if (typeof result.work_data === 'string') {
+      try { result.work_data = JSON.parse(result.work_data); } catch {}
+    }
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// PUT /api/db/maker-sessions/:id
+router.put('/api/db/maker-sessions/:id', async (req, res) => {
+  try {
+    const { session_name, work_data } = req.body;
+    const updates = [];
+    const values = [];
+    if (session_name !== undefined) { updates.push('session_name = ?'); values.push(session_name); }
+    if (work_data !== undefined) {
+      updates.push('work_data = ?');
+      values.push(typeof work_data === 'object' ? JSON.stringify(work_data) : work_data);
+    }
+    if (updates.length === 0) return res.status(400).json({ error: 'No fields to update' });
+    values.push(req.params.id);
+    await pool.query(`UPDATE maker_sessions SET ${updates.join(', ')} WHERE id = ?`, values);
+    const [rows] = await pool.query('SELECT * FROM maker_sessions WHERE id = ?', [req.params.id]);
+    const result = rows[0];
+    if (typeof result.work_data === 'string') {
+      try { result.work_data = JSON.parse(result.work_data); } catch {}
+    }
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// DELETE /api/db/maker-sessions/:id
+router.delete('/api/db/maker-sessions/:id', async (req, res) => {
+  try {
+    await pool.query('DELETE FROM maker_sessions WHERE id = ?', [req.params.id]);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 export default router;
