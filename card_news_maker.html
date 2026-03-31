@@ -1337,8 +1337,8 @@ function diamondDivider(color){
 
 function slideHTML(s,i,n){
   const bg=defBg(s);
-  const light=lum(bg)>128;
-  const dc=light?'#1A1714':'#FFFFFF';
+  const light=lum(bg)>160;
+  const dc=light?'#3D2E24':'#FFFFFF';
   const sc=light?'#8C8279':'rgba(255,255,255,.6)';
   const ac=themeAccent();
   const img=IMGS[i]?`<div style="position:absolute;inset:0;background:url('${IMGS[i]}') center/cover;z-index:0"></div>`:'';
@@ -1358,7 +1358,7 @@ function slideHTML(s,i,n){
 function inner(s,dc,sc,bg,i,n){
   const ac=themeAccent();
   const pr=themePrimary();
-  const light=lum(bg)>128;
+  const light=lum(bg)>160;
   switch(s.r){
     case'hook':return`
       <div style="position:absolute;inset:36px;border:1px solid ${ac}40;border-radius:28px;pointer-events:none"></div>
