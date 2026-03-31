@@ -38,38 +38,39 @@
     pointer-events: none; z-index: -1;
   }
 
-  /* ── 다크 페이지 헤더 ── */
+  /* ── 크림 페이지 헤더 ── */
   .page-header {
-    background: #1A1410;
+    background: #FFF8F0;
     padding: 40px 32px 36px;
     text-align: center;
     position: relative;
     overflow: hidden;
     margin-bottom: 48px;
+    border-bottom: 1px solid rgba(232,112,58,0.12);
   }
   .page-header::before {
     content: '';
     position: absolute;
     top: -50%; left: -50%;
     width: 200%; height: 200%;
-    background: radial-gradient(ellipse at 30% 50%, rgba(232,112,58,0.08) 0%, transparent 70%),
-                radial-gradient(ellipse at 70% 50%, rgba(232,112,58,0.05) 0%, transparent 60%);
+    background: radial-gradient(ellipse at 30% 50%, rgba(232,112,58,0.06) 0%, transparent 70%),
+                radial-gradient(ellipse at 70% 50%, rgba(232,112,58,0.04) 0%, transparent 60%);
     pointer-events: none;
   }
   .page-header::after {
     content: '';
     position: absolute;
-    bottom: 0; left: 0; right: 0; height: 3px;
+    bottom: 0; left: 0; right: 0; height: 2px;
     background: linear-gradient(90deg, transparent, #E8703A, transparent);
   }
   .page-header h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 32px; color: #FAF8F5;
+    font-size: 32px; color: #3D2E24;
     letter-spacing: 8px; text-transform: uppercase;
     position: relative; z-index: 1;
   }
   .page-header p {
-    color: rgba(255,248,240,0.4);
+    color: #9B8A7A;
     font-size: 13px; letter-spacing: 2px;
     position: relative; z-index: 1;
     margin-top: 10px;

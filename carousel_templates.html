@@ -62,11 +62,12 @@ body::before {
    PAGE HEADER
    ========================================== */
 .page-header {
-  background: #1A1410;
+  background: #FFF8F0;
   padding: 40px 32px 36px;
   text-align: center;
   position: relative;
   overflow: hidden;
+  border-bottom: 1px solid rgba(232,112,58,0.12);
 }
 
 .page-header::before {
@@ -74,25 +75,23 @@ body::before {
   position: absolute;
   top: -50%; left: -50%;
   width: 200%; height: 200%;
-  background: radial-gradient(ellipse at 30% 50%, rgba(232,112,58,0.08) 0%, transparent 70%),
-              radial-gradient(ellipse at 70% 50%, rgba(232,112,58,0.05) 0%, transparent 60%);
+  background: radial-gradient(ellipse at 30% 50%, rgba(232,112,58,0.06) 0%, transparent 70%),
+              radial-gradient(ellipse at 70% 50%, rgba(232,112,58,0.04) 0%, transparent 60%);
   pointer-events: none;
 }
 
 .page-header::after {
   content: '';
   position: absolute;
-  bottom: 0; left: 0; right: 0; height: 3px;
+  bottom: 0; left: 0; right: 0; height: 2px;
   background: linear-gradient(90deg, transparent, #E8703A, transparent);
 }
 
 .page-header .logo-badge {
   display: inline-block;
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.15);
-  color: rgba(255,248,240,0.7);
+  background: #E8703A;
+  border: 1px solid rgba(232,112,58,0.3);
+  color: #fff;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 4px;
@@ -111,14 +110,14 @@ body::before {
   letter-spacing: 8px;
   text-transform: uppercase;
   margin-bottom: 12px;
-  color: #FAF8F5;
+  color: #3D2E24;
   position: relative;
   z-index: 1;
 }
 
 .page-header p {
   font-size: 13px;
-  color: rgba(255,248,240,0.4);
+  color: #9B8A7A;
   font-weight: 400;
   letter-spacing: 2px;
   position: relative;
