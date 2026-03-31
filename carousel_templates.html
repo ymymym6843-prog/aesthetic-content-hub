@@ -6,8 +6,8 @@
 <title>IM 에스테틱 목요일 카드뉴스 디자인 가이드</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 <style>
 /* ==========================================
    BASE & RESET
@@ -15,23 +15,25 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --warm-white: #FAF8F5; /* 더 세련된 오프화이트 */
-  --orange: #E8703A; /* 공식 사이트 오렌지 */
-  --charcoal: #3D2E24; /* 웜 차콜 (오렌지 계열) */
-  --dark-warm: #E8703A; /* 브랜드 오렌지 (carousel slides) */
-  --darker-warm: #C85828; /* 딥 오렌지 */
+  --warm-white: #FFF8F0;
+  --orange: #E8703A;
+  --charcoal: #3D2E24;
+  --dark-warm: #E8703A;
+  --warm-beige: #F5EDE0;
+  --gold: #D4A04A;
+  --muted: #9B8A7A;
   --orange-light: #FDE8D9;
   --orange-pale: #FEF3EB;
   --gray-soft: #F9FAFB;
   --gray-mid: #E5E7EB;
-  --page-bg: #F5F2EE; /* 공식 사이트 배경 색감 */
+  --page-bg: #FAF8F5;
   --shadow: 0 10px 40px rgba(61,50,41,0.12);
   --shadow-sm: 0 4px 16px rgba(61,50,41,0.06);
   --radius-slide: 14px;
   --radius-lg: 20px;
   --radius-pill: 100px;
   --font-headings: 'Noto Serif KR', serif;
-  --font-accent: 'Cormorant Garamond', serif;
+  --font-accent: 'Pretendard Variable', Pretendard, sans-serif;
   --font-body: 'Pretendard Variable', Pretendard, sans-serif;
   --brand-orange: #E8703A;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -624,7 +626,7 @@ body::before {
   font-size: 100px;
   color: currentColor;
   opacity: 0.015;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-accent);
   font-weight: 300;
   line-height: 1;
   pointer-events: none;
@@ -830,7 +832,7 @@ body::before {
   margin-bottom: 20px;
   flex-shrink: 0;
   box-shadow: 0 0 0 3px rgba(239,125,49,0.04), 0 0 0 4px rgba(239,125,49,0.12);
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-accent);
 }
 
 .sl-step-num-lg {
@@ -1067,7 +1069,7 @@ body::before {
 .sl-quote-mark {
   font-size: 48px;
   color: var(--orange);
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-accent);
   line-height: 0.8;
   margin-bottom: 6px;
   opacity: 0.15;
@@ -1408,34 +1410,40 @@ body::before {
 
   <!-- Color palette -->
   <div style="margin-bottom:8px; font-size:12px; font-weight:600; color:#888; letter-spacing:1px; text-transform:uppercase;">컬러 팔레트</div>
+  <div style="margin-bottom:10px; font-size:12px; color:#9B8A7A; line-height:1.5;">Primary → Accent → Neutral 순서로 배치. 슬라이드 제작 시 이 6색만 사용합니다.</div>
   <div class="color-palette" style="margin-bottom:28px;">
     <div class="swatch-group">
-      <div class="swatch" style="background:#FAF8F5;"></div>
-      <div class="swatch-label">웜 화이트<br><span class="swatch-hex">#FAF8F5</span></div>
+      <div class="swatch" style="background:#E8703A; box-shadow: 0 4px 12px rgba(232,112,58,0.3);"></div>
+      <div class="swatch-label">브랜드 오렌지<br><span class="swatch-hex">#E8703A</span></div>
     </div>
     <div class="swatch-group">
-      <div class="swatch" style="background:#E8703A;"></div>
-      <div class="swatch-label">오렌지 포인트<br><span class="swatch-hex">#E8703A</span></div>
+      <div class="swatch" style="background:#FFF8F0; border:1px solid #EDE4D8;"></div>
+      <div class="swatch-label">크림 배경<br><span class="swatch-hex">#FFF8F0</span></div>
     </div>
     <div class="swatch-group">
-      <div class="swatch" style="background:#C85828;"></div>
-      <div class="swatch-label">딥 오렌지<br><span class="swatch-hex">#C85828</span></div>
+      <div class="swatch" style="background:#F5EDE0;"></div>
+      <div class="swatch-label">웜 베이지<br><span class="swatch-hex">#F5EDE0</span></div>
     </div>
     <div class="swatch-group">
-      <div class="swatch" style="background:#F5E8D0;"></div>
-      <div class="swatch-label">베이지<br><span class="swatch-hex">#F5E8D0</span></div>
-    </div>
-    <div class="swatch-group">
-      <div class="swatch" style="background:#FFF8F0; border:1px solid #EEE;"></div>
-      <div class="swatch-label">아이보리<br><span class="swatch-hex">#FFF8F0</span></div>
+      <div class="swatch" style="background:#D4A04A; box-shadow: 0 2px 8px rgba(212,160,74,0.2);"></div>
+      <div class="swatch-label">골드 악센트<br><span class="swatch-hex">#D4A04A</span></div>
     </div>
     <div class="swatch-group">
       <div class="swatch" style="background:#3D2E24;"></div>
-      <div class="swatch-label">웜 차콜 (텍스트)<br><span class="swatch-hex">#3D2E24</span></div>
+      <div class="swatch-label">본문 텍스트<br><span class="swatch-hex">#3D2E24</span></div>
     </div>
     <div class="swatch-group">
-      <div class="swatch" style="background:#D4A04A; box-shadow: 0 2px 8px rgba(212,160,74,0.25);"></div>
-      <div class="swatch-label">골드 (Gold)<br><span class="swatch-hex">#D4A04A</span></div>
+      <div class="swatch" style="background:#9B8A7A;"></div>
+      <div class="swatch-label">서브 텍스트<br><span class="swatch-hex">#9B8A7A</span></div>
+    </div>
+  </div>
+  <div style="margin-bottom:28px; padding:16px 20px; background:rgba(232,112,58,0.04); border-radius:12px; border-left:3px solid #E8703A;">
+    <div style="font-size:12px; font-weight:700; color:#3D2E24; margin-bottom:8px;">사용 규칙</div>
+    <div style="font-size:11px; color:#6B5B4E; line-height:1.7;">
+      • <strong>브랜드 오렌지</strong> — CTA 버튼, 포인트 레이블, 강조 배경 (전체 면적의 15~25%)<br>
+      • <strong>크림 / 웜 베이지</strong> — 슬라이드 배경 (크림: 밝은 슬라이드, 베이지: 구분 영역)<br>
+      • <strong>골드</strong> — 배지, 프리미엄 라벨, 장식선에만 사용 (오렌지와 인접 배치 금지)<br>
+      • <strong>본문 / 서브</strong> — 제목·본문은 #3D2E24, 캡션·보조 정보는 #9B8A7A
     </div>
   </div>
 
@@ -1443,24 +1451,28 @@ body::before {
   <div style="margin-bottom:8px; font-size:12px; font-weight:600; color:#888; letter-spacing:1px; text-transform:uppercase;">폰트 위계</div>
   <div class="font-hierarchy" style="margin-bottom:28px;">
     <div class="font-row">
-      <div class="font-meta">훅 제목<br>48px / SemiBold 600<br>Noto Serif KR · LH 1.4</div>
-      <div class="font-preview-title" style="font-size: 32px; font-weight: 600; font-family: 'Noto Serif KR', serif;">피부 고민, 이젠 끝.</div>
+      <div class="font-meta">훅 제목 (감성 유입)<br>68px / <strong style="color:var(--orange)">Light 300</strong><br>Noto Serif KR · LH 1.35</div>
+      <div class="font-preview-title" style="font-size: 32px; font-weight: 300; font-family: 'Noto Serif KR', serif;">결혼 준비, 어디서부터,,,</div>
     </div>
     <div class="font-row">
-      <div class="font-meta">스텝 제목<br>34px / SemiBold 600<br>Noto Serif KR · LH 1.4</div>
-      <div class="font-preview-title" style="font-size: 22px; font-weight: 600; font-family: 'Noto Serif KR', serif;">1단계 피부 분석 케어</div>
+      <div class="font-meta">콘텐츠 제목 (정보 전달)<br>52px / <strong style="color:var(--orange)">SemiBold 600</strong><br>Pretendard · LH 1.3</div>
+      <div class="font-preview-title" style="font-size: 22px; font-weight: 600; font-family: 'Pretendard', sans-serif;">웨딩케어 상담 예약</div>
     </div>
     <div class="font-row">
-      <div class="font-meta">본문<br>24–26px / Regular 400<br>라인하이트 1.75</div>
+      <div class="font-meta">본문<br>38–40px / Regular 400<br>Pretendard · 라인하이트 1.7</div>
       <div class="font-preview-body" style="font-size: 17px;">전문가 3인이 함께 케어합니다</div>
     </div>
     <div class="font-row">
-      <div class="font-meta">레이블 (POINT / STEP)<br>18px / Bold 700<br>Cormorant Garamond · Uppercase</div>
-      <div class="font-preview-caption" style="font-size: 13px; font-family: 'Cormorant Garamond', serif; font-weight: 700; letter-spacing: 0.45em; text-transform: uppercase; color: var(--orange);">POINT</div>
+      <div class="font-meta">EN 레이블 (시선 가이드)<br><strong style="color:var(--orange)">16px / Bold 700</strong><br>Pretendard · letter-spacing 0.15em</div>
+      <div class="font-preview-caption" style="font-size: 13px; font-family: 'Pretendard', sans-serif; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--orange);">POINT</div>
     </div>
     <div class="font-row">
-      <div class="font-meta">스와이프 안내 / 소문자<br>11px / Regular<br>라인하이트 1.5</div>
-      <div class="font-preview-caption" style="font-size: 11px; color: #bbb; letter-spacing: 0.12em;">스와이프로 자세히 확인하세요 →</div>
+      <div class="font-meta">브랜드마크<br>22px / Regular 400<br>Playfair Display · 상단 고정</div>
+      <div class="font-preview-caption" style="font-size: 15px; font-family: 'Playfair Display', serif; font-weight: 400; letter-spacing: 0.4em; color: var(--orange);">IM AESTHETIC</div>
+    </div>
+    <div class="font-row">
+      <div class="font-meta">스와이프 안내<br>18px / Regular 400<br>Pretendard · 하단 배치</div>
+      <div class="font-preview-caption" style="font-size: 11px; color: #bbb; letter-spacing: 0.1em;">→ 스와이프해서 확인</div>
     </div>
   </div>
 
@@ -1527,10 +1539,10 @@ body::before {
         </div>
       </div>
       <div style="display:flex; gap:12px; align-items:flex-start;">
-        <div style="width:36px; height:36px; border-radius:8px; background:#1A1410; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; color:#FFF8F0; flex-shrink:0; letter-spacing:0.02em;">IM</div>
+        <div style="width:36px; height:36px; border-radius:8px; background:#3D2E24; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; color:#FFF8F0; flex-shrink:0; letter-spacing:0.02em;">IM</div>
         <div>
           <div style="font-size:12px; font-weight:700; color:var(--charcoal); margin-bottom:3px;">다크 배경 텍스트</div>
-          <div style="font-size:11px; color:#6B7280; line-height:1.6;">다크(#1A1410) 위 텍스트는 크림(#FFF8F0) 또는 골드(#D4A04A) 사용</div>
+          <div style="font-size:11px; color:#6B7280; line-height:1.6;">다크(#3D2E24) 위 텍스트는 크림(#FFF8F0) 또는 골드(#D4A04A) 사용</div>
         </div>
       </div>
       <div style="display:flex; gap:12px; align-items:flex-start;">

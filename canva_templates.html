@@ -9,11 +9,11 @@
 <style>
 :root {
   --orange: #E8703A;
-  --orange-dark: #C85828;
   --cream: #FFF8F0;
+  --warm-beige: #F5EDE0;
   --warm-bg: #FAF6F1;
-  --dark: #1A1410;
-  --dark-mid: #3D3229;
+  --dark: #3D2E24;
+  --dark-mid: #3D2E24;
   --text-muted: #9B8A7A;
   --border: rgba(232,112,58,0.08);
   --shadow: 0 4px 24px rgba(26,20,16,0.06);
@@ -163,7 +163,7 @@ main {
 .template-card::before {
   content: '';
   position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-  background: linear-gradient(180deg, var(--orange), var(--orange-dark));
+  background: linear-gradient(180deg, var(--orange), #D4612E);
   transform: scaleY(0); transform-origin: bottom;
   transition: transform 0.4s var(--ease);
   z-index: 2;
@@ -513,7 +513,7 @@ main {
   <h3>Customizing Checklist</h3>
   <div class="checklist-grid">
     <div class="checklist-item"><span class="checklist-dot"></span>Main color <code>#E8703A</code></div>
-    <div class="checklist-item"><span class="checklist-dot"></span>Dark color <code>#1A1410</code></div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Dark color <code>#3D2E24</code></div>
     <div class="checklist-item"><span class="checklist-dot"></span>Background <code>#FFF8F0</code> cream</div>
     <div class="checklist-item"><span class="checklist-dot"></span>Display font: Playfair Display</div>
     <div class="checklist-item"><span class="checklist-dot"></span>Body font: Noto Sans KR</div>

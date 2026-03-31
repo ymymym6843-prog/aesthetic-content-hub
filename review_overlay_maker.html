@@ -5,16 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IM AESTHETIC - 리뷰 오버레이 메이커</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <style>
   :root {
     --orange: #E8703A;
-    --orange-dark: #C85828;
     --orange-light: #F5A070;
     --cream: #FFF8F0;
-    --dark: #1A1410;
-    --dark-mid: #2C1810;
+    --warm-beige: #F5EDE0;
+    --dark: #3D2E24;
+    --dark-mid: #3D2E24;
     --text-muted: #9B8A7A;
     --warm-bg: #FAF6F1;
   }
@@ -88,7 +88,7 @@
     position: sticky; top: 0;
   }
   .editor h1 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Pretendard', system-ui, sans-serif;
     font-size: 24px; font-weight: 700;
     margin-bottom: 4px;
   }
@@ -166,7 +166,7 @@
   /* Export */
   .btn-export {
     width: 100%; padding: 16px; margin-top: 16px;
-    background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+    background: linear-gradient(135deg, var(--orange), #D4612E);
     color: #fff; border: none; border-radius: 16px;
     font-size: 15px; font-weight: 800; font-family: inherit;
     cursor: pointer; transition: all 0.3s;
@@ -198,45 +198,72 @@
   .slide .bg-layer {
     position: absolute; inset: 0; z-index: 0;
   }
+  /* BG 1: Cream Classic — clean, bright base */
   .slide .bg-layer.orange-linen {
-    background: var(--orange);
-    background-image:
-      radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.12) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 80%, rgba(200,88,40,0.3) 0%, transparent 50%),
-      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(232,112,58,0.04) 0%, transparent 60%),
+      #FFF8F0;
   }
-  .slide .bg-layer.orange-silk {
-    background: linear-gradient(160deg, #EB7E4A 0%, #E8703A 40%, #D4622E 100%);
-    background-image:
-      radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 30%, rgba(255,200,150,0.08) 0%, transparent 40%);
-  }
-  .slide .bg-layer.orange-silk::after {
+  .slide .bg-layer.orange-linen::after {
     content: ''; position: absolute; inset: 0;
-    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.018'/%3E%3C/svg%3E");
   }
+  /* BG 2: Warm Beige — natural, linen texture */
+  .slide .bg-layer.orange-silk {
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(232,112,58,0.05) 0%, transparent 60%),
+      url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C8A882' fill-opacity='0.05'%3E%3Cpath fill-rule='evenodd' d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41z'/%3E%3C/g%3E%3C/svg%3E"),
+      #F5EDE0;
+  }
+  .slide .bg-layer.orange-silk::after { display: none; }
+  /* BG 3: Brand Orange — rich depth with subtle warmth */
   .slide .bg-layer.cream-paper {
-    background: var(--cream);
-    background-image:
-      radial-gradient(ellipse at 50% 50%, rgba(232,112,58,0.03) 0%, transparent 70%);
+    background:
+      radial-gradient(ellipse 70% 50% at 20% 30%, rgba(255,200,150,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 70% at 80% 70%, rgba(160,50,15,0.2) 0%, transparent 55%),
+      radial-gradient(ellipse 40% 40% at 60% 20%, rgba(255,255,255,0.06) 0%, transparent 50%),
+      linear-gradient(165deg, #E8703A 0%, #D4612E 40%, #E8703A 70%, #EB7E4A 100%);
   }
   .slide .bg-layer.cream-paper::after {
     content: ''; position: absolute; inset: 0;
-    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
   }
+  /* BG 4: Cream→Beige gradient — soft transition with warmth */
   .slide .bg-layer.dark-velvet {
-    background: linear-gradient(160deg, #F5E0C8 0%, #F0D8C0 50%, #F5E8D8 100%);
-    background-image:
-      radial-gradient(ellipse at 50% 30%, rgba(232,112,58,0.08) 0%, transparent 60%);
+    background:
+      radial-gradient(ellipse 80% 60% at 25% 20%, rgba(232,112,58,0.06) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 50% at 75% 80%, rgba(212,160,74,0.04) 0%, transparent 50%),
+      linear-gradient(160deg, #FFF8F0 0%, #F5EDE0 50%, #FFF8F0 100%);
   }
+  /* BG 5: Orange Soft — mesh gradient with light play */
   .slide .bg-layer.beige-fabric {
-    background: linear-gradient(160deg, #F5E8D0 0%, #EDE0CE 50%, #E8D8C4 100%);
-    background-image:
-      url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C8A882' fill-opacity='0.06'%3E%3Cpath fill-rule='evenodd' d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41z'/%3E%3C/g%3E%3C/svg%3E");
+    background:
+      radial-gradient(ellipse 80% 60% at 15% 20%, rgba(255,220,180,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 85% 75%, rgba(180,60,20,0.2) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 50% at 50% 50%, rgba(245,160,112,0.3) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 75% 15%, rgba(255,255,255,0.1) 0%, transparent 50%),
+      linear-gradient(155deg, #E8703A 0%, #EB7E4A 25%, #F5A070 55%, #E8703A 100%);
   }
+  .slide .bg-layer.beige-fabric::after {
+    content: ''; position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+  }
+  /* BG 6: Gold Premium — warm beige with gold shimmer */
   .slide .bg-layer.orange-gradient {
-    background: linear-gradient(135deg, #E8703A 0%, #F5A070 50%, #E8703A 100%);
-    background-size: 200% 200%;
+    background:
+      radial-gradient(ellipse 80% 40% at 50% 15%, rgba(212,160,74,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 50% 85%, rgba(212,160,74,0.08) 0%, transparent 55%),
+      linear-gradient(180deg, #F5EDE0 0%, #FFF8F0 30%, #FFF8F0 70%, #F5EDE0 100%);
+  }
+  .slide .bg-layer.orange-gradient::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, transparent 10%, #D4A04A 30%, #D4A04A 70%, transparent 90%);
+  }
+  .slide .bg-layer.orange-gradient::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, transparent 10%, #D4A04A 30%, #D4A04A 70%, transparent 90%);
   }
 
   /* Top label */
@@ -254,8 +281,8 @@
     backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.15);
   }
   .slide .top-label .source-badge.dark {
-    background: rgba(26,20,16,0.08); color: var(--dark-mid);
-    border: 1px solid rgba(26,20,16,0.08);
+    background: rgba(61,46,36,0.1); color: var(--dark);
+    border: 1px solid rgba(61,46,36,0.1);
   }
   .slide .review-title {
     position: absolute; top: 56px; left: 0; right: 0; z-index: 10;
@@ -292,7 +319,7 @@
     padding: 24px;
   }
   .slide .text-review-frame .quote-mark {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Pretendard', system-ui, sans-serif;
     font-size: 60px; font-weight: 700; line-height: 1;
     opacity: 0.15;
   }
@@ -392,12 +419,12 @@
 
     <div class="section-label">배경 스타일</div>
     <div class="bg-styles">
-      <div class="bg-style active" data-bg="orange-linen" onclick="setBg('orange-linen')" style="background:#E8703A; background-image: url('data:image/svg+xml,%3Csvg width=&quot;20&quot; height=&quot;20&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Crect width=&quot;20&quot; height=&quot;20&quot; fill=&quot;%23E8703A&quot;/%3E%3Ccircle cx=&quot;10&quot; cy=&quot;10&quot; r=&quot;1&quot; fill=&quot;rgba(255,255,255,0.08)&quot;/%3E%3C/svg%3E');"></div>
-      <div class="bg-style" data-bg="orange-silk" onclick="setBg('orange-silk')" style="background:linear-gradient(135deg,#EB7E4A,#D4622E);"></div>
-      <div class="bg-style" data-bg="cream-paper" onclick="setBg('cream-paper')" style="background:#FFF8F0;border:1px solid #eee;"></div>
-      <div class="bg-style" data-bg="dark-velvet" onclick="setBg('dark-velvet')" style="background:linear-gradient(135deg,#F5E0C8,#F0D8C0);"></div>
-      <div class="bg-style" data-bg="beige-fabric" onclick="setBg('beige-fabric')" style="background:linear-gradient(135deg,#F5E8D0,#E8D8C4);"></div>
-      <div class="bg-style" data-bg="orange-gradient" onclick="setBg('orange-gradient')" style="background:linear-gradient(135deg,#E8703A,#F5A070);"></div>
+      <div class="bg-style active" data-bg="orange-linen" onclick="setBg('orange-linen')" style="background:#FFF8F0;border:1px solid #EDE4D8;"></div>
+      <div class="bg-style" data-bg="orange-silk" onclick="setBg('orange-silk')" style="background:#F5EDE0;"></div>
+      <div class="bg-style" data-bg="cream-paper" onclick="setBg('cream-paper')" style="background:#E8703A;"></div>
+      <div class="bg-style" data-bg="dark-velvet" onclick="setBg('dark-velvet')" style="background:linear-gradient(160deg,#FFF8F0,#F5EDE0);"></div>
+      <div class="bg-style" data-bg="beige-fabric" onclick="setBg('beige-fabric')" style="background:linear-gradient(135deg,#E8703A,#F5A070);"></div>
+      <div class="bg-style" data-bg="orange-gradient" onclick="setBg('orange-gradient')" style="background:linear-gradient(180deg,#F5EDE0,#FFF8F0,#F5EDE0);border-top:2px solid #D4A04A;border-bottom:2px solid #D4A04A;"></div>
     </div>
 
     <button class="btn-export" onclick="exportPNG()">PNG 내보내기 (1080x1350)</button>
@@ -410,9 +437,9 @@
         <div class="bg-layer orange-linen" id="bgLayer"></div>
 
         <div class="top-label">
-          <span class="source-badge light" id="sourceBadge">NAVER REVIEW</span>
+          <span class="source-badge dark" id="sourceBadge">NAVER REVIEW</span>
         </div>
-        <div class="review-title text-light" id="reviewTitle">REAL REVIEW</div>
+        <div class="review-title text-dark" id="reviewTitle">REAL REVIEW</div>
 
         <!-- Screenshot mode -->
         <div class="screenshot-frame" id="screenshotFrame">
@@ -420,13 +447,13 @@
         </div>
 
         <!-- Text mode (hidden) -->
-        <div class="text-review-frame text-light" id="textFrame" style="display:none">
+        <div class="text-review-frame text-dark" id="textFrame" style="display:none">
           <div class="quote-mark">"</div>
           <div class="review-text" id="previewReviewText">3번 받고 나서 피부가 진짜 달라졌어요,,, 원장님들이 매번 꼼꼼하게 봐주셔서 믿음이 갔습니다</div>
           <div class="reviewer" id="previewReviewer">— 30대 예비신부님</div>
         </div>
 
-        <div class="bottom-bar text-light" id="bottomBar">
+        <div class="bottom-bar text-dark" id="bottomBar">
           <div class="client-label" id="previewClient">30대 예비신부님</div>
           <div class="brand">IM AESTHETIC</div>
         </div>
@@ -449,7 +476,8 @@ const SOURCES = {
   dm: 'CUSTOMER DM',
 };
 
-const DARK_BGS = ['cream-paper', 'beige-fabric'];
+// Dark text on light backgrounds, light text on orange backgrounds
+const DARK_BGS = ['orange-linen', 'orange-silk', 'dark-velvet', 'orange-gradient'];
 
 function isDarkText() { return DARK_BGS.includes(state.bg); }
 
@@ -560,6 +588,9 @@ reviewBox.addEventListener('drop', e => {
     reader.readAsDataURL(file);
   }
 });
+
+// Initialize colors on load
+updateColors();
 </script>
 <script src="/nav-shared.js"></script>
 </body>

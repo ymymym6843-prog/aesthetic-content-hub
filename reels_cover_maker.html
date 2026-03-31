@@ -5,12 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IM AESTHETIC - 릴스 커버 메이커</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <style>
   :root {
-    --orange: #E8703A; --orange-dark: #C85828; --orange-light: #F5A070;
-    --cream: #FFF8F0; --dark: #1A1410; --dark-mid: #2C1810;
+    --orange: #E8703A; --orange-light: #F5A070;
+    --cream: #FFF8F0; --warm-beige: #F5EDE0;
+    --dark: #3D2E24; --dark-mid: #3D2E24;
     --text-muted: #9B8A7A; --warm-bg: #FAF6F1;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
@@ -78,7 +79,7 @@
     padding: 36px 28px; overflow-y: auto; max-height: calc(100vh - 140px);
     position: sticky; top: 0;
   }
-  .editor h1 { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .editor h1 { font-family: 'Pretendard', system-ui, sans-serif; font-size: 24px; font-weight: 700; margin-bottom: 4px; }
   .editor .sub { font-size: 12px; color: var(--text-muted); margin-bottom: 28px; }
 
   .section-label {
@@ -139,7 +140,7 @@
 
   .btn-export {
     width: 100%; padding: 16px; margin-top: 16px;
-    background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+    background: linear-gradient(135deg, var(--orange), #D4612E);
     color: #fff; border: none; border-radius: 16px;
     font-size: 15px; font-weight: 800; font-family: inherit;
     cursor: pointer; transition: all 0.3s;

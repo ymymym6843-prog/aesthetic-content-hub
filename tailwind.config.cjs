@@ -10,12 +10,10 @@ module.exports = {
         brand: {
           orange: '#E8703A',
           'orange-light': '#F5A070',
-          'orange-dark': '#C85828',
-          beige: '#F5E8D0',
-          cream: '#FAF4EA',
-          brown: '#2C1810',
-          'brown-dark': '#1A1410',
-          'brown-mid': '#6B4830',
+          beige: '#F5EDE0',
+          cream: '#FFF8F0',
+          brown: '#3D2E24',
+          'brown-mid': '#6B5B4E',
           gold: '#D4A04A',
           muted: '#9B8A7A',
           'warm-white': '#FFF8F0',
@@ -23,7 +21,7 @@ module.exports = {
       },
       fontFamily: {
         display: ['"Playfair Display"', 'Georgia', 'serif'],
-        accent: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+        accent: ['Pretendard', '-apple-system', 'sans-serif'],
         sans: ['Pretendard', '-apple-system', 'sans-serif'],
       }
     },
