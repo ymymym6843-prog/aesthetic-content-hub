@@ -88,31 +88,32 @@ body::before{
   pointer-events:none;
 }
 
-/* ---- 헤더 — Rich Premium (canva_templates 스타일) ---- */
+/* ---- 헤더 — Cream Premium ---- */
 header{
-  background:#1A1410;
-  color:#fff;
+  background:#FFF8F0;
   padding:44px 32px 38px;
   text-align:center;
   position:sticky;
   top:0;
   z-index:100;
   overflow:hidden;
+  border-bottom:1px solid rgba(232,112,58,0.12);
 }
 header::before{
   content:'';
-  position:absolute;inset:0;
+  position:absolute;
+  top:-50%;left:-50%;
+  width:200%;height:200%;
   background:
-    radial-gradient(ellipse 60% 80% at 20% 50%, rgba(232,112,58,0.07), transparent 55%),
-    radial-gradient(ellipse 50% 60% at 80% 30%, rgba(232,112,58,0.05), transparent 50%),
-    radial-gradient(ellipse 40% 40% at 50% 100%, rgba(232,112,58,0.06), transparent 60%);
+    radial-gradient(ellipse at 30% 50%, rgba(232,112,58,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse at 70% 50%, rgba(232,112,58,0.04) 0%, transparent 60%);
   pointer-events:none;
 }
 header::after{
   content:'';
   position:absolute;bottom:0;left:0;right:0;
-  height:3px;
-  background:linear-gradient(90deg, transparent 0%, #E8703A 20%, #E8703A 80%, transparent 100%);
+  height:2px;
+  background:linear-gradient(90deg, transparent, #E8703A, transparent);
 }
 .header-inner{
   position:relative;z-index:1;
@@ -121,22 +122,23 @@ header::after{
 header h1{
   font-family:'Playfair Display',serif;
   font-size:32px;font-weight:500;
-  color:#FAF8F5;
+  color:#3D2E24;
   letter-spacing:10px;
   text-transform:uppercase;
 }
 header span{
-  font-size:12px;opacity:.35;font-weight:400;letter-spacing:4px;margin-top:8px;display:block;
+  font-size:12px;font-weight:400;letter-spacing:4px;margin-top:8px;display:block;
   font-family:'Pretendard',sans-serif;
+  color:#9B8A7A;
 }
 .header-badge{
   display:inline-block;
   margin-top:14px;
   padding:6px 20px;
-  background:rgba(232,112,58,0.15);
-  border:1px solid rgba(232,112,58,0.3);
+  background:#E8703A;
+  border:1px solid #E8703A;
   border-radius:50px;
-  color:#E8703A;
+  color:#fff;
   font-size:11px;font-weight:700;letter-spacing:1.5px;
   text-transform:uppercase;
 }
