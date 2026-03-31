@@ -1379,7 +1379,7 @@ function inner(s,dc,sc,bg,i,n){
     case'step':return`
       <div style="display:flex;align-items:flex-start;gap:48px;word-break:keep-all">
         <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;position:relative">
-          <div style="font-size:13px;letter-spacing:0.35em;color:${ac};font-weight:700;margin-bottom:14px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">STEP</div>
+          <div style="font-size:17px;letter-spacing:0.35em;color:${ac};font-weight:700;margin-bottom:16px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">STEP</div>
           <div style="position:relative;width:72px;height:72px">
             <div style="position:absolute;inset:-4px;border:0.5px solid ${ac}30;border-radius:50%"></div>
             <div style="width:72px;height:72px;border:1.5px solid ${ac};border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:400;color:${ac};font-family:'Cormorant Garamond',serif">${e(s.n)}</div>
@@ -1395,7 +1395,7 @@ function inner(s,dc,sc,bg,i,n){
     case'content':return`
       <div style="word-break:keep-all;position:relative">
         <div style="position:absolute;top:-20px;left:-10px;font-size:100px;color:${ac};opacity:0.05;font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1;pointer-events:none">&ldquo;</div>
-        <div style="font-size:14px;letter-spacing:0.45em;color:${ac};font-weight:700;margin-bottom:24px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">${e(s.label||'POINT')}</div>
+        <div style="font-size:18px;letter-spacing:0.45em;color:${ac};font-weight:700;margin-bottom:28px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">${e(s.label||'POINT')}</div>
         <div style="font-size:34px;font-weight:600;color:${dc};margin-bottom:18px;letter-spacing:0.01em;font-family:'Noto Serif KR',serif">${e(s.tt||'')}</div>
         ${diamondDivider(ac)}
         <div style="background:${ac}05;border:0.5px solid ${ac}12;border-radius:16px;padding:32px 36px">
@@ -1409,7 +1409,7 @@ function inner(s,dc,sc,bg,i,n){
         <div style="width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 32px;background:rgba(232,69,60,0.08);box-shadow:0 0 40px rgba(232,69,60,0.1)">
           <span style="font-size:32px;color:#E8453C;font-weight:700;font-family:'Cormorant Garamond',serif">X</span>
         </div>
-        <div style="font-size:14px;font-weight:700;color:#E8453C;letter-spacing:0.6em;margin-bottom:32px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">MYTH</div>
+        <div style="font-size:18px;font-weight:700;color:#E8453C;letter-spacing:0.6em;margin-bottom:32px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">MYTH</div>
         <div style="font-size:36px;font-weight:500;color:#fff;line-height:1.5;white-space:pre-line;letter-spacing:0.01em;font-family:'Noto Serif KR',serif">${e(s.tx)}</div>
       </div>`;
     case'fact':return`
@@ -1419,7 +1419,7 @@ function inner(s,dc,sc,bg,i,n){
         <div style="width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 32px;background:rgba(34,197,94,0.08);box-shadow:0 0 40px rgba(34,197,94,0.08)">
           <span style="font-size:32px;color:#22C55E;font-weight:700;font-family:'Cormorant Garamond',serif">✓</span>
         </div>
-        <div style="font-size:14px;letter-spacing:0.6em;margin-bottom:32px;text-transform:uppercase;font-family:'Cormorant Garamond',serif;color:#22C55E">FACT</div>
+        <div style="font-size:18px;letter-spacing:0.6em;margin-bottom:32px;text-transform:uppercase;font-family:'Cormorant Garamond',serif;color:#22C55E">FACT</div>
         ${s.tt?`<div style="font-size:30px;font-weight:600;color:${dc};margin-bottom:20px;font-family:'Noto Serif KR',serif">${e(s.tt)}</div>`:''}
         <div style="position:relative;background:${light?'rgba(34,197,94,0.03)':'rgba(255,255,255,0.04)'};padding:32px 36px;border-radius:16px;border:0.5px solid #22C55E20">
           <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:60%;height:2px;background:linear-gradient(90deg,transparent,#22C55E40,transparent);border-radius:1px"></div>
@@ -1428,7 +1428,7 @@ function inner(s,dc,sc,bg,i,n){
       </div>`;
     case'checklist':return`
       <div style="word-break:keep-all">
-        <div style="font-size:14px;letter-spacing:0.45em;color:${ac};font-weight:700;margin-bottom:24px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">${e(s.label||'CHECKLIST')}</div>
+        <div style="font-size:18px;letter-spacing:0.45em;color:${ac};font-weight:700;margin-bottom:28px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">${e(s.label||'CHECKLIST')}</div>
         <div style="font-size:34px;font-weight:600;color:${dc};margin-bottom:18px;letter-spacing:0.01em;font-family:'Noto Serif KR',serif">${e(s.tt||'')}</div>
         ${diamondDivider(ac)}
         <div style="border:0.5px solid ${ac}15;border-radius:16px;overflow:hidden">
@@ -1455,7 +1455,7 @@ function inner(s,dc,sc,bg,i,n){
     case'cause':return`
       <div style="word-break:keep-all;position:relative">
         <div style="position:absolute;top:-40px;right:0;font-size:200px;color:${ac};opacity:0.03;font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1;pointer-events:none">Why</div>
-        <div style="font-size:14px;letter-spacing:0.45em;color:${ac};font-weight:700;margin-bottom:24px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">${e(s.label||'ANALYSIS')}</div>
+        <div style="font-size:18px;letter-spacing:0.45em;color:${ac};font-weight:700;margin-bottom:28px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">${e(s.label||'ANALYSIS')}</div>
         <div style="font-size:30px;color:${ac};font-weight:700;margin-bottom:16px;font-family:'Noto Serif KR',serif">${e(s.tt||'')}</div>
         ${diamondDivider(ac)}
         <div style="border-left:3px solid ${ac};padding:28px 36px;background:${ac}04;border-radius:0 14px 14px 0">
@@ -1464,7 +1464,7 @@ function inner(s,dc,sc,bg,i,n){
       </div>`;
     case'recommend':return`
       <div style="word-break:keep-all">
-        <div style="font-size:14px;letter-spacing:0.45em;color:${ac};font-weight:700;margin-bottom:24px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">${e(s.label||'FOR YOU')}</div>
+        <div style="font-size:18px;letter-spacing:0.45em;color:${ac};font-weight:700;margin-bottom:28px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">${e(s.label||'FOR YOU')}</div>
         <div style="font-size:32px;font-weight:600;color:${dc};margin-bottom:18px;font-family:'Noto Serif KR',serif">이런 분께 추천해요</div>
         ${diamondDivider(ac)}
         ${(s.items||[]).map((it,j)=>{
@@ -1485,7 +1485,7 @@ function inner(s,dc,sc,bg,i,n){
       </div>`;
     case'ugc':return`
       <div style="text-align:center;word-break:keep-all;position:relative">
-        <div style="font-size:14px;letter-spacing:0.45em;color:${ac};font-weight:700;margin-bottom:24px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">${e(s.label||'REVIEW')}</div>
+        <div style="font-size:18px;letter-spacing:0.45em;color:${ac};font-weight:700;margin-bottom:28px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">${e(s.label||'REVIEW')}</div>
         <div style="display:flex;justify-content:center;gap:6px;margin-bottom:28px">${[1,2,3,4,5].map(()=>`<span style="font-size:22px;color:${ac};opacity:0.7">★</span>`).join('')}</div>
         <div style="position:relative;background:${ac}04;border:0.5px solid ${ac}15;border-radius:20px;padding:40px 44px;margin-bottom:28px">
           <div style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-size:72px;color:${ac};opacity:0.1;font-family:'Cormorant Garamond',serif;line-height:1">&ldquo;</div>
@@ -1501,7 +1501,7 @@ function inner(s,dc,sc,bg,i,n){
       <div style="text-align:center;word-break:keep-all;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative">
         <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:320px;height:320px;border-radius:50%;border:0.5px solid ${ac}08;pointer-events:none"></div>
         <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:220px;height:220px;border-radius:50%;border:0.5px solid ${ac}06;pointer-events:none"></div>
-        <div style="font-size:14px;letter-spacing:0.6em;color:${ac};font-weight:700;margin-bottom:32px;text-transform:uppercase;font-family:'Cormorant Garamond',serif;position:relative;z-index:2">SAVE & SHARE</div>
+        <div style="font-size:18px;letter-spacing:0.6em;color:${ac};font-weight:700;margin-bottom:32px;text-transform:uppercase;font-family:'Cormorant Garamond',serif;position:relative;z-index:2">SAVE & SHARE</div>
         <div style="margin-bottom:28px;position:relative;z-index:2">
           <span style="font-size:44px;color:${ac}">♡</span>
         </div>
@@ -1510,7 +1510,7 @@ function inner(s,dc,sc,bg,i,n){
       </div>`;
     case'ba':return`
       <div style="display:flex;height:100%;flex-direction:column;justify-content:center">
-        <div style="font-size:10px;letter-spacing:0.45em;color:${ac};font-weight:700;margin-bottom:20px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">${e(s.label||'CASE STUDY')}</div>
+        <div style="font-size:16px;letter-spacing:0.45em;color:${ac};font-weight:700;margin-bottom:24px;text-transform:uppercase;font-family:'Cormorant Garamond',serif">${e(s.label||'CASE STUDY')}</div>
         <div style="display:flex;gap:0;height:420px;margin-bottom:32px;position:relative">
           <div style="flex:1;background:${ac}06;border-radius:16px 0 0 16px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border:0.5px solid ${ac}15">
             <div style="position:absolute;top:16px;left:16px;background:linear-gradient(135deg,${ac},${ac}cc);color:white;font-size:10px;font-weight:800;padding:5px 14px;border-radius:20px;letter-spacing:0.8px;font-family:'Cormorant Garamond',serif;z-index:2">BEFORE</div>
