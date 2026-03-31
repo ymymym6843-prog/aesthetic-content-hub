@@ -261,6 +261,16 @@ header .subtitle {
   position: relative;
   overflow: hidden;
   font-family: 'Pretendard', system-ui, sans-serif;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+.event-card .card-content-wrap {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  bottom: 100px; /* reserve space for footer */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* Decorative elements */
@@ -279,7 +289,7 @@ header .subtitle {
 /* Card header */
 .card-header {
   text-align: center;
-  padding: 80px 80px 0;
+  padding: 0 80px;
 }
 .card-header .logo-text {
   font-family: 'Playfair Display', serif;
@@ -293,7 +303,7 @@ header .subtitle {
   width: 60px;
   height: 2px;
   background: var(--orange);
-  margin: 20px auto;
+  margin: 16px auto;
 }
 
 /* Card title area */
@@ -327,10 +337,11 @@ header .subtitle {
   position: absolute;
   bottom: 0; left: 0; right: 0;
   background: var(--orange);
-  padding: 36px 80px;
+  padding: 28px 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 2;
 }
 .card-footer .footer-ig {
   font-size: 20px;
@@ -748,14 +759,13 @@ footer .brand-foot {
   );
 }
 /* Ensure card content sits above image layers */
-.event-card .card-header,
-.event-card .card-title-area,
-.event-card .card-body,
-.event-card .card-footer,
+.event-card .card-content-wrap,
 .event-card .card-deco-circle,
 .event-card .card-deco-line {
-  position: relative;
   z-index: 2;
+}
+.event-card .card-footer {
+  z-index: 3;
 }
 
 /* ---- Server Load Modal ---- */
@@ -826,7 +836,7 @@ footer .brand-foot {
       </button>
       <button onclick="clearSaved()" style="padding:12px 24px;border-radius:12px;border:1px solid rgba(232,112,58,0.3);background:transparent;color:#9B8A7A;font-size:13px;font-weight:600;cursor:pointer;margin-top:8px;width:100%">새로 시작</button>
       <div style="display:flex;gap:8px;margin-top:8px">
-        <button onclick="serverSave()" style="flex:1;padding:12px;border-radius:12px;border:1px solid #E8703A;background:rgba(232,112,58,0.05);color:#E8703A;font-size:13px;font-weight:600;cursor:pointer">서버에 저장</button>
+        <button onclick="serverSave()" style="flex:1;padding:12px;border-radius:12px;border:1px solid #E8703A;background:rgba(232,112,58,0.05);color:#E8703A;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap">서버에 저장</button>
         <button onclick="serverLoad()" style="flex:1;padding:12px;border-radius:12px;border:1px solid rgba(232,112,58,0.3);background:transparent;color:#9B8A7A;font-size:13px;font-weight:600;cursor:pointer">불러오기</button>
       </div>
     </div>
@@ -1151,16 +1161,18 @@ function renderWedding(d) {
       </div>`;
   });
   return `
-    <div class="card-header">
-      <div class="logo-text">IM AESTHETIC</div>
-      <div class="logo-line"></div>
-    </div>
-    <div class="card-title-area">
-      <div class="main-title">${sanitize(d.title)}</div>
-      <div class="sub-title">${sanitize(d.subtitle)}</div>
-    </div>
-    <div class="card-body">
-      <div class="program-list">${progs}</div>
+    <div class="card-content-wrap">
+      <div class="card-header">
+        <div class="logo-text">IM AESTHETIC</div>
+        <div class="logo-line"></div>
+      </div>
+      <div class="card-title-area">
+        <div class="main-title">${sanitize(d.title)}</div>
+        <div class="sub-title">${sanitize(d.subtitle)}</div>
+      </div>
+      <div class="card-body">
+        <div class="program-list">${progs}</div>
+      </div>
     </div>
     <div class="card-footer">
       <div class="footer-ig">${sanitize(d.ig)}</div>
@@ -1170,20 +1182,22 @@ function renderWedding(d) {
 
 function renderSeason(d) {
   return `
-    <div class="card-header">
-      <div class="logo-text">IM AESTHETIC</div>
-      <div class="logo-line"></div>
-    </div>
-    <div class="card-title-area" style="padding-top:10px;">
-      <div class="event-badge">${sanitize(d.seasonLabel)}</div>
-      <div class="main-title" style="margin-top:16px;">${sanitize(d.title)}</div>
-      <div class="sub-title">${sanitize(d.subtitle)}</div>
-    </div>
-    <div class="card-body">
-      <div class="event-details">
-        <div class="event-desc">${sanitize(d.details)}</div>
-        <div class="event-period">
-          <strong>${sanitize(d.periodStart)}</strong> ~ <strong>${sanitize(d.periodEnd)}</strong>
+    <div class="card-content-wrap">
+      <div class="card-header">
+        <div class="logo-text">IM AESTHETIC</div>
+        <div class="logo-line"></div>
+      </div>
+      <div class="card-title-area" style="padding-top:10px;">
+        <div class="event-badge">${sanitize(d.seasonLabel)}</div>
+        <div class="main-title" style="margin-top:16px;">${sanitize(d.title)}</div>
+        <div class="sub-title">${sanitize(d.subtitle)}</div>
+      </div>
+      <div class="card-body">
+        <div class="event-details">
+          <div class="event-desc">${sanitize(d.details)}</div>
+          <div class="event-period">
+            <strong>${sanitize(d.periodStart)}</strong> ~ <strong>${sanitize(d.periodEnd)}</strong>
+          </div>
         </div>
       </div>
     </div>
@@ -1203,18 +1217,20 @@ function renderFirst(d) {
       </div>`;
   });
   return `
-    <div class="card-header">
-      <div class="logo-text">IM AESTHETIC</div>
-      <div class="logo-line"></div>
-    </div>
-    <div class="card-title-area">
-      <div class="main-title">${sanitize(d.title)}</div>
-      <div class="sub-title">${sanitize(d.subtitle)}</div>
-    </div>
-    <div class="card-body">
-      <div class="benefits-list">${items}</div>
-      <div class="cta-box">
-        <div class="cta-btn">${sanitize(d.cta)}</div>
+    <div class="card-content-wrap">
+      <div class="card-header">
+        <div class="logo-text">IM AESTHETIC</div>
+        <div class="logo-line"></div>
+      </div>
+      <div class="card-title-area">
+        <div class="main-title">${sanitize(d.title)}</div>
+        <div class="sub-title">${sanitize(d.subtitle)}</div>
+      </div>
+      <div class="card-body">
+        <div class="benefits-list">${items}</div>
+        <div class="cta-box">
+          <div class="cta-btn">${sanitize(d.cta)}</div>
+        </div>
       </div>
     </div>
     <div class="card-footer">
@@ -1225,29 +1241,31 @@ function renderFirst(d) {
 
 function renderReferral(d) {
   return `
-    <div class="card-header">
-      <div class="logo-text">IM AESTHETIC</div>
-      <div class="logo-line"></div>
-    </div>
-    <div class="card-title-area">
-      <div class="main-title">${sanitize(d.title)}</div>
-      <div class="sub-title">${sanitize(d.subtitle)}</div>
-    </div>
-    <div class="card-body">
-      <div class="referral-desc">${sanitize(d.desc)}</div>
-      <div class="referral-boxes">
-        <div class="ref-box">
-          <div class="ref-icon">💫</div>
-          <div class="ref-label">추천인 혜택</div>
-          <div class="ref-benefit">${sanitize(d.referrerBenefit)}</div>
-        </div>
-        <div class="ref-box">
-          <div class="ref-icon">✨</div>
-          <div class="ref-label">친구 혜택</div>
-          <div class="ref-benefit">${sanitize(d.friendBenefit)}</div>
-        </div>
+    <div class="card-content-wrap">
+      <div class="card-header">
+        <div class="logo-text">IM AESTHETIC</div>
+        <div class="logo-line"></div>
       </div>
-      <div class="ref-note">${sanitize(d.note)}</div>
+      <div class="card-title-area">
+        <div class="main-title">${sanitize(d.title)}</div>
+        <div class="sub-title">${sanitize(d.subtitle)}</div>
+      </div>
+      <div class="card-body">
+        <div class="referral-desc">${sanitize(d.desc)}</div>
+        <div class="referral-boxes">
+          <div class="ref-box">
+            <div class="ref-icon">💫</div>
+            <div class="ref-label">추천인 혜택</div>
+            <div class="ref-benefit">${sanitize(d.referrerBenefit)}</div>
+          </div>
+          <div class="ref-box">
+            <div class="ref-icon">✨</div>
+            <div class="ref-label">친구 혜택</div>
+            <div class="ref-benefit">${sanitize(d.friendBenefit)}</div>
+          </div>
+        </div>
+        <div class="ref-note">${sanitize(d.note)}</div>
+      </div>
     </div>
     <div class="card-footer">
       <div class="footer-ig">${sanitize(d.ig)}</div>
