@@ -563,6 +563,15 @@ footer .brand-foot {
   top: 0;
 }
 
+/* ════════ AUTOSAVE TOAST ════════ */
+.autosave-toast {
+  position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+  background: #3D2E24; color: #FFF8F0; padding: 12px 24px; border-radius: 30px;
+  font-size: 13px; font-weight: 600; z-index: 9999; opacity: 0;
+  transition: opacity 0.3s; pointer-events: none;
+}
+.autosave-toast.show { opacity: 1; }
+
 /* ════════ IMAGE UPLOAD SECTION ════════ */
 .img-upload-zone {
   border: 2px dashed rgba(232,112,58,0.35);
@@ -791,13 +800,14 @@ footer .brand-foot {
         <!-- Card will be rendered here -->
       </div>
     </div>
-    <div class="export-actions">
+    <div class="export-actions" style="flex-direction:column;align-items:center;">
       <button class="btn-export" onclick="exportPNG()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
         </svg>
         PNG 다운로드
       </button>
+      <button onclick="clearSaved()" style="padding:12px 24px;border-radius:12px;border:1px solid rgba(232,112,58,0.3);background:transparent;color:#9B8A7A;font-size:13px;font-weight:600;cursor:pointer;margin-top:8px;width:100%">새로 시작</button>
     </div>
   </div>
 
@@ -884,6 +894,7 @@ function selectPreset(idx) {
   });
   buildEditPanel();
   renderCard();
+  autoSave();
 }
 
 // ════════ EDIT PANEL BUILDER ════════
@@ -1014,6 +1025,7 @@ function readImageFile(file) {
     uploadedImage = ev.target.result;
     buildEditPanel();
     renderCard();
+    autoSave();
   };
   reader.readAsDataURL(file);
 }
@@ -1022,6 +1034,7 @@ function removeImage() {
   uploadedImage = null;
   buildEditPanel();
   renderCard();
+  autoSave();
 }
 
 function updateImageOpacity(val) {
@@ -1029,6 +1042,7 @@ function updateImageOpacity(val) {
   const valEl = document.getElementById('opacityVal');
   if (valEl) valEl.textContent = imageOpacity + '%';
   renderCard();
+  autoSave();
 }
 
 function updateImagePosition(pos) {
@@ -1039,6 +1053,7 @@ function updateImagePosition(pos) {
   const btns = document.querySelectorAll('.pos-btn');
   if (btns[map[pos]]) btns[map[pos]].classList.add('active');
   renderCard();
+  autoSave();
 }
 
 function field(key, label, val) {
@@ -1052,14 +1067,17 @@ function esc(s) { return String(s).replace(/"/g, '&quot;').replace(/</g, '&lt;')
 function updateField(key, val) {
   currentData[key] = val;
   renderCard();
+  autoSave();
 }
 function updateProg(idx, prop, val) {
   currentData.programs[idx][prop] = val;
   renderCard();
+  autoSave();
 }
 function updateBenefit(idx, val) {
   currentData.benefits[idx] = val;
   renderCard();
+  autoSave();
 }
 
 // ════════ CARD RENDERER ════════
@@ -1279,13 +1297,69 @@ async function exportPNG() {
   btn.style.pointerEvents = '';
 }
 
+// ════════ AUTOSAVE / AUTOLOAD ════════
+const STORAGE_KEY = 'im_event_state';
+let _saveTimer;
+function collectState() {
+  return {
+    preset: currentPreset,
+    data: currentData,
+    uploadedImage: uploadedImage,
+    imageOpacity: imageOpacity,
+    imagePosition: imagePosition
+  };
+}
+function autoSave() {
+  clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(() => {
+    const data = collectState();
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+    catch(e) {
+      try {
+        const lite = {...data};
+        delete lite.uploadedImage;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(lite));
+      } catch(e2) { console.warn('AutoSave failed:', e2); }
+    }
+  }, 1000);
+}
+function restoreState(data) {
+  if (data.preset !== undefined) {
+    currentPreset = data.preset;
+    document.querySelectorAll('.preset-thumb').forEach((c, i) =>
+      c.classList.toggle('active', i === data.preset));
+  }
+  if (data.data) currentData = data.data;
+  if (data.uploadedImage) uploadedImage = data.uploadedImage;
+  if (data.imageOpacity !== undefined) imageOpacity = data.imageOpacity;
+  if (data.imagePosition) imagePosition = data.imagePosition;
+  buildEditPanel();
+  renderCard();
+}
+function autoLoad() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return false;
+    restoreState(JSON.parse(saved));
+    return true;
+  } catch(e) { console.warn('AutoLoad failed:', e); return false; }
+}
+function clearSaved() { localStorage.removeItem(STORAGE_KEY); location.reload(); }
+function showToast(msg) {
+  const t = document.getElementById('autoToast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
 // ════════ INIT ════════
 window.addEventListener('DOMContentLoaded', () => {
   selectPreset(0);
   // initUploadZone is called inside buildEditPanel after each render
+  if (autoLoad()) showToast('이전 작업을 불러왔습니다');
 });
 window.addEventListener('resize', scalePreview);
 </script>
+<div class="autosave-toast" id="autoToast"></div>
 <script src="/nav-shared.js"></script>
 </body>
 </html>

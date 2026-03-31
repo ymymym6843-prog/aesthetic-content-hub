@@ -358,6 +358,15 @@
   .text-dark .reviewer { color: var(--text-muted); }
   .text-dark .quote-mark { color: var(--dark); }
 
+  /* AutoSave Toast */
+  .autosave-toast {
+    position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+    background: #3D2E24; color: #FFF8F0; padding: 12px 24px; border-radius: 30px;
+    font-size: 13px; font-weight: 600; z-index: 9999; opacity: 0;
+    transition: opacity 0.3s; pointer-events: none;
+  }
+  .autosave-toast.show { opacity: 1; }
+
   @media (max-width: 900px) {
     .app { flex-direction: column; }
     .editor { width: 100%; max-height: none; position: static; }
@@ -400,7 +409,7 @@
     <div id="textSection" style="display:none">
       <div class="section-label">리뷰 내용</div>
       <div class="field">
-        <textarea id="reviewContent" oninput="updatePreview()" placeholder="고객 리뷰 내용을 입력하세요,,,">3번 받고 나서 피부가 진짜 달라졌어요,,, 원장님들이 매번 꼼꼼하게 봐주셔서 믿음이 갔습니다</textarea>
+        <textarea id="reviewContent" oninput="updatePreview();autoSave()" placeholder="고객 리뷰 내용을 입력하세요,,,">3번 받고 나서 피부가 진짜 달라졌어요,,, 원장님들이 매번 꼼꼼하게 봐주셔서 믿음이 갔습니다</textarea>
       </div>
     </div>
 
@@ -414,7 +423,7 @@
     <div class="section-label">정보</div>
     <div class="field">
       <label>고객 표기 (익명)</label>
-      <input type="text" id="clientLabel" value="30대 예비신부님" oninput="updatePreview()">
+      <input type="text" id="clientLabel" value="30대 예비신부님" oninput="updatePreview();autoSave()">
     </div>
 
     <div class="section-label">배경 스타일</div>
@@ -428,6 +437,7 @@
     </div>
 
     <button class="btn-export" onclick="exportPNG()">PNG 내보내기 (1080x1350)</button>
+    <button onclick="clearSaved()" style="padding:12px 24px;border-radius:12px;border:1px solid rgba(232,112,58,0.3);background:transparent;color:#9B8A7A;font-size:13px;font-weight:600;cursor:pointer;margin-top:8px;width:100%">새로 시작</button>
   </div>
 
   <!-- Preview -->
@@ -492,6 +502,7 @@ function setType(type) {
   // Hide client label in bottom bar for screenshot mode (it's redundant)
   document.getElementById('previewClient').style.display = type === 'screenshot' ? 'block' : 'none';
   updateColors();
+  autoSave();
 }
 
 function setSource(source) {
@@ -499,6 +510,7 @@ function setSource(source) {
   document.querySelectorAll('.source-btn').forEach((b, i) =>
     b.classList.toggle('active', ['naver','kakao','dm'][i] === source));
   document.getElementById('sourceBadge').textContent = SOURCES[source];
+  autoSave();
 }
 
 function setBg(bg) {
@@ -508,6 +520,7 @@ function setBg(bg) {
   const layer = document.getElementById('bgLayer');
   layer.className = 'bg-layer ' + bg;
   updateColors();
+  autoSave();
 }
 
 function updateColors() {
@@ -533,6 +546,7 @@ function handleReviewImage(input) {
     const box = document.getElementById('reviewBox');
     box.classList.add('has-image');
     box.innerHTML = `<img src="${reader.result}" alt="review" style="width:100%;height:100%;object-fit:cover;border-radius:8px"><input type="file" id="reviewInput" accept="image/*" onchange="handleReviewImage(this)">`;
+    autoSave();
   };
   reader.readAsDataURL(file);
 }
@@ -589,9 +603,74 @@ reviewBox.addEventListener('drop', e => {
   }
 });
 
+// ===== AutoSave / AutoLoad =====
+const STORAGE_KEY = 'im_review_state';
+let _saveTimer;
+function autoSave() {
+  clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(() => {
+    const data = collectState();
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+    catch(e) {
+      try {
+        const lite = {...data};
+        delete lite.reviewImage;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(lite));
+      } catch(e2) { console.warn('AutoSave failed:', e2); }
+    }
+  }, 1000);
+}
+function collectState() {
+  return {
+    type: state.type,
+    source: state.source,
+    bg: state.bg,
+    clientLabel: document.getElementById('clientLabel').value,
+    reviewContent: document.getElementById('reviewContent')?.value || '',
+    reviewImage: state.reviewImage
+  };
+}
+function autoLoad() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return false;
+    const data = JSON.parse(saved);
+    restoreState(data);
+    return true;
+  } catch(e) { console.warn('AutoLoad failed:', e); return false; }
+}
+function restoreState(data) {
+  if (data.type) setType(data.type);
+  if (data.source) setSource(data.source);
+  if (data.bg) setBg(data.bg);
+  if (data.clientLabel) document.getElementById('clientLabel').value = data.clientLabel;
+  if (data.reviewContent) {
+    const rc = document.getElementById('reviewContent');
+    if (rc) rc.value = data.reviewContent;
+  }
+  if (data.reviewImage) {
+    state.reviewImage = data.reviewImage;
+    document.getElementById('screenshotFrame').innerHTML = `<img src="${data.reviewImage}" alt="리뷰 스크린샷">`;
+    const box = document.getElementById('reviewBox');
+    if (box) { box.classList.add('has-image'); box.innerHTML = `<img src="${data.reviewImage}" alt="리뷰 스크린샷" style="width:100%;height:100%;object-fit:cover;border-radius:8px">`; }
+  }
+  updatePreview();
+}
+function clearSaved() {
+  localStorage.removeItem(STORAGE_KEY);
+  location.reload();
+}
+function showToast(msg) {
+  const t = document.getElementById('autoToast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
 // Initialize colors on load
 updateColors();
+if (autoLoad()) showToast('이전 작업을 불러왔습니다');
 </script>
+<div class="autosave-toast" id="autoToast"></div>
 <script src="/nav-shared.js"></script>
 </body>
 </html>

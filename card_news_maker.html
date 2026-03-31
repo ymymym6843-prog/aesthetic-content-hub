@@ -734,6 +734,15 @@ textarea{resize:vertical;min-height:58px}
   header h1{font-size:14px}
   header span{display:none}
 }
+
+/* ---- 자동저장 토스트 ---- */
+.autosave-toast {
+  position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+  background: #3D2E24; color: #FFF8F0; padding: 12px 24px; border-radius: 30px;
+  font-size: 13px; font-weight: 600; z-index: 9999; opacity: 0;
+  transition: opacity 0.3s; pointer-events: none;
+}
+.autosave-toast.show { opacity: 1; }
 </style>
 </head>
 <body>
@@ -895,6 +904,7 @@ textarea{resize:vertical;min-height:58px}
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
         Canva 가이드 복사
       </button>
+      <button class="btn btn-o" onclick="clearSaved()" style="gap:6px;display:inline-flex;align-items:center;color:var(--gr);border-color:rgba(232,112,58,0.3)">새로 시작</button>
       <div style="width:100%;display:none" id="prog-wrap">
         <div style="font-size:11px;color:var(--gr)" id="prog-txt">준비중...</div>
         <div class="pb"><div class="pf" id="prog-fill" style="width:0%"></div></div>
@@ -1071,6 +1081,7 @@ function applyTheme(name){
   const root=document.documentElement;
   for(const[k,v] of Object.entries(t))root.style.setProperty(k,v);
   if(SLIDES.length)SLIDES.forEach((_,i)=>refreshPrev(i));
+  autoSave();
 }
 
 /* ---- 슬라이드 사이즈 시스템 ---- */
@@ -1088,6 +1099,7 @@ function applySize(ratio){
     el.style.height=Math.round(s.h*400/s.w)+'px';
   });
   if(SLIDES.length)SLIDES.forEach((_,i)=>refreshPrev(i));
+  autoSave();
 }
 
 /* ---- 앱 상태 ---- */
@@ -1194,6 +1206,7 @@ function selPost(id){
   document.querySelectorAll('.cc').forEach(c=>c.classList.remove('sel'));
   document.getElementById('cc-'+id)?.classList.add('sel');
   buildEditors('seds-a');render();show();
+  autoSave();
 }
 
 /* ---- 에디터 빌드 ---- */
@@ -1230,7 +1243,7 @@ function edHTML(s,i,cid){
 }
 
 function upImgBa(idx,inp,type){
-  const r=new FileReader();r.onload=e=>{IMGS['ba_'+type.charAt(0)+'_'+idx]=e.target.result;refreshPrev(idx);};
+  const r=new FileReader();r.onload=e=>{IMGS['ba_'+type.charAt(0)+'_'+idx]=e.target.result;refreshPrev(idx);autoSave();};
   r.readAsDataURL(inp.files[0]);
 }
 
@@ -1267,10 +1280,11 @@ function upd(el){
   const idx=+el.dataset.idx,k=el.dataset.k;
   SLIDES[idx][k]=k==='items'?el.value.split('\n').filter(x=>x.trim()):el.value;
   refreshPrev(idx);
+  autoSave();
 }
-function setBg(idx,c,cid){SLIDES[idx].bg=c;refreshPrev(idx);}
+function setBg(idx,c,cid){SLIDES[idx].bg=c;refreshPrev(idx);autoSave();}
 function upImg(idx,inp,cid){
-  const r=new FileReader();r.onload=e=>{IMGS[idx]=e.target.result;refreshPrev(idx);};
+  const r=new FileReader();r.onload=e=>{IMGS[idx]=e.target.result;refreshPrev(idx);autoSave();};
   r.readAsDataURL(inp.files[0]);
 }
 
@@ -1595,6 +1609,7 @@ function genTopic(){
   }
   POST=matched;SLIDES=matched.s.map(s=>({...s,items:s.items?[...s.items]:undefined}));IMGS={};
   buildEditors('seds-b');render();show();
+  autoSave();
 }
 
 /* ---- 내보내기 ---- */
@@ -2113,6 +2128,7 @@ function applyPreset(type){
   IMGS={};
   buildEditorsWithGuides('seds-c',type);
   render();show();
+  autoSave();
 }
 
 function buildEditorsWithGuides(cid,presetType){
@@ -2124,7 +2140,87 @@ function buildEditorsWithGuides(cid,presetType){
   }).join('');
 }
 
+/* ---- AutoSave / AutoLoad ---- */
+const STORAGE_KEY='im_cardnews_state';
+let _saveTimer;
+function collectState(){
+  return{
+    theme:currentTheme,
+    size:document.getElementById('size-select')?.value||'4:5',
+    postId:POST?.id||null,
+    slides:SLIDES,
+    imgs:IMGS,
+    wm:WM
+  };
+}
+function autoSave(){
+  clearTimeout(_saveTimer);
+  _saveTimer=setTimeout(()=>{
+    const data=collectState();
+    try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data));}
+    catch(e){
+      try{
+        const lite={...data};
+        delete lite.imgs;
+        localStorage.setItem(STORAGE_KEY,JSON.stringify(lite));
+      }catch(e2){console.warn('AutoSave failed:',e2);}
+    }
+  },1000);
+}
+function restoreState(data){
+  if(data.theme)applyTheme(data.theme);
+  if(data.size){
+    const sel=document.getElementById('size-select');
+    if(sel){sel.value=data.size;applySize(data.size);}
+  }
+  // Restore theme select UI
+  if(data.theme){
+    const tsel=document.getElementById('theme-select');
+    if(tsel)tsel.value=data.theme;
+  }
+  if(data.slides&&data.slides.length>0){
+    SLIDES=data.slides;
+    if(data.imgs)IMGS=data.imgs;
+    if(data.wm)Object.assign(WM,data.wm);
+    // Restore POST stub for export naming
+    if(data.postId){
+      const found=CP.find(c=>c.id===data.postId);
+      if(found)POST=found; else POST={id:data.postId,t:'restored'};
+    }else{
+      POST={id:'restored',t:'restored'};
+    }
+    // Rebuild editors into whichever panel container exists
+    const cid=document.getElementById('seds-a')?'seds-a':'seds-b';
+    buildEditors(cid);
+    render();
+    show();
+    // Restore watermark UI
+    if(WM.enabled){
+      const wmCheck=document.getElementById('wm-enabled');
+      if(wmCheck){wmCheck.checked=true;onWmChange();}
+    }
+  }
+}
+function autoLoad(){
+  try{
+    const saved=localStorage.getItem(STORAGE_KEY);
+    if(!saved)return false;
+    restoreState(JSON.parse(saved));
+    return true;
+  }catch(e){console.warn('AutoLoad failed:',e);return false;}
+}
+function clearSaved(){localStorage.removeItem(STORAGE_KEY);location.reload();}
+function showToast(msg){
+  const t=document.getElementById('autoToast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// AutoLoad on init
+if(autoLoad())showToast('이전 작업을 불러왔습니다');
+
 </script>
+<div class="autosave-toast" id="autoToast"></div>
 <script src="/nav-shared.js"></script>
 </body>
 </html>
