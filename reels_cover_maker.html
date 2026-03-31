@@ -26,14 +26,55 @@
     pointer-events: none;
   }
 
-  .app { display: flex; min-height: 100vh; }
+  /* ===== PAGE HEADER ===== */
+  .page-header {
+    background: #1A1410;
+    padding: 40px 32px 36px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background:
+      radial-gradient(ellipse at 30% 50%, rgba(232,112,58,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse at 70% 50%, rgba(232,112,58,0.05) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .page-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #E8703A, transparent);
+  }
+  .page-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px; font-weight: 400;
+    color: #FAF8F5;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    position: relative; z-index: 1;
+  }
+  .page-header p {
+    color: rgba(255,248,240,0.4);
+    font-size: 13px;
+    letter-spacing: 2px;
+    position: relative; z-index: 1;
+  }
+
+  .app { display: flex; min-height: calc(100vh - 140px); }
 
   /* Editor */
   .editor {
     width: 380px; flex-shrink: 0;
     background: rgba(255,255,255,0.6); backdrop-filter: blur(20px);
     border-right: 1px solid rgba(232,112,58,0.08);
-    padding: 36px 28px; overflow-y: auto; max-height: 100vh;
+    padding: 36px 28px; overflow-y: auto; max-height: calc(100vh - 140px);
     position: sticky; top: 0;
   }
   .editor h1 { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; margin-bottom: 4px; }
@@ -197,6 +238,11 @@
 </style>
 </head>
 <body>
+
+<div class="page-header">
+  <h1>Reels Cover Maker</h1>
+  <p>IM AESTHETIC · 릴스 커버 이미지 제작 (1080×1920)</p>
+</div>
 
 <div class="app">
   <div class="editor">

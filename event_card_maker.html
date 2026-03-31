@@ -58,9 +58,18 @@ header {
 header::before {
   content: ''; position: absolute; inset: 0;
   background:
+    radial-gradient(ellipse at 30% 50%, rgba(232,112,58,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse at 70% 50%, rgba(232,112,58,0.05) 0%, transparent 60%),
     radial-gradient(ellipse 60% 80% at 50% 120%, rgba(232,112,58,0.12), transparent 70%),
     radial-gradient(ellipse 40% 40% at 80% 20%, rgba(232,112,58,0.05), transparent);
   pointer-events: none;
+}
+header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #E8703A, transparent);
 }
 header h1 {
   font-family: 'Playfair Display', serif;
@@ -77,8 +86,7 @@ header .subtitle {
   margin-top: 8px;
 }
 .accent-line {
-  height: 3px;
-  background: linear-gradient(90deg, transparent 0%, var(--orange) 20%, var(--orange) 80%, transparent 100%);
+  display: none; /* replaced by header::after */
 }
 
 /* ════════ LAYOUT ════════ */
