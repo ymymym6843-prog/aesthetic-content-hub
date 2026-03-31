@@ -1309,7 +1309,7 @@ function defBg(s){
   const t=THEMES[currentTheme]||THEMES.warm;
   if(s.r==='myth')return '#F5E8D8';
   if(s.r==='program')return '#F5EDE0';
-  if(s.r==='hook'&&POST?.tp==='qa_flip')return '#F0DDD0';
+  if(s.r==='hook'&&POST?.tp==='qa_flip')return '#F5EDE0';
   return t['--color-bg']||'#FFF8F0';
 }
 
@@ -1367,10 +1367,10 @@ function inner(s,dc,sc,bg,i,n){
         ${s.eyebrow?`<div style="font-size:16px;font-weight:700;letter-spacing:0.15em;color:${ac};margin-bottom:20px;text-transform:uppercase;font-family:'Pretendard',sans-serif">${e(s.eyebrow)}</div>`:''}
         <div style="font-size:68px;font-weight:300;line-height:1.35;white-space:pre-line;letter-spacing:0.01em;font-family:'Noto Serif KR',serif">${e(s.tx)}</div>
         ${s.sub?`<div style="margin-top:28px;font-size:28px;color:${sc};font-weight:400">${e(s.sub)} →</div>`:`${diamondDivider(ac)}`}
-        ${s.swipe?`<div style="position:absolute;bottom:36px;left:0;right:0;font-size:18px;color:${sc};letter-spacing:0.1em;opacity:0.6">→ 스와이프해서 확인</div>`:''}
+        <div style="position:absolute;bottom:36px;left:0;right:0;font-size:18px;color:${sc};letter-spacing:0.1em;opacity:0.6">→ 스와이프해서 확인</div>
       </div>`;
     case'step':return`
-      <div style="word-break:keep-all">
+      <div style="word-break:keep-all;border-left:4px solid ${ac};padding-left:24px">
         <div style="font-size:16px;letter-spacing:0.15em;color:${ac};font-weight:700;margin-bottom:28px;text-transform:uppercase;font-family:'Pretendard',sans-serif">${e(s.label||'STEP')}</div>
         <div style="width:110px;height:110px;border:2px solid ${ac};border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:400;color:${ac};font-family:'Pretendard',sans-serif;margin-bottom:44px">${e(s.n)}</div>
         <div style="font-size:56px;font-weight:600;color:${dc};margin-bottom:24px;letter-spacing:0.01em;line-height:1.3;font-family:'Pretendard',sans-serif">${e(s.tt)}</div>
@@ -1389,14 +1389,14 @@ function inner(s,dc,sc,bg,i,n){
         <div style="font-size:40px;font-weight:400;color:${sc};line-height:1.7;white-space:pre-line;margin-bottom:40px">${e(s.tx)}</div>
         <div style="background:${ac}06;border-radius:16px;padding:28px 32px;border-left:3px solid ${ac}">
           <div style="font-size:16px;color:${ac};font-weight:700;letter-spacing:0.15em;margin-bottom:8px;font-family:'Pretendard',sans-serif">KEY POINT</div>
-          <div style="font-size:28px;color:${dc};line-height:1.5;font-weight:500">${e(s.tip||s.tt||'')}</div>
+          <div style="font-size:28px;color:${dc};line-height:1.5;font-weight:500">${e(s.tip||s.tx||'')}</div>
         </div>
       </div>`;
     case'myth':return`
       <div style="position:absolute;top:40px;left:40px;width:20px;height:20px;border-left:1.5px solid #E8453C30;border-top:1.5px solid #E8453C30;pointer-events:none"></div>
       <div style="position:absolute;bottom:40px;right:40px;width:20px;height:20px;border-right:1.5px solid #E8453C30;border-bottom:1.5px solid #E8453C30;pointer-events:none"></div>
       <div style="text-align:center;word-break:keep-all">
-        <div style="width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 32px;background:rgba(232,69,60,0.08);box-shadow:0 0 40px rgba(232,69,60,0.1)">
+        <div style="width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 32px;background:rgba(232,69,60,0.08);box-shadow:0 0 0 12px rgba(232,69,60,0.06),0 0 40px rgba(232,69,60,0.08)">
           <span style="font-size:32px;color:#E8453C;font-weight:700;font-family:'Playfair Display',serif">X</span>
         </div>
         <div style="font-size:16px;font-weight:700;color:#E8453C;letter-spacing:0.15em;margin-bottom:32px;text-transform:uppercase;font-family:'Pretendard',sans-serif">MYTH</div>
@@ -1406,7 +1406,7 @@ function inner(s,dc,sc,bg,i,n){
       <div style="position:absolute;top:40px;left:40px;width:20px;height:20px;border-left:1.5px solid #22C55E30;border-top:1.5px solid #22C55E30;pointer-events:none"></div>
       <div style="position:absolute;bottom:40px;right:40px;width:20px;height:20px;border-right:1.5px solid #22C55E30;border-bottom:1.5px solid #22C55E30;pointer-events:none"></div>
       <div style="text-align:center;word-break:keep-all">
-        <div style="width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 32px;background:rgba(34,197,94,0.08);box-shadow:0 0 40px rgba(34,197,94,0.08)">
+        <div style="width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 32px;background:rgba(34,197,94,0.08);box-shadow:0 0 0 12px rgba(34,197,94,0.06),0 0 40px rgba(34,197,94,0.08)">
           <span style="font-size:32px;color:#22C55E;font-weight:700;font-family:'Playfair Display',serif">✓</span>
         </div>
         <div style="font-size:16px;letter-spacing:0.15em;margin-bottom:32px;text-transform:uppercase;font-family:'Pretendard',sans-serif;font-weight:700;color:#22C55E">FACT</div>
@@ -1488,8 +1488,8 @@ function inner(s,dc,sc,bg,i,n){
     case'cta':return`
       <div style="word-break:keep-all;height:100%;display:flex;flex-direction:column;justify-content:center;position:relative">
         <div style="font-size:16px;letter-spacing:0.15em;color:${ac};font-weight:700;margin-bottom:36px;text-transform:uppercase;font-family:'Pretendard',sans-serif">SAVE & SHARE</div>
-        <div style="margin-bottom:32px">
-          <span style="font-size:52px;color:${ac}">♡</span>
+        <div style="width:80px;height:80px;border-radius:50%;background:${ac}08;display:flex;align-items:center;justify-content:center;margin-bottom:32px">
+          <span style="font-size:44px;color:${ac}">♡</span>
         </div>
         <div style="font-size:58px;font-weight:600;color:${dc};line-height:1.4;white-space:pre-line;font-family:'Pretendard',sans-serif;margin-bottom:40px">${e(s.tx)}</div>
         <div style="width:40px;height:2px;background:${ac};margin-bottom:28px;border-radius:1px"></div>
@@ -1550,7 +1550,7 @@ const KM=[
     {r:'hook',tx:'왼쪽 오른쪽, 왜 얼굴이 다를까요?'},{r:'cause',tt:'원인',tx:'근막 방향성 + 습관의 축적'},
     {r:'program',name:'IM 비대칭윤곽케어',tag:'조화로운 흐름이 만드는 자연스러운 균형'},{r:'cta',tx:'DM으로 문의해 주세요'}]}},
   {k:['오해','미신','아프','통증','잘못'],tp:'qa_flip',tpl:{id:'custom',t:'Myth vs Fact',tp:'qa_flip',s:[
-    {r:'hook',tx:'피부 관리, 잘못 알고 계신 거 아닌가요?',bg:'#F0DDD0'},
+    {r:'hook',tx:'피부 관리, 잘못 알고 계신 거 아닌가요?',bg:'#F5EDE0'},
     {r:'myth',tx:'세게 눌러야 효과 있다'},{r:'fact',tx:'과한 자극은 오히려 피부를 긴장시킵니다'},
     {r:'cta',tx:'저장하고 공유해 주세요'}]}}
 ];
@@ -1570,7 +1570,7 @@ const DEF_TPLS={
     {r:'content',tt:'포인트 2',tx:'내용을 입력하세요'},{r:'highlight',tx:'핵심 메시지'},
     {r:'cta',tx:'저장하고 공유해 주세요'}]}),
   qa_flip:(t)=>({id:'custom',t,tp:'qa_flip',s:[
-    {r:'hook',tx:t,bg:'#F0DDD0'},{r:'myth',tx:'잘못된 상식'},{r:'fact',tx:'올바른 정보'},
+    {r:'hook',tx:t,bg:'#F5EDE0'},{r:'myth',tx:'잘못된 상식'},{r:'fact',tx:'올바른 정보'},
     {r:'cta',tx:'저장하고 공유해 주세요'}]}),
   program:(t)=>({id:'custom',t,tp:'program',s:[
     {r:'hook',tx:t},{r:'cause',tt:'원인',tx:'원인을 입력하세요'},
@@ -2012,7 +2012,7 @@ const PRESET_TEMPLATES={
     {r:'cta',tx:'도움이 되셨다면\n저장해 두세요!'}
   ]},
   qa:{id:'preset_qa',t:'② 질문→답변 플립형',tp:'qa_flip',icon:'❓',desc:'오해/진실 대비 · 저장률 최강',s:[
-    {r:'hook',eyebrow:'IM FACT CHECK',tx:'자외선차단제,\n실내에서도 꼭\n발라야 할까요?',swipe:'→ 결과 확인하기',bg:'#F0DDD0'},
+    {r:'hook',eyebrow:'IM FACT CHECK',tx:'자외선차단제,\n실내에서도 꼭\n발라야 할까요?',swipe:'→ 결과 확인하기',bg:'#F5EDE0'},
     {r:'myth',tx:'실내에 있으면 자외선이 없으니까 선크림은 필요 없어요'},
     {r:'fact',tt:'유리창을 통과하는 UVA',tx:'유리창을 통과하는 UVA는 피부 노화의 주범. 실내에서도 창가 근처라면 자외선 노출이 발생합니다.'},
     {r:'myth',tx:'SPF 50이면 하루 종일 효과가 지속되지 않나요?'},

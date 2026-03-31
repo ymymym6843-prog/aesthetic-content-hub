@@ -1,3 +1,5 @@
+// SYNC NOTE: This Vercel handler mirrors server/routes/db-routes.js (Express).
+// Changes here MUST be applied to the corresponding Express route and vice versa.
 import { cors } from '../_cors.js';
 
 export default async function handler(req, res) {

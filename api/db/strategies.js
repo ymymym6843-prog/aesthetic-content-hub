@@ -1,3 +1,5 @@
+// SYNC NOTE: This Vercel handler mirrors server/routes/db-routes.js (Express).
+// Changes here MUST be applied to the corresponding Express route and vice versa.
 import crypto from 'crypto';
 import pool from '../_db.js';
 import { cors } from '../_cors.js';
