@@ -27,19 +27,58 @@
   body {
     font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
     background: #F7F3EE;
-    padding: 40px 20px;
+    padding: 0;
     color: var(--brown);
   }
+  body::before {
+    content: ''; position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(232,112,58,0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(232,112,58,0.02) 0%, transparent 40%);
+    pointer-events: none; z-index: -1;
+  }
 
-  .page-title {
+  /* ── 다크 페이지 헤더 ── */
+  .page-header {
+    background: #1A1410;
+    padding: 40px 32px 36px;
     text-align: center;
+    position: relative;
+    overflow: hidden;
     margin-bottom: 48px;
   }
-  .page-title h1 {
-    font-size: 32px; font-weight: 700;
-    color: var(--brown); margin-bottom: 10px;
+  .page-header::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(ellipse at 30% 50%, rgba(232,112,58,0.08) 0%, transparent 70%),
+                radial-gradient(ellipse at 70% 50%, rgba(232,112,58,0.05) 0%, transparent 60%);
+    pointer-events: none;
   }
-  .page-title p { font-size: 16px; color: var(--gray); }
+  .page-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, transparent, #E8703A, transparent);
+  }
+  .page-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px; color: #FAF8F5;
+    letter-spacing: 8px; text-transform: uppercase;
+    position: relative; z-index: 1;
+  }
+  .page-header p {
+    color: rgba(255,248,240,0.4);
+    font-size: 13px; letter-spacing: 2px;
+    position: relative; z-index: 1;
+    margin-top: 10px;
+  }
+  .content-wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px 48px;
+  }
 
   .section { margin-bottom: 60px; }
   .section-title {
@@ -269,11 +308,13 @@
 </head>
 <body>
 
-<div class="page-title">
-  <h1>📱 IM AESTHETIC 인스타그램 프로필 리뉴얼 가이드</h1>
+<!-- ══ 다크 페이지 헤더 ══ -->
+<div class="page-header">
+  <h1>PROFILE RENEWAL</h1>
   <p>@im.aesthetic.official · 2026 트렌드 반영 · 웨딩케어 포지셔닝</p>
 </div>
 
+<div class="content-wrap">
 
 <!-- ══════════════════════════════════════
      SECTION 1: 비포 앤 애프터 프로필 목업
@@ -623,6 +664,8 @@
   프로필 리뉴얼 가이드 · 2026 트렌드 반영<br>
   www.imtherapy.co.kr
 </div>
+
+</div><!-- /.content-wrap -->
 
 <script src="/nav-shared.js"></script>
 </body>
