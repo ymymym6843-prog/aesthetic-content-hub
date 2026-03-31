@@ -78,7 +78,7 @@
 
 적용할 때 참고:
 - **Primary**: #E8703A (기존 템플릿의 메인 컬러를 이것으로 교체)
-- **Dark**: #1A1410 (텍스트, 다크 배경)
+- **Dark**: #3D2E24 (본문 텍스트)
 - **Cream**: #FFF8F0 (라이트 배경)
 - **Font (EN)**: Playfair Display
 - **Font (KR)**: Noto Sans KR (Pretendard 없으면)

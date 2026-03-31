@@ -129,8 +129,8 @@
 모든 템플릿에 적용할 것:
 
 - [ ] 메인 컬러 → `#E8703A` (오렌지)
-- [ ] 다크 컬러 → `#1A1410`
-- [ ] 배경 → `#FFF8F0` (크림) 또는 `#FAF4EA`
+- [ ] 다크 컬러 → `#3D2E24`
+- [ ] 배경 → `#FFF8F0` (크림)
 - [ ] 영문 디스플레이 폰트 → Playfair Display
 - [ ] 한글 본문 폰트 → Noto Sans KR
 - [ ] 브랜드명 → "IM AESTHETIC" (Playfair italic)

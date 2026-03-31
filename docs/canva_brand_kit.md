@@ -5,23 +5,20 @@
 ### Colors
 | Name | HEX | Usage |
 |------|-----|-------|
-| **Primary Orange** | `#E8703A` | Main brand, buttons, accents |
-| **Orange Dark** | `#C85828` | Hover, gradient end |
-| **Orange Light** | `#F5A070` | Gradient, light accent |
-| **Cream** | `#FFF8F0` | Background, light cards |
-| **Warm White** | `#FAF4EA` | Secondary background |
-| **Dark Brown** | `#1A1410` | Text, dark backgrounds |
-| **Mid Brown** | `#2C1810` | Secondary text |
-| **Gold** | `#D4A04A` | Luxury accent (dark themes) |
-| **Muted** | `#9B8A7A` | Captions, subtext |
+| **Brand Orange** | `#E8703A` | CTA, accents (15-25%) |
+| **Cream** | `#FFF8F0` | Backgrounds |
+| **Warm Beige** | `#F5EDE0` | Section dividers |
+| **Gold** | `#D4A04A` | Badges, decorative lines only |
+| **Body Text** | `#3D2E24` | Body text |
+| **Sub Text** | `#9B8A7A` | Captions, subtext |
 
 ### Fonts (Canva equivalent)
 | Role | Font | Canva Alternative |
 |------|------|-------------------|
-| Display (EN) | Playfair Display | **Playfair Display** (available) |
-| Accent (EN) | Cormorant Garamond | **Cormorant** (available) |
-| Body (KR) | Pretendard | **Noto Sans KR** or **Wanted Sans** |
-| Serif (KR) | Noto Serif KR | **Noto Serif KR** (available) |
+| Hook Title (KR) | Noto Serif KR 300 | **Noto Serif KR** (available) |
+| Content Title (KR) | Pretendard 600 | **Noto Sans KR** or **Wanted Sans** |
+| Body (KR) | Pretendard 400 | **Noto Sans KR** or **Wanted Sans** |
+| Brand Mark (EN) | Playfair Display 400 | **Playfair Display** (available) |
 
 ### Logo
 - Text mark: "IM" (Playfair Display, Light 300)
@@ -36,10 +33,10 @@
 
 #### A1. Premium Minimal (1080x1350, 4:5)
 ```
-Background: #FAF8F5 (cream)
+Background: #FFF8F0 (cream)
 ┌────────────────────────────────────┐
 │  30대 예비신부님 (Noto Sans KR 14) │
-│  3개월 관리 (Cormorant italic 12)  │
+│  3개월 관리 (Pretendard 12)        │
 ├─────────────┬──┬───────────────────┤
 │             │◇ │                   │
 │   BEFORE    │line│    AFTER        │
@@ -78,13 +75,13 @@ Background: #E8703A (orange)
 
 #### A3. Dark Luxury (1080x1350)
 ```
-Background: #1A1410 (dark brown)
+Background: #FFF8F0 (cream)
 Gold accent: #D4A04A
 ┌────────────────────────────────────┐
 │  ✦ gold corner lines (4 corners)  │
 │                                    │
 │  30대 예비신부님 (gold text)        │
-│  3개월 관리 (Cormorant italic gold)│
+│  3개월 관리 (Pretendard gold)      │
 ├────────────────────────────────────┤
 │ ┌──────────┐  ┌──────────┐        │
 │ │  BEFORE  │  │  AFTER   │        │
@@ -134,7 +131,7 @@ Background: #FFFFFF
 │  │  orange bar: info + brand  │    │
 │  └────────────────────────────┘    │
 └────────────────────────────────────┘
-Background: top half #F0F0F0, bottom half #FAF4EA
+Background: top half #F0F0F0, bottom half #FFF8F0 (cream)
 ```
 
 ---
@@ -163,7 +160,7 @@ Background: #E8703A (textured - linen/grain)
 
 #### B2. Text Quote (1080x1350)
 ```
-Background: #FAF8F5 (cream)
+Background: #FFF8F0 (cream)
 ┌────────────────────────────────────┐
 │                                    │
 │         " (giant Playfair)         │
@@ -181,7 +178,7 @@ Background: #FAF8F5 (cream)
 
 #### B3. Multi Review Collage (1080x1350)
 ```
-Background: #1A1410 (dark)
+Background: #F5EDE0 (warm beige)
 ┌────────────────────────────────────┐
 │  REAL REVIEWS (gold)               │
 │  ┌─────────┐ ┌─────────┐          │
@@ -265,8 +262,8 @@ Location small at bottom
 
 ### Step 1: Brand Kit
 1. Canva Pro 로그인 → Brand Kit
-2. Colors: 위 9가지 색상 모두 등록
-3. Fonts: Playfair Display + Cormorant + Noto Sans KR
+2. Colors: 위 6가지 색상 모두 등록
+3. Fonts: Noto Serif KR + Pretendard + Playfair Display
 4. Logo: "IM" text mark 업로드 (white + orange 버전)
 
 ### Step 2: Template Creation
@@ -279,7 +276,7 @@ Location small at bottom
 ### Step 3: Brand Consistency
 - 모든 템플릿에 IM AESTHETIC 워터마크 포함
 - 오렌지 #E8703A를 메인 악센트로 일관 사용
-- Playfair Display를 영문 디스플레이에 일관 사용
+- Pretendard를 한글 본문에 일관 사용, Playfair Display는 브랜드 마크에만 사용
 - 이모지: 감성 이모지만 (🤍✨💫🌿💍🕯️🌸) — 표정 이모지 금지
 
 ---
@@ -303,7 +300,7 @@ Slide 1 (Hook):
   "→ 스와이프" (small, bottom)
 
 Slide 2~5 (Steps):
-  Background: #FAF8F5
+  Background: #FFF8F0
   Step number: "01" (Playfair 48, orange)
   Title: (Pretendard 28 bold, dark)
   Body: (Pretendard 22, muted)
@@ -323,19 +320,19 @@ Slide 7 (CTA):
 #### F2. Q&A Flip Type (질문→답변)
 ```
 Myth Slide:
-  Background: #2C1810 (dark)
+  Background: #F5EDE0 (warm beige)
   ✕ icon (red circle)
-  Myth text (white, large)
+  Myth text (#3D2E24, large)
 
 Fact Slide:
-  Background: #FAF8F5 (cream)
+  Background: #FFF8F0 (cream)
   ✓ icon (green circle)
   Fact text (dark, with orange highlight)
 ```
 
 #### F3. Review / UGC Type (후기형)
 ```
-Slide 1: Customer quote (large italic Cormorant)
+Slide 1: Customer quote (Noto Serif KR 300)
 Slide 2-3: Review screenshot frames (rotated, shadow)
 Slide 4: Results summary (checklist with orange checks)
 Slide 5: CTA
@@ -365,10 +362,10 @@ Slide 7: CTA - 웨딩케어 상담 예약
 #### F6. Diary / Emotional Type (감성 일기체)
 ```
 All slides: lots of whitespace
-Background: #FAF8F5
+Background: #FFF8F0
 Small body text (Pretendard 22)
 ",,," ending sentences
-Cormorant italic accents
+Noto Serif KR 300 accents
 Minimal, breathing space
 ```
 
