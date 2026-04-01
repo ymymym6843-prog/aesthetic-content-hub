@@ -5,8 +5,9 @@
 - **Color palette**: Cream (#FFFAF5), Rose gold (#C4907A), Warm beige (#F8F0E8), Soft mint (#8DB8A7)
 - **Style**: Soft watercolor illustration + clean infographic hybrid
 - **NO**: Realistic human faces, text in images, harsh shadows
-- **Background**: Transparent or cream (#FFFAF5)
-- **Format**: PNG, transparent background preferred
+- **Background**: Cream (#FFFAF5) — 책자 배경과 동일하여 이음새 없이 자연스럽게 녹아듦
+- **Format**: PNG
+- **Prompt suffix** (모든 프롬프트 끝에 추가): `cream colored background (#FFFAF5), no text, no human face`
 
 ---
 
@@ -25,49 +26,49 @@
 ### 2-1. O — Oily
 - **Size**: 200 x 200px
 - **Prompt**:
-  > Minimalist watercolor icon of oil droplets on skin surface, warm gold (#D4A04A) tones, glossy dewdrop feeling, elegant beauty illustration style, transparent background
+  > Minimalist watercolor icon of oil droplets on skin surface, warm gold (#D4A04A) tones, glossy dewdrop feeling, elegant beauty illustration style, cream background (#FFFAF5)
 - **File**: `images/icon_O_oily.png`
 
 ### 2-2. D — Dry
 - **Size**: 200 x 200px
 - **Prompt**:
-  > Minimalist watercolor icon of cracked dry earth texture transitioning to smooth skin, blue-gray (#8A9BAA) tones, delicate line art, elegant beauty illustration, transparent background
+  > Minimalist watercolor icon of cracked dry earth texture transitioning to smooth skin, blue-gray (#8A9BAA) tones, delicate line art, elegant beauty illustration, cream background (#FFFAF5)
 - **File**: `images/icon_D_dry.png`
 
 ### 2-3. S — Sensitive
 - **Size**: 200 x 200px
 - **Prompt**:
-  > Minimalist watercolor icon of a delicate rose petal with a small crack, rose gold (#C4907A) tones, fragile and beautiful, elegant beauty illustration, transparent background
+  > Minimalist watercolor icon of a delicate rose petal with a small crack, rose gold (#C4907A) tones, fragile and beautiful, elegant beauty illustration, cream background (#FFFAF5)
 - **File**: `images/icon_S_sensitive.png`
 
 ### 2-4. R — Resistant
 - **Size**: 200 x 200px
 - **Prompt**:
-  > Minimalist watercolor icon of a strong fortress gate or shield with botanical elements, mint green (#8DB8A7) tones, protective and solid feeling, elegant beauty illustration, transparent background
+  > Minimalist watercolor icon of a strong fortress gate or shield with botanical elements, mint green (#8DB8A7) tones, protective and solid feeling, elegant beauty illustration, cream background (#FFFAF5)
 - **File**: `images/icon_R_resistant.png`
 
 ### 2-5. P — Pigmented
 - **Size**: 200 x 200px
 - **Prompt**:
-  > Minimalist watercolor icon of scattered dark spots on a light surface like clouds with shadows, warm brown (#B8885A) tones, subtle and artistic, elegant beauty illustration, transparent background
+  > Minimalist watercolor icon of scattered dark spots on a light surface like clouds with shadows, warm brown (#B8885A) tones, subtle and artistic, elegant beauty illustration, cream background (#FFFAF5)
 - **File**: `images/icon_P_pigmented.png`
 
 ### 2-6. N — Non-pigmented
 - **Size**: 200 x 200px
 - **Prompt**:
-  > Minimalist watercolor icon of a glowing clear star or crystal, soft lavender (#A898C0) tones, pure and luminous feeling, elegant beauty illustration, transparent background
+  > Minimalist watercolor icon of a glowing clear star or crystal, soft lavender (#A898C0) tones, pure and luminous feeling, elegant beauty illustration, cream background (#FFFAF5)
 - **File**: `images/icon_N_nonpigmented.png`
 
 ### 2-7. W — Wrinkled
 - **Size**: 200 x 200px
 - **Prompt**:
-  > Minimalist watercolor icon of gentle wave lines suggesting skin folds, warm brown (#8B7355) tones, flowing organic curves, elegant beauty illustration, transparent background
+  > Minimalist watercolor icon of gentle wave lines suggesting skin folds, warm brown (#8B7355) tones, flowing organic curves, elegant beauty illustration, cream background (#FFFAF5)
 - **File**: `images/icon_W_wrinkled.png`
 
 ### 2-8. T — Tight
 - **Size**: 200 x 200px
 - **Prompt**:
-  > Minimalist watercolor icon of an upward arrow wrapped in leaves suggesting firmness, fresh green (#7AAB7E) tones, youthful and firm feeling, elegant beauty illustration, transparent background
+  > Minimalist watercolor icon of an upward arrow wrapped in leaves suggesting firmness, fresh green (#7AAB7E) tones, youthful and firm feeling, elegant beauty illustration, cream background (#FFFAF5)
 - **File**: `images/icon_T_tight.png`
 
 ---
