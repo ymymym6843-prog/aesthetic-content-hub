@@ -6,7 +6,7 @@
 <title>SKIN MBTI — Baumann Skin Type Indicator | IM GROUND</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+KR:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
 /* ===== DESIGN TOKENS ===== */
@@ -51,6 +51,8 @@
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   body { background: white !important; }
   .screen-nav { display: none !important; }
+  /* @page margin handles outer spacing — reduce .page padding for print */
+  .page { padding: 20px 10px !important; min-height: auto !important; }
 }
 
 /* ===== CSS COUNTER ===== */
@@ -244,12 +246,12 @@ body {
   margin: 0 auto 24px;
 }
 .cover-desc {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 12pt;
+  font-family: 'Noto Serif KR', serif;
+  font-size: 13pt;
   font-weight: 300;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   line-height: 1.9;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.03em;
 }
 
 .cover-image-placeholder {
@@ -302,10 +304,11 @@ body {
   margin-bottom: 8px;
 }
 .toc-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 28pt;
+  font-family: 'Noto Serif KR', serif;
+  font-size: 26pt;
+  font-weight: 300;
   color: var(--text-primary);
-  line-height: 1.2;
+  line-height: 1.3;
 }
 
 .toc-entry {
@@ -392,13 +395,13 @@ body {
   margin-bottom: 16px;
 }
 .chapter-title-main {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 24pt;
+  font-family: 'Noto Serif KR', 'Cormorant Garamond', serif;
+  font-size: 22pt;
   font-weight: 300;
   color: var(--text-primary);
-  line-height: 1.4;
+  line-height: 1.5;
   margin-bottom: 20px;
-  max-width: 380px;
+  max-width: 420px;
 }
 .chapter-title-en {
   font-family: 'Playfair Display', serif;
@@ -820,12 +823,12 @@ body {
   margin: 16px 0;
 }
 .pull-quote blockquote {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 10.5pt;
+  font-family: 'Noto Serif KR', serif;
+  font-size: 10pt;
   font-weight: 300;
-  font-style: italic;
+  font-style: normal;
   color: var(--text-primary);
-  line-height: 1.75;
+  line-height: 1.8;
 }
 .pull-quote cite {
   display: block;
