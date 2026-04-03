@@ -1157,66 +1157,76 @@ body {
 html, body {
   height: 100%;
   overflow: hidden;
+  background: #2C2320;
 }
 
 .book {
+  width: 100vw;
   height: 100vh;
-  padding-top: 0;
+  padding: 0;
+  margin: 0;
   max-width: none;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #2C2320;
 }
 
 .page {
+  /* Fixed A4-like dimensions — scaled by JS to fit viewport */
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  min-height: 100vh !important;
-  max-width: 794px;
-  margin: 0 auto;
-  overflow-y: auto;
+  width: 794px;
+  height: 1123px;
+  min-height: 1123px !important;
+  max-height: 1123px;
+  overflow: hidden;
+  margin: 0;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s ease, transform 0.4s ease;
-  transform: translateX(30px);
-  padding-bottom: 60px;
+  transform-origin: center center;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+  border-radius: 4px;
 }
 
 .page.active {
   opacity: 1;
   pointer-events: auto;
-  transform: translateX(0);
   z-index: 10;
 }
 
 .page.prev {
-  transform: translateX(-30px);
+  opacity: 0;
 }
 
 /* Presentation nav bar */
 .pres-nav {
   position: fixed;
   bottom: 0; left: 0; right: 0;
-  background: rgba(255,250,245,0.97);
+  background: rgba(44,35,32,0.95);
   backdrop-filter: blur(8px);
-  border-top: 1px solid var(--rose-gold-light);
+  border-top: 1px solid rgba(196,144,122,0.3);
   z-index: 1000;
   padding: 8px 24px;
+  height: 52px;
   display: flex;
   align-items: center;
   gap: 16px;
-  box-shadow: 0 -2px 12px rgba(44,35,32,0.08);
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.2);
 }
 .pres-nav .brand-nav {
   font-family: 'Playfair Display', serif;
   font-size: 11pt;
-  color: var(--rose-gold);
+  color: var(--rose-gold-light);
   letter-spacing: 0.08em;
   white-space: nowrap;
 }
 .pres-counter {
   font-family: 'Cormorant Garamond', serif;
   font-size: 11pt;
-  color: var(--text-secondary);
+  color: rgba(255,250,245,0.7);
   letter-spacing: 0.05em;
   min-width: 48px;
   text-align: center;
@@ -1229,9 +1239,9 @@ html, body {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 1px solid var(--rose-gold-light);
+  border: 1px solid rgba(196,144,122,0.4);
   background: transparent;
-  color: var(--text-primary);
+  color: rgba(255,250,245,0.9);
   font-size: 16pt;
   cursor: pointer;
   display: flex;
@@ -1246,14 +1256,14 @@ html, body {
   border-color: var(--rose-gold);
 }
 .pres-buttons button:disabled {
-  opacity: 0.3;
+  opacity: 0.2;
   cursor: default;
 }
 .pres-nav .print-btn {
   margin-left: auto;
-  background: var(--text-primary);
+  background: var(--rose-gold);
   color: white;
-  border: 1px solid var(--text-primary);
+  border: 1px solid var(--rose-gold);
   padding: 6px 16px;
   border-radius: 20px;
   font-size: 8pt;
@@ -1262,8 +1272,9 @@ html, body {
   transition: all 0.2s;
 }
 .pres-nav .print-btn:hover {
-  background: var(--rose-gold);
-  border-color: var(--rose-gold);
+  background: var(--rose-gold-light);
+  border-color: var(--rose-gold-light);
+  color: var(--text-primary);
 }
 
 /* Progress bar */
@@ -1280,14 +1291,18 @@ html, body {
 @media print {
   .pres-nav { display: none !important; }
   .pres-progress { display: none !important; }
-  html, body { height: auto; overflow: visible; }
-  .book { height: auto; padding-top: 0; max-width: none; }
+  html, body { height: auto; overflow: visible; background: white !important; }
+  .book { height: auto; padding-top: 0; max-width: none; display: block; background: white !important; }
   .page {
     position: relative !important;
     opacity: 1 !important;
     pointer-events: auto !important;
     transform: none !important;
-    min-height: 1123px !important;
+    width: auto !important;
+    max-height: none !important;
+    min-height: auto !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
     max-width: none;
     padding-bottom: 40px;
   }
@@ -2145,21 +2160,41 @@ document.addEventListener('DOMContentLoaded', function() {
 function initPresentation() {
   const pages = document.querySelectorAll('.page');
   let currentIdx = 0;
+  const PAGE_W = 794, PAGE_H = 1123;
 
   // Set total pages count
   document.getElementById('totalPages').textContent = pages.length;
+
+  // Scale pages to fit viewport (tablet-optimized)
+  function scaleFit() {
+    const navH = 52; // bottom nav height
+    const progressH = 3; // top progress bar
+    const pad = 16; // breathing room
+    const vw = window.innerWidth - pad * 2;
+    const vh = window.innerHeight - navH - progressH - pad * 2;
+    const scale = Math.min(vw / PAGE_W, vh / PAGE_H);
+    pages.forEach(function(p) {
+      p.style.transform = p.classList.contains('active')
+        ? 'scale(' + scale + ')'
+        : 'scale(' + (scale * 0.95) + ')';
+    });
+    // Store for click-to-navigate hit detection
+    window._presScale = scale;
+  }
+  scaleFit();
+  window.addEventListener('resize', scaleFit);
 
   function showPage(idx) {
     pages.forEach(function(p, i) {
       p.classList.remove('active', 'prev');
       if (i === idx) {
         p.classList.add('active');
-        p.scrollTop = 0; // scroll to top of new page
       } else if (i < idx) {
         p.classList.add('prev');
       }
     });
     currentIdx = idx;
+    scaleFit(); // re-apply scale with correct active class
     document.getElementById('currentPage').textContent = idx + 1;
     document.getElementById('prevBtn').disabled = idx === 0;
     document.getElementById('nextBtn').disabled = idx === pages.length - 1;
