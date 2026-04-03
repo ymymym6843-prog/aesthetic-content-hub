@@ -2154,131 +2154,153 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initPresentation() {
-  const pages = document.querySelectorAll('.page');
-  let currentIdx = 0;
-  const PAGE_W = 794, PAGE_H = 1123;
+  var PAGE_W = 794, PAGE_H = 1123;
+  var NAV_H = 52, PROGRESS_H = 3, PAD = 12;
 
-  // Set total pages count
-  document.getElementById('totalPages').textContent = pages.length;
+  // ── Step 1: Build slides array ──
+  // For pages whose content overflows A4, create virtual "slides"
+  // that show the page clipped to different vertical portions.
+  var slides = []; // { el, offsetY, viewH }
 
-  // Scale each page to fit viewport (tablet-optimized)
-  // Each page may have different content height — scale individually
-  function scaleFit() {
-    var navH = 52;
-    var progressH = 3;
-    var pad = 12;
-    var vw = window.innerWidth;
-    var vh = window.innerHeight - navH - progressH;
+  var origPages = document.querySelectorAll('.page');
+  origPages.forEach(function(p) {
+    // Temporarily show to measure
+    p.style.display = 'block';
+    p.style.position = 'absolute';
+    p.style.opacity = '0';
+    p.style.transform = 'none';
+    p.style.width = PAGE_W + 'px';
+    p.style.minHeight = PAGE_H + 'px';
+    p.style.maxHeight = 'none';
+    p.style.height = 'auto';
+    p.style.overflow = 'visible';
+  });
 
-    pages.forEach(function(p) {
-      // Temporarily make visible to measure
-      var wasHidden = !p.classList.contains('active');
-      if (wasHidden) {
+  // Wait a frame for layout
+  requestAnimationFrame(function() {
+    origPages.forEach(function(p) {
+      var h = p.scrollHeight;
+      if (h <= PAGE_H + 20) {
+        // Fits on one slide
+        slides.push({ el: p, offsetY: 0, viewH: PAGE_H });
+      } else {
+        // Split into multiple slides of PAGE_H each
+        var parts = Math.ceil(h / PAGE_H);
+        for (var i = 0; i < parts; i++) {
+          slides.push({ el: p, offsetY: i * PAGE_H, viewH: PAGE_H });
+        }
+      }
+      // Reset page for presentation
+      p.style.display = '';
+      p.style.opacity = '';
+      p.style.height = '';
+      p.style.maxHeight = '';
+      p.style.overflow = 'hidden';
+    });
+
+    document.getElementById('totalPages').textContent = slides.length;
+
+    // ── Step 2: Scale & position ──
+    function scaleFit() {
+      var vw = window.innerWidth;
+      var vh = window.innerHeight - NAV_H - PROGRESS_H;
+      var scaleX = (vw - PAD * 2) / PAGE_W;
+      var scaleY = (vh - PAD * 2) / PAGE_H;
+      var scale = Math.min(scaleX, scaleY, 1);
+
+      var scaledW = PAGE_W * scale;
+      var scaledH = PAGE_H * scale;
+      var leftOffset = (vw - scaledW) / 2;
+      var topOffset = PROGRESS_H + PAD + (vh - PAD * 2 - scaledH) / 2;
+      if (topOffset < PROGRESS_H + PAD) topOffset = PROGRESS_H + PAD;
+
+      origPages.forEach(function(p) {
+        p.style.width = PAGE_W + 'px';
+        p.style.transformOrigin = 'top left';
+        p.style.left = leftOffset + 'px';
+        p.style.top = topOffset + 'px';
+        // scale is applied per-slide in showPage
+      });
+      window._presScale = scale;
+      window._presLeft = leftOffset;
+      window._presTop = topOffset;
+    }
+
+    var currentIdx = 0;
+
+    function showPage(idx) {
+      if (idx < 0 || idx >= slides.length) return;
+      currentIdx = idx;
+      var slide = slides[idx];
+
+      scaleFit();
+      var scale = window._presScale;
+
+      origPages.forEach(function(p) {
+        p.classList.remove('active');
         p.style.opacity = '0';
         p.style.pointerEvents = 'none';
-        p.style.display = 'block';
-        p.style.position = 'absolute';
-      }
+      });
 
-      // Measure actual content height (remove height constraints first)
-      p.style.transform = 'none';
-      var contentH = Math.max(p.scrollHeight, PAGE_H);
-      var contentW = PAGE_W;
+      var el = slide.el;
+      el.classList.add('active');
+      el.style.opacity = '1';
+      el.style.pointerEvents = 'auto';
+      // Clip to show only this portion, shift content up by offsetY
+      el.style.height = PAGE_H + 'px';
+      el.style.transform = 'scale(' + scale + ')';
+      // Use clip-path + inner scroll to show the right portion
+      el.style.overflow = 'hidden';
+      el.scrollTop = slide.offsetY;
 
-      // Scale to fit viewport
-      var scaleX = (vw - pad * 2) / contentW;
-      var scaleY = (vh - pad * 2) / contentH;
-      var scale = Math.min(scaleX, scaleY, 1); // never scale UP
-
-      // Calculate position: center horizontally, align to top with padding
-      var scaledW = contentW * scale;
-      var scaledH = contentH * scale;
-      var leftOffset = (vw - scaledW) / 2;
-      var topOffset = progressH + pad + (vh - pad * 2 - scaledH) / 2;
-      if (topOffset < progressH + pad) topOffset = progressH + pad;
-
-      p.style.transform = 'scale(' + scale + ')';
-      p.style.left = leftOffset + 'px';
-      p.style.top = topOffset + 'px';
-      p.style.transformOrigin = 'top left';
-
-      if (wasHidden) {
-        p.style.opacity = '';
-        p.style.pointerEvents = '';
-        p.style.display = '';
-      }
-    });
-  }
-
-  // Initial measure after fonts loaded
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(function() { scaleFit(); });
-  }
-  scaleFit();
-  window.addEventListener('resize', scaleFit);
-
-  function showPage(idx) {
-    pages.forEach(function(p, i) {
-      p.classList.remove('active', 'prev');
-      if (i === idx) {
-        p.classList.add('active');
-      } else if (i < idx) {
-        p.classList.add('prev');
-      }
-    });
-    currentIdx = idx;
-    document.getElementById('currentPage').textContent = idx + 1;
-    document.getElementById('prevBtn').disabled = idx === 0;
-    document.getElementById('nextBtn').disabled = idx === pages.length - 1;
-    document.getElementById('presProgress').style.width = ((idx + 1) / pages.length * 100) + '%';
-  }
-
-  // Expose globally for onclick handlers
-  window.nextPage = function() {
-    if (currentIdx < pages.length - 1) showPage(currentIdx + 1);
-  };
-  window.prevPage = function() {
-    if (currentIdx > 0) showPage(currentIdx - 1);
-  };
-
-  // Keyboard navigation
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); window.nextPage(); }
-    if (e.key === 'ArrowLeft') { e.preventDefault(); window.prevPage(); }
-  });
-
-  // Touch/swipe navigation
-  var touchStartX = 0;
-  var touchStartY = 0;
-  document.addEventListener('touchstart', function(e) {
-    touchStartX = e.touches[0].clientX;
-    touchStartY = e.touches[0].clientY;
-  });
-  document.addEventListener('touchend', function(e) {
-    var dx = e.changedTouches[0].clientX - touchStartX;
-    var dy = e.changedTouches[0].clientY - touchStartY;
-    // Only navigate if horizontal swipe is dominant
-    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
-      if (dx < 0) window.nextPage();
-      else window.prevPage();
+      document.getElementById('currentPage').textContent = idx + 1;
+      document.getElementById('totalPages').textContent = slides.length;
+      document.getElementById('prevBtn').disabled = idx === 0;
+      document.getElementById('nextBtn').disabled = idx === slides.length - 1;
+      document.getElementById('presProgress').style.width = ((idx + 1) / slides.length * 100) + '%';
     }
-  });
 
-  // Click on sides to navigate
-  var bookEl = document.querySelector('.book');
-  if (bookEl) {
-    bookEl.addEventListener('click', function(e) {
-      // Don't navigate if clicking on interactive elements
-      if (e.target.closest('button, a, input, select, textarea, .pres-nav')) return;
-      var rect = bookEl.getBoundingClientRect();
-      var x = e.clientX - rect.left;
-      if (x > rect.width * 0.75) window.nextPage();
-      else if (x < rect.width * 0.25) window.prevPage();
+    window.nextPage = function() { showPage(currentIdx + 1); };
+    window.prevPage = function() { showPage(currentIdx - 1); };
+
+    // Keyboard
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); window.nextPage(); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); window.prevPage(); }
     });
-  }
 
-  // Initialize first page
-  showPage(0);
+    // Touch/swipe
+    var touchStartX = 0, touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    });
+    document.addEventListener('touchend', function(e) {
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      var dy = e.changedTouches[0].clientY - touchStartY;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+        if (dx < 0) window.nextPage();
+        else window.prevPage();
+      }
+    });
+
+    // Click sides
+    var bookEl = document.querySelector('.book');
+    if (bookEl) {
+      bookEl.addEventListener('click', function(e) {
+        if (e.target.closest('button, a, input, select, textarea, .pres-nav')) return;
+        var rect = bookEl.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        if (x > rect.width * 0.7) window.nextPage();
+        else if (x < rect.width * 0.3) window.prevPage();
+      });
+    }
+
+    window.addEventListener('resize', function() { showPage(currentIdx); });
+
+    // Start
+    showPage(0);
+  });
 }
 </script>
 </body>
