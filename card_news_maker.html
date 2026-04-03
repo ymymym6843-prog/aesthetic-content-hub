@@ -362,6 +362,8 @@ textarea{resize:vertical;min-height:58px}
   background:linear-gradient(135deg,rgba(255,252,248,0.8),rgba(255,248,240,0.6));
 }
 .pw{width:400px;height:500px;overflow:hidden;cursor:pointer}
+.pw .sp{cursor:move}
+.pw .sp:active{outline:2px dashed rgba(232,112,58,0.4);outline-offset:-2px}
 .pw>div{transform:scale(0.37);transform-origin:top left;width:1080px;height:1080px}
 
 /* ---- 슬라이드 실제 크기 ---- */
@@ -1255,7 +1257,7 @@ function toggleBackdrop(){
 }
 
 /* ---- 앱 상태 ---- */
-let POST=null,SLIDES=[],IMGS={},IMG_SETTINGS={};
+let POST=null,SLIDES=[],IMGS={},IMG_SETTINGS={},TEXT_OFFSETS={};
 
 /* ---- 워터마크 상태 ---- */
 const WM={
@@ -1354,7 +1356,7 @@ function switchMobilePanel(panel){
 /* ---- 포스팅 선택 ---- */
 function selPost(id){
   const p=CP.find(c=>c.id===id);if(!p)return;
-  POST=p;SLIDES=p.s.map(s=>({...s,items:s.items?[...s.items]:undefined}));IMGS={};IMG_SETTINGS={};
+  POST=p;SLIDES=p.s.map(s=>({...s,items:s.items?[...s.items]:undefined}));IMGS={};IMG_SETTINGS={};TEXT_OFFSETS={};
   document.querySelectorAll('.cc').forEach(c=>c.classList.remove('sel'));
   document.getElementById('cc-'+id)?.classList.add('sel');
   buildEditors('seds-a');render();show();
@@ -1408,6 +1410,11 @@ function edHTML(s,i,cid){
         </div>
       `}
       <div class="img-picker" id="imgpick-${i}"></div>
+    </div>
+    <div style="margin-top:7px;display:flex;align-items:center;gap:8px">
+      <label style="font-size:10px;font-weight:700;color:var(--color-text)">텍스트 위치</label>
+      <span style="font-size:10px;color:var(--color-text-light)">미리보기에서 텍스트를 드래그하세요</span>
+      <button onclick="resetTextPos(${i})" style="font-size:10px;padding:3px 8px;border-radius:4px;border:1px solid var(--color-border);background:#fff;color:var(--color-text-light);cursor:pointer;margin-left:auto">텍스트 위치 초기화</button>
     </div>
   </div>`;
 }
@@ -1503,6 +1510,80 @@ function initSlideDrag(){
   });
 }
 
+/* ---- Text Position Drag ---- */
+let _textDragActive=false; // flag to suppress .pw onclick during drag
+function resetTextPos(idx){
+  TEXT_OFFSETS[idx]={x:0,y:0};
+  refreshPrev(idx);autoSave();
+}
+function initTextDrag(){
+  const grid=document.getElementById('pgrid');
+  if(!grid||grid._textDragInit)return;
+  grid._textDragInit=true;
+
+  // Suppress .pw onclick when text drag is active
+  grid.addEventListener('click',function(e){
+    if(_textDragActive){e.stopPropagation();e.preventDefault();_textDragActive=false;}
+  },true);
+
+  function startDrag(idx,sf,startX,startY){
+    const off=TEXT_OFFSETS[idx]||{x:0,y:0};
+    const startOffX=off.x,startOffY=off.y;
+    const sfRect=sf.getBoundingClientRect();
+    const actualW=SIZES[currentSize]?.w||1080;
+    const scale=actualW/sfRect.width;
+    let moved=false;
+    function onMove(cx,cy){
+      const dx=(cx-startX)*scale;
+      const dy=(cy-startY)*scale;
+      if(!moved&&Math.abs(dx)<4&&Math.abs(dy)<4)return;
+      moved=true;
+      TEXT_OFFSETS[idx]={x:startOffX+dx,y:startOffY+dy};
+      refreshPrev(idx);
+    }
+    return{onMove,isMoved:()=>moved,cleanup:()=>{if(moved)_textDragActive=true;autoSave();}};
+  }
+
+  grid.addEventListener('mousedown',function(e){
+    const sp=e.target.closest('.sp');
+    if(!sp)return;
+    const sf=sp.closest('.sf');
+    if(!sf)return;
+    const idx=parseInt(sf.dataset.idx,10);
+    if(isNaN(idx))return;
+    e.preventDefault();e.stopPropagation();
+    const drag=startDrag(idx,sf,e.clientX,e.clientY);
+    function onMove(ev){drag.onMove(ev.clientX,ev.clientY);}
+    function onUp(){
+      document.removeEventListener('mousemove',onMove);
+      document.removeEventListener('mouseup',onUp);
+      drag.cleanup();
+    }
+    document.addEventListener('mousemove',onMove);
+    document.addEventListener('mouseup',onUp);
+  });
+
+  grid.addEventListener('touchstart',function(e){
+    const sp=e.target.closest('.sp');
+    if(!sp)return;
+    const sf=sp.closest('.sf');
+    if(!sf)return;
+    const idx=parseInt(sf.dataset.idx,10);
+    if(isNaN(idx)||e.touches.length!==1)return;
+    e.preventDefault();e.stopPropagation();
+    const t=e.touches[0];
+    const drag=startDrag(idx,sf,t.clientX,t.clientY);
+    function onTouchMove(ev){const tt=ev.touches[0];drag.onMove(tt.clientX,tt.clientY);}
+    function onTouchEnd(){
+      document.removeEventListener('touchmove',onTouchMove);
+      document.removeEventListener('touchend',onTouchEnd);
+      drag.cleanup();
+    }
+    document.addEventListener('touchmove',onTouchMove,{passive:false});
+    document.addEventListener('touchend',onTouchEnd);
+  },{passive:false});
+}
+
 /* ---- 미리보기 렌더링 ---- */
 function render(){
   const g=document.getElementById('pgrid');
@@ -1511,10 +1592,11 @@ function render(){
     <div class="pi">
       <div class="pilbl"><span>${i+1}/${n} · ${RL[s.r]||s.r}</span>
         <button class="btn btn-o btn-sm" onclick="dlOne(${i})">다운로드</button></div>
-      <div class="pw" onclick="dlOne(${i})" title="클릭하면 다운로드">
+      <div class="pw" onclick="dlOne(${i})" title="클릭하면 다운로드 (텍스트 영역은 드래그로 위치 조정)">
         <div id="pw${i}"></div></div>
     </div>`).join('');
   SLIDES.forEach((_,i)=>refreshPrev(i));
+  initTextDrag();
 }
 
 function refreshPrev(idx){
@@ -1579,7 +1661,7 @@ function slideHTML(s,i,n){
       <div style="width:40px;height:1.5px;background:${ac}60"></div>
     </div>
     <div style="position:absolute;top:38px;right:48px;z-index:3;background:${ac};color:#fff;font-size:18px;font-weight:700;padding:8px 18px;border-radius:24px;letter-spacing:0.5px;font-family:'Pretendard',sans-serif">${i+1} / ${n}</div>
-    <div class="sp" style="${hasImg?'position:relative;z-index:2;'+txtShadow+backdropStyle:''}">${inner(s,dc,sc,bg,i,n)}</div>
+    <div class="sp" style="${hasImg?'position:relative;z-index:2;'+txtShadow+backdropStyle:''}${(TEXT_OFFSETS[i]&&(TEXT_OFFSETS[i].x||TEXT_OFFSETS[i].y))?'transform:translate('+TEXT_OFFSETS[i].x+'px,'+TEXT_OFFSETS[i].y+'px);':''}">${inner(s,dc,sc,bg,i,n)}</div>
     ${i===n-1?footer():''}
     ${wmHTML()}
   </div>`;
@@ -1856,7 +1938,7 @@ function genTopic(){
       base.splice(insertIdx,0,{r:'content',label:'POINT',tt:'제목을 입력하세요',tx:'내용을 입력하세요'});
     }
   }
-  SLIDES=base;IMGS={};IMG_SETTINGS={};
+  SLIDES=base;IMGS={};IMG_SETTINGS={};TEXT_OFFSETS={};
   buildEditors('seds-b');render();show();
   document.getElementById('slide-actions').style.display='flex';
   autoSave();
@@ -1875,7 +1957,7 @@ function removeLastSlide(){
   let removeIdx=SLIDES.length-1;
   if(SLIDES[removeIdx].r==='cta'&&SLIDES.length>2)removeIdx=SLIDES.length-2;
   SLIDES.splice(removeIdx,1);
-  delete IMGS[removeIdx];delete IMG_SETTINGS[removeIdx];
+  delete IMGS[removeIdx];delete IMG_SETTINGS[removeIdx];delete TEXT_OFFSETS[removeIdx];
   buildEditors(currentEditorCid||'seds-b');render();autoSave();
 }
 
@@ -2395,7 +2477,7 @@ function applyPreset(type){
   currentPresetType=type;
   POST={...tpl};
   SLIDES=tpl.s.map(s=>({...s,items:s.items?[...s.items]:undefined}));
-  IMGS={};IMG_SETTINGS={};
+  IMGS={};IMG_SETTINGS={};TEXT_OFFSETS={};
   buildEditorsWithGuides('seds-c',type);
   render();show();
   autoSave();
@@ -2423,6 +2505,7 @@ function collectState(){
     slides:SLIDES,
     imgs:IMGS,
     imgSettings:IMG_SETTINGS,
+    textOffsets:TEXT_OFFSETS,
     wm:WM,
     imgGradient:imgGradient,
     txtBackdrop:txtBackdrop,
@@ -2473,6 +2556,7 @@ function restoreState(data){
     SLIDES=data.slides;
     if(data.imgs)IMGS=data.imgs;
     if(data.imgSettings)IMG_SETTINGS=data.imgSettings;
+    if(data.textOffsets)TEXT_OFFSETS=data.textOffsets;
     if(data.wm)Object.assign(WM,data.wm);
     // Restore POST stub for export naming
     if(data.postId){
