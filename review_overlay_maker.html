@@ -420,6 +420,13 @@
         <span class="hint">클릭 또는 드래그하여 업로드</span>
         <input type="file" id="reviewInput" accept="image/*" onchange="handleReviewImage(this)">
       </label>
+      <div id="imgZoomControls" style="margin-top:8px;display:none;gap:8px;align-items:center;flex-wrap:wrap">
+        <label style="font-size:10px;font-weight:700;color:var(--dark);white-space:nowrap">줌</label>
+        <input type="range" id="imgZoomRange" min="50" max="200" value="100"
+               oninput="updateImgZoom(this.value)" style="width:70px;accent-color:#E8703A">
+        <span id="imgZoomVal" style="font-size:10px;min-width:30px">100%</span>
+        <button onclick="resetImgPosition()" style="font-size:10px;padding:3px 10px;border-radius:4px;border:1px solid #E8E2DA;background:#fff;color:#9B8A7A;cursor:pointer">위치 초기화</button>
+      </div>
     </div>
 
     <!-- Text review -->
@@ -499,6 +506,9 @@ let state = {
   source: 'naver',
   bg: 'orange-linen',
   reviewImage: null,
+  imgZoom: 100,
+  imgOffsetX: 0,
+  imgOffsetY: 0,
 };
 
 const SOURCES = {
@@ -564,6 +574,8 @@ function handleReviewImage(input) {
     state.reviewImage = reader.result;
     const frame = document.getElementById('screenshotFrame');
     frame.innerHTML = `<img src="${reader.result}" alt="review">`;
+    applyImgTransform();
+    showZoomControls();
     const box = document.getElementById('reviewBox');
     box.classList.add('has-image');
     box.innerHTML = `<img src="${reader.result}" alt="review" style="width:100%;height:100%;object-fit:cover;border-radius:8px"><input type="file" id="reviewInput" accept="image/*" onchange="handleReviewImage(this)">`;
@@ -617,12 +629,59 @@ reviewBox.addEventListener('drop', e => {
     reader.onload = () => {
       state.reviewImage = reader.result;
       document.getElementById('screenshotFrame').innerHTML = `<img src="${reader.result}" alt="리뷰 스크린샷">`;
+      applyImgTransform();
+      showZoomControls();
       reviewBox.classList.add('has-image');
       reviewBox.innerHTML = `<img src="${reader.result}" alt="리뷰 스크린샷" style="width:100%;height:100%;object-fit:cover;border-radius:8px"><input type="file" id="reviewInput" accept="image/*" onchange="handleReviewImage(this)">`;
     };
     reader.readAsDataURL(file);
   }
 });
+
+// ===== Image Zoom/Crop/Position =====
+function updateImgZoom(val) {
+  state.imgZoom = parseInt(val, 10);
+  document.getElementById('imgZoomVal').textContent = state.imgZoom + '%';
+  applyImgTransform();
+  autoSave();
+}
+function resetImgPosition() {
+  state.imgOffsetX = 0; state.imgOffsetY = 0;
+  applyImgTransform();
+  autoSave();
+}
+function applyImgTransform() {
+  const img = document.querySelector('#screenshotFrame img');
+  if (!img) return;
+  img.style.transform = `scale(${state.imgZoom/100}) translate(${state.imgOffsetX}px, ${state.imgOffsetY}px)`;
+  img.style.transformOrigin = 'center center';
+}
+function showZoomControls() {
+  const ctrl = document.getElementById('imgZoomControls');
+  if (ctrl) ctrl.style.display = 'flex';
+}
+function initImgDrag() {
+  const target = document.getElementById('screenshotFrame');
+  if (!target) return;
+  let dragging = false, startX, startY, origX, origY;
+  target.addEventListener('mousedown', e => {
+    if (!state.reviewImage) return;
+    dragging = true; startX = e.clientX; startY = e.clientY;
+    origX = state.imgOffsetX; origY = state.imgOffsetY;
+    target.style.cursor = 'grabbing';
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    const scale = state.imgZoom / 100;
+    state.imgOffsetX = origX + (e.clientX - startX) / scale;
+    state.imgOffsetY = origY + (e.clientY - startY) / scale;
+    applyImgTransform();
+  });
+  document.addEventListener('mouseup', () => {
+    if (dragging) { dragging = false; target.style.cursor = ''; autoSave(); }
+  });
+}
 
 // ===== AutoSave / AutoLoad =====
 const STORAGE_KEY = 'im_review_state';
@@ -650,7 +709,10 @@ function collectState() {
     bg: state.bg,
     clientLabel: document.getElementById('clientLabel').value,
     reviewContent: document.getElementById('reviewContent')?.value || '',
-    reviewImage: state.reviewImage
+    reviewImage: state.reviewImage,
+    imgZoom: state.imgZoom,
+    imgOffsetX: state.imgOffsetX,
+    imgOffsetY: state.imgOffsetY
   };
 }
 function autoLoad() {
@@ -671,9 +733,18 @@ function restoreState(data) {
     const rc = document.getElementById('reviewContent');
     if (rc) rc.value = data.reviewContent;
   }
+  if (data.imgZoom !== undefined) state.imgZoom = data.imgZoom;
+  if (data.imgOffsetX !== undefined) state.imgOffsetX = data.imgOffsetX;
+  if (data.imgOffsetY !== undefined) state.imgOffsetY = data.imgOffsetY;
   if (data.reviewImage) {
     state.reviewImage = data.reviewImage;
     document.getElementById('screenshotFrame').innerHTML = `<img src="${data.reviewImage}" alt="리뷰 스크린샷">`;
+    showZoomControls();
+    const zr = document.getElementById('imgZoomRange');
+    if (zr) zr.value = state.imgZoom;
+    const zv = document.getElementById('imgZoomVal');
+    if (zv) zv.textContent = state.imgZoom + '%';
+    applyImgTransform();
     const box = document.getElementById('reviewBox');
     if (box) { box.classList.add('has-image'); box.innerHTML = `<img src="${data.reviewImage}" alt="리뷰 스크린샷" style="width:100%;height:100%;object-fit:cover;border-radius:8px">`; }
   }
@@ -797,6 +868,7 @@ function timeAgo(date) {
 
 // Initialize colors on load
 updateColors();
+initImgDrag();
 if (autoLoad()) showToast('이전 작업을 불러왔습니다');
 </script>
 <div class="autosave-toast" id="autoToast"></div>

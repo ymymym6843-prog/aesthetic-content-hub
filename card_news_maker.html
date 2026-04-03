@@ -7,6 +7,11 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/fonts-archive/MaruBuri/MaruBuri.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <style>
 /* ---- Premium 3-Layer 디자인 토큰 시스템 ---- */
@@ -761,6 +766,15 @@ textarea{resize:vertical;min-height:58px}
 .modal-header h3 { font-size:16px;font-weight:700;color:#3D2E24;margin:0; }
 .modal-body { max-height:50vh;overflow-y:auto; }
 .session-item:hover { background:rgba(232,112,58,0.04); }
+/* ---- Font Panel ---- */
+.font-panel{margin-top:8px;border-top:1px solid var(--color-border);padding-top:8px}
+.font-panel-toggle{display:flex;justify-content:space-between;cursor:pointer;padding:6px 0;font-size:12px;font-weight:600;color:var(--color-text)}
+.font-panel-toggle:hover{color:var(--color-accent)}
+.font-panel-body{padding:8px 0}
+.font-tier{margin-bottom:10px}
+.font-tier-label{font-size:11px;font-weight:700;margin-bottom:4px;color:var(--color-text)}
+.font-tier-desc{font-weight:400;color:var(--color-text-light);font-size:10px}
+.font-tier-controls{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
 </style>
 </head>
 <body>
@@ -915,6 +929,9 @@ textarea{resize:vertical;min-height:58px}
         </div>
       </div>
     </div>
+
+    <!-- Font Panel -->
+    <div id="fontPanelHost" style="padding:0 16px"></div>
 
     <!-- 액션바 -->
     <div class="acts" id="actbar" style="display:none">
@@ -1116,6 +1133,86 @@ let currentSize='4:5';
 let imgGradient=0;
 let txtBackdrop=false;
 
+/* ---- Font Customization System ---- */
+const FONT_OPTIONS=[
+  {name:'Pretendard',family:"'Pretendard',system-ui,sans-serif",type:'sans'},
+  {name:'Noto Sans KR',family:"'Noto Sans KR',sans-serif",type:'sans'},
+  {name:'Noto Serif KR',family:"'Noto Serif KR',serif",type:'serif'},
+  {name:'Playfair Display',family:"'Playfair Display',serif",type:'serif'},
+  {name:'Gowun Batang',family:"'Gowun Batang',serif",type:'display'},
+  {name:'Gowun Dodum',family:"'Gowun Dodum',sans-serif",type:'display'},
+  {name:'MaruBuri',family:"'MaruBuri',serif",type:'display'},
+  {name:'Nanum Myeongjo',family:"'Nanum Myeongjo',serif",type:'serif'}
+];
+const FONT_DEFAULTS={
+  title:{family:2,size:100,weight:300,color:''},
+  body:{family:0,size:100,weight:400,color:''},
+  caption:{family:0,size:100,weight:700,color:''}
+};
+let fontSettings=JSON.parse(JSON.stringify(FONT_DEFAULTS));
+
+function getFontCSS(tier){
+  const s=fontSettings[tier];
+  const f=FONT_OPTIONS[s.family];
+  return{family:f.family,weight:s.weight,sizeMul:s.size/100,color:s.color||null};
+}
+function setFont(tier,prop,val){
+  if(prop==='family')val=parseInt(val,10);
+  if(prop==='size')val=parseInt(val,10);
+  if(prop==='weight')val=parseInt(val,10);
+  fontSettings[tier][prop]=val;
+  // Update size display
+  const sizeSpan=document.querySelector(`[data-font-size="${tier}"]`);
+  if(sizeSpan&&prop==='size')sizeSpan.textContent=val+'%';
+  if(SLIDES.length)SLIDES.forEach((_,i)=>refreshPrev(i));
+  autoSave();
+}
+function resetFonts(){
+  fontSettings=JSON.parse(JSON.stringify(FONT_DEFAULTS));
+  const host=document.getElementById('fontPanelHost');
+  if(host)host.innerHTML=buildFontPanel();
+  if(SLIDES.length)SLIDES.forEach((_,i)=>refreshPrev(i));
+  autoSave();
+}
+function toggleFontPanel(){
+  const body=document.querySelector('.font-panel-body');
+  const arrow=document.querySelector('.font-panel-arrow');
+  if(body){
+    const show=body.style.display==='none';
+    body.style.display=show?'block':'none';
+    if(arrow)arrow.textContent=show?'▾':'▸';
+  }
+}
+function buildFontPanel(){
+  const tiers=[
+    {key:'title',label:'제목 폰트',desc:'훅, 스텝, 콘텐츠 제목'},
+    {key:'body',label:'본문 폰트',desc:'내용, 설명, 팁'},
+    {key:'caption',label:'캡션 폰트',desc:'라벨, 배지, 작은 텍스트'}
+  ];
+  return`<div class="font-panel" id="fontPanel">
+    <div class="font-panel-toggle" onclick="toggleFontPanel()">
+      <span>Typography 설정</span><span class="font-panel-arrow">▸</span>
+    </div>
+    <div class="font-panel-body" style="display:none">
+      ${tiers.map(t=>`<div class="font-tier">
+        <div class="font-tier-label">${t.label} <span class="font-tier-desc">${t.desc}</span></div>
+        <div class="font-tier-controls">
+          <select onchange="setFont('${t.key}','family',this.selectedIndex)" style="font-size:11px;flex:1;padding:4px 6px;border-radius:6px;border:1.5px solid var(--color-border);background:var(--color-bg);color:var(--color-text);font-family:inherit;cursor:pointer">
+            ${FONT_OPTIONS.map((f,i)=>`<option value="${i}" ${fontSettings[t.key].family===i?'selected':''}>${f.name}</option>`).join('')}
+          </select>
+          <input type="range" min="60" max="140" value="${fontSettings[t.key].size}" oninput="setFont('${t.key}','size',this.value)" style="width:55px;accent-color:var(--color-accent)">
+          <span data-font-size="${t.key}" style="font-size:10px;min-width:28px;color:var(--color-text-light)">${fontSettings[t.key].size}%</span>
+          <select onchange="setFont('${t.key}','weight',this.value)" style="font-size:11px;width:55px;padding:4px;border-radius:6px;border:1.5px solid var(--color-border);background:var(--color-bg);color:var(--color-text);cursor:pointer">
+            ${[300,400,500,600,700,800].map(w=>`<option value="${w}" ${fontSettings[t.key].weight==w?'selected':''}>${w}</option>`).join('')}
+          </select>
+          <input type="color" value="${fontSettings[t.key].color||'#3D2E24'}" oninput="setFont('${t.key}','color',this.value)" style="width:26px;height:26px;border:none;cursor:pointer;border-radius:4px" title="폰트 색상">
+        </div>
+      </div>`).join('')}
+      <button onclick="resetFonts()" style="margin-top:8px;font-size:10px;padding:5px 12px;border-radius:6px;border:1px solid var(--color-border);background:var(--color-bg);color:var(--color-text-light);cursor:pointer;font-family:inherit">기본값으로 초기화</button>
+    </div>
+  </div>`;
+}
+
 function applySize(ratio){
   currentSize=ratio;
   const s=SIZES[ratio];if(!s)return;
@@ -1145,7 +1242,7 @@ function toggleBackdrop(){
 }
 
 /* ---- 앱 상태 ---- */
-let POST=null,SLIDES=[],IMGS={};
+let POST=null,SLIDES=[],IMGS={},IMG_SETTINGS={};
 
 /* ---- 워터마크 상태 ---- */
 const WM={
@@ -1244,7 +1341,7 @@ function switchMobilePanel(panel){
 /* ---- 포스팅 선택 ---- */
 function selPost(id){
   const p=CP.find(c=>c.id===id);if(!p)return;
-  POST=p;SLIDES=p.s.map(s=>({...s,items:s.items?[...s.items]:undefined}));IMGS={};
+  POST=p;SLIDES=p.s.map(s=>({...s,items:s.items?[...s.items]:undefined}));IMGS={};IMG_SETTINGS={};
   document.querySelectorAll('.cc').forEach(c=>c.classList.remove('sel'));
   document.getElementById('cc-'+id)?.classList.add('sel');
   buildEditors('seds-a');render();show();
@@ -1270,6 +1367,16 @@ function edHTML(s,i,cid){
           <div><label style="font-size:10px;opacity:.6">Before</label><input type="file" accept="image/*" onchange="upImgBa(${i},this,'before')" style="width:100%"></div>
           <div><label style="font-size:10px;opacity:.6">After</label><input type="file" accept="image/*" onchange="upImgBa(${i},this,'after')" style="width:100%"></div>
         </div>
+        <div style="margin-top:6px;display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+          <label style="font-size:10px;font-weight:700;color:var(--color-text);white-space:nowrap">Before 줌</label>
+          <input type="range" min="50" max="200" value="${(IMG_SETTINGS['ba_b_'+i]||{}).zoom||100}"
+                 oninput="upImgSetting('ba_b_'+${i},'zoom',+this.value);this.nextElementSibling.textContent=this.value+'%'" style="width:55px;accent-color:#E8703A">
+          <span style="font-size:10px;min-width:28px">${(IMG_SETTINGS['ba_b_'+i]||{}).zoom||100}%</span>
+          <label style="font-size:10px;font-weight:700;color:var(--color-text);white-space:nowrap;margin-left:8px">After 줌</label>
+          <input type="range" min="50" max="200" value="${(IMG_SETTINGS['ba_a_'+i]||{}).zoom||100}"
+                 oninput="upImgSetting('ba_a_'+${i},'zoom',+this.value);this.nextElementSibling.textContent=this.value+'%'" style="width:55px;accent-color:#E8703A">
+          <span style="font-size:10px;min-width:28px">${(IMG_SETTINGS['ba_a_'+i]||{}).zoom||100}%</span>
+        </div>
       ` : `
         <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
           <input type="file" accept="image/*" onchange="upImg(${i},this,'${cid}')" style="flex:1;min-width:0">
@@ -1277,6 +1384,13 @@ function edHTML(s,i,cid){
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             자동 매칭
           </button>
+        </div>
+        <div style="margin-top:6px;display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+          <label style="font-size:10px;font-weight:700;color:var(--color-text);white-space:nowrap">줌</label>
+          <input type="range" min="50" max="200" value="${(IMG_SETTINGS[i]||{}).zoom||100}"
+                 oninput="upImgSetting(${i},'zoom',+this.value);this.nextElementSibling.textContent=this.value+'%'" style="width:70px;accent-color:#E8703A">
+          <span style="font-size:10px;min-width:28px">${(IMG_SETTINGS[i]||{}).zoom||100}%</span>
+          <button onclick="resetImgPos(${i})" style="font-size:10px;padding:3px 8px;border-radius:4px;border:1px solid var(--color-border);background:#fff;color:var(--color-text-light);cursor:pointer">위치 초기화</button>
         </div>
       `}
       <div class="img-picker" id="imgpick-${i}"></div>
@@ -1328,6 +1442,51 @@ function setBg(idx,c,cid){SLIDES[idx].bg=c;refreshPrev(idx);autoSave();}
 function upImg(idx,inp,cid){
   const r=new FileReader();r.onload=e=>{IMGS[idx]=e.target.result;refreshPrev(idx);autoSave();};
   r.readAsDataURL(inp.files[0]);
+}
+
+/* ---- Image Zoom/Position Settings ---- */
+function getImgS(key){return IMG_SETTINGS[key]||(IMG_SETTINGS[key]={zoom:100,offsetX:0,offsetY:0});}
+function upImgSetting(key,prop,val){getImgS(key)[prop]=val;
+  // find slide index for refresh
+  const idx=typeof key==='number'?key:parseInt(String(key).replace(/^ba_[ba]_/,''),10);
+  refreshPrev(idx);autoSave();
+}
+function resetImgPos(idx){
+  const s=getImgS(idx);s.offsetX=0;s.offsetY=0;
+  refreshPrev(idx);autoSave();
+}
+function initSlideDrag(){
+  // Delegate mousedown on slide frames for image drag-to-reposition
+  document.addEventListener('mousedown',function(e){
+    const sf=e.target.closest('.sf');
+    if(!sf)return;
+    const idx=parseInt(sf.dataset.idx,10);
+    if(isNaN(idx))return;
+    // Determine which image key to drag
+    let imgKey=idx;
+    // Check if it's a B&A sub-area
+    const baParent=e.target.closest('[data-ba]');
+    if(baParent) imgKey=baParent.dataset.ba;
+    if(!IMGS[imgKey])return;
+    const s=getImgS(imgKey);
+    let startX=e.clientX,startY=e.clientY,origX=s.offsetX,origY=s.offsetY;
+    sf.style.cursor='grabbing';
+    e.preventDefault();
+    function onMove(ev){
+      const scale=(s.zoom||100)/100;
+      s.offsetX=origX+(ev.clientX-startX)/scale;
+      s.offsetY=origY+(ev.clientY-startY)/scale;
+      refreshPrev(idx);
+    }
+    function onUp(){
+      document.removeEventListener('mousemove',onMove);
+      document.removeEventListener('mouseup',onUp);
+      sf.style.cursor='';
+      autoSave();
+    }
+    document.addEventListener('mousemove',onMove);
+    document.addEventListener('mouseup',onUp);
+  });
 }
 
 /* ---- 미리보기 렌더링 ---- */
@@ -1391,11 +1550,12 @@ function slideHTML(s,i,n){
   const dc=light?'#3D2E24':'#FFFFFF';
   const sc=light?'#8C8279':'rgba(255,255,255,.6)';
   const ac=themeAccent();
-  const img=IMGS[i]?`<div style="position:absolute;inset:0;background:url('${IMGS[i]}') center/cover;z-index:0"></div>`:'';
+  const imgS=getImgS(i);
+  const img=IMGS[i]?`<div style="position:absolute;inset:0;background:url('${IMGS[i]}') ${50-imgS.offsetX}% ${50-imgS.offsetY}%/auto;background-size:${imgS.zoom}%;z-index:0"></div>`:'';
   const hasImg=!!IMGS[i];
   const txtShadow=hasImg?(imgGradient>20?'text-shadow:0 1px 8px rgba(0,0,0,0.3),0 0 20px rgba(0,0,0,0.15);':'text-shadow:0 2px 12px rgba(0,0,0,0.5),0 0 30px rgba(0,0,0,0.3);'):'';
   const backdropStyle=hasImg&&txtBackdrop?'background:rgba(255,248,240,0.85);border-radius:16px;padding:32px;':'';
-  return`<div class="sf" style="background:${bg}">
+  return`<div class="sf" data-idx="${i}" style="background:${bg}">
     ${img}
     ${hasImg&&imgGradient>0?`<div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,${imgGradient*0.0045}) 0%,rgba(0,0,0,${imgGradient*0.0005}) 40%,transparent 60%);z-index:1"></div>`:''}
     <div style="position:absolute;top:40px;left:56px;display:flex;align-items:center;gap:14px;z-index:3">
@@ -1414,6 +1574,13 @@ function inner(s,dc,sc,bg,i,n){
   const ac=themeAccent();
   const pr=themePrimary();
   const light=lum(bg)>160;
+  const ttl=getFontCSS('title');
+  const bod=getFontCSS('body');
+  const cap=getFontCSS('caption');
+  const tc=ttl.color?'color:'+ttl.color+';':'color:'+dc+';';
+  const bc=bod.color?'color:'+bod.color+';':'color:'+sc+';';
+  const bdc=bod.color?'color:'+bod.color+';':'color:'+dc+';';
+  const cc=cap.color?'color:'+cap.color+';':'';
   switch(s.r){
     case'hook':return`
       <div style="position:absolute;inset:36px;border:1px solid ${ac}40;border-radius:28px;pointer-events:none"></div>
@@ -1421,32 +1588,32 @@ function inner(s,dc,sc,bg,i,n){
       <div style="position:absolute;right:60px;top:50%;transform:translateY(-60%);font-size:320px;color:${dc};opacity:0.015;font-family:'Playfair Display',serif;font-weight:300;line-height:1;pointer-events:none">M</div>
       ${POST?.tp==='qa_flip'?`<div style="position:absolute;right:20px;top:40%;font-size:240px;color:rgba(255,255,255,0.04);font-family:'Playfair Display',serif;font-weight:300;transform:translateY(-50%)">?</div>`:''}
       <div style="text-align:left;color:${dc};word-break:keep-all;display:flex;flex-direction:column;justify-content:center;height:100%;position:relative;z-index:2;margin-top:-80px">
-        ${s.eyebrow?`<div style="font-size:16px;font-weight:700;letter-spacing:0.15em;color:${ac};margin-bottom:20px;text-transform:uppercase;font-family:'Pretendard',sans-serif">${e(s.eyebrow)}</div>`:''}
-        <div style="font-size:68px;font-weight:300;line-height:1.35;white-space:pre-line;letter-spacing:0.01em;font-family:'Noto Serif KR',serif">${e(s.tx)}</div>
-        ${s.sub?`<div style="margin-top:28px;font-size:28px;color:${sc};font-weight:400">${e(s.sub)} →</div>`:`${diamondDivider(ac)}`}
+        ${s.eyebrow?`<div style="font-size:${Math.round(16*cap.sizeMul)}px;font-weight:${cap.weight};letter-spacing:0.15em;color:${ac};${cc}margin-bottom:20px;text-transform:uppercase;font-family:${cap.family}">${e(s.eyebrow)}</div>`:''}
+        <div style="font-size:${Math.round(68*ttl.sizeMul)}px;font-weight:${ttl.weight};line-height:1.35;white-space:pre-line;letter-spacing:0.01em;font-family:${ttl.family};${tc}">${e(s.tx)}</div>
+        ${s.sub?`<div style="margin-top:28px;font-size:${Math.round(28*bod.sizeMul)}px;${bc}font-weight:${bod.weight};font-family:${bod.family}">${e(s.sub)} →</div>`:`${diamondDivider(ac)}`}
         <div style="position:absolute;bottom:36px;left:0;right:0;font-size:18px;color:${sc};letter-spacing:0.1em;opacity:0.6">→ 스와이프해서 확인</div>
       </div>`;
     case'step':return`
       <div style="word-break:keep-all;border-left:4px solid ${ac};padding-left:24px">
-        <div style="font-size:16px;letter-spacing:0.15em;color:${ac};font-weight:700;margin-bottom:28px;text-transform:uppercase;font-family:'Pretendard',sans-serif">${e(s.label||'STEP')}</div>
-        <div style="width:110px;height:110px;border:2px solid ${ac};border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:400;color:${ac};font-family:'Pretendard',sans-serif;margin-bottom:44px">${e(s.n)}</div>
-        <div style="font-size:56px;font-weight:600;color:${dc};margin-bottom:24px;letter-spacing:0.01em;line-height:1.3;font-family:'Pretendard',sans-serif">${e(s.tt)}</div>
+        <div style="font-size:${Math.round(16*cap.sizeMul)}px;letter-spacing:0.15em;color:${ac};${cc}font-weight:${cap.weight};margin-bottom:28px;text-transform:uppercase;font-family:${cap.family}">${e(s.label||'STEP')}</div>
+        <div style="width:110px;height:110px;border:2px solid ${ac};border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:${Math.round(44*ttl.sizeMul)}px;font-weight:${ttl.weight};color:${ac};font-family:${ttl.family};margin-bottom:44px">${e(s.n)}</div>
+        <div style="font-size:${Math.round(56*ttl.sizeMul)}px;font-weight:${ttl.weight};${tc}margin-bottom:24px;letter-spacing:0.01em;line-height:1.3;font-family:${ttl.family}">${e(s.tt)}</div>
         <div style="width:40px;height:2px;background:${ac};margin-bottom:32px;border-radius:1px"></div>
-        <div style="font-size:40px;font-weight:400;color:${sc};line-height:1.7;white-space:pre-line;margin-bottom:40px">${e(s.tx)}</div>
+        <div style="font-size:${Math.round(40*bod.sizeMul)}px;font-weight:${bod.weight};${bc}line-height:1.7;white-space:pre-line;margin-bottom:40px;font-family:${bod.family}">${e(s.tx)}</div>
         <div style="background:${ac}06;border-radius:16px;padding:28px 32px;border-left:3px solid ${ac}">
-          <div style="font-size:16px;color:${ac};font-weight:700;letter-spacing:0.15em;margin-bottom:8px;font-family:'Pretendard',sans-serif">IM TIP</div>
-          <div style="font-size:28px;color:${sc};line-height:1.5">${e(s.tip||s.tx)}</div>
+          <div style="font-size:${Math.round(16*cap.sizeMul)}px;color:${ac};${cc}font-weight:${cap.weight};letter-spacing:0.15em;margin-bottom:8px;font-family:${cap.family}">IM TIP</div>
+          <div style="font-size:${Math.round(28*bod.sizeMul)}px;${bc}line-height:1.5;font-family:${bod.family}">${e(s.tip||s.tx)}</div>
         </div>
       </div>`;
     case'content':return`
       <div style="word-break:keep-all;position:relative">
-        <div style="font-size:16px;letter-spacing:0.15em;color:${ac};font-weight:700;margin-bottom:24px;text-transform:uppercase;font-family:'Pretendard',sans-serif">${e(s.label||'POINT')}</div>
-        <div style="font-size:56px;font-weight:600;color:${dc};margin-bottom:28px;letter-spacing:0.01em;line-height:1.3;font-family:'Pretendard',sans-serif">${e(s.tt||'')}</div>
+        <div style="font-size:${Math.round(16*cap.sizeMul)}px;letter-spacing:0.15em;color:${ac};${cc}font-weight:${cap.weight};margin-bottom:24px;text-transform:uppercase;font-family:${cap.family}">${e(s.label||'POINT')}</div>
+        <div style="font-size:${Math.round(56*ttl.sizeMul)}px;font-weight:${ttl.weight};${tc}margin-bottom:28px;letter-spacing:0.01em;line-height:1.3;font-family:${ttl.family}">${e(s.tt||'')}</div>
         <div style="width:40px;height:2px;background:${ac};margin-bottom:36px;border-radius:1px"></div>
-        <div style="font-size:40px;font-weight:400;color:${sc};line-height:1.7;white-space:pre-line;margin-bottom:40px">${e(s.tx)}</div>
+        <div style="font-size:${Math.round(40*bod.sizeMul)}px;font-weight:${bod.weight};${bc}line-height:1.7;white-space:pre-line;margin-bottom:40px;font-family:${bod.family}">${e(s.tx)}</div>
         <div style="background:${ac}06;border-radius:16px;padding:28px 32px;border-left:3px solid ${ac}">
-          <div style="font-size:16px;color:${ac};font-weight:700;letter-spacing:0.15em;margin-bottom:8px;font-family:'Pretendard',sans-serif">KEY POINT</div>
-          <div style="font-size:28px;color:${dc};line-height:1.5;font-weight:500">${e(s.tip||s.tx||'')}</div>
+          <div style="font-size:${Math.round(16*cap.sizeMul)}px;color:${ac};${cc}font-weight:${cap.weight};letter-spacing:0.15em;margin-bottom:8px;font-family:${cap.family}">KEY POINT</div>
+          <div style="font-size:${Math.round(28*bod.sizeMul)}px;${bdc}line-height:1.5;font-weight:500;font-family:${bod.family}">${e(s.tip||s.tx||'')}</div>
         </div>
       </div>`;
     case'myth':return`
@@ -1456,8 +1623,8 @@ function inner(s,dc,sc,bg,i,n){
         <div style="width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 32px;background:rgba(232,69,60,0.08);box-shadow:0 0 0 12px rgba(232,69,60,0.06),0 0 40px rgba(232,69,60,0.08)">
           <span style="font-size:32px;color:#E8453C;font-weight:700;font-family:'Playfair Display',serif">X</span>
         </div>
-        <div style="font-size:16px;font-weight:700;color:#E8453C;letter-spacing:0.15em;margin-bottom:32px;text-transform:uppercase;font-family:'Pretendard',sans-serif">MYTH</div>
-        <div style="font-size:52px;font-weight:500;color:#3D2E24;line-height:1.45;white-space:pre-line;letter-spacing:0.01em;font-family:'Noto Serif KR',serif">${e(s.tx)}</div>
+        <div style="font-size:${Math.round(16*cap.sizeMul)}px;font-weight:${cap.weight};color:#E8453C;${cc}letter-spacing:0.15em;margin-bottom:32px;text-transform:uppercase;font-family:${cap.family}">MYTH</div>
+        <div style="font-size:${Math.round(52*ttl.sizeMul)}px;font-weight:${ttl.weight};${ttl.color?'color:'+ttl.color+';':'color:#3D2E24;'}line-height:1.45;white-space:pre-line;letter-spacing:0.01em;font-family:${ttl.family}">${e(s.tx)}</div>
       </div>`;
     case'fact':return`
       <div style="position:absolute;top:40px;left:40px;width:20px;height:20px;border-left:1.5px solid #22C55E30;border-top:1.5px solid #22C55E30;pointer-events:none"></div>
@@ -1466,59 +1633,59 @@ function inner(s,dc,sc,bg,i,n){
         <div style="width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 32px;background:rgba(34,197,94,0.08);box-shadow:0 0 0 12px rgba(34,197,94,0.06),0 0 40px rgba(34,197,94,0.08)">
           <span style="font-size:32px;color:#22C55E;font-weight:700;font-family:'Playfair Display',serif">✓</span>
         </div>
-        <div style="font-size:16px;letter-spacing:0.15em;margin-bottom:32px;text-transform:uppercase;font-family:'Pretendard',sans-serif;font-weight:700;color:#22C55E">FACT</div>
-        ${s.tt?`<div style="font-size:48px;font-weight:600;color:${dc};margin-bottom:20px;font-family:'Pretendard',sans-serif">${e(s.tt)}</div>`:''}
+        <div style="font-size:${Math.round(16*cap.sizeMul)}px;letter-spacing:0.15em;margin-bottom:32px;text-transform:uppercase;font-family:${cap.family};font-weight:${cap.weight};color:#22C55E;${cc}">FACT</div>
+        ${s.tt?`<div style="font-size:${Math.round(48*ttl.sizeMul)}px;font-weight:${ttl.weight};${tc}margin-bottom:20px;font-family:${ttl.family}">${e(s.tt)}</div>`:''}
         <div style="position:relative;background:${light?'rgba(34,197,94,0.03)':'rgba(255,255,255,0.04)'};padding:32px 36px;border-radius:16px;border:0.5px solid #22C55E20">
           <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:60%;height:2px;background:linear-gradient(90deg,transparent,#22C55E40,transparent);border-radius:1px"></div>
-          <div style="font-size:36px;font-weight:500;color:${dc};line-height:1.6;white-space:pre-line">${e(s.tx)}</div>
+          <div style="font-size:${Math.round(36*ttl.sizeMul)}px;font-weight:500;${tc}line-height:1.6;white-space:pre-line;font-family:${ttl.family}">${e(s.tx)}</div>
         </div>
       </div>`;
     case'checklist':return`
       <div style="word-break:keep-all">
-        <div style="font-size:16px;letter-spacing:0.15em;color:${ac};font-weight:700;margin-bottom:16px;text-transform:uppercase;font-family:'Pretendard',sans-serif">${e(s.label||'CHECKLIST')}</div>
-        <div style="font-size:48px;font-weight:600;color:${dc};margin-bottom:20px;letter-spacing:0.01em;line-height:1.3;font-family:'Pretendard',sans-serif">${e(s.tt||'')}</div>
+        <div style="font-size:${Math.round(16*cap.sizeMul)}px;letter-spacing:0.15em;color:${ac};${cc}font-weight:${cap.weight};margin-bottom:16px;text-transform:uppercase;font-family:${cap.family}">${e(s.label||'CHECKLIST')}</div>
+        <div style="font-size:${Math.round(48*ttl.sizeMul)}px;font-weight:${ttl.weight};${tc}margin-bottom:20px;letter-spacing:0.01em;line-height:1.3;font-family:${ttl.family}">${e(s.tt||'')}</div>
         <div style="width:40px;height:2px;background:${ac};margin-bottom:28px;border-radius:1px"></div>
         ${(s.items||[]).map((it,j)=>`<div style="display:flex;align-items:center;gap:20px;padding:20px 0;${j<(s.items||[]).length-1?`border-bottom:1px solid ${ac}10;`:''}">
           <div style="width:36px;height:36px;border-radius:50%;background:${ac};display:flex;align-items:center;justify-content:center;flex-shrink:0">
             <span style="font-size:18px;color:white;font-weight:700">✓</span>
           </div>
-          <span style="font-size:36px;font-weight:500;color:${dc}">${e(it)}</span></div>`).join('')}
+          <span style="font-size:${Math.round(36*bod.sizeMul)}px;font-weight:500;${bdc}font-family:${bod.family}">${e(it)}</span></div>`).join('')}
       </div>`;
     case'program':return`
       <div style="text-align:center;word-break:keep-all;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%">
-        <div style="font-size:16px;font-weight:700;color:${sc};margin-bottom:36px;letter-spacing:0.15em;text-transform:uppercase;font-family:'Pretendard',sans-serif">IM SOLUTION</div>
+        <div style="font-size:${Math.round(16*cap.sizeMul)}px;font-weight:${cap.weight};${cap.color?'color:'+cap.color+';':'color:'+sc+';'}margin-bottom:36px;letter-spacing:0.15em;text-transform:uppercase;font-family:${cap.family}">IM SOLUTION</div>
         <div style="position:relative;width:100%">
           <div style="position:absolute;inset:8px -4px -8px 4px;background:${ac}08;border-radius:24px;border:0.5px solid ${ac}10;transform:rotate(1.5deg)"></div>
           <div style="position:relative;background:${ac}0a;border:1px solid ${ac}25;border-radius:24px;padding:64px 48px;box-shadow:0 16px 40px rgba(0,0,0,0.06)">
-            <div style="font-size:16px;color:${ac};letter-spacing:0.15em;font-weight:700;margin-bottom:28px;text-transform:uppercase;font-family:'Pretendard',sans-serif">PROGRAM</div>
-            <div style="font-size:58px;font-weight:600;color:${dc};margin-bottom:24px;line-height:1.3;font-family:'Pretendard',sans-serif">${e(s.name||'')}</div>
+            <div style="font-size:${Math.round(16*cap.sizeMul)}px;color:${ac};${cc}letter-spacing:0.15em;font-weight:${cap.weight};margin-bottom:28px;text-transform:uppercase;font-family:${cap.family}">PROGRAM</div>
+            <div style="font-size:${Math.round(58*ttl.sizeMul)}px;font-weight:${ttl.weight};${tc}margin-bottom:24px;line-height:1.3;font-family:${ttl.family}">${e(s.name||'')}</div>
             ${diamondDivider(ac)}
-            <div style="font-size:34px;color:${sc};font-weight:400;letter-spacing:0.03em">${e(s.tag||'')}</div>
+            <div style="font-size:${Math.round(34*bod.sizeMul)}px;${bc}font-weight:${bod.weight};letter-spacing:0.03em;font-family:${bod.family}">${e(s.tag||'')}</div>
           </div>
         </div>
       </div>`;
     case'cause':return`
       <div style="word-break:keep-all;position:relative">
         <div style="position:absolute;top:-40px;right:0;font-size:200px;color:${ac};opacity:0.03;font-family:'Playfair Display',serif;font-weight:300;line-height:1;pointer-events:none">Why</div>
-        <div style="font-size:16px;letter-spacing:0.15em;color:${ac};font-weight:700;margin-bottom:28px;text-transform:uppercase;font-family:'Pretendard',sans-serif">${e(s.label||'ANALYSIS')}</div>
-        <div style="font-size:48px;color:${ac};font-weight:600;margin-bottom:16px;font-family:'Pretendard',sans-serif">${e(s.tt||'')}</div>
+        <div style="font-size:${Math.round(16*cap.sizeMul)}px;letter-spacing:0.15em;color:${ac};${cc}font-weight:${cap.weight};margin-bottom:28px;text-transform:uppercase;font-family:${cap.family}">${e(s.label||'ANALYSIS')}</div>
+        <div style="font-size:${Math.round(48*ttl.sizeMul)}px;color:${ac};font-weight:${ttl.weight};margin-bottom:16px;font-family:${ttl.family}">${e(s.tt||'')}</div>
         ${diamondDivider(ac)}
         <div style="border-left:3px solid ${ac};padding:28px 36px;background:${ac}04;border-radius:0 14px 14px 0">
-          <div style="font-size:38px;font-weight:500;color:${dc};line-height:1.6;white-space:pre-line;font-family:'Noto Serif KR',serif">${e(s.tx)}</div>
+          <div style="font-size:${Math.round(38*bod.sizeMul)}px;font-weight:500;${bdc}line-height:1.6;white-space:pre-line;font-family:${bod.family}">${e(s.tx)}</div>
         </div>
       </div>`;
     case'recommend':return`
       <div style="word-break:keep-all">
-        <div style="font-size:16px;letter-spacing:0.15em;color:${ac};font-weight:700;margin-bottom:16px;text-transform:uppercase;font-family:'Pretendard',sans-serif">${e(s.label||'FOR YOU')}</div>
-        <div style="font-size:48px;font-weight:600;color:${dc};margin-bottom:20px;line-height:1.3;font-family:'Pretendard',sans-serif">이런 분께 추천해요</div>
+        <div style="font-size:${Math.round(16*cap.sizeMul)}px;letter-spacing:0.15em;color:${ac};${cc}font-weight:${cap.weight};margin-bottom:16px;text-transform:uppercase;font-family:${cap.family}">${e(s.label||'FOR YOU')}</div>
+        <div style="font-size:${Math.round(48*ttl.sizeMul)}px;font-weight:${ttl.weight};${tc}margin-bottom:20px;line-height:1.3;font-family:${ttl.family}">이런 분께 추천해요</div>
         <div style="width:40px;height:2px;background:${ac};margin-bottom:28px;border-radius:1px"></div>
         ${(s.items||[]).map((it,j)=>{
           const hasEmoji=/[\uD800-\uDBFF][\uDC00-\uDFFF]/.test(it)||it.length>20;
           const text=hasEmoji?it.split(' ').slice(1).join(' '):it;
           const icon=hasEmoji?it.split(' ')[0]:'';
           return`<div style="display:flex;align-items:center;gap:18px;padding:18px 24px;margin-bottom:10px;background:${ac}04;border:0.5px solid ${ac}10;border-radius:14px">
-            ${hasEmoji?`<span style="font-size:24px;flex-shrink:0">${icon}</span>`:`<div style="width:28px;height:28px;border-radius:50%;background:${ac};display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:13px;color:white;font-weight:700;font-family:'Pretendard',sans-serif">${String(j+1).padStart(2,'0')}</span></div>`}
-            <span style="font-size:36px;font-weight:500;color:${dc}">${e(text)}</span>
+            ${hasEmoji?`<span style="font-size:24px;flex-shrink:0">${icon}</span>`:`<div style="width:28px;height:28px;border-radius:50%;background:${ac};display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:13px;color:white;font-weight:700;font-family:${cap.family}">${String(j+1).padStart(2,'0')}</span></div>`}
+            <span style="font-size:${Math.round(36*bod.sizeMul)}px;font-weight:500;${bdc}font-family:${bod.family}">${e(text)}</span>
             <span style="margin-left:auto;flex-shrink:0;opacity:0.2;font-size:18px;color:${dc}">›</span>
           </div>`;
         }).join('')}
@@ -1526,29 +1693,29 @@ function inner(s,dc,sc,bg,i,n){
     case'highlight':return`
       <div style="position:relative;border-left:4px solid ${ac};padding:44px 60px;background:${ac}06;border-radius:0 18px 18px 0;word-break:keep-all">
         <div style="position:absolute;top:12px;left:28px;font-size:120px;color:${ac};opacity:0.06;font-family:'Playfair Display',serif;font-weight:300;line-height:1;pointer-events:none">&ldquo;</div>
-        <div style="position:relative;font-size:52px;font-weight:600;color:${dc};line-height:1.5;white-space:pre-line;font-family:'Pretendard',sans-serif">${e(s.tx)}</div>
+        <div style="position:relative;font-size:${Math.round(52*ttl.sizeMul)}px;font-weight:${ttl.weight};${tc}line-height:1.5;white-space:pre-line;font-family:${ttl.family}">${e(s.tx)}</div>
       </div>`;
     case'ugc':return`
       <div style="text-align:center;word-break:keep-all;position:relative">
-        <div style="font-size:16px;letter-spacing:0.15em;color:${ac};font-weight:700;margin-bottom:28px;text-transform:uppercase;font-family:'Pretendard',sans-serif">${e(s.label||'REVIEW')}</div>
+        <div style="font-size:${Math.round(16*cap.sizeMul)}px;letter-spacing:0.15em;color:${ac};${cc}font-weight:${cap.weight};margin-bottom:28px;text-transform:uppercase;font-family:${cap.family}">${e(s.label||'REVIEW')}</div>
         <div style="display:flex;justify-content:center;gap:6px;margin-bottom:28px">${[1,2,3,4,5].map(()=>`<span style="font-size:22px;color:${ac};opacity:0.7">★</span>`).join('')}</div>
         <div style="position:relative;background:${ac}04;border:0.5px solid ${ac}15;border-radius:20px;padding:40px 44px;margin-bottom:28px">
           <div style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-size:72px;color:${ac};opacity:0.1;font-family:'Playfair Display',serif;line-height:1">&ldquo;</div>
-          <div style="font-size:42px;font-weight:600;font-style:italic;color:${dc};line-height:1.65;white-space:pre-line;font-family:'Pretendard',sans-serif;position:relative;z-index:2">${e(s.tx)}</div>
+          <div style="font-size:${Math.round(42*bod.sizeMul)}px;font-weight:${bod.weight};font-style:italic;${bdc}line-height:1.65;white-space:pre-line;font-family:${bod.family};position:relative;z-index:2">${e(s.tx)}</div>
         </div>
         <div style="display:flex;align-items:center;justify-content:center;gap:14px">
           <div style="width:24px;height:0.5px;background:${ac}40"></div>
-          <div style="font-size:20px;font-weight:500;color:${sc};letter-spacing:0.05em;font-family:'Noto Serif KR',serif">${e(s.author||'고객 후기')}</div>
+          <div style="font-size:${Math.round(20*cap.sizeMul)}px;font-weight:500;${cap.color?'color:'+cap.color+';':'color:'+sc+';'}letter-spacing:0.05em;font-family:${cap.family}">${e(s.author||'고객 후기')}</div>
           <div style="width:24px;height:0.5px;background:${ac}40"></div>
         </div>
       </div>`;
     case'cta':return`
       <div style="word-break:keep-all;height:100%;display:flex;flex-direction:column;justify-content:center;position:relative">
-        <div style="font-size:16px;letter-spacing:0.15em;color:${ac};font-weight:700;margin-bottom:36px;text-transform:uppercase;font-family:'Pretendard',sans-serif">SAVE & SHARE</div>
+        <div style="font-size:${Math.round(16*cap.sizeMul)}px;letter-spacing:0.15em;color:${ac};${cc}font-weight:${cap.weight};margin-bottom:36px;text-transform:uppercase;font-family:${cap.family}">SAVE & SHARE</div>
         <div style="width:80px;height:80px;border-radius:50%;background:${ac}08;display:flex;align-items:center;justify-content:center;margin-bottom:32px">
           <span style="font-size:44px;color:${ac}">♡</span>
         </div>
-        <div style="font-size:58px;font-weight:600;color:${dc};line-height:1.4;white-space:pre-line;font-family:'Pretendard',sans-serif;margin-bottom:40px">${e(s.tx)}</div>
+        <div style="font-size:${Math.round(58*ttl.sizeMul)}px;font-weight:${ttl.weight};${tc}line-height:1.4;white-space:pre-line;font-family:${ttl.family};margin-bottom:40px">${e(s.tx)}</div>
         <div style="width:40px;height:2px;background:${ac};margin-bottom:28px;border-radius:1px"></div>
         <div style="display:flex;gap:16px;flex-wrap:wrap">
           <div style="background:${ac};color:#fff;padding:14px 32px;border-radius:40px;font-size:24px;font-weight:600">북마크 저장</div>
@@ -1557,23 +1724,23 @@ function inner(s,dc,sc,bg,i,n){
       </div>`;
     case'ba':return`
       <div style="display:flex;height:100%;flex-direction:column;justify-content:center">
-        <div style="font-size:16px;letter-spacing:0.15em;color:${ac};font-weight:700;margin-bottom:24px;text-transform:uppercase;font-family:'Pretendard',sans-serif">${e(s.label||'CASE STUDY')}</div>
+        <div style="font-size:${Math.round(16*cap.sizeMul)}px;letter-spacing:0.15em;color:${ac};${cc}font-weight:${cap.weight};margin-bottom:24px;text-transform:uppercase;font-family:${cap.family}">${e(s.label||'CASE STUDY')}</div>
         <div style="display:flex;gap:0;height:420px;margin-bottom:32px;position:relative">
-          <div style="flex:1;background:${ac}06;border-radius:16px 0 0 16px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border:0.5px solid ${ac}15">
-            <div style="position:absolute;top:16px;left:16px;background:linear-gradient(135deg,${ac},${ac}cc);color:white;font-size:10px;font-weight:800;padding:5px 14px;border-radius:20px;letter-spacing:0.8px;font-family:'Pretendard',sans-serif;z-index:2">BEFORE</div>
-            ${IMGS['ba_b_'+i]?`<img src="${IMGS['ba_b_'+i]}" style="width:100%;height:100%;object-fit:cover">`:`<div style="color:${ac}30">${ic('face',40)}</div>`}
+          <div data-ba="ba_b_${i}" style="flex:1;background:${ac}06;border-radius:16px 0 0 16px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border:0.5px solid ${ac}15">
+            <div style="position:absolute;top:16px;left:16px;background:linear-gradient(135deg,${ac},${ac}cc);color:white;font-size:10px;font-weight:800;padding:5px 14px;border-radius:20px;letter-spacing:0.8px;font-family:${cap.family};z-index:2">BEFORE</div>
+            ${IMGS['ba_b_'+i]?`<img src="${IMGS['ba_b_'+i]}" style="width:100%;height:100%;object-fit:cover;transform:scale(${(getImgS('ba_b_'+i).zoom||100)/100}) translate(${getImgS('ba_b_'+i).offsetX||0}px,${getImgS('ba_b_'+i).offsetY||0}px);transform-origin:center">`:`<div style="color:${ac}30">${ic('face',40)}</div>`}
           </div>
           <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:3;width:36px;height:36px;background:${ac};border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px ${ac}40">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </div>
-          <div style="flex:1;background:${ac}06;border-radius:0 16px 16px 0;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border:0.5px solid ${ac}15">
-            <div style="position:absolute;top:16px;left:16px;background:linear-gradient(135deg,${ac},${ac}cc);color:white;font-size:10px;font-weight:800;padding:5px 14px;border-radius:20px;letter-spacing:0.8px;font-family:'Pretendard',sans-serif;z-index:2">AFTER</div>
-            ${IMGS['ba_a_'+i]?`<img src="${IMGS['ba_a_'+i]}" style="width:100%;height:100%;object-fit:cover">`:`<div style="color:${ac}30">${ic('face',40)}</div>`}
+          <div data-ba="ba_a_${i}" style="flex:1;background:${ac}06;border-radius:0 16px 16px 0;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border:0.5px solid ${ac}15">
+            <div style="position:absolute;top:16px;left:16px;background:linear-gradient(135deg,${ac},${ac}cc);color:white;font-size:10px;font-weight:800;padding:5px 14px;border-radius:20px;letter-spacing:0.8px;font-family:${cap.family};z-index:2">AFTER</div>
+            ${IMGS['ba_a_'+i]?`<img src="${IMGS['ba_a_'+i]}" style="width:100%;height:100%;object-fit:cover;transform:scale(${(getImgS('ba_a_'+i).zoom||100)/100}) translate(${getImgS('ba_a_'+i).offsetX||0}px,${getImgS('ba_a_'+i).offsetY||0}px);transform-origin:center">`:`<div style="color:${ac}30">${ic('face',40)}</div>`}
           </div>
         </div>
         <div style="display:flex;gap:40px;text-align:center;word-break:keep-all">
-          <div style="flex:1;color:${sc};font-size:17px;line-height:1.6">${e(s.tx)}</div>
-          <div style="flex:1;color:${dc};font-size:19px;font-weight:600;line-height:1.4;font-family:'Pretendard',sans-serif">${e(s.tt)}</div>
+          <div style="flex:1;${bc}font-size:${Math.round(17*bod.sizeMul)}px;line-height:1.6;font-family:${bod.family}">${e(s.tx)}</div>
+          <div style="flex:1;${tc}font-size:${Math.round(19*ttl.sizeMul)}px;font-weight:${ttl.weight};line-height:1.4;font-family:${ttl.family}">${e(s.tt)}</div>
         </div>
       </div>`;
     default:return`<div style="font-size:26px;font-weight:500;color:${dc};white-space:pre-line">${e(s.tx||JSON.stringify(s))}</div>`;
@@ -1650,7 +1817,7 @@ function genTopic(){
     const tp=tpv==='auto'?'infographic':tpv;
     matched=(DEF_TPLS[tp]||DEF_TPLS.infographic)(topic);
   }
-  POST=matched;SLIDES=matched.s.map(s=>({...s,items:s.items?[...s.items]:undefined}));IMGS={};
+  POST=matched;SLIDES=matched.s.map(s=>({...s,items:s.items?[...s.items]:undefined}));IMGS={};IMG_SETTINGS={};
   buildEditors('seds-b');render();show();
   autoSave();
 }
@@ -1710,6 +1877,7 @@ async function renderSlide(idx){
   sf.querySelectorAll('[style*="border-image"]').forEach(el=>{
     el.style.borderImage='none';
   });
+  await document.fonts.ready;
   await new Promise(r=>setTimeout(r,100));
   try{
     const c=await html2canvas(sf,{scale:1,useCORS:true,allowTaint:true,logging:false,width:sz.w,height:sz.h});
@@ -2168,7 +2336,7 @@ function applyPreset(type){
   currentPresetType=type;
   POST={...tpl};
   SLIDES=tpl.s.map(s=>({...s,items:s.items?[...s.items]:undefined}));
-  IMGS={};
+  IMGS={};IMG_SETTINGS={};
   buildEditorsWithGuides('seds-c',type);
   render();show();
   autoSave();
@@ -2195,9 +2363,11 @@ function collectState(){
     postId:POST?.id||null,
     slides:SLIDES,
     imgs:IMGS,
+    imgSettings:IMG_SETTINGS,
     wm:WM,
     imgGradient:imgGradient,
-    txtBackdrop:txtBackdrop
+    txtBackdrop:txtBackdrop,
+    fontSettings:fontSettings
   };
 }
 function autoSave(){
@@ -2235,9 +2405,15 @@ function restoreState(data){
     txtBackdrop=true;
     const btn=document.getElementById('backdrop-toggle');if(btn)btn.classList.add('active');
   }
+  if(data.fontSettings){
+    fontSettings=JSON.parse(JSON.stringify(data.fontSettings));
+    const fpHost=document.getElementById('fontPanelHost');
+    if(fpHost)fpHost.innerHTML=buildFontPanel();
+  }
   if(data.slides&&data.slides.length>0){
     SLIDES=data.slides;
     if(data.imgs)IMGS=data.imgs;
+    if(data.imgSettings)IMG_SETTINGS=data.imgSettings;
     if(data.wm)Object.assign(WM,data.wm);
     // Restore POST stub for export naming
     if(data.postId){
@@ -2379,7 +2555,12 @@ function timeAgo(date){
   return Math.floor(s/86400)+'일 전';
 }
 
+// Init font panel
+const fpHost=document.getElementById('fontPanelHost');
+if(fpHost)fpHost.innerHTML=buildFontPanel();
+
 // AutoLoad on init
+initSlideDrag();
 if(autoLoad())showToast('이전 작업을 불러왔습니다');
 
 </script>
