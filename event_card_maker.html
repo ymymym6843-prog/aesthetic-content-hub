@@ -6,6 +6,12 @@
 <title>이벤트 카드 메이커 | IM AESTHETIC</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/fonts-archive/MaruBuri/MaruBuri.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <style>
 :root {
@@ -784,6 +790,16 @@ footer .brand-foot {
 .modal-header h3 { font-size:16px;font-weight:700;color:#3D2E24;margin:0; }
 .modal-body { max-height:50vh;overflow-y:auto; }
 .session-item:hover { background:rgba(232,112,58,0.04); }
+
+/* ════════ FONT PANEL ════════ */
+.font-panel { margin-top: 8px; border-top: 1px solid var(--border); padding-top: 8px; }
+.font-panel-toggle { display: flex; justify-content: space-between; cursor: pointer; padding: 6px 0; font-size: 12px; font-weight: 600; color: var(--text); }
+.font-panel-toggle:hover { color: var(--orange); }
+.font-panel-body { padding: 8px 0; }
+.font-tier { margin-bottom: 10px; }
+.font-tier-label { font-size: 11px; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+.font-tier-desc { font-weight: 400; color: var(--text-muted); font-size: 10px; }
+.font-tier-controls { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
 </style>
 </head>
 <body>
@@ -919,6 +935,85 @@ let imageZoom = 100;        // 50–200
 let imageOffsetX = 0;       // drag offset px
 let imageOffsetY = 0;       // drag offset px
 
+// ════════ FONT CUSTOMIZATION ════════
+const FONT_OPTIONS = [
+  { name: 'Pretendard', family: "'Pretendard',system-ui,sans-serif", type: 'sans' },
+  { name: 'Noto Sans KR', family: "'Noto Sans KR',sans-serif", type: 'sans' },
+  { name: 'Noto Serif KR', family: "'Noto Serif KR',serif", type: 'serif' },
+  { name: 'Playfair Display', family: "'Playfair Display',serif", type: 'serif' },
+  { name: 'Gowun Batang', family: "'Gowun Batang',serif", type: 'display' },
+  { name: 'Gowun Dodum', family: "'Gowun Dodum',sans-serif", type: 'display' },
+  { name: 'MaruBuri', family: "'MaruBuri',serif", type: 'display' },
+  { name: 'Nanum Myeongjo', family: "'Nanum Myeongjo',serif", type: 'serif' }
+];
+const FONT_DEFAULTS = {
+  title:   { family: 0, size: 100, weight: 800, color: '' },
+  body:    { family: 0, size: 100, weight: 400, color: '' },
+  caption: { family: 0, size: 100, weight: 700, color: '' }
+};
+let fontSettings = JSON.parse(JSON.stringify(FONT_DEFAULTS));
+
+function getFontCSS(tier) {
+  const s = fontSettings[tier];
+  const f = FONT_OPTIONS[s.family];
+  return { family: f.family, weight: s.weight, sizeMul: s.size / 100, color: s.color || null };
+}
+function setFont(tier, prop, val) {
+  if (prop === 'family') val = parseInt(val, 10);
+  if (prop === 'size') val = parseInt(val, 10);
+  if (prop === 'weight') val = parseInt(val, 10);
+  fontSettings[tier][prop] = val;
+  const sizeSpan = document.querySelector(`[data-font-size="${tier}"]`);
+  if (sizeSpan && prop === 'size') sizeSpan.textContent = val + '%';
+  renderCard();
+  autoSave();
+}
+function resetFonts() {
+  fontSettings = JSON.parse(JSON.stringify(FONT_DEFAULTS));
+  const host = document.getElementById('fontPanelHost');
+  if (host) host.innerHTML = buildFontPanel();
+  renderCard();
+  autoSave();
+}
+function toggleFontPanel() {
+  const body = document.querySelector('.font-panel-body');
+  const arrow = document.querySelector('.font-panel-arrow');
+  if (body) {
+    const show = body.style.display === 'none';
+    body.style.display = show ? 'block' : 'none';
+    if (arrow) arrow.textContent = show ? '\u25BE' : '\u25B8';
+  }
+}
+function buildFontPanel() {
+  const tiers = [
+    { key: 'title', label: '\uC81C\uBAA9 \uD3F0\uD2B8', desc: '\uBA54\uC778 \uC81C\uBAA9, \uD504\uB85C\uADF8\uB7A8\uBA85' },
+    { key: 'body', label: '\uBCF8\uBB38 \uD3F0\uD2B8', desc: '\uBD80\uC81C, \uC124\uBA85, \uD61C\uD0DD \uB0B4\uC6A9' },
+    { key: 'caption', label: '\uCEA1\uC158 \uD3F0\uD2B8', desc: '\uBC30\uC9C0, \uD478\uD130, \uB77C\uBCA8' }
+  ];
+  return `<div class="font-panel" id="fontPanel">
+    <div class="font-panel-toggle" onclick="toggleFontPanel()">
+      <span>Typography \uC124\uC815</span><span class="font-panel-arrow">\u25B8</span>
+    </div>
+    <div class="font-panel-body" style="display:none">
+      ${tiers.map(t => `<div class="font-tier">
+        <div class="font-tier-label">${t.label} <span class="font-tier-desc">${t.desc}</span></div>
+        <div class="font-tier-controls">
+          <select onchange="setFont('${t.key}','family',this.selectedIndex)" style="font-size:11px;flex:1;padding:4px 6px;border-radius:6px;border:1.5px solid var(--border);background:var(--cream);color:var(--text);font-family:inherit;cursor:pointer">
+            ${FONT_OPTIONS.map((f, i) => `<option value="${i}" ${fontSettings[t.key].family === i ? 'selected' : ''}>${f.name}</option>`).join('')}
+          </select>
+          <input type="range" min="60" max="140" value="${fontSettings[t.key].size}" oninput="setFont('${t.key}','size',this.value)" style="width:55px;accent-color:var(--orange)">
+          <span data-font-size="${t.key}" style="font-size:10px;min-width:28px;color:var(--text-muted)">${fontSettings[t.key].size}%</span>
+          <select onchange="setFont('${t.key}','weight',this.value)" style="font-size:11px;width:55px;padding:4px;border-radius:6px;border:1.5px solid var(--border);background:var(--cream);color:var(--text);cursor:pointer">
+            ${[300, 400, 500, 600, 700, 800].map(w => `<option value="${w}" ${fontSettings[t.key].weight == w ? 'selected' : ''}>${w}</option>`).join('')}
+          </select>
+          <input type="color" value="${fontSettings[t.key].color || '#3D2E24'}" oninput="setFont('${t.key}','color',this.value)" style="width:26px;height:26px;border:none;cursor:pointer;border-radius:4px" title="\uD3F0\uD2B8 \uC0C9\uC0C1">
+        </div>
+      </div>`).join('')}
+      <button onclick="resetFonts()" style="margin-top:8px;font-size:10px;padding:5px 12px;border-radius:6px;border:1px solid var(--border);background:var(--cream);color:var(--text-muted);cursor:pointer;font-family:inherit">\uAE30\uBCF8\uAC12\uC73C\uB85C \uCD08\uAE30\uD654</button>
+    </div>
+  </div>`;
+}
+
 // ════════ PRESET SELECTION ════════
 function selectPreset(idx) {
   currentPreset = idx;
@@ -987,7 +1082,12 @@ function buildEditPanel() {
   html += '<hr class="field-sep">';
   html += buildImageUploadSection();
 
+  // Font panel host
+  html += '<div id="fontPanelHost"></div>';
+
   panel.innerHTML = html;
+
+  document.getElementById('fontPanelHost').innerHTML = buildFontPanel();
 
   // Re-attach drag events after innerHTML update
   initUploadZone();
@@ -1195,7 +1295,47 @@ function renderCard() {
   }
 
   scaler.innerHTML = `<div class="event-card ${getPresetClass()}">${html}</div>`;
+  applyFontSettings();
   scalePreview();
+}
+
+function applyFontSettings() {
+  const ttl = getFontCSS('title');
+  const bod = getFontCSS('body');
+  const cap = getFontCSS('caption');
+
+  // Title elements: main-title, program-name
+  document.querySelectorAll('.event-card .main-title, .event-card .program-name').forEach(el => {
+    el.style.fontFamily = ttl.family;
+    el.style.fontWeight = ttl.weight;
+    if (ttl.sizeMul !== 1) {
+      const orig = parseFloat(getComputedStyle(el).fontSize);
+      el.style.fontSize = (orig * ttl.sizeMul) + 'px';
+    }
+    if (ttl.color) el.style.color = ttl.color;
+  });
+
+  // Body elements: sub-title, event-desc, benefit-text, referral-desc, ref-benefit, program-sessions, program-price
+  document.querySelectorAll('.event-card .sub-title, .event-card .event-desc, .event-card .benefit-text, .event-card .referral-desc, .event-card .ref-benefit, .event-card .program-sessions, .event-card .program-price, .event-card .ref-note, .event-card .event-period').forEach(el => {
+    el.style.fontFamily = bod.family;
+    el.style.fontWeight = bod.weight;
+    if (bod.sizeMul !== 1) {
+      const orig = parseFloat(getComputedStyle(el).fontSize);
+      el.style.fontSize = (orig * bod.sizeMul) + 'px';
+    }
+    if (bod.color) el.style.color = bod.color;
+  });
+
+  // Caption elements: card-footer, event-badge, cta-btn, ref-label, logo-text
+  document.querySelectorAll('.event-card .card-footer, .event-card .event-badge, .event-card .cta-btn, .event-card .ref-label, .event-card .logo-text').forEach(el => {
+    el.style.fontFamily = cap.family;
+    el.style.fontWeight = cap.weight;
+    if (cap.sizeMul !== 1) {
+      const orig = parseFloat(getComputedStyle(el).fontSize);
+      el.style.fontSize = (orig * cap.sizeMul) + 'px';
+    }
+    if (cap.color) el.style.color = cap.color;
+  });
 }
 
 function getPresetClass() {
@@ -1357,6 +1497,8 @@ async function exportPNG() {
     exportArea.innerHTML = '';
     exportArea.appendChild(clone);
 
+    await document.fonts.ready;
+
     const canvas = await html2canvas(clone, {
       width: 1080,
       height: 1350,
@@ -1404,7 +1546,8 @@ function collectState() {
     imagePosition: imagePosition,
     imageZoom: imageZoom,
     imageOffsetX: imageOffsetX,
-    imageOffsetY: imageOffsetY
+    imageOffsetY: imageOffsetY,
+    fontSettings: fontSettings
   };
 }
 function autoSave() {
@@ -1434,6 +1577,7 @@ function restoreState(data) {
   if (data.imageZoom !== undefined) imageZoom = data.imageZoom;
   if (data.imageOffsetX !== undefined) imageOffsetX = data.imageOffsetX;
   if (data.imageOffsetY !== undefined) imageOffsetY = data.imageOffsetY;
+  if (data.fontSettings) fontSettings = data.fontSettings;
   buildEditPanel();
   renderCard();
 }
