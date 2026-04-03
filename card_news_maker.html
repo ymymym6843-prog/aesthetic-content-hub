@@ -857,7 +857,20 @@ textarea{resize:vertical;min-height:58px}
         </select>
       </div>
       <div id="rec-lbl" style="font-size:11px;color:var(--or);margin-bottom:8px;min-height:16px"></div>
+      <div class="frow">
+        <label>카드 수</label>
+        <div style="display:flex;align-items:center;gap:8px">
+          <button onclick="adjSlideCount(-1)" style="width:28px;height:28px;border-radius:6px;border:1.5px solid var(--color-border);background:var(--color-bg);color:var(--color-text);cursor:pointer;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center">−</button>
+          <input type="number" id="slideCount" min="1" max="20" value="5" style="width:50px;text-align:center;font-size:13px;padding:4px;border-radius:6px;border:1.5px solid var(--color-border);font-family:inherit">
+          <button onclick="adjSlideCount(1)" style="width:28px;height:28px;border-radius:6px;border:1.5px solid var(--color-border);background:var(--color-bg);color:var(--color-text);cursor:pointer;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center">+</button>
+          <span style="font-size:10px;color:var(--color-text-light)">1~20장</span>
+        </div>
+      </div>
       <button class="btn btn-p" style="width:100%;margin-bottom:4px" onclick="genTopic()">슬라이드 생성</button>
+      <div id="slide-actions" style="display:none;margin-bottom:8px;gap:6px">
+        <button class="btn btn-o btn-sm" onclick="addSlide()" style="flex:1">+ 슬라이드 추가</button>
+        <button class="btn btn-sm" onclick="removeLastSlide()" style="flex:1;border:1px solid var(--color-border);background:var(--color-bg);color:var(--color-text-light)">마지막 삭제</button>
+      </div>
       <div id="seds-b" style="margin-top:10px"></div>
     </div>
 
@@ -1350,6 +1363,7 @@ function selPost(id){
 
 /* ---- 에디터 빌드 ---- */
 function buildEditors(cid){
+  currentEditorCid=cid;
   document.getElementById(cid).innerHTML=SLIDES.map((s,i)=>edHTML(s,i,cid)).join('');
 }
 
@@ -1513,6 +1527,7 @@ function show(){
   document.getElementById('actbar').style.display='flex';
   document.getElementById('wm-section').style.display='block';
   document.getElementById('empty').style.display='none';
+  document.getElementById('slide-actions').style.display='flex';
 }
 
 /* ---- 슬라이드 HTML 생성 ---- */
@@ -1805,9 +1820,17 @@ const DEF_TPLS={
     {r:'cta',tx:'직접 경험해 보세요'}]})
 };
 
+function adjSlideCount(d){
+  const el=document.getElementById('slideCount');
+  let v=parseInt(el.value,10)||5;
+  v=Math.max(1,Math.min(20,v+d));
+  el.value=v;
+}
+
 function genTopic(){
   const topic=document.getElementById('topic').value.trim();
   if(!topic){alert('주제를 입력하세요');return;}
+  const count=Math.max(1,Math.min(20,parseInt(document.getElementById('slideCount').value,10)||5));
   let tpv=document.getElementById('tpl').value,matched=null;
   if(tpv==='auto'){
     const tv=topic.toLowerCase();
@@ -1817,10 +1840,46 @@ function genTopic(){
     const tp=tpv==='auto'?'infographic':tpv;
     matched=(DEF_TPLS[tp]||DEF_TPLS.infographic)(topic);
   }
-  POST=matched;SLIDES=matched.s.map(s=>({...s,items:s.items?[...s.items]:undefined}));IMGS={};IMG_SETTINGS={};
+  POST=matched;
+  let base=matched.s.map(s=>({...s,items:s.items?[...s.items]:undefined}));
+  /* Adjust slide count to user-specified number */
+  if(count<base.length){
+    /* Keep hook (first) and cta (last if exists), trim middle */
+    const last=base[base.length-1];
+    const hasCta=last&&last.r==='cta';
+    if(hasCta&&count>=2){base=[base[0],...base.slice(1,-1).slice(0,count-2),last];}
+    else{base=base.slice(0,count);}
+  }else if(count>base.length){
+    /* Add empty content slides to fill */
+    while(base.length<count){
+      const insertIdx=base.length>1&&base[base.length-1].r==='cta'?base.length-1:base.length;
+      base.splice(insertIdx,0,{r:'content',label:'POINT',tt:'제목을 입력하세요',tx:'내용을 입력하세요'});
+    }
+  }
+  SLIDES=base;IMGS={};IMG_SETTINGS={};
   buildEditors('seds-b');render();show();
+  document.getElementById('slide-actions').style.display='flex';
   autoSave();
 }
+
+function addSlide(){
+  if(SLIDES.length>=20)return;
+  const insertIdx=SLIDES.length>1&&SLIDES[SLIDES.length-1].r==='cta'?SLIDES.length-1:SLIDES.length;
+  SLIDES.splice(insertIdx,0,{r:'content',label:'POINT',tt:'제목을 입력하세요',tx:'내용을 입력하세요'});
+  buildEditors(currentEditorCid||'seds-b');render();autoSave();
+}
+
+function removeLastSlide(){
+  if(SLIDES.length<=1)return;
+  /* Remove last content slide, not the CTA if it's last */
+  let removeIdx=SLIDES.length-1;
+  if(SLIDES[removeIdx].r==='cta'&&SLIDES.length>2)removeIdx=SLIDES.length-2;
+  SLIDES.splice(removeIdx,1);
+  delete IMGS[removeIdx];delete IMG_SETTINGS[removeIdx];
+  buildEditors(currentEditorCid||'seds-b');render();autoSave();
+}
+
+let currentEditorCid='seds-b';
 
 /* ---- 내보내기 ---- */
 /* html2canvas createPattern 0-size canvas 에러 방지 */
