@@ -570,6 +570,15 @@ function restoreState(data) {
   if (data.imgOffsetY !== undefined) state.imgOffsetY = data.imgOffsetY;
   if (data.fontSettings) {
     fontSettings = JSON.parse(JSON.stringify(data.fontSettings));
+    // Migrate old fontIdx schema to family schema
+    ['title','body','caption'].forEach(k => {
+      if (fontSettings[k].fontIdx !== undefined && fontSettings[k].family === undefined) {
+        fontSettings[k].family = fontSettings[k].fontIdx;
+        delete fontSettings[k].fontIdx;
+      }
+      if (fontSettings[k].size === undefined) fontSettings[k].size = 100;
+      if (fontSettings[k].color === undefined) fontSettings[k].color = '';
+    });
     buildFontPanel();
     applyFontSettings();
   }
@@ -703,31 +712,37 @@ function timeAgo(date) {
 
 // ===== Font Customization System =====
 const FONT_OPTIONS = [
-  { name: 'Pretendard', family: "'Pretendard', sans-serif" },
-  { name: 'Noto Sans KR', family: "'Noto Sans KR', sans-serif" },
-  { name: 'Noto Serif KR', family: "'Noto Serif KR', serif" },
-  { name: 'Playfair Display', family: "'Playfair Display', serif" },
-  { name: 'Nanum Myeongjo', family: "'Nanum Myeongjo', serif" },
-  { name: 'Gowun Batang', family: "'Gowun Batang', serif" },
-  { name: 'Gowun Dodum', family: "'Gowun Dodum', sans-serif" },
-  { name: 'MaruBuri', family: "'MaruBuri', serif" }
+  { name: 'Pretendard', family: "'Pretendard',system-ui,sans-serif", type: 'sans' },
+  { name: 'Noto Sans KR', family: "'Noto Sans KR',sans-serif", type: 'sans' },
+  { name: 'Noto Serif KR', family: "'Noto Serif KR',serif", type: 'serif' },
+  { name: 'Playfair Display', family: "'Playfair Display',serif", type: 'serif' },
+  { name: 'Gowun Batang', family: "'Gowun Batang',serif", type: 'display' },
+  { name: 'Gowun Dodum', family: "'Gowun Dodum',sans-serif", type: 'display' },
+  { name: 'MaruBuri', family: "'MaruBuri',serif", type: 'display' },
+  { name: 'Nanum Myeongjo', family: "'Nanum Myeongjo',serif", type: 'serif' }
 ];
 
 const FONT_DEFAULTS = {
-  title:   { fontIdx: 0, weight: 800 },
-  body:    { fontIdx: 0, weight: 500 },
-  caption: { fontIdx: 3, weight: 700 }
+  title:   { family: 0, size: 100, weight: 800, color: '' },
+  body:    { family: 0, size: 100, weight: 500, color: '' },
+  caption: { family: 3, size: 100, weight: 700, color: '' }
 };
 
 let fontSettings = JSON.parse(JSON.stringify(FONT_DEFAULTS));
 
 function getFontCSS(tier) {
   const s = fontSettings[tier];
-  return { fontFamily: FONT_OPTIONS[s.fontIdx].family, fontWeight: s.weight };
+  const f = FONT_OPTIONS[s.family];
+  return { family: f.family, weight: s.weight, sizeMul: s.size / 100, color: s.color || null };
 }
 
-function setFont(tier, fontIdx, weight) {
-  fontSettings[tier] = { fontIdx, weight };
+function setFont(tier, prop, val) {
+  if (prop === 'family') val = parseInt(val, 10);
+  if (prop === 'size') val = parseInt(val, 10);
+  if (prop === 'weight') val = parseInt(val, 10);
+  fontSettings[tier][prop] = val;
+  const sizeSpan = document.querySelector(`[data-font-size="${tier}"]`);
+  if (sizeSpan && prop === 'size') sizeSpan.textContent = val + '%';
   applyFontSettings();
   autoSave();
 }
@@ -756,23 +771,21 @@ function buildFontPanel() {
     { key: 'caption', label: 'CAPTION · 캡션', desc: '로고, 카테고리, 브랜드마크' }
   ];
 
-  const optionsHtml = FONT_OPTIONS.map((f, i) =>
-    `<option value="${i}">${f.name}</option>`
-  ).join('');
-
   const tiersHtml = tiers.map(t => {
     const s = fontSettings[t.key];
     return `<div class="font-tier">
       <div class="font-tier-label">${t.label}</div>
-      <select onchange="setFont('${t.key}', parseInt(this.value), fontSettings['${t.key}'].weight)"
-              id="fontSel_${t.key}">
-        ${optionsHtml}
-      </select>
-      <div class="weight-row">
-        <input type="range" min="100" max="900" step="100" value="${s.weight}"
-               oninput="setFont('${t.key}', fontSettings['${t.key}'].fontIdx, parseInt(this.value)); document.getElementById('fontW_${t.key}').textContent=this.value"
-               id="fontRange_${t.key}">
-        <span id="fontW_${t.key}">${s.weight}</span>
+      <div style="font-size:10px;color:#9B8A7A;margin-bottom:4px">${t.desc}</div>
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+        <select onchange="setFont('${t.key}','family',this.value)" id="fontSel_${t.key}" style="font-size:11px;flex:1;min-width:100px;padding:4px 6px;border-radius:6px;border:1.5px solid #E8E0D8;background:#FFF8F0;color:#3D2E24;cursor:pointer">
+          ${FONT_OPTIONS.map((f, i) => `<option value="${i}" ${s.family === i ? 'selected' : ''}>${f.name}</option>`).join('')}
+        </select>
+        <input type="range" min="60" max="140" value="${s.size}" oninput="setFont('${t.key}','size',this.value)" style="width:55px;accent-color:#E8703A">
+        <span data-font-size="${t.key}" style="font-size:10px;min-width:28px;color:#9B8A7A">${s.size}%</span>
+        <select onchange="setFont('${t.key}','weight',this.value)" style="font-size:11px;width:55px;padding:4px;border-radius:6px;border:1.5px solid #E8E0D8;background:#FFF8F0;color:#3D2E24;cursor:pointer">
+          ${[300, 400, 500, 600, 700, 800].map(w => `<option value="${w}" ${s.weight == w ? 'selected' : ''}>${w}</option>`).join('')}
+        </select>
+        <input type="color" value="${s.color || '#3D2E24'}" oninput="setFont('${t.key}','color',this.value)" style="width:26px;height:26px;border:none;cursor:pointer;border-radius:4px" title="폰트 색상">
       </div>
     </div>`;
   }).join('');
@@ -785,12 +798,6 @@ function buildFontPanel() {
       ${tiersHtml}
       <button class="font-reset-btn" onclick="resetFonts()">기본값으로 초기화</button>
     </div>`;
-
-  // Set current select values
-  tiers.forEach(t => {
-    const sel = document.getElementById('fontSel_' + t.key);
-    if (sel) sel.value = fontSettings[t.key].fontIdx;
-  });
 }
 
 function applyFontSettings() {
@@ -798,38 +805,27 @@ function applyFontSettings() {
   const bodyCSS = getFontCSS('body');
   const captionCSS = getFontCSS('caption');
 
-  // Title tier: bottom title
-  const titleEl = document.querySelector('.slide .bottom-text .title');
-  if (titleEl) {
-    titleEl.style.fontFamily = titleCSS.fontFamily;
-    titleEl.style.fontWeight = titleCSS.fontWeight;
+  function applyCSS(el, css) {
+    if (!el) return;
+    el.style.fontFamily = css.family;
+    el.style.fontWeight = css.weight;
+    if (css.sizeMul !== 1) {
+      const orig = parseFloat(getComputedStyle(el).fontSize);
+      el.style.fontSize = (orig * css.sizeMul) + 'px';
+    }
+    if (css.color) el.style.color = css.color;
   }
+
+  // Title tier: bottom title
+  applyCSS(document.querySelector('.slide .bottom-text .title'), titleCSS);
 
   // Body tier: sub-info
-  const subEl = document.querySelector('.slide .bottom-text .sub-info');
-  if (subEl) {
-    subEl.style.fontFamily = bodyCSS.fontFamily;
-    subEl.style.fontWeight = bodyCSS.fontWeight;
-  }
+  applyCSS(document.querySelector('.slide .bottom-text .sub-info'), bodyCSS);
 
   // Caption tier: top-logo, cat-badge, brand-mark
-  const topLogo = document.querySelector('.slide .top-logo');
-  if (topLogo) {
-    topLogo.style.fontFamily = captionCSS.fontFamily;
-    topLogo.style.fontWeight = captionCSS.fontWeight;
-  }
-
-  const catBadge = document.querySelector('.slide .cat-badge');
-  if (catBadge) {
-    catBadge.style.fontFamily = captionCSS.fontFamily;
-    catBadge.style.fontWeight = captionCSS.fontWeight;
-  }
-
-  const brandMark = document.querySelector('.slide .bottom-text .brand-mark');
-  if (brandMark) {
-    brandMark.style.fontFamily = captionCSS.fontFamily;
-    brandMark.style.fontWeight = captionCSS.fontWeight;
-  }
+  applyCSS(document.querySelector('.slide .top-logo'), captionCSS);
+  applyCSS(document.querySelector('.slide .cat-badge'), captionCSS);
+  applyCSS(document.querySelector('.slide .bottom-text .brand-mark'), captionCSS);
 }
 
 initImgDrag();
