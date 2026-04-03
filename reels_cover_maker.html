@@ -6,6 +6,12 @@
 <title>IM AESTHETIC - 릴스 커버 메이커</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/fonts-archive/MaruBuri/MaruBuri.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <style>
   :root {
@@ -258,6 +264,37 @@
   .modal-body { max-height:50vh;overflow-y:auto; }
   .session-item:hover { background:rgba(232,112,58,0.04); }
 
+  /* ===== Font Panel ===== */
+  .font-panel-toggle {
+    width:100%;padding:10px 14px;border:1.5px solid rgba(232,112,58,0.15);
+    border-radius:12px;background:#fff;font-family:inherit;font-size:12px;
+    font-weight:700;color:var(--dark);cursor:pointer;text-align:left;
+    display:flex;align-items:center;justify-content:space-between;
+    transition:all 0.2s;margin-bottom:8px;
+  }
+  .font-panel-toggle:hover{border-color:var(--orange);}
+  .font-panel-toggle .arrow{font-size:10px;color:var(--text-muted);transition:transform 0.2s;}
+  .font-panel-toggle.open .arrow{transform:rotate(180deg);}
+  .font-panel-body{display:none;border:1px solid rgba(232,112,58,0.1);border-radius:12px;padding:14px;background:rgba(255,255,255,0.7);margin-bottom:12px;}
+  .font-panel-body.open{display:block;}
+  .font-tier{margin-bottom:14px;}
+  .font-tier:last-child{margin-bottom:0;}
+  .font-tier-label{font-size:10px;font-weight:800;color:var(--orange);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
+  .font-tier select,.font-tier input[type=range]{
+    width:100%;padding:6px 10px;border:1px solid rgba(44,24,16,0.1);
+    border-radius:8px;font-size:12px;font-family:inherit;background:#fff;
+    margin-bottom:4px;
+  }
+  .font-tier .weight-row{display:flex;align-items:center;gap:6px;}
+  .font-tier .weight-row input{flex:1;}
+  .font-tier .weight-row span{font-size:10px;color:var(--text-muted);min-width:28px;text-align:right;}
+  .font-reset-btn{
+    width:100%;padding:8px;border:1px solid rgba(232,112,58,0.2);border-radius:8px;
+    background:transparent;color:var(--text-muted);font-size:11px;font-weight:600;
+    font-family:inherit;cursor:pointer;margin-top:4px;
+  }
+  .font-reset-btn:hover{border-color:var(--orange);color:var(--orange);}
+
   @media (max-width: 900px) {
     .app { flex-direction: column; }
     .editor { width: 100%; max-height: none; position: static; }
@@ -308,6 +345,9 @@
       <label>부제 (선택)</label>
       <input type="text" id="reelsSub" value="웨딩 피부 관리 ASMR" oninput="updatePreview();autoSave()">
     </div>
+
+    <div class="section-label">폰트 설정</div>
+    <div id="fontPanelHost"></div>
 
     <div class="section-label">오버레이 스타일</div>
     <div class="overlay-row">
@@ -394,12 +434,14 @@ function handleBgImage(input) {
 function updatePreview() {
   document.getElementById('previewTitle').textContent = document.getElementById('reelsTitle').value;
   document.getElementById('previewSub').textContent = document.getElementById('reelsSub').value;
+  applyFontSettings();
 }
 
 async function exportPNG() {
   const btn = document.querySelector('.btn-export');
   btn.disabled = true; btn.textContent = '생성 중...';
   try {
+    await document.fonts.ready;
     const canvas = await html2canvas(document.getElementById('slide'), {
       scale: 1080 / 360, useCORS: true, allowTaint: true, backgroundColor: null,
     });
@@ -505,7 +547,8 @@ function collectState() {
     bgImg: state.bgImg,
     imgZoom: state.imgZoom,
     imgOffsetX: state.imgOffsetX,
-    imgOffsetY: state.imgOffsetY
+    imgOffsetY: state.imgOffsetY,
+    fontSettings: JSON.parse(JSON.stringify(fontSettings))
   };
 }
 function autoLoad() {
@@ -525,6 +568,11 @@ function restoreState(data) {
   if (data.imgZoom !== undefined) state.imgZoom = data.imgZoom;
   if (data.imgOffsetX !== undefined) state.imgOffsetX = data.imgOffsetX;
   if (data.imgOffsetY !== undefined) state.imgOffsetY = data.imgOffsetY;
+  if (data.fontSettings) {
+    fontSettings = JSON.parse(JSON.stringify(data.fontSettings));
+    buildFontPanel();
+    applyFontSettings();
+  }
   if (data.bgImg) {
     state.bgImg = data.bgImg;
     document.getElementById('bgImage').innerHTML = `<img src="${data.bgImg}" alt="업로드된 이미지">`;
@@ -653,7 +701,139 @@ function timeAgo(date) {
   return Math.floor(s/86400) + '일 전';
 }
 
+// ===== Font Customization System =====
+const FONT_OPTIONS = [
+  { name: 'Pretendard', family: "'Pretendard', sans-serif" },
+  { name: 'Noto Sans KR', family: "'Noto Sans KR', sans-serif" },
+  { name: 'Noto Serif KR', family: "'Noto Serif KR', serif" },
+  { name: 'Playfair Display', family: "'Playfair Display', serif" },
+  { name: 'Nanum Myeongjo', family: "'Nanum Myeongjo', serif" },
+  { name: 'Gowun Batang', family: "'Gowun Batang', serif" },
+  { name: 'Gowun Dodum', family: "'Gowun Dodum', sans-serif" },
+  { name: 'MaruBuri', family: "'MaruBuri', serif" }
+];
+
+const FONT_DEFAULTS = {
+  title:   { fontIdx: 0, weight: 800 },
+  body:    { fontIdx: 0, weight: 500 },
+  caption: { fontIdx: 3, weight: 700 }
+};
+
+let fontSettings = JSON.parse(JSON.stringify(FONT_DEFAULTS));
+
+function getFontCSS(tier) {
+  const s = fontSettings[tier];
+  return { fontFamily: FONT_OPTIONS[s.fontIdx].family, fontWeight: s.weight };
+}
+
+function setFont(tier, fontIdx, weight) {
+  fontSettings[tier] = { fontIdx, weight };
+  applyFontSettings();
+  autoSave();
+}
+
+function resetFonts() {
+  fontSettings = JSON.parse(JSON.stringify(FONT_DEFAULTS));
+  applyFontSettings();
+  buildFontPanel();
+  autoSave();
+}
+
+function toggleFontPanel() {
+  const btn = document.querySelector('.font-panel-toggle');
+  const body = document.querySelector('.font-panel-body');
+  btn.classList.toggle('open');
+  body.classList.toggle('open');
+}
+
+function buildFontPanel() {
+  const host = document.getElementById('fontPanelHost');
+  if (!host) return;
+
+  const tiers = [
+    { key: 'title', label: 'TITLE · 제목', desc: '릴스 제목' },
+    { key: 'body', label: 'BODY · 본문', desc: '부제/서브 정보' },
+    { key: 'caption', label: 'CAPTION · 캡션', desc: '로고, 카테고리, 브랜드마크' }
+  ];
+
+  const optionsHtml = FONT_OPTIONS.map((f, i) =>
+    `<option value="${i}">${f.name}</option>`
+  ).join('');
+
+  const tiersHtml = tiers.map(t => {
+    const s = fontSettings[t.key];
+    return `<div class="font-tier">
+      <div class="font-tier-label">${t.label}</div>
+      <select onchange="setFont('${t.key}', parseInt(this.value), fontSettings['${t.key}'].weight)"
+              id="fontSel_${t.key}">
+        ${optionsHtml}
+      </select>
+      <div class="weight-row">
+        <input type="range" min="100" max="900" step="100" value="${s.weight}"
+               oninput="setFont('${t.key}', fontSettings['${t.key}'].fontIdx, parseInt(this.value)); document.getElementById('fontW_${t.key}').textContent=this.value"
+               id="fontRange_${t.key}">
+        <span id="fontW_${t.key}">${s.weight}</span>
+      </div>
+    </div>`;
+  }).join('');
+
+  host.innerHTML = `
+    <button class="font-panel-toggle" onclick="toggleFontPanel()">
+      🔤 폰트 커스터마이징 <span class="arrow">▼</span>
+    </button>
+    <div class="font-panel-body">
+      ${tiersHtml}
+      <button class="font-reset-btn" onclick="resetFonts()">기본값으로 초기화</button>
+    </div>`;
+
+  // Set current select values
+  tiers.forEach(t => {
+    const sel = document.getElementById('fontSel_' + t.key);
+    if (sel) sel.value = fontSettings[t.key].fontIdx;
+  });
+}
+
+function applyFontSettings() {
+  const titleCSS = getFontCSS('title');
+  const bodyCSS = getFontCSS('body');
+  const captionCSS = getFontCSS('caption');
+
+  // Title tier: bottom title
+  const titleEl = document.querySelector('.slide .bottom-text .title');
+  if (titleEl) {
+    titleEl.style.fontFamily = titleCSS.fontFamily;
+    titleEl.style.fontWeight = titleCSS.fontWeight;
+  }
+
+  // Body tier: sub-info
+  const subEl = document.querySelector('.slide .bottom-text .sub-info');
+  if (subEl) {
+    subEl.style.fontFamily = bodyCSS.fontFamily;
+    subEl.style.fontWeight = bodyCSS.fontWeight;
+  }
+
+  // Caption tier: top-logo, cat-badge, brand-mark
+  const topLogo = document.querySelector('.slide .top-logo');
+  if (topLogo) {
+    topLogo.style.fontFamily = captionCSS.fontFamily;
+    topLogo.style.fontWeight = captionCSS.fontWeight;
+  }
+
+  const catBadge = document.querySelector('.slide .cat-badge');
+  if (catBadge) {
+    catBadge.style.fontFamily = captionCSS.fontFamily;
+    catBadge.style.fontWeight = captionCSS.fontWeight;
+  }
+
+  const brandMark = document.querySelector('.slide .bottom-text .brand-mark');
+  if (brandMark) {
+    brandMark.style.fontFamily = captionCSS.fontFamily;
+    brandMark.style.fontWeight = captionCSS.fontWeight;
+  }
+}
+
 initImgDrag();
+buildFontPanel();
 if (autoLoad()) showToast('이전 작업을 불러왔습니다');
 </script>
 <div class="autosave-toast" id="autoToast"></div>
