@@ -352,6 +352,8 @@
       <label for="showBrand">브랜드 워터마크 (IM AESTHETIC)</label>
     </div>
 
+    <button onclick="resetLabelPositions()" style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(232,112,58,0.2);background:transparent;color:#9B8A7A;font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;margin-bottom:12px;transition:all 0.2s" onmouseover="this.style.borderColor='#E8703A';this.style.color='#E8703A'" onmouseout="this.style.borderColor='rgba(232,112,58,0.2)';this.style.color='#9B8A7A'">라벨 위치 초기화</button>
+
     <div class="section-label">라벨 스타일</div>
     <div class="toggle-row">
       <button class="toggle-btn active" data-lstyle="badge" onclick="setLabelStyle('badge')">뱃지</button>
@@ -396,6 +398,23 @@ let state = {
   before: { img: null, zoom: 100, offX: 0, offY: 0 },
   after:  { img: null, zoom: 100, offX: 0, offY: 0 }
 };
+
+// ===== Label Drag State =====
+const labelPositions = {
+  beforeBadge: { x: null, y: null },
+  afterBadge:  { x: null, y: null },
+  info:        { x: null, y: null },
+  brand:       { x: null, y: null }
+};
+const labelBounds = {};
+
+function getLabelPos(key, defaultX, defaultY) {
+  const p = labelPositions[key];
+  return {
+    x: p.x !== null ? p.x : defaultX,
+    y: p.y !== null ? p.y : defaultY
+  };
+}
 
 // Loaded Image objects (not serialized)
 let beforeImg = null;
@@ -642,32 +661,46 @@ function drawBALabels(ctx, beforeX, afterX, beforeY, afterY, beforeW, afterW) {
   const titleCSS = getFontCSS('title');
 
   if (state.labelStyle === 'badge') {
-    drawBadge(ctx, 'BEFORE', beforeX + 36, (beforeY || 0) + 40);
-    drawBadge(ctx, 'AFTER', afterX + 36, (afterY || 0) + 40);
+    const defBX = beforeX + 36, defBY = (beforeY || 0) + 40;
+    const defAX = afterX + 36, defAY = (afterY || 0) + 40;
+    const bPos = getLabelPos('beforeBadge', defBX, defBY);
+    const aPos = getLabelPos('afterBadge', defAX, defAY);
+    drawBadge(ctx, 'BEFORE', bPos.x, bPos.y, 'beforeBadge');
+    drawBadge(ctx, 'AFTER', aPos.x, aPos.y, 'afterBadge');
   } else {
     // Minimal style
-    ctx.font = `700 ${Math.round(24 * (titleCSS.sizeMul || 1))}px ${titleCSS.family}`;
+    const fontSize = Math.round(24 * (titleCSS.sizeMul || 1));
+    ctx.font = `700 ${fontSize}px ${titleCSS.family}`;
     ctx.textAlign = 'left';
     ctx.textBaseline = 'top';
 
+    const defBX = beforeX + 36, defBY = (beforeY || 0) + 40;
+    const defAX = afterX + 36, defAY = (afterY || 0) + 40;
+    const bPos = getLabelPos('beforeBadge', defBX, defBY);
+    const aPos = getLabelPos('afterBadge', defAX, defAY);
+
     // Before label with shadow
     ctx.fillStyle = 'rgba(0,0,0,0.4)';
-    ctx.fillText('BEFORE', beforeX + 37, (beforeY || 0) + 41);
+    ctx.fillText('BEFORE', bPos.x + 1, bPos.y + 1);
     ctx.fillStyle = '#FFFFFF';
-    ctx.fillText('BEFORE', beforeX + 36, (beforeY || 0) + 40);
+    ctx.fillText('BEFORE', bPos.x, bPos.y);
+    const bMetrics = ctx.measureText('BEFORE');
+    labelBounds.beforeBadge = { x: bPos.x, y: bPos.y, w: bMetrics.width, h: fontSize };
 
     // After label
     ctx.fillStyle = 'rgba(0,0,0,0.4)';
-    ctx.fillText('AFTER', afterX + 37, (afterY || 0) + 41);
+    ctx.fillText('AFTER', aPos.x + 1, aPos.y + 1);
     ctx.fillStyle = '#FFFFFF';
-    ctx.fillText('AFTER', afterX + 36, (afterY || 0) + 40);
+    ctx.fillText('AFTER', aPos.x, aPos.y);
+    const aMetrics = ctx.measureText('AFTER');
+    labelBounds.afterBadge = { x: aPos.x, y: aPos.y, w: aMetrics.width, h: fontSize };
 
     ctx.textAlign = 'left';
     ctx.textBaseline = 'alphabetic';
   }
 }
 
-function drawBadge(ctx, text, x, y) {
+function drawBadge(ctx, text, x, y, boundsKey) {
   const titleCSS = getFontCSS('title');
   const fontSize = Math.round(18 * (titleCSS.sizeMul || 1));
   ctx.font = `800 ${fontSize}px ${titleCSS.family}`;
@@ -696,6 +729,11 @@ function drawBadge(ctx, text, x, y) {
 
   ctx.textAlign = 'left';
   ctx.textBaseline = 'alphabetic';
+
+  // Record bounding box for hit-testing
+  if (boundsKey) {
+    labelBounds[boundsKey] = { x: x, y: y, w: bw, h: bh };
+  }
 }
 
 function drawInfoBar(ctx, sz) {
@@ -708,17 +746,27 @@ function drawInfoBar(ctx, sz) {
   const titleCSS = getFontCSS('title');
   const bodyCSS = getFontCSS('body');
 
-  // Semi-transparent bottom bar
+  // Compute default info group position
   const barH = 100;
-  const grad = ctx.createLinearGradient(0, sz.h - barH - 40, 0, sz.h);
+  const defInfoX = sz.w / 2;
+  const defInfoY = sz.h - barH + 10;
+  const infoPos = getLabelPos('info', defInfoX, defInfoY);
+
+  // Semi-transparent bottom bar (drawn at custom or default Y)
+  const gradTop = infoPos.y - 40;
+  const grad = ctx.createLinearGradient(0, gradTop, 0, gradTop + barH + 40);
   grad.addColorStop(0, 'rgba(255,248,240,0)');
   grad.addColorStop(0.4, 'rgba(255,248,240,0.85)');
   grad.addColorStop(1, 'rgba(255,248,240,0.95)');
   ctx.fillStyle = grad;
-  ctx.fillRect(0, sz.h - barH - 40, sz.w, barH + 40);
+  ctx.fillRect(0, gradTop, sz.w, barH + 40);
 
-  let textY = sz.h - barH + 10;
+  let textY = infoPos.y;
+  const centerX = infoPos.x;
   ctx.textAlign = 'center';
+
+  let totalH = 0;
+  let maxW = 0;
 
   // Session number
   if (sessionText) {
@@ -726,8 +774,11 @@ function drawInfoBar(ctx, sz) {
     ctx.font = `${titleCSS.weight} ${fs}px ${titleCSS.family}`;
     ctx.fillStyle = '#3D2E24';
     ctx.textBaseline = 'top';
-    ctx.fillText(sessionText, sz.w / 2, textY);
+    ctx.fillText(sessionText, centerX, textY);
+    const mw = ctx.measureText(sessionText).width;
+    if (mw > maxW) maxW = mw;
     textY += fs + 12;
+    totalH += fs + 12;
   }
 
   // Director + date
@@ -737,8 +788,15 @@ function drawInfoBar(ctx, sz) {
     ctx.font = `${bodyCSS.weight} ${fs}px ${bodyCSS.family}`;
     ctx.fillStyle = '#9B8A7A';
     ctx.textBaseline = 'top';
-    ctx.fillText(infoParts.join('  |  '), sz.w / 2, textY);
+    const infoStr = infoParts.join('  |  ');
+    ctx.fillText(infoStr, centerX, textY);
+    const mw = ctx.measureText(infoStr).width;
+    if (mw > maxW) maxW = mw;
+    totalH += fs;
   }
+
+  // Record bounding box (centered text, so x is left edge)
+  labelBounds.info = { x: centerX - maxW / 2, y: infoPos.y, w: maxW, h: totalH || 40 };
 
   ctx.textAlign = 'left';
   ctx.textBaseline = 'alphabetic';
@@ -748,10 +806,19 @@ function drawBrand(ctx, sz) {
   const capCSS = getFontCSS('caption');
   const fs = Math.round(20 * (capCSS.sizeMul || 1));
   ctx.font = `${capCSS.weight} ${fs}px 'Playfair Display', serif`;
+
+  const defBrandX = sz.w / 2;
+  const defBrandY = sz.h - 16;
+  const brandPos = getLabelPos('brand', defBrandX, defBrandY);
+
   ctx.fillStyle = 'rgba(232,112,58,0.35)';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'bottom';
-  ctx.fillText('IM AESTHETIC', sz.w / 2, sz.h - 16);
+  ctx.fillText('IM AESTHETIC', brandPos.x, brandPos.y);
+
+  const mw = ctx.measureText('IM AESTHETIC').width;
+  labelBounds.brand = { x: brandPos.x - mw / 2, y: brandPos.y - fs, w: mw, h: fs };
+
   ctx.textAlign = 'left';
   ctx.textBaseline = 'alphabetic';
 }
@@ -897,6 +964,140 @@ function getPhotoAtPoint(mx, my) {
   });
 })();
 
+// ===== Label Drag on Canvas =====
+function hitTestLabels(mx, my) {
+  const keys = ['beforeBadge', 'afterBadge', 'info', 'brand'];
+  for (const key of keys) {
+    const b = labelBounds[key];
+    if (!b) continue;
+    // Add padding for easier grabbing
+    const pad = 10;
+    if (mx >= b.x - pad && mx <= b.x + b.w + pad &&
+        my >= b.y - pad && my <= b.y + b.h + pad) {
+      return key;
+    }
+  }
+  return null;
+}
+
+(function initLabelDrag() {
+  let dragKey = null, startX, startY, startPosX, startPosY;
+
+  canvas.addEventListener('mousedown', e => {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    const mx = (e.clientX - rect.left) * scaleX;
+    const my = (e.clientY - rect.top) * scaleY;
+
+    const hit = hitTestLabels(mx, my);
+    if (!hit) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+    dragKey = hit;
+    startX = e.clientX;
+    startY = e.clientY;
+    const pos = labelPositions[hit];
+    const b = labelBounds[hit];
+    // For centered labels (info, brand), use centerX; for others use x
+    if (hit === 'info' || hit === 'brand') {
+      startPosX = pos.x !== null ? pos.x : b.x + b.w / 2;
+      startPosY = pos.y !== null ? pos.y : b.y;
+    } else {
+      startPosX = pos.x !== null ? pos.x : b.x;
+      startPosY = pos.y !== null ? pos.y : b.y;
+    }
+    canvas.style.cursor = 'move';
+
+    function onMove(ev) {
+      const dx = (ev.clientX - startX) * scaleX;
+      const dy = (ev.clientY - startY) * scaleY;
+      labelPositions[dragKey].x = startPosX + dx;
+      labelPositions[dragKey].y = startPosY + dy;
+      renderPreview();
+    }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+      dragKey = null;
+      canvas.style.cursor = '';
+      autoSave();
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  }, true);  // capture phase to intercept before photo drag
+
+  // Hover cursor
+  canvas.addEventListener('mousemove', e => {
+    if (dragKey) return;
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    const mx = (e.clientX - rect.left) * scaleX;
+    const my = (e.clientY - rect.top) * scaleY;
+    const hit = hitTestLabels(mx, my);
+    canvas.style.cursor = hit ? 'move' : '';
+  });
+
+  // Touch support
+  canvas.addEventListener('touchstart', e => {
+    if (e.touches.length !== 1) return;
+    const touch = e.touches[0];
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    const mx = (touch.clientX - rect.left) * scaleX;
+    const my = (touch.clientY - rect.top) * scaleY;
+
+    const hit = hitTestLabels(mx, my);
+    if (!hit) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+    dragKey = hit;
+    startX = touch.clientX;
+    startY = touch.clientY;
+    const pos = labelPositions[hit];
+    const b = labelBounds[hit];
+    if (hit === 'info' || hit === 'brand') {
+      startPosX = pos.x !== null ? pos.x : b.x + b.w / 2;
+      startPosY = pos.y !== null ? pos.y : b.y;
+    } else {
+      startPosX = pos.x !== null ? pos.x : b.x;
+      startPosY = pos.y !== null ? pos.y : b.y;
+    }
+
+    function onTouchMove(ev) {
+      if (!dragKey) return;
+      const t = ev.touches[0];
+      const dx = (t.clientX - startX) * scaleX;
+      const dy = (t.clientY - startY) * scaleY;
+      labelPositions[dragKey].x = startPosX + dx;
+      labelPositions[dragKey].y = startPosY + dy;
+      renderPreview();
+      ev.preventDefault();
+    }
+    function onTouchEnd() {
+      canvas.removeEventListener('touchmove', onTouchMove);
+      canvas.removeEventListener('touchend', onTouchEnd);
+      dragKey = null;
+      autoSave();
+    }
+    canvas.addEventListener('touchmove', onTouchMove, { passive: false });
+    canvas.addEventListener('touchend', onTouchEnd);
+  }, { passive: false, capture: true });
+})();
+
+function resetLabelPositions() {
+  Object.keys(labelPositions).forEach(k => {
+    labelPositions[k] = { x: null, y: null };
+  });
+  renderPreview();
+  autoSave();
+  showToast('라벨 위치가 초기화되었습니다');
+}
+
 // ===== PNG Export =====
 async function exportBA() {
   const btn = document.querySelector('.btn-export');
@@ -1041,7 +1242,8 @@ function collectState() {
     directorName: document.getElementById('inputDirector').value,
     dateText: document.getElementById('inputDate').value,
     showBrand: document.getElementById('showBrand').checked,
-    fontSettings: JSON.parse(JSON.stringify(fontSettings))
+    fontSettings: JSON.parse(JSON.stringify(fontSettings)),
+    labelPositions: JSON.parse(JSON.stringify(labelPositions))
   };
 }
 
@@ -1077,6 +1279,13 @@ function restoreState(data) {
   if (data.directorName !== undefined) document.getElementById('inputDirector').value = data.directorName;
   if (data.dateText !== undefined) document.getElementById('inputDate').value = data.dateText;
   if (data.showBrand !== undefined) document.getElementById('showBrand').checked = data.showBrand;
+  if (data.labelPositions) {
+    Object.keys(data.labelPositions).forEach(k => {
+      if (labelPositions[k]) {
+        labelPositions[k] = data.labelPositions[k];
+      }
+    });
+  }
   if (data.fontSettings) {
     fontSettings = JSON.parse(JSON.stringify(data.fontSettings));
     // Migrate old fontIdx/sizeMul schema to family/size schema
