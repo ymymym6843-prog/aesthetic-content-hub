@@ -719,6 +719,7 @@ textarea{resize:vertical;min-height:58px}
   border:2px solid transparent;transition:all var(--transition);
 }
 .brand-swatch:hover,.brand-swatch.active{border-color:var(--or);transform:scale(1.15)}
+#backdrop-toggle.active{background:var(--color-accent);color:#fff;border-color:var(--color-accent)}
 
 /* ---- 폰트 프리셋 ---- */
 .font-presets{display:flex;gap:6px;margin-top:6px}
@@ -791,6 +792,10 @@ textarea{resize:vertical;min-height:58px}
       <option value="1:1">정사각 1:1</option>
       <option value="9:16">스토리 9:16</option>
     </select>
+    <label style="font-size:11px;color:var(--color-primary);font-weight:700;white-space:nowrap">이미지 효과</label>
+    <input type="range" id="grad-range" min="0" max="100" value="0" oninput="setGradient(this.value)" style="width:80px;cursor:pointer;accent-color:var(--color-accent)">
+    <span id="grad-val" style="font-size:11px;color:var(--color-text-light);min-width:28px">0%</span>
+    <button id="backdrop-toggle" onclick="toggleBackdrop()" title="텍스트 배경 토글" style="font-size:13px;font-weight:700;padding:4px 10px;border-radius:6px;border:1.5px solid var(--color-border);background:var(--color-bg);color:var(--color-text);cursor:pointer;font-family:inherit;line-height:1">Aa</button>
   </div>
 </div>
 
@@ -1108,6 +1113,8 @@ function applyTheme(name){
 /* ---- 슬라이드 사이즈 시스템 ---- */
 const SIZES={'4:5':{w:1080,h:1350},'1:1':{w:1080,h:1080},'9:16':{w:1080,h:1920}};
 let currentSize='4:5';
+let imgGradient=0;
+let txtBackdrop=false;
 
 function applySize(ratio){
   currentSize=ratio;
@@ -1119,6 +1126,20 @@ function applySize(ratio){
   document.querySelectorAll('.pw').forEach(el=>{
     el.style.height=Math.round(s.h*400/s.w)+'px';
   });
+  if(SLIDES.length)SLIDES.forEach((_,i)=>refreshPrev(i));
+  autoSave();
+}
+
+/* ---- 이미지 그라디언트 & 텍스트 배경 ---- */
+function setGradient(val){
+  imgGradient=parseInt(val,10);
+  document.getElementById('grad-val').textContent=val+'%';
+  if(SLIDES.length)SLIDES.forEach((_,i)=>refreshPrev(i));
+  autoSave();
+}
+function toggleBackdrop(){
+  txtBackdrop=!txtBackdrop;
+  document.getElementById('backdrop-toggle').classList.toggle('active',txtBackdrop);
   if(SLIDES.length)SLIDES.forEach((_,i)=>refreshPrev(i));
   autoSave();
 }
@@ -1372,17 +1393,18 @@ function slideHTML(s,i,n){
   const ac=themeAccent();
   const img=IMGS[i]?`<div style="position:absolute;inset:0;background:url('${IMGS[i]}') center/cover;z-index:0"></div>`:'';
   const hasImg=!!IMGS[i];
-  const txtShadow=hasImg?'text-shadow:0 1px 8px rgba(0,0,0,0.3),0 0 20px rgba(0,0,0,0.15);':'';
+  const txtShadow=hasImg?(imgGradient>20?'text-shadow:0 1px 8px rgba(0,0,0,0.3),0 0 20px rgba(0,0,0,0.15);':'text-shadow:0 2px 12px rgba(0,0,0,0.5),0 0 30px rgba(0,0,0,0.3);'):'';
+  const backdropStyle=hasImg&&txtBackdrop?'background:rgba(255,248,240,0.85);border-radius:16px;padding:32px;':'';
   return`<div class="sf" style="background:${bg}">
     ${img}
-    ${hasImg?`<div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.45) 0%,rgba(0,0,0,0.05) 40%,transparent 60%);z-index:1"></div>`:''}
+    ${hasImg&&imgGradient>0?`<div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,${imgGradient*0.0045}) 0%,rgba(0,0,0,${imgGradient*0.0005}) 40%,transparent 60%);z-index:1"></div>`:''}
     <div style="position:absolute;top:40px;left:56px;display:flex;align-items:center;gap:14px;z-index:3">
       <div style="width:40px;height:1.5px;background:${ac}60"></div>
       <div style="font-size:22px;font-weight:600;letter-spacing:0.4em;color:${ac};font-family:'Playfair Display',serif;text-transform:uppercase">IM AESTHETIC</div>
       <div style="width:40px;height:1.5px;background:${ac}60"></div>
     </div>
     <div style="position:absolute;top:38px;right:48px;z-index:3;background:${ac};color:#fff;font-size:18px;font-weight:700;padding:8px 18px;border-radius:24px;letter-spacing:0.5px;font-family:'Pretendard',sans-serif">${i+1} / ${n}</div>
-    <div class="sp" style="${hasImg?'position:relative;z-index:2;'+txtShadow:''}">${inner(s,dc,sc,bg,i,n)}</div>
+    <div class="sp" style="${hasImg?'position:relative;z-index:2;'+txtShadow+backdropStyle:''}">${inner(s,dc,sc,bg,i,n)}</div>
     ${i===n-1?footer():''}
     ${wmHTML()}
   </div>`;
@@ -2173,7 +2195,9 @@ function collectState(){
     postId:POST?.id||null,
     slides:SLIDES,
     imgs:IMGS,
-    wm:WM
+    wm:WM,
+    imgGradient:imgGradient,
+    txtBackdrop:txtBackdrop
   };
 }
 function autoSave(){
@@ -2200,6 +2224,16 @@ function restoreState(data){
   if(data.theme){
     const tsel=document.getElementById('theme-select');
     if(tsel)tsel.value=data.theme;
+  }
+  // Restore gradient & backdrop
+  if(typeof data.imgGradient==='number'){
+    imgGradient=data.imgGradient;
+    const gr=document.getElementById('grad-range');if(gr)gr.value=imgGradient;
+    const gv=document.getElementById('grad-val');if(gv)gv.textContent=imgGradient+'%';
+  }
+  if(data.txtBackdrop){
+    txtBackdrop=true;
+    const btn=document.getElementById('backdrop-toggle');if(btn)btn.classList.add('active');
   }
   if(data.slides&&data.slides.length>0){
     SLIDES=data.slides;
