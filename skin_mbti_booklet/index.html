@@ -74,59 +74,7 @@ body {
   line-height: 1.7;
 }
 
-/* ===== SCREEN NAV ===== */
-.screen-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  background: rgba(255,250,245,0.97);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--rose-gold-light);
-  z-index: 1000;
-  padding: 10px 24px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-  box-shadow: 0 2px 12px rgba(44,35,32,0.08);
-}
-.screen-nav .brand-nav {
-  font-family: 'Playfair Display', serif;
-  font-size: 11pt;
-  color: var(--rose-gold);
-  margin-right: 12px;
-  white-space: nowrap;
-}
-.screen-nav a {
-  font-size: 8pt;
-  color: var(--text-secondary);
-  text-decoration: none;
-  padding: 4px 10px;
-  border-radius: 20px;
-  border: 1px solid var(--rose-gold-light);
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-.screen-nav a:hover { background: var(--rose-gold); color: white; }
-.print-btn {
-  margin-left: auto;
-  background: var(--text-primary);
-  color: white !important;
-  border-color: var(--text-primary) !important;
-  font-weight: 600;
-  cursor: pointer;
-}
-.print-btn:hover { background: var(--rose-gold) !important; border-color: var(--rose-gold) !important; }
-
-/* ===== BOOK WRAPPER ===== */
-.book {
-  max-width: 794px;
-  margin: 0 auto;
-  padding-top: 60px;
-}
-
-@media print {
-  .book { max-width: none; margin: 0; padding-top: 0; }
-}
+/* ===== BOOK WRAPPER (base, overridden by presentation mode) ===== */
 
 /* ===== PAGE ===== */
 .page {
@@ -137,11 +85,7 @@ body {
   overflow: hidden;
 }
 
-.page + .page { border-top: 1px solid var(--rose-gold-light); }
-
-@media screen {
-  .page { border: 1px solid #e8ddd5; box-shadow: var(--shadow-card); margin-bottom: 2px; }
-}
+/* page borders hidden in presentation mode, visible in print */
 
 /* ===== PAGE FOOTER ===== */
 .page-footer {
@@ -1208,21 +1152,163 @@ body {
 .text-center { text-align: center; }
 .flex { display: flex; }
 .gap-2 { gap: 8px; }
+
+/* ===== PRESENTATION MODE ===== */
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+.book {
+  height: 100vh;
+  padding-top: 0;
+  max-width: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.page {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  min-height: 100vh !important;
+  max-width: 794px;
+  margin: 0 auto;
+  overflow-y: auto;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  transform: translateX(30px);
+  padding-bottom: 60px;
+}
+
+.page.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+  z-index: 10;
+}
+
+.page.prev {
+  transform: translateX(-30px);
+}
+
+/* Presentation nav bar */
+.pres-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(255,250,245,0.97);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid var(--rose-gold-light);
+  z-index: 1000;
+  padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 -2px 12px rgba(44,35,32,0.08);
+}
+.pres-nav .brand-nav {
+  font-family: 'Playfair Display', serif;
+  font-size: 11pt;
+  color: var(--rose-gold);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+.pres-counter {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11pt;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+  min-width: 48px;
+  text-align: center;
+}
+.pres-buttons {
+  display: flex;
+  gap: 6px;
+}
+.pres-buttons button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--rose-gold-light);
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 16pt;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  line-height: 1;
+}
+.pres-buttons button:hover:not(:disabled) {
+  background: var(--rose-gold);
+  color: white;
+  border-color: var(--rose-gold);
+}
+.pres-buttons button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.pres-nav .print-btn {
+  margin-left: auto;
+  background: var(--text-primary);
+  color: white;
+  border: 1px solid var(--text-primary);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 8pt;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pres-nav .print-btn:hover {
+  background: var(--rose-gold);
+  border-color: var(--rose-gold);
+}
+
+/* Progress bar */
+.pres-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  background: var(--rose-gold);
+  transition: width 0.3s ease;
+  z-index: 1001;
+}
+
+/* ===== PRINT OVERRIDES FOR PRESENTATION MODE ===== */
+@media print {
+  .pres-nav { display: none !important; }
+  .pres-progress { display: none !important; }
+  html, body { height: auto; overflow: visible; }
+  .book { height: auto; padding-top: 0; max-width: none; }
+  .page {
+    position: relative !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: none !important;
+    min-height: 1123px !important;
+    max-width: none;
+    padding-bottom: 40px;
+  }
+}
+
 </style>
 </head>
 <body>
 
-<!-- ===== SCREEN NAV ===== -->
-<nav class="screen-nav screen-only">
+<!-- ===== PROGRESS BAR ===== -->
+<div class="pres-progress screen-only" id="presProgress"></div>
+
+<!-- ===== PRESENTATION NAV ===== -->
+<nav class="pres-nav screen-only">
   <span class="brand-nav">SKIN MBTI</span>
-  <a href="#cover">Cover</a>
-  <a href="#toc">목차</a>
-  <a href="#ch01">Ch.01 지표</a>
-  <a href="#ch02">Ch.02 솔루션</a>
-  <a href="#ch03">Ch.03 유형</a>
-  <a href="#ch04">Ch.04 로드맵</a>
-  <a href="#ch05">Ch.05 매뉴얼</a>
-  <a href="#" class="print-btn" onclick="window.print(); return false;">인쇄하기</a>
+  <span class="pres-counter"><span id="currentPage">1</span> / <span id="totalPages">12</span></span>
+  <div class="pres-buttons">
+    <button onclick="prevPage()" id="prevBtn" title="이전">&#8249;</button>
+    <button onclick="nextPage()" id="nextBtn" title="다음">&#8250;</button>
+  </div>
+  <button class="print-btn" onclick="window.print()">인쇄</button>
 </nav>
 
 <div class="book" id="booklet">
@@ -2051,7 +2137,82 @@ document.addEventListener('DOMContentLoaded', function() {
   renderCh03();
   renderCh04();
   renderCh05();
+
+  // ===== PRESENTATION MODE =====
+  initPresentation();
 });
+
+function initPresentation() {
+  const pages = document.querySelectorAll('.page');
+  let currentIdx = 0;
+
+  // Set total pages count
+  document.getElementById('totalPages').textContent = pages.length;
+
+  function showPage(idx) {
+    pages.forEach(function(p, i) {
+      p.classList.remove('active', 'prev');
+      if (i === idx) {
+        p.classList.add('active');
+        p.scrollTop = 0; // scroll to top of new page
+      } else if (i < idx) {
+        p.classList.add('prev');
+      }
+    });
+    currentIdx = idx;
+    document.getElementById('currentPage').textContent = idx + 1;
+    document.getElementById('prevBtn').disabled = idx === 0;
+    document.getElementById('nextBtn').disabled = idx === pages.length - 1;
+    document.getElementById('presProgress').style.width = ((idx + 1) / pages.length * 100) + '%';
+  }
+
+  // Expose globally for onclick handlers
+  window.nextPage = function() {
+    if (currentIdx < pages.length - 1) showPage(currentIdx + 1);
+  };
+  window.prevPage = function() {
+    if (currentIdx > 0) showPage(currentIdx - 1);
+  };
+
+  // Keyboard navigation
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); window.nextPage(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); window.prevPage(); }
+  });
+
+  // Touch/swipe navigation
+  var touchStartX = 0;
+  var touchStartY = 0;
+  document.addEventListener('touchstart', function(e) {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  });
+  document.addEventListener('touchend', function(e) {
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    var dy = e.changedTouches[0].clientY - touchStartY;
+    // Only navigate if horizontal swipe is dominant
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+      if (dx < 0) window.nextPage();
+      else window.prevPage();
+    }
+  });
+
+  // Click on sides to navigate
+  var bookEl = document.querySelector('.book');
+  if (bookEl) {
+    bookEl.addEventListener('click', function(e) {
+      // Don't navigate if clicking on interactive elements
+      if (e.target.closest('button, a, input, select, textarea, .pres-nav')) return;
+      var rect = bookEl.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      if (x > rect.width * 0.75) window.nextPage();
+      else if (x < rect.width * 0.25) window.prevPage();
+    });
+  }
+
+  // Initialize first page
+  showPage(0);
+}
 </script>
 </body>
 </html>
