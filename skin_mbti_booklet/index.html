@@ -1168,9 +1168,6 @@ html, body {
   max-width: none;
   position: relative;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background: #2C2320;
 }
 
@@ -1178,17 +1175,16 @@ html, body {
   /* Fixed A4-like dimensions — scaled by JS to fit viewport */
   position: absolute;
   width: 794px;
-  height: 1123px;
-  min-height: 1123px !important;
-  max-height: 1123px;
+  min-height: 1123px;
   overflow: hidden;
   margin: 0;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  transform-origin: center center;
+  transition: opacity 0.3s ease;
+  transform-origin: top center;
   box-shadow: 0 8px 40px rgba(0,0,0,0.3);
   border-radius: 4px;
+  /* Let content define height, then JS scales to fit */
 }
 
 .page.active {
@@ -2165,21 +2161,58 @@ function initPresentation() {
   // Set total pages count
   document.getElementById('totalPages').textContent = pages.length;
 
-  // Scale pages to fit viewport (tablet-optimized)
+  // Scale each page to fit viewport (tablet-optimized)
+  // Each page may have different content height — scale individually
   function scaleFit() {
-    const navH = 52; // bottom nav height
-    const progressH = 3; // top progress bar
-    const pad = 16; // breathing room
-    const vw = window.innerWidth - pad * 2;
-    const vh = window.innerHeight - navH - progressH - pad * 2;
-    const scale = Math.min(vw / PAGE_W, vh / PAGE_H);
+    var navH = 52;
+    var progressH = 3;
+    var pad = 12;
+    var vw = window.innerWidth;
+    var vh = window.innerHeight - navH - progressH;
+
     pages.forEach(function(p) {
-      p.style.transform = p.classList.contains('active')
-        ? 'scale(' + scale + ')'
-        : 'scale(' + (scale * 0.95) + ')';
+      // Temporarily make visible to measure
+      var wasHidden = !p.classList.contains('active');
+      if (wasHidden) {
+        p.style.opacity = '0';
+        p.style.pointerEvents = 'none';
+        p.style.display = 'block';
+        p.style.position = 'absolute';
+      }
+
+      // Measure actual content height (remove height constraints first)
+      p.style.transform = 'none';
+      var contentH = Math.max(p.scrollHeight, PAGE_H);
+      var contentW = PAGE_W;
+
+      // Scale to fit viewport
+      var scaleX = (vw - pad * 2) / contentW;
+      var scaleY = (vh - pad * 2) / contentH;
+      var scale = Math.min(scaleX, scaleY, 1); // never scale UP
+
+      // Calculate position: center horizontally, align to top with padding
+      var scaledW = contentW * scale;
+      var scaledH = contentH * scale;
+      var leftOffset = (vw - scaledW) / 2;
+      var topOffset = progressH + pad + (vh - pad * 2 - scaledH) / 2;
+      if (topOffset < progressH + pad) topOffset = progressH + pad;
+
+      p.style.transform = 'scale(' + scale + ')';
+      p.style.left = leftOffset + 'px';
+      p.style.top = topOffset + 'px';
+      p.style.transformOrigin = 'top left';
+
+      if (wasHidden) {
+        p.style.opacity = '';
+        p.style.pointerEvents = '';
+        p.style.display = '';
+      }
     });
-    // Store for click-to-navigate hit detection
-    window._presScale = scale;
+  }
+
+  // Initial measure after fonts loaded
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function() { scaleFit(); });
   }
   scaleFit();
   window.addEventListener('resize', scaleFit);
@@ -2194,7 +2227,6 @@ function initPresentation() {
       }
     });
     currentIdx = idx;
-    scaleFit(); // re-apply scale with correct active class
     document.getElementById('currentPage').textContent = idx + 1;
     document.getElementById('prevBtn').disabled = idx === 0;
     document.getElementById('nextBtn').disabled = idx === pages.length - 1;
