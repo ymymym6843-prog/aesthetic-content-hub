@@ -274,7 +274,7 @@
 
   /* Top label */
   .slide .top-label {
-    position: absolute; top: 28px; left: 0; right: 0; z-index: 10;
+    position: absolute; top: 28px; left: 0; right: 0;
     text-align: center;
   }
   .slide .top-label .source-badge {
@@ -291,7 +291,7 @@
     border: 1px solid rgba(61,46,36,0.1);
   }
   .slide .review-title {
-    position: absolute; top: 56px; left: 0; right: 0; z-index: 10;
+    position: absolute; top: 56px; left: 0; right: 0;
     text-align: center;
     font-family: 'Playfair Display', serif;
     font-size: 24px; font-weight: 700; font-style: normal;
@@ -341,7 +341,7 @@
 
   /* Bottom bar */
   .slide .bottom-bar {
-    position: absolute; bottom: 0; left: 0; right: 0; z-index: 10;
+    position: absolute; bottom: 0; left: 0; right: 0;
     padding: 16px 28px 24px; text-align: center;
   }
   .slide .bottom-bar .client-label {
@@ -363,6 +363,16 @@
   .text-dark .review-text { color: var(--dark-mid); }
   .text-dark .reviewer { color: var(--text-muted); }
   .text-dark .quote-mark { color: var(--dark); }
+
+  /* Text drag wrapper */
+  .slide .text-drag-wrapper {
+    position: absolute; inset: 0; z-index: 10;
+    pointer-events: none;
+  }
+  .slide .text-drag-wrapper > * {
+    pointer-events: auto; cursor: move;
+  }
+  .slide .text-drag-wrapper > *:active { outline: 2px dashed rgba(232,112,58,0.3); outline-offset: 4px; border-radius: 4px; }
 
   /* AutoSave Toast */
   .autosave-toast {
@@ -497,6 +507,12 @@
       <div class="bg-style" data-bg="orange-gradient" onclick="setBg('orange-gradient')" style="background:linear-gradient(180deg,#F5EDE0,#FFF8F0,#F5EDE0);border-top:2px solid #D4A04A;border-bottom:2px solid #D4A04A;"></div>
     </div>
 
+    <div class="section-label">텍스트 위치</div>
+    <div style="display:flex;gap:8px;margin-bottom:16px;align-items:center">
+      <span style="font-size:11px;color:var(--text-muted);flex:1">프리뷰에서 텍스트를 드래그하여 위치 조정</span>
+      <button onclick="resetTextPos()" style="font-size:10px;padding:5px 12px;border-radius:8px;border:1px solid rgba(232,112,58,0.2);background:#fff;color:var(--text-muted);cursor:pointer;white-space:nowrap">위치 초기화</button>
+    </div>
+
     <div class="section-label">폰트 설정</div>
     <div id="fontPanelHost"></div>
 
@@ -514,26 +530,28 @@
       <div class="slide" id="slide">
         <div class="bg-layer orange-linen" id="bgLayer"></div>
 
-        <div class="top-label">
-          <span class="source-badge dark" id="sourceBadge">NAVER REVIEW</span>
+        <div class="text-drag-wrapper" id="textDragWrapper">
+          <div class="top-label">
+            <span class="source-badge dark" id="sourceBadge">NAVER REVIEW</span>
+          </div>
+          <div class="review-title text-dark" id="reviewTitle">REAL REVIEW</div>
+
+          <!-- Text mode (hidden) -->
+          <div class="text-review-frame text-dark" id="textFrame" style="display:none">
+            <div class="quote-mark">"</div>
+            <div class="review-text" id="previewReviewText">3번 받고 나서 피부가 진짜 달라졌어요,,, 원장님들이 매번 꼼꼼하게 봐주셔서 믿음이 갔습니다</div>
+            <div class="reviewer" id="previewReviewer">— 30대 예비신부님</div>
+          </div>
+
+          <div class="bottom-bar text-dark" id="bottomBar">
+            <div class="client-label" id="previewClient">30대 예비신부님</div>
+            <div class="brand">IM AESTHETIC</div>
+          </div>
         </div>
-        <div class="review-title text-dark" id="reviewTitle">REAL REVIEW</div>
 
         <!-- Screenshot mode -->
         <div class="screenshot-frame" id="screenshotFrame">
           <div class="placeholder">리뷰 스크린샷을<br>업로드하세요</div>
-        </div>
-
-        <!-- Text mode (hidden) -->
-        <div class="text-review-frame text-dark" id="textFrame" style="display:none">
-          <div class="quote-mark">"</div>
-          <div class="review-text" id="previewReviewText">3번 받고 나서 피부가 진짜 달라졌어요,,, 원장님들이 매번 꼼꼼하게 봐주셔서 믿음이 갔습니다</div>
-          <div class="reviewer" id="previewReviewer">— 30대 예비신부님</div>
-        </div>
-
-        <div class="bottom-bar text-dark" id="bottomBar">
-          <div class="client-label" id="previewClient">30대 예비신부님</div>
-          <div class="brand">IM AESTHETIC</div>
         </div>
       </div>
     </div>
@@ -549,6 +567,8 @@ let state = {
   imgZoom: 100,
   imgOffsetX: 0,
   imgOffsetY: 0,
+  textOffsetX: 0,
+  textOffsetY: 0,
 };
 
 const SOURCES = {
@@ -631,6 +651,7 @@ function updatePreview() {
   document.getElementById('previewReviewText').textContent = content;
   document.getElementById('previewReviewer').textContent = '— ' + client;
   applyFontSettings();
+  applyTextOffset();
 }
 
 async function exportPNG() {
@@ -725,6 +746,71 @@ function initImgDrag() {
   });
 }
 
+// ===== Text Drag =====
+function applyTextOffset() {
+  const wrapper = document.getElementById('textDragWrapper');
+  if (wrapper) {
+    wrapper.style.transform = `translate(${state.textOffsetX}px, ${state.textOffsetY}px)`;
+  }
+}
+
+function resetTextPos() {
+  state.textOffsetX = 0;
+  state.textOffsetY = 0;
+  applyTextOffset();
+  autoSave();
+}
+
+function initTextDrag() {
+  const wrapper = document.getElementById('textDragWrapper');
+  if (!wrapper) return;
+
+  function startDrag(startX, startY) {
+    const slide = document.getElementById('slide');
+    const rect = slide.getBoundingClientRect();
+    const scale = 1080 / rect.width;
+    const origX = state.textOffsetX, origY = state.textOffsetY;
+    let moved = false;
+
+    function onMove(cx, cy) {
+      const dx = (cx - startX) * scale;
+      const dy = (cy - startY) * scale;
+      if (!moved && Math.abs(dx) < 3 && Math.abs(dy) < 3) return;
+      moved = true;
+      state.textOffsetX = origX + dx;
+      state.textOffsetY = origY + dy;
+      applyTextOffset();
+    }
+    function onEnd() {
+      document.removeEventListener('mousemove', mouseMove);
+      document.removeEventListener('mouseup', mouseUp);
+      document.removeEventListener('touchmove', touchMove);
+      document.removeEventListener('touchend', touchEnd);
+      if (moved) autoSave();
+    }
+    function mouseMove(e) { onMove(e.clientX, e.clientY); }
+    function mouseUp() { onEnd(); }
+    function touchMove(e) { e.preventDefault(); const t = e.touches[0]; onMove(t.clientX, t.clientY); }
+    function touchEnd() { onEnd(); }
+    document.addEventListener('mousemove', mouseMove);
+    document.addEventListener('mouseup', mouseUp);
+    document.addEventListener('touchmove', touchMove, { passive: false });
+    document.addEventListener('touchend', touchEnd);
+  }
+
+  // Attach drag to each child element of the wrapper
+  wrapper.querySelectorAll(':scope > *').forEach(child => {
+    child.addEventListener('mousedown', e => {
+      e.preventDefault();
+      startDrag(e.clientX, e.clientY);
+    });
+    child.addEventListener('touchstart', e => {
+      const t = e.touches[0];
+      startDrag(t.clientX, t.clientY);
+    }, { passive: true });
+  });
+}
+
 // ===== AutoSave / AutoLoad =====
 const STORAGE_KEY = 'im_review_state';
 const TOOL_NAME = 'review';
@@ -755,6 +841,8 @@ function collectState() {
     imgZoom: state.imgZoom,
     imgOffsetX: state.imgOffsetX,
     imgOffsetY: state.imgOffsetY,
+    textOffsetX: state.textOffsetX,
+    textOffsetY: state.textOffsetY,
     fontSettings: JSON.parse(JSON.stringify(fontSettings))
   };
 }
@@ -793,6 +881,9 @@ function restoreState(data) {
   if (data.imgZoom !== undefined) state.imgZoom = data.imgZoom;
   if (data.imgOffsetX !== undefined) state.imgOffsetX = data.imgOffsetX;
   if (data.imgOffsetY !== undefined) state.imgOffsetY = data.imgOffsetY;
+  if (data.textOffsetX !== undefined) state.textOffsetX = data.textOffsetX;
+  if (data.textOffsetY !== undefined) state.textOffsetY = data.textOffsetY;
+  applyTextOffset();
   if (data.reviewImage) {
     state.reviewImage = data.reviewImage;
     document.getElementById('screenshotFrame').innerHTML = `<img src="${data.reviewImage}" alt="리뷰 스크린샷">`;
@@ -1046,6 +1137,7 @@ function applyFontSettings() {
 // Initialize colors on load
 updateColors();
 initImgDrag();
+initTextDrag();
 buildFontPanel();
 applyFontSettings();
 if (autoLoad()) showToast('이전 작업을 불러왔습니다');
