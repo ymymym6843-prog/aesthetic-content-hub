@@ -192,6 +192,7 @@
   .slider-handle-overlay {
     position: absolute; top: 0; left: 0; right: 0; bottom: 0;
     cursor: ew-resize; display: none;
+    pointer-events: none;
   }
 
   /* AutoSave Toast */
@@ -823,9 +824,30 @@ function drawBrand(ctx, sz) {
   ctx.textBaseline = 'alphabetic';
 }
 
-// ===== Drag to reposition photos on canvas =====
+// ===== Drag to reposition photos on canvas (unified with slider) =====
+function getPhotoAtPoint(mx, my) {
+  const sz = SIZES[state.size];
+  const gap = 6;
+
+  if (state.layout === 'side') {
+    const halfW = (sz.w - gap) / 2;
+    if (mx < halfW) return 'before';
+    if (mx > halfW + gap) return 'after';
+    return null;
+  } else if (state.layout === 'topbottom') {
+    const halfH = (sz.h - gap) / 2;
+    if (my < halfH) return 'before';
+    if (my > halfH + gap) return 'after';
+    return null;
+  } else {
+    const splitX = Math.round(sz.w * state.sliderPos / 100);
+    return mx < splitX ? 'before' : 'after';
+  }
+}
+
 (function initCanvasDrag() {
-  let dragging = false, dragWhich = null, startX, startY, origX, origY;
+  let dragging = false, dragWhich = null, dragSlider = false;
+  let startX, startY, origX, origY;
 
   canvas.addEventListener('mousedown', e => {
     const rect = canvas.getBoundingClientRect();
@@ -834,7 +856,18 @@ function drawBrand(ctx, sz) {
     const mx = (e.clientX - rect.left) * scaleX;
     const my = (e.clientY - rect.top) * scaleY;
 
-    // Determine which photo region was clicked
+    // Near slider split line? (within 30px)
+    if (state.layout === 'slider') {
+      const splitX = Math.round(SIZES[state.size].w * state.sliderPos / 100);
+      if (Math.abs(mx - splitX) < 30) {
+        dragSlider = true;
+        e.preventDefault();
+        updateSliderFromEvent(e);
+        return;
+      }
+    }
+
+    // Otherwise, photo drag
     dragWhich = getPhotoAtPoint(mx, my);
     if (!dragWhich) return;
     if ((dragWhich === 'before' && !beforeImg) || (dragWhich === 'after' && !afterImg)) return;
@@ -849,6 +882,10 @@ function drawBrand(ctx, sz) {
   });
 
   document.addEventListener('mousemove', e => {
+    if (dragSlider) {
+      updateSliderFromEvent(e);
+      return;
+    }
     if (!dragging || !dragWhich) return;
     const rect = canvas.getBoundingClientRect();
     const scaleX = canvas.width / rect.width;
@@ -866,52 +903,13 @@ function drawBrand(ctx, sz) {
       canvas.style.cursor = '';
       autoSave();
     }
-  });
-})();
-
-function getPhotoAtPoint(mx, my) {
-  const sz = SIZES[state.size];
-  const gap = 6;
-
-  if (state.layout === 'side') {
-    const halfW = (sz.w - gap) / 2;
-    if (mx < halfW) return 'before';
-    if (mx > halfW + gap) return 'after';
-    return null;
-  } else if (state.layout === 'topbottom') {
-    const halfH = (sz.h - gap) / 2;
-    if (my < halfH) return 'before';
-    if (my > halfH + gap) return 'after';
-    return null;
-  } else {
-    // Slider: left of split = before, right = after
-    const splitX = Math.round(sz.w * state.sliderPos / 100);
-    return mx < splitX ? 'before' : 'after';
-  }
-}
-
-// ===== Slider drag on preview =====
-(function initSliderDrag() {
-  const overlay = document.getElementById('sliderOverlay');
-  let dragging = false;
-
-  overlay.addEventListener('mousedown', e => {
-    if (state.layout !== 'slider') return;
-    dragging = true;
-    e.preventDefault();
-    updateSliderFromMouse(e);
+    if (dragSlider) {
+      dragSlider = false;
+      autoSave();
+    }
   });
 
-  document.addEventListener('mousemove', e => {
-    if (!dragging) return;
-    updateSliderFromMouse(e);
-  });
-
-  document.addEventListener('mouseup', () => {
-    if (dragging) { dragging = false; autoSave(); }
-  });
-
-  function updateSliderFromMouse(e) {
+  function updateSliderFromEvent(e) {
     const rect = canvas.getBoundingClientRect();
     const mx = e.clientX - rect.left;
     const pct = Math.max(10, Math.min(90, Math.round(mx / rect.width * 100)));
