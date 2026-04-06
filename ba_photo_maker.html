@@ -60,8 +60,8 @@
     background: linear-gradient(90deg, transparent, #E8703A, transparent);
   }
   .page-header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 32px; font-weight: 400;
+    font-family: 'Pretendard', system-ui, sans-serif;
+    font-size: 32px; font-weight: 700;
     color: #3D2E24;
     letter-spacing: 8px;
     text-transform: uppercase;
@@ -665,8 +665,8 @@ function drawBALabels(ctx, beforeX, afterX, beforeY, afterY, beforeW, afterW) {
     const defAX = afterX + 36, defAY = (afterY || 0) + 40;
     const bPos = getLabelPos('beforeBadge', defBX, defBY);
     const aPos = getLabelPos('afterBadge', defAX, defAY);
-    drawBadge(ctx, 'BEFORE', bPos.x, bPos.y, 'beforeBadge');
-    drawBadge(ctx, 'AFTER', aPos.x, aPos.y, 'afterBadge');
+    drawBadge(ctx, 'BEFORE', bPos.x, bPos.y, 'beforeBadge', '#9B8A7A');
+    drawBadge(ctx, 'AFTER', aPos.x, aPos.y, 'afterBadge', '#E8703A');
   } else {
     // Minimal style
     const fontSize = Math.round(24 * (titleCSS.sizeMul || 1));
@@ -679,10 +679,10 @@ function drawBALabels(ctx, beforeX, afterX, beforeY, afterY, beforeW, afterW) {
     const bPos = getLabelPos('beforeBadge', defBX, defBY);
     const aPos = getLabelPos('afterBadge', defAX, defAY);
 
-    // Before label with shadow
-    ctx.fillStyle = 'rgba(0,0,0,0.4)';
+    // Before label with shadow (gray tone)
+    ctx.fillStyle = 'rgba(0,0,0,0.3)';
     ctx.fillText('BEFORE', bPos.x + 1, bPos.y + 1);
-    ctx.fillStyle = '#FFFFFF';
+    ctx.fillStyle = 'rgba(155,138,122,0.9)';
     ctx.fillText('BEFORE', bPos.x, bPos.y);
     const bMetrics = ctx.measureText('BEFORE');
     labelBounds.beforeBadge = { x: bPos.x, y: bPos.y, w: bMetrics.width, h: fontSize };
@@ -700,7 +700,7 @@ function drawBALabels(ctx, beforeX, afterX, beforeY, afterY, beforeW, afterW) {
   }
 }
 
-function drawBadge(ctx, text, x, y, boundsKey) {
+function drawBadge(ctx, text, x, y, boundsKey, bgColor) {
   const titleCSS = getFontCSS('title');
   const fontSize = Math.round(18 * (titleCSS.sizeMul || 1));
   ctx.font = `800 ${fontSize}px ${titleCSS.family}`;
@@ -713,7 +713,7 @@ function drawBadge(ctx, text, x, y, boundsKey) {
   const br = bh / 2;
 
   // Pill background
-  ctx.fillStyle = '#E8703A';
+  ctx.fillStyle = bgColor || '#E8703A';
   ctx.beginPath();
   ctx.moveTo(x + br, y);
   ctx.lineTo(x + bw - br, y);
