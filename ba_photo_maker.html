@@ -366,22 +366,6 @@
       <button class="toggle-btn" data-lstyle="none" onclick="setLabelStyle('none')">없음</button>
     </div>
 
-    <!-- Marking Tools -->
-    <div class="section-label">마킹 도구</div>
-    <div class="toggle-row">
-      <button class="toggle-btn" data-tool="circle" onclick="setMarkingTool('circle')" title="점선 원">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3 2"><circle cx="12" cy="12" r="9"/></svg>
-      </button>
-      <button class="toggle-btn" data-tool="arrow" onclick="setMarkingTool('arrow')" title="화살표">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="12,5 19,5 19,12"/></svg>
-      </button>
-      <button class="toggle-btn" data-tool="guide" onclick="setMarkingTool('guide')" title="가이드 라인">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3"><line x1="2" y1="12" x2="22" y2="12"/></svg>
-      </button>
-      <button class="toggle-btn" data-tool="none" onclick="setMarkingTool('none')" title="선택 해제" style="flex:0.6">&#10005;</button>
-    </div>
-    <button onclick="clearAllMarkings()" style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(232,112,58,0.2);background:transparent;color:#9B8A7A;font-size:11px;font-weight:600;font-family:inherit;cursor:pointer;margin-bottom:12px">마킹 전체 삭제</button>
-
     <!-- Font Panel -->
     <div class="section-label">폰트 설정</div>
     <div id="fontPanelHost"></div>
@@ -395,7 +379,6 @@
   </div>
 
   <div class="preview-area">
-    <button id="markingDeleteBtn" style="display:none;position:absolute;z-index:100;width:24px;height:24px;border-radius:50%;border:1px solid rgba(255,255,255,0.6);background:rgba(61,46,36,0.7);color:#fff;font-size:12px;cursor:pointer;line-height:1" onclick="deleteSelectedMarking()">&#10005;</button>
     <div class="preview-wrapper" id="previewWrapper">
       <canvas id="baCanvas" width="1080" height="1350"></canvas>
       <div class="slider-handle-overlay" id="sliderOverlay"></div>
@@ -626,9 +609,6 @@ function renderPreview() {
     // Labels for slider
     drawBALabels(ctx, 40, splitX + 40, 0, 0, splitX - 40, sz.w - splitX - 40);
   }
-
-  // Markings (on top of photos, below labels)
-  drawMarkings(ctx);
 
   // Treatment name overlay
   drawTreatmentName(ctx, sz);
@@ -1166,199 +1146,6 @@ function resetLabelPositions() {
   showToast('라벨 위치가 초기화되었습니다');
 }
 
-// ===== Marking Tools =====
-let markings = [];
-let currentMarkingTool = 'none';
-let drawingMarking = false, markingStartX = 0, markingStartY = 0;
-let tempMarking = null;
-let selectedMarkingIdx = -1;
-
-function setMarkingTool(tool) {
-  currentMarkingTool = tool;
-  document.querySelectorAll('[data-tool]').forEach(b =>
-    b.classList.toggle('active', b.dataset.tool === tool));
-  canvas.style.cursor = tool !== 'none' ? 'crosshair' : '';
-  hideMarkingDelete();
-}
-
-function clearAllMarkings() {
-  markings = [];
-  hideMarkingDelete();
-  renderPreview();
-  autoSave();
-  showToast('마킹이 전체 삭제되었습니다');
-}
-
-function hideMarkingDelete() {
-  selectedMarkingIdx = -1;
-  document.getElementById('markingDeleteBtn').style.display = 'none';
-}
-
-function deleteSelectedMarking() {
-  if (selectedMarkingIdx >= 0 && selectedMarkingIdx < markings.length) {
-    markings.splice(selectedMarkingIdx, 1);
-    hideMarkingDelete();
-    renderPreview();
-    autoSave();
-  }
-}
-
-function drawSingleMarking(ctx, m) {
-  ctx.save();
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
-  ctx.lineWidth = 2.5;
-
-  if (m.type === 'circle') {
-    const radius = Math.sqrt((m.x2 - m.x1) ** 2 + (m.y2 - m.y1) ** 2);
-    if (radius < 5) { ctx.restore(); return; }
-    ctx.setLineDash([8, 6]);
-    ctx.beginPath();
-    ctx.arc(m.x1, m.y1, radius, 0, Math.PI * 2);
-    ctx.stroke();
-  } else if (m.type === 'arrow') {
-    ctx.setLineDash([]);
-    ctx.beginPath();
-    ctx.moveTo(m.x1, m.y1);
-    ctx.lineTo(m.x2, m.y2);
-    ctx.stroke();
-    // Arrowhead
-    const angle = Math.atan2(m.y2 - m.y1, m.x2 - m.x1);
-    const headLen = 16;
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-    ctx.beginPath();
-    ctx.moveTo(m.x2, m.y2);
-    ctx.lineTo(m.x2 - headLen * Math.cos(angle - 0.4), m.y2 - headLen * Math.sin(angle - 0.4));
-    ctx.lineTo(m.x2 - headLen * Math.cos(angle + 0.4), m.y2 - headLen * Math.sin(angle + 0.4));
-    ctx.closePath();
-    ctx.fill();
-  } else if (m.type === 'guide') {
-    ctx.setLineDash([10, 6]);
-    ctx.beginPath();
-    if (m.direction === 'h') {
-      ctx.moveTo(0, m.y1);
-      ctx.lineTo(SIZES[state.size].w, m.y1);
-    } else {
-      ctx.moveTo(m.x1, 0);
-      ctx.lineTo(m.x1, SIZES[state.size].h);
-    }
-    ctx.stroke();
-  }
-  ctx.restore();
-}
-
-function drawMarkings(ctx) {
-  markings.forEach(m => drawSingleMarking(ctx, m));
-  if (tempMarking) drawSingleMarking(ctx, tempMarking);
-}
-
-function hitTestMarkings(mx, my) {
-  const threshold = 15;
-  for (let i = markings.length - 1; i >= 0; i--) {
-    const m = markings[i];
-    if (m.type === 'circle') {
-      const r = Math.sqrt((m.x2 - m.x1) ** 2 + (m.y2 - m.y1) ** 2);
-      const dist = Math.sqrt((mx - m.x1) ** 2 + (my - m.y1) ** 2);
-      if (Math.abs(dist - r) < threshold) return i;
-    } else if (m.type === 'arrow') {
-      const dist = pointToLineDist(mx, my, m.x1, m.y1, m.x2, m.y2);
-      if (dist < threshold) return i;
-    } else if (m.type === 'guide') {
-      if (m.direction === 'h' && Math.abs(my - m.y1) < threshold) return i;
-      if (m.direction === 'v' && Math.abs(mx - m.x1) < threshold) return i;
-    }
-  }
-  return -1;
-}
-
-function pointToLineDist(px, py, x1, y1, x2, y2) {
-  const A = px - x1, B = py - y1, C = x2 - x1, D = y2 - y1;
-  const dot = A * C + B * D;
-  const len2 = C * C + D * D;
-  let t = len2 !== 0 ? dot / len2 : -1;
-  t = Math.max(0, Math.min(1, t));
-  const nearX = x1 + t * C, nearY = y1 + t * D;
-  return Math.sqrt((px - nearX) ** 2 + (py - nearY) ** 2);
-}
-
-// Marking creation via canvas events
-(function initMarkingDraw() {
-  canvas.addEventListener('mousedown', e => {
-    if (currentMarkingTool === 'none') {
-      // Check for marking hit-test (to show delete)
-      const rect = canvas.getBoundingClientRect();
-      const scaleX = canvas.width / rect.width;
-      const scaleY = canvas.height / rect.height;
-      const mx = (e.clientX - rect.left) * scaleX;
-      const my = (e.clientY - rect.top) * scaleY;
-      // Only if not hitting a label
-      if (!hitTestLabels(mx, my)) {
-        const idx = hitTestMarkings(mx, my);
-        if (idx >= 0) {
-          selectedMarkingIdx = idx;
-          const delBtn = document.getElementById('markingDeleteBtn');
-          delBtn.style.display = 'block';
-          delBtn.style.left = (e.clientX - rect.left + rect.x - 30) + 'px';
-          delBtn.style.top = (e.clientY - rect.top + rect.y - 30) + 'px';
-          e.preventDefault();
-          e.stopPropagation();
-          return;
-        } else {
-          hideMarkingDelete();
-        }
-      }
-      return;
-    }
-
-    // Start drawing marking
-    const rect = canvas.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width;
-    const scaleY = canvas.height / rect.height;
-    markingStartX = (e.clientX - rect.left) * scaleX;
-    markingStartY = (e.clientY - rect.top) * scaleY;
-    drawingMarking = true;
-    hideMarkingDelete();
-    e.preventDefault();
-    e.stopPropagation();
-  });
-
-  document.addEventListener('mousemove', e => {
-    if (!drawingMarking) return;
-    const rect = canvas.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width;
-    const scaleY = canvas.height / rect.height;
-    const mx = (e.clientX - rect.left) * scaleX;
-    const my = (e.clientY - rect.top) * scaleY;
-
-    if (currentMarkingTool === 'guide') {
-      const dx = Math.abs(mx - markingStartX);
-      const dy = Math.abs(my - markingStartY);
-      tempMarking = {
-        type: 'guide',
-        x1: markingStartX, y1: markingStartY,
-        direction: dx > dy ? 'h' : 'v'
-      };
-    } else {
-      tempMarking = {
-        type: currentMarkingTool,
-        x1: markingStartX, y1: markingStartY,
-        x2: mx, y2: my
-      };
-    }
-    renderPreview();
-  });
-
-  document.addEventListener('mouseup', e => {
-    if (!drawingMarking) return;
-    if (tempMarking) {
-      markings.push(tempMarking);
-      tempMarking = null;
-    }
-    drawingMarking = false;
-    renderPreview();
-    autoSave();
-  });
-})();
-
 // ===== PNG Export =====
 async function exportBA() {
   const btn = document.querySelector('.btn-export');
@@ -1505,8 +1292,7 @@ function collectState() {
     treatmentName: document.getElementById('inputTreatment').value,
     showBrand: document.getElementById('showBrand').checked,
     fontSettings: JSON.parse(JSON.stringify(fontSettings)),
-    labelPositions: JSON.parse(JSON.stringify(labelPositions)),
-    markings: JSON.parse(JSON.stringify(markings))
+    labelPositions: JSON.parse(JSON.stringify(labelPositions))
   };
 }
 
@@ -1565,9 +1351,6 @@ function restoreState(data) {
       if (fontSettings[k].color === undefined) fontSettings[k].color = '';
     });
     buildFontPanel();
-  }
-  if (Array.isArray(data.markings)) {
-    markings = data.markings;
   }
   renderPreview();
 }
