@@ -452,7 +452,7 @@ main {
 <div class="page-header">
   <h1>Canva Templates</h1>
   <p class="subtitle">IM AESTHETIC Customized Templates</p>
-  <div class="template-count">10 TEMPLATES</div>
+  <div class="template-count">11 TEMPLATES</div>
 </div>
 
 <main>
@@ -508,6 +508,19 @@ main {
   <div class="template-grid" id="rv-grid"></div>
 </div>
 
+<!-- ═══ BLANK TEMPLATE ═══ -->
+<div class="category">
+  <div class="category-header">
+    <div class="category-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+    </div>
+    <div class="category-title">빈 템플릿 (자유 편집)</div>
+    <span class="category-count">1 template</span>
+    <div class="category-line"></div>
+  </div>
+  <div class="template-grid" id="blank-grid"></div>
+</div>
+
 <!-- ═══ CHECKLIST ═══ -->
 <div class="checklist-section">
   <h3>Customizing Checklist</h3>
@@ -555,6 +568,9 @@ const RV_URLS = [
   'https://www.canva.com/design/DAHFDf-4Hos/XHL5-egJSs6I4rVU2zTyGg/edit',
   'https://www.canva.com/design/DAHFCRrZoE0/Im6FeGtQS0oZ7ArEzPy8_w/edit'
 ];
+const BLANK_URLS = [
+  'https://canva.link/p5aw0fs8u1jlm4a'
+];
 
 const TEMPLATES = {
   ba: [
@@ -572,6 +588,9 @@ const TEMPLATES = {
   rv: [
     { name: '웨딩케어 리뷰 카드', desc: '별점 + 리뷰 텍스트 + 고객 정보', url: RV_URLS[0], tags: ['1080x1350', '별점', '고객 후기'] },
     { name: '리뷰 카드 (감성형)', desc: '크림 배경 + 드라이플라워 감성 · 네이버/카톡 리뷰', url: RV_URLS[1], tags: ['1080x1350', '감성', '드라이플라워'] }
+  ],
+  blank: [
+    { name: '빈 템플릿 (자유 편집)', desc: '브랜드 배경 + IM AESTHETIC 로고만 · 사진/텍스트 자유 배치', url: BLANK_URLS[0], tags: ['1080x1350', '자유 편집', '배경+로고'] }
   ]
 };
 
@@ -608,6 +627,7 @@ function renderCard(t) {
 document.getElementById('ba-grid').innerHTML = TEMPLATES.ba.map(renderCard).join('');
 document.getElementById('cn-grid').innerHTML = TEMPLATES.cn.map(renderCard).join('');
 document.getElementById('rv-grid').innerHTML = TEMPLATES.rv.map(renderCard).join('');
+document.getElementById('blank-grid').innerHTML = TEMPLATES.blank.map(renderCard).join('');
 
 // Lazy-load iframes only when visible in viewport
 (function() {
