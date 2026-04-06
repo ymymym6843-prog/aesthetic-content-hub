@@ -347,6 +347,10 @@
       <label>날짜 (선택)</label>
       <input type="text" id="inputDate" placeholder="예: 2026.03" oninput="renderPreview();autoSave()">
     </div>
+    <div class="field">
+      <label>시술명 (선택)</label>
+      <input type="text" id="inputTreatment" placeholder="예: 쫀쫀 수기 모공 lock 케어" oninput="renderPreview();autoSave()">
+    </div>
 
     <div class="check-row">
       <input type="checkbox" id="showBrand" checked onchange="renderPreview();autoSave()">
@@ -405,7 +409,8 @@ const labelPositions = {
   beforeBadge: { x: null, y: null },
   afterBadge:  { x: null, y: null },
   info:        { x: null, y: null },
-  brand:       { x: null, y: null }
+  brand:       { x: null, y: null },
+  treatmentName: { x: null, y: null }
 };
 const labelBounds = {};
 
@@ -605,6 +610,9 @@ function renderPreview() {
     drawBALabels(ctx, 40, splitX + 40, 0, 0, splitX - 40, sz.w - splitX - 40);
   }
 
+  // Treatment name overlay
+  drawTreatmentName(ctx, sz);
+
   // Bottom info area
   drawInfoBar(ctx, sz);
 
@@ -803,6 +811,48 @@ function drawInfoBar(ctx, sz) {
   ctx.textBaseline = 'alphabetic';
 }
 
+function drawTreatmentName(ctx, sz) {
+  const text = document.getElementById('inputTreatment').value.trim();
+  if (!text) return;
+
+  const fontSize = 28;
+  ctx.font = `600 ${fontSize}px 'Pretendard', sans-serif`;
+  const displayText = '\u2018' + text + '\u2019';
+  const metrics = ctx.measureText(displayText);
+  const pw = 24, ph = 14;
+  const boxW = metrics.width + pw * 2;
+  const boxH = fontSize + ph * 2;
+
+  const defX = sz.w / 2;
+  const defY = sz.h * 0.55;
+  const pos = getLabelPos('treatmentName', defX, defY);
+
+  const rx = pos.x - boxW / 2;
+  const ry = pos.y - boxH / 2;
+  const radius = boxH / 2;
+
+  // Semi-transparent dark background pill
+  ctx.fillStyle = 'rgba(61,46,36,0.65)';
+  ctx.beginPath();
+  ctx.moveTo(rx + radius, ry);
+  ctx.lineTo(rx + boxW - radius, ry);
+  ctx.arc(rx + boxW - radius, ry + boxH / 2, radius, -Math.PI / 2, Math.PI / 2);
+  ctx.lineTo(rx + radius, ry + boxH);
+  ctx.arc(rx + radius, ry + boxH / 2, radius, Math.PI / 2, -Math.PI / 2);
+  ctx.closePath();
+  ctx.fill();
+
+  // White text centered
+  ctx.fillStyle = '#FFFFFF';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(displayText, pos.x, pos.y);
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'alphabetic';
+
+  labelBounds.treatmentName = { x: rx, y: ry, w: boxW, h: boxH };
+}
+
 function drawBrand(ctx, sz) {
   const capCSS = getFontCSS('caption');
   const fs = Math.round(20 * (capCSS.sizeMul || 1));
@@ -964,7 +1014,7 @@ function getPhotoAtPoint(mx, my) {
 
 // ===== Label Drag on Canvas =====
 function hitTestLabels(mx, my) {
-  const keys = ['beforeBadge', 'afterBadge', 'info', 'brand'];
+  const keys = ['beforeBadge', 'afterBadge', 'info', 'brand', 'treatmentName'];
   for (const key of keys) {
     const b = labelBounds[key];
     if (!b) continue;
@@ -998,8 +1048,8 @@ function hitTestLabels(mx, my) {
     startY = e.clientY;
     const pos = labelPositions[hit];
     const b = labelBounds[hit];
-    // For centered labels (info, brand), use centerX; for others use x
-    if (hit === 'info' || hit === 'brand') {
+    // For centered labels (info, brand, treatmentName), use centerX; for others use x
+    if (hit === 'info' || hit === 'brand' || hit === 'treatmentName') {
       startPosX = pos.x !== null ? pos.x : b.x + b.w / 2;
       startPosY = pos.y !== null ? pos.y : b.y;
     } else {
@@ -1058,7 +1108,7 @@ function hitTestLabels(mx, my) {
     startY = touch.clientY;
     const pos = labelPositions[hit];
     const b = labelBounds[hit];
-    if (hit === 'info' || hit === 'brand') {
+    if (hit === 'info' || hit === 'brand' || hit === 'treatmentName') {
       startPosX = pos.x !== null ? pos.x : b.x + b.w / 2;
       startPosY = pos.y !== null ? pos.y : b.y;
     } else {
@@ -1239,6 +1289,7 @@ function collectState() {
     sessionNum: document.getElementById('inputSession').value,
     directorName: document.getElementById('inputDirector').value,
     dateText: document.getElementById('inputDate').value,
+    treatmentName: document.getElementById('inputTreatment').value,
     showBrand: document.getElementById('showBrand').checked,
     fontSettings: JSON.parse(JSON.stringify(fontSettings)),
     labelPositions: JSON.parse(JSON.stringify(labelPositions))
@@ -1276,6 +1327,7 @@ function restoreState(data) {
   if (data.sessionNum !== undefined) document.getElementById('inputSession').value = data.sessionNum;
   if (data.directorName !== undefined) document.getElementById('inputDirector').value = data.directorName;
   if (data.dateText !== undefined) document.getElementById('inputDate').value = data.dateText;
+  if (data.treatmentName !== undefined) document.getElementById('inputTreatment').value = data.treatmentName;
   if (data.showBrand !== undefined) document.getElementById('showBrand').checked = data.showBrand;
   if (data.labelPositions) {
     Object.keys(data.labelPositions).forEach(k => {
