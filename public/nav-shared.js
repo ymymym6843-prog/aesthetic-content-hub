@@ -13,6 +13,7 @@
     { name: 'Event Card', title: '\uc774\ubca4\ud2b8 \uce74\ub4dc \uba54\uc774\ucee4', href: '/event_card_maker.html', icon: '\ud83c\udf89' },
     { name: 'Reels Cover', title: '\ub9b4\uc2a4 \ucee4\ubc84 \uba54\uc774\ucee4', href: '/reels_cover_maker.html', icon: '\ud83c\udfac' },
     { name: 'Review Overlay', title: '\ub9ac\ubdf0 \uc624\ubc84\ub808\uc774', href: '/review_overlay_maker.html', icon: '\u2705' },
+    { name: 'B/A Photo', title: 'B/A \ube44\uad50\uc0ac\uc9c4', href: '/ba_photo_maker.html', icon: '\ud83d\udcf7' },
     { name: 'Canva Templates', title: '\uce94\ubc14 \ud15c\ud50c\ub9bf', href: '/canva_templates.html', icon: '\ud83c\udfa8' },
     { name: 'Carousel Guide', title: '\uce90\ub7ec\uc140 \uac00\uc774\ub4dc', href: '/carousel_templates.html', icon: '\ud83d\uddc2' },
     { name: 'Photo Checklist', title: '\ucd2c\uc601 \uccb4\ud06c\ub9ac\uc2a4\ud2b8', href: '/\ud604\uc7a5\ucd2c\uc601_\uccb4\ud06c\ub9ac\uc2a4\ud2b8.html', icon: '\ud83d\udcf7' },
