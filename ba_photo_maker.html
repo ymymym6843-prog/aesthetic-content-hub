@@ -696,10 +696,10 @@ function drawBALabels(ctx, beforeX, afterX, beforeY, afterY, beforeW, afterW) {
     const bMetrics = ctx.measureText('BEFORE');
     labelBounds.beforeBadge = { x: bPos.x, y: bPos.y, w: bMetrics.width, h: fontSize };
 
-    // After label
-    ctx.fillStyle = 'rgba(0,0,0,0.4)';
+    // After label — orange
+    ctx.fillStyle = 'rgba(0,0,0,0.3)';
     ctx.fillText('AFTER', aPos.x + 1, aPos.y + 1);
-    ctx.fillStyle = '#FFFFFF';
+    ctx.fillStyle = '#E8703A';
     ctx.fillText('AFTER', aPos.x, aPos.y);
     const aMetrics = ctx.measureText('AFTER');
     labelBounds.afterBadge = { x: aPos.x, y: aPos.y, w: aMetrics.width, h: fontSize };
@@ -711,12 +711,12 @@ function drawBALabels(ctx, beforeX, afterX, beforeY, afterY, beforeW, afterW) {
 
 function drawBadge(ctx, text, x, y, boundsKey, bgColor) {
   const titleCSS = getFontCSS('title');
-  const fontSize = Math.round(18 * (titleCSS.sizeMul || 1));
+  const fontSize = Math.round(24 * (titleCSS.sizeMul || 1));
   ctx.font = `800 ${fontSize}px ${titleCSS.family}`;
   ctx.textAlign = 'left';
   ctx.textBaseline = 'middle';
   const metrics = ctx.measureText(text);
-  const pw = 20, ph = 8;
+  const pw = 24, ph = 10;
   const bw = metrics.width + pw * 2;
   const bh = fontSize + ph * 2;
   const br = bh / 2;
