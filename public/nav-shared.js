@@ -17,6 +17,8 @@
     { name: 'Canva Templates', title: '\uce94\ubc14 \ud15c\ud50c\ub9bf', href: '/canva_templates.html', icon: '\ud83c\udfa8' },
     { name: 'Carousel Guide', title: '\uce90\ub7ec\uc140 \uac00\uc774\ub4dc', href: '/carousel_templates.html', icon: '\ud83d\uddc2' },
     { name: 'Photo Checklist', title: '\ucd2c\uc601 \uccb4\ud06c\ub9ac\uc2a4\ud2b8', href: '/\ud604\uc7a5\ucd2c\uc601_\uccb4\ud06c\ub9ac\uc2a4\ud2b8.html', icon: '\ud83d\udcf7' },
+    { section: 'IMGROUND' },
+    { name: 'IMGROUND Templates', title: 'IMGROUND 템플릿', href: '/imground_templates.html', icon: '🎓' },
   ];
 
   // Detect current page

@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IMGROUND - Education Templates</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #E8703A;
+  --cream: #FFF8F0;
+  --warm-beige: #F5EDE0;
+  --warm-bg: #FAF6F1;
+  --dark: #3D2E24;
+  --dark-mid: #3D2E24;
+  --text-muted: #9B8A7A;
+  --border: rgba(232,112,58,0.08);
+  --shadow: 0 4px 24px rgba(26,20,16,0.06);
+  --shadow-hover: 0 16px 48px rgba(26,20,16,0.12);
+  --radius: 20px;
+  --ease: cubic-bezier(0.22, 0.68, 0, 1.2);
+
+  /* Category accent colors */
+  --cat-skincare: #D4837A;
+  --cat-marketing: #E8703A;
+  --cat-management: #3A5A7C;
+  --cat-product: #D4A04A;
+  --cat-trend: #7A9E7E;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Pretendard', system-ui, sans-serif;
+  background: var(--warm-bg);
+  color: var(--dark);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(232,112,58,0.06), transparent 60%),
+    radial-gradient(ellipse 60% 80% at 85% 90%, rgba(232,112,58,0.04), transparent 50%);
+  pointer-events: none;
+}
+
+/* ════════ HEADER ════════ */
+.page-header {
+  background: #FFF8F0;
+  padding: 56px 32px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(232,112,58,0.12);
+}
+.page-header::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(232,112,58,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse at 70% 50%, rgba(232,112,58,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+.page-header::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #E8703A, transparent);
+}
+.page-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px; font-weight: 400;
+  color: #3D2E24;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+  position: relative;
+}
+.page-header .subtitle {
+  font-size: 13px; font-weight: 400;
+  color: #9B8A7A;
+  letter-spacing: 3px;
+  margin-top: 8px;
+  position: relative;
+}
+.page-header .template-count {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 6px 20px;
+  background: #E8703A;
+  border: 1px solid #E8703A;
+  border-radius: 50px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+/* ════════ FILTER TABS ════════ */
+.filter-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px 32px 0;
+  max-width: 1140px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+.filter-tab {
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: rgba(0,0,0,0.03);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s;
+  user-select: none;
+}
+.filter-tab:hover {
+  background: rgba(232,112,58,0.06);
+  color: var(--dark);
+}
+.filter-tab.active {
+  background: var(--orange);
+  color: #fff;
+  border-color: var(--orange);
+  box-shadow: 0 2px 8px rgba(232,112,58,0.3);
+}
+
+/* ════════ MAIN ════════ */
+main {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 32px 32px 80px;
+}
+
+/* ════════ CATEGORY SECTION ════════ */
+.category {
+  margin-bottom: 56px;
+}
+.category.hidden {
+  display: none;
+}
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.category-icon {
+  width: 44px; height: 44px;
+  background: var(--orange);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(232,112,58,0.25);
+  flex-shrink: 0;
+}
+.category-icon svg { width: 22px; height: 22px; }
+.category-title {
+  font-size: 22px; font-weight: 800;
+  color: var(--dark);
+  letter-spacing: -0.3px;
+}
+.category-count {
+  font-size: 12px; font-weight: 600;
+  color: var(--text-muted);
+  background: rgba(0,0,0,0.04);
+  padding: 4px 12px;
+  border-radius: 50px;
+}
+.category-line {
+  flex: 1; height: 1px;
+  background: linear-gradient(90deg, var(--border), transparent 80%);
+}
+
+/* ════════ TEMPLATE GRID ════════ */
+.template-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* ════════ TEMPLATE CARD ════════ */
+.template-card {
+  background: #fff;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(0,0,0,0.03);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+.template-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+}
+.template-card::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: linear-gradient(180deg, var(--orange), #D4612E);
+  transform: scaleY(0); transform-origin: bottom;
+  transition: transform 0.4s var(--ease);
+  z-index: 2;
+}
+.template-card:hover::before { transform: scaleY(1); }
+
+/* Category accent on card hover */
+.template-card[data-cat="skincare"]:hover::before { background: linear-gradient(180deg, var(--cat-skincare), #C06B62); }
+.template-card[data-cat="marketing"]:hover::before { background: linear-gradient(180deg, var(--cat-marketing), #D4612E); }
+.template-card[data-cat="management"]:hover::before { background: linear-gradient(180deg, var(--cat-management), #2C4A66); }
+.template-card[data-cat="product"]:hover::before { background: linear-gradient(180deg, var(--cat-product), #B88A3A); }
+.template-card[data-cat="trend"]:hover::before { background: linear-gradient(180deg, var(--cat-trend), #5E8262); }
+
+/* Preview area */
+.template-preview {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FAF4EA;
+}
+/* Aspect ratio variants */
+.template-preview.ar-9-16 { aspect-ratio: 9 / 16; }
+.template-preview.ar-16-9 { aspect-ratio: 16 / 9; }
+.template-preview.ar-4-5 { aspect-ratio: 4 / 5; }
+
+/* Canva embed */
+.pv-embed {
+  width: 100%; height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.pv-embed iframe {
+  width: 100%; height: 100%;
+  border: none;
+  pointer-events: none;
+  background: #FAF4EA;
+}
+.pv-embed .pv-overlay {
+  position: absolute; inset: 0;
+  z-index: 2; cursor: pointer;
+}
+.pv-embed .pv-loading {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: var(--text-muted); font-weight: 600;
+  background: #FAF4EA;
+  z-index: 1;
+  transition: opacity 0.4s;
+}
+.pv-embed.loaded .pv-loading { opacity: 0; pointer-events: none; }
+
+/* ════════ CSS MINI-PREVIEWS ════════ */
+.pv {
+  width: 100%; height: 100%; position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Pretendard', sans-serif;
+}
+
+/* ── Shorts preview (9:16 vertical) ── */
+.pv-shorts {
+  flex-direction: column;
+  padding: 16px 14px;
+  gap: 6px;
+}
+.pv-shorts .pv-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 8px;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.9);
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  z-index: 1;
+}
+.pv-shorts .pv-cat-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 7px;
+  font-weight: 700;
+  color: #fff;
+  z-index: 1;
+}
+.pv-shorts .pv-title-area {
+  position: absolute;
+  bottom: 40px;
+  left: 14px;
+  right: 14px;
+  z-index: 1;
+}
+.pv-shorts .pv-title-text {
+  font-size: 13px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.3;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+.pv-shorts .pv-subtitle-text {
+  font-size: 8px;
+  color: rgba(255,255,255,0.7);
+  margin-top: 4px;
+  font-weight: 500;
+}
+.pv-shorts .pv-bottom-line {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 1px;
+  z-index: 1;
+}
+.pv-shorts .pv-ep {
+  position: absolute;
+  bottom: 20px;
+  right: 14px;
+  font-size: 7px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 1px;
+  z-index: 1;
+}
+
+/* Shorts color variants */
+.pv-shorts.skincare { background: linear-gradient(160deg, #D4837A 0%, #E8A59E 40%, #C06B62 100%); }
+.pv-shorts.marketing { background: linear-gradient(160deg, #E8703A 0%, #F09060 40%, #D45A28 100%); }
+.pv-shorts.management { background: linear-gradient(160deg, #3A5A7C 0%, #5A7A9C 40%, #2C4A66 100%); }
+.pv-shorts.product { background: linear-gradient(160deg, #D4A04A 0%, #E4C06A 40%, #B88A3A 100%); }
+.pv-shorts.trend { background: linear-gradient(160deg, #7A9E7E 0%, #9ABE9E 40%, #5E8262 100%); }
+
+/* ── Longform preview (16:9 horizontal) ── */
+.pv-longform {
+  flex-direction: row;
+  padding: 0;
+}
+.pv-longform .pv-accent-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  z-index: 1;
+}
+.pv-longform .pv-speaker {
+  width: 42%;
+  height: 100%;
+  background: linear-gradient(135deg, #E8DDD0, #D8CFC4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.pv-longform .pv-speaker-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pv-longform .pv-speaker-icon svg {
+  width: 18px; height: 18px;
+  stroke: var(--text-muted);
+  fill: none;
+  stroke-width: 1.5;
+}
+.pv-longform .pv-content {
+  flex: 1;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  position: relative;
+}
+.pv-longform .pv-ep-num {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  opacity: 0.6;
+}
+.pv-longform .pv-lf-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--dark);
+  line-height: 1.3;
+}
+.pv-longform .pv-lf-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 7px;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 2px;
+  width: fit-content;
+}
+.pv-longform .pv-watermark {
+  position: absolute;
+  bottom: 6px;
+  right: 10px;
+  font-family: 'Playfair Display', serif;
+  font-size: 7px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  opacity: 0.4;
+}
+
+/* Longform color variants */
+.pv-longform.skincare .pv-accent-bar { background: var(--cat-skincare); }
+.pv-longform.skincare .pv-ep-num { color: var(--cat-skincare); }
+.pv-longform.skincare .pv-lf-badge { background: var(--cat-skincare); }
+
+.pv-longform.marketing .pv-accent-bar { background: var(--cat-marketing); }
+.pv-longform.marketing .pv-ep-num { color: var(--cat-marketing); }
+.pv-longform.marketing .pv-lf-badge { background: var(--cat-marketing); }
+
+.pv-longform.management .pv-accent-bar { background: var(--cat-management); }
+.pv-longform.management .pv-ep-num { color: var(--cat-management); }
+.pv-longform.management .pv-lf-badge { background: var(--cat-management); }
+
+.pv-longform.product .pv-accent-bar { background: var(--cat-product); }
+.pv-longform.product .pv-ep-num { color: var(--cat-product); }
+.pv-longform.product .pv-lf-badge { background: var(--cat-product); }
+
+.pv-longform.trend .pv-accent-bar { background: var(--cat-trend); }
+.pv-longform.trend .pv-ep-num { color: var(--cat-trend); }
+.pv-longform.trend .pv-lf-badge { background: var(--cat-trend); }
+
+/* ── Schedule preview (4:5 calendar) ── */
+.pv-schedule {
+  flex-direction: column;
+  padding: 14px;
+  gap: 6px;
+  background: var(--cream);
+}
+.pv-schedule .pv-sched-header {
+  width: 100%;
+  text-align: center;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(232,112,58,0.15);
+}
+.pv-schedule .pv-sched-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 8px;
+  letter-spacing: 3px;
+  color: var(--orange);
+}
+.pv-schedule .pv-sched-title {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--dark);
+  margin-top: 2px;
+}
+.pv-schedule .pv-sched-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  flex: 1;
+}
+.pv-schedule .pv-sched-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  background: #fff;
+  border-radius: 6px;
+  font-size: 7px;
+}
+.pv-schedule .pv-sched-day {
+  font-weight: 700;
+  color: var(--dark);
+  width: 20px;
+  flex-shrink: 0;
+}
+.pv-schedule .pv-sched-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.pv-schedule .pv-sched-label {
+  font-weight: 600;
+  color: var(--text-muted);
+  flex: 1;
+}
+
+/* Schedule variant: reels cover */
+.pv-reels-cover {
+  flex-direction: column;
+  gap: 4px;
+  background: var(--cream);
+}
+.pv-reels-cover .pv-rc-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 8px;
+  letter-spacing: 3px;
+  color: var(--orange);
+}
+.pv-reels-cover .pv-rc-ep {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--dark);
+}
+.pv-reels-cover .pv-rc-title {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.pv-reels-cover .pv-rc-badge {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 7px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--orange);
+  margin-top: 4px;
+}
+
+/* Schedule variant: CTA card */
+.pv-cta-card {
+  flex-direction: column;
+  gap: 6px;
+  background: linear-gradient(180deg, var(--cream), var(--warm-beige));
+  padding: 16px;
+}
+.pv-cta-card .pv-cta-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 8px;
+  letter-spacing: 3px;
+  color: var(--orange);
+}
+.pv-cta-card .pv-cta-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--dark);
+  text-align: center;
+  line-height: 1.4;
+}
+.pv-cta-card .pv-cta-desc {
+  font-size: 8px;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.5;
+}
+.pv-cta-card .pv-cta-btn {
+  padding: 5px 16px;
+  background: var(--orange);
+  border-radius: 20px;
+  font-size: 8px;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 4px;
+}
+
+/* Status badge */
+.status-badge {
+  position: absolute;
+  top: 12px; right: 12px;
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-size: 10px; font-weight: 800;
+  letter-spacing: 0.5px;
+  z-index: 2;
+}
+.status-badge.ready {
+  background: var(--orange);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(232,112,58,0.3);
+}
+.status-badge.wip {
+  background: rgba(0,0,0,0.06);
+  color: var(--text-muted);
+}
+
+/* Card body */
+.template-body {
+  padding: 20px 24px 24px;
+}
+.template-name {
+  font-size: 16px; font-weight: 800;
+  color: var(--dark);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+.template-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.template-tags {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 16px;
+}
+.template-tag {
+  font-size: 11px; font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 50px;
+  background: rgba(232,112,58,0.08);
+  color: var(--orange);
+}
+/* Category-colored tags */
+.template-tag.cat-skincare { background: rgba(212,131,122,0.12); color: var(--cat-skincare); }
+.template-tag.cat-marketing { background: rgba(232,112,58,0.1); color: var(--cat-marketing); }
+.template-tag.cat-management { background: rgba(58,90,124,0.1); color: var(--cat-management); }
+.template-tag.cat-product { background: rgba(212,160,74,0.12); color: var(--cat-product); }
+.template-tag.cat-trend { background: rgba(122,158,126,0.12); color: var(--cat-trend); }
+
+/* Open in Canva button */
+.btn-canva {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 13px 20px;
+  background: var(--dark);
+  color: #FAF8F5;
+  border: none;
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+.btn-canva:hover {
+  background: var(--orange);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(232,112,58,0.3);
+}
+.btn-canva svg { width: 18px; height: 18px; }
+
+/* ════════ TONE & MANNER SECTION ════════ */
+.tone-section {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 36px;
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+}
+.tone-section h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 24px;
+}
+
+/* Color swatches */
+.swatch-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.swatch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.02);
+}
+.swatch-circle {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 2px solid rgba(0,0,0,0.06);
+  flex-shrink: 0;
+}
+.swatch-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.swatch-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--dark);
+}
+.swatch-code {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-family: monospace;
+}
+
+/* Typography guide */
+.typo-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.typo-item {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.02);
+}
+.typo-sample {
+  min-width: 160px;
+  flex-shrink: 0;
+}
+.typo-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Section divider */
+.tone-divider {
+  height: 1px;
+  background: linear-gradient(90deg, var(--border), transparent 80%);
+  margin: 20px 0;
+}
+.tone-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+/* ════════ BRAND KIT GUIDE ════════ */
+.brandkit-section {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 36px;
+  box-shadow: var(--shadow);
+  margin-top: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.brandkit-section::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--orange), #D4A04A, var(--cat-skincare), var(--cat-management), var(--cat-trend));
+}
+.brandkit-section h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+.brandkit-section .section-desc {
+  font-size: 13px; color: var(--text-muted); margin-bottom: 24px;
+}
+.brandkit-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  counter-reset: step;
+}
+.brandkit-step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 16px 20px;
+  border-radius: 14px;
+  background: rgba(232,112,58,0.03);
+  border: 1px solid rgba(232,112,58,0.06);
+  counter-increment: step;
+}
+.brandkit-step::before {
+  content: counter(step);
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--orange);
+  color: #fff;
+  font-size: 14px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.brandkit-step-content h4 {
+  font-size: 15px; font-weight: 700; color: var(--dark);
+  margin-bottom: 4px;
+}
+.brandkit-step-content p {
+  font-size: 13px; color: var(--text-muted); line-height: 1.6;
+}
+.brandkit-step-content code {
+  background: rgba(232,112,58,0.1);
+  color: var(--orange);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+.brandkit-colors {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 8px;
+}
+.brandkit-color {
+  display: flex; align-items: center; gap: 6px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(0,0,0,0.03);
+  font-size: 11px; font-weight: 600;
+}
+.brandkit-color .swatch {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Canva search button in cards */
+.btn-canva-search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 11px 20px;
+  background: transparent;
+  color: var(--orange);
+  border: 1.5px solid rgba(232,112,58,0.3);
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+  margin-bottom: 8px;
+}
+.btn-canva-search:hover {
+  background: rgba(232,112,58,0.06);
+  border-color: var(--orange);
+  transform: translateY(-1px);
+}
+.btn-canva-search svg { width: 16px; height: 16px; }
+
+/* ════════ GUIDE SECTION ════════ */
+.guide-section {
+  margin-top: 12px;
+  border-top: 1px solid rgba(232,112,58,0.08);
+  padding-top: 12px;
+}
+.guide-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 8px 0;
+  background: none;
+  border: none;
+  color: var(--orange);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.guide-toggle:hover { opacity: 0.7; }
+.guide-toggle.open svg { color: var(--text-muted); }
+.guide-list {
+  list-style: none;
+  counter-reset: guide-step;
+  padding: 0;
+  margin: 8px 0 0;
+}
+.guide-list li {
+  counter-increment: guide-step;
+  padding: 8px 0 8px 28px;
+  font-size: 12px;
+  color: var(--dark);
+  line-height: 1.7;
+  position: relative;
+  border-bottom: 1px solid rgba(0,0,0,0.03);
+}
+.guide-list li:last-child { border-bottom: none; }
+.guide-list li::before {
+  content: counter(guide-step);
+  position: absolute;
+  left: 0; top: 8px;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: rgba(232,112,58,0.1);
+  color: var(--orange);
+  font-size: 10px;
+  font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+}
+.guide-list code {
+  background: rgba(232,112,58,0.1);
+  color: var(--orange);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+/* ════════ CHECKLIST ════════ */
+.checklist-section {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 36px;
+  box-shadow: var(--shadow);
+  margin-top: 20px;
+}
+.checklist-section h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 20px;
+}
+.checklist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 10px;
+}
+.checklist-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  color: var(--dark-mid);
+  transition: background 0.2s;
+}
+.checklist-item:hover {
+  background: rgba(232,112,58,0.04);
+}
+.checklist-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--orange);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+.checklist-item code {
+  background: rgba(232,112,58,0.1);
+  color: var(--orange);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+/* ════════ RESPONSIVE ════════ */
+@media (max-width: 768px) {
+  .page-header h1 { font-size: 28px; letter-spacing: 6px; }
+  main { padding: 24px 20px 60px; }
+  .template-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .checklist-grid { grid-template-columns: 1fr; }
+  .filter-tabs { padding: 20px 20px 0; gap: 6px; }
+  .swatch-grid { gap: 8px; }
+  .tone-section, .checklist-section { padding: 24px 20px; }
+}
+@media (max-width: 480px) {
+  .template-grid { grid-template-columns: 1fr; max-width: 340px; margin: 0 auto; }
+  .page-header { padding: 40px 20px 36px; }
+  .page-header h1 { font-size: 24px; letter-spacing: 4px; }
+  .filter-tabs { gap: 4px; }
+  .filter-tab { padding: 6px 14px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>IMGROUND</h1>
+  <p class="subtitle">Education for Aesthetic Experts</p>
+  <div class="template-count">13 TEMPLATES</div>
+</div>
+
+<!-- Filter Tabs -->
+<div class="filter-tabs">
+  <div class="filter-tab active" data-filter="all">All</div>
+  <div class="filter-tab" data-filter="shorts">Shorts</div>
+  <div class="filter-tab" data-filter="longform">Longform</div>
+  <div class="filter-tab" data-filter="schedule">Education</div>
+</div>
+
+<main>
+
+<!-- ═══ YOUTUBE SHORTS ═══ -->
+<div class="category" data-category="shorts">
+  <div class="category-header">
+    <div class="category-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+        <polygon points="10 7 10 13 15 10" fill="currentColor" stroke="none"/>
+      </svg>
+    </div>
+    <div class="category-title">YouTube Shorts Thumbnail</div>
+    <span class="category-count">5 templates</span>
+    <div class="category-line"></div>
+  </div>
+  <div class="template-grid" id="shorts-grid"></div>
+</div>
+
+<!-- ═══ YOUTUBE LONGFORM ═══ -->
+<div class="category" data-category="longform">
+  <div class="category-header">
+    <div class="category-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <polygon points="10 8 10 16 16 12" fill="currentColor" stroke="none"/>
+      </svg>
+    </div>
+    <div class="category-title">YouTube Longform Thumbnail</div>
+    <span class="category-count">5 templates</span>
+    <div class="category-line"></div>
+  </div>
+  <div class="template-grid" id="longform-grid"></div>
+</div>
+
+<!-- ═══ INSTAGRAM SCHEDULE ═══ -->
+<div class="category" data-category="schedule">
+  <div class="category-header">
+    <div class="category-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+        <circle cx="8" cy="14" r="1" fill="currentColor" stroke="none"/>
+        <circle cx="12" cy="14" r="1" fill="currentColor" stroke="none"/>
+        <circle cx="16" cy="14" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+    </div>
+    <div class="category-title">Instagram Education Cards</div>
+    <span class="category-count">3 templates</span>
+    <div class="category-line"></div>
+  </div>
+  <div class="template-grid" id="schedule-grid"></div>
+</div>
+
+<!-- ═══ TONE & MANNER ═══ -->
+<div class="tone-section">
+  <h3>Tone &amp; Manner Reference</h3>
+
+  <div class="tone-label">Color Palette</div>
+  <div class="swatch-grid">
+    <div class="swatch">
+      <div class="swatch-circle" style="background:#E8703A"></div>
+      <div class="swatch-info"><span class="swatch-name">Brand Orange</span><span class="swatch-code">#E8703A</span></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-circle" style="background:#FFF8F0"></div>
+      <div class="swatch-info"><span class="swatch-name">Cream</span><span class="swatch-code">#FFF8F0</span></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-circle" style="background:#F5EDE0"></div>
+      <div class="swatch-info"><span class="swatch-name">Warm Beige</span><span class="swatch-code">#F5EDE0</span></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-circle" style="background:#3D2E24"></div>
+      <div class="swatch-info"><span class="swatch-name">Dark Text</span><span class="swatch-code">#3D2E24</span></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-circle" style="background:#9B8A7A"></div>
+      <div class="swatch-info"><span class="swatch-name">Sub Text</span><span class="swatch-code">#9B8A7A</span></div>
+    </div>
+  </div>
+
+  <div class="tone-label">Category Colors</div>
+  <div class="swatch-grid">
+    <div class="swatch">
+      <div class="swatch-circle" style="background:#D4837A"></div>
+      <div class="swatch-info"><span class="swatch-name">Skincare</span><span class="swatch-code">#D4837A</span></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-circle" style="background:#E8703A"></div>
+      <div class="swatch-info"><span class="swatch-name">Marketing</span><span class="swatch-code">#E8703A</span></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-circle" style="background:#3A5A7C"></div>
+      <div class="swatch-info"><span class="swatch-name">Management</span><span class="swatch-code">#3A5A7C</span></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-circle" style="background:#D4A04A"></div>
+      <div class="swatch-info"><span class="swatch-name">Product</span><span class="swatch-code">#D4A04A</span></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-circle" style="background:#7A9E7E"></div>
+      <div class="swatch-info"><span class="swatch-name">Trend</span><span class="swatch-code">#7A9E7E</span></div>
+    </div>
+  </div>
+
+  <div class="tone-divider"></div>
+
+  <div class="tone-label">Typography</div>
+  <div class="typo-grid">
+    <div class="typo-item">
+      <div class="typo-sample" style="font-family:'Playfair Display',serif; font-size:18px; color:var(--dark);">IMGROUND</div>
+      <div class="typo-desc">Playfair Display 400 -- Brand mark only, letter-spacing 10px</div>
+    </div>
+    <div class="typo-item">
+      <div class="typo-sample" style="font-family:'Pretendard',sans-serif; font-size:16px; font-weight:600; color:var(--dark);">Contents Title</div>
+      <div class="typo-desc">Pretendard 600 -- Section titles, card headings</div>
+    </div>
+    <div class="typo-item">
+      <div class="typo-sample" style="font-family:'Pretendard',sans-serif; font-size:14px; font-weight:400; color:var(--text-muted);">Body text description</div>
+      <div class="typo-desc">Pretendard 400 -- Body copy, descriptions, captions</div>
+    </div>
+  </div>
+
+  <div class="tone-divider"></div>
+
+  <div class="tone-label">Brand Guidelines</div>
+  <div class="checklist-grid">
+    <div class="checklist-item"><span class="checklist-dot"></span>Always write "IMGROUND" in Playfair Display</div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Use category colors consistently per topic</div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Target audience: aesthetic clinic owners</div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Tone: professional education, premium quality</div>
+  </div>
+</div>
+
+<!-- ═══ BRAND KIT GUIDE ═══ -->
+<div class="brandkit-section">
+  <h3>Canva Brand Kit Setup Guide</h3>
+  <p class="section-desc">Canva Pro Brand Kit에 IMGROUND 브랜드를 등록하면 모든 템플릿에 일괄 적용할 수 있습니다.</p>
+  <div class="brandkit-steps">
+    <div class="brandkit-step">
+      <div class="brandkit-step-content">
+        <h4>Brand Kit 생성</h4>
+        <p>Canva 홈 &rarr; 왼쪽 메뉴 <code>Brand Kit</code> &rarr; <code>+ 새 브랜드</code> &rarr; 이름: <strong>IMGROUND</strong></p>
+      </div>
+    </div>
+    <div class="brandkit-step">
+      <div class="brandkit-step-content">
+        <h4>Brand Color 등록 (11색)</h4>
+        <p>아래 컬러를 순서대로 등록하세요:</p>
+        <div class="brandkit-colors">
+          <span class="brandkit-color"><span class="swatch" style="background:#E8703A"></span>#E8703A</span>
+          <span class="brandkit-color"><span class="swatch" style="background:#FFF8F0"></span>#FFF8F0</span>
+          <span class="brandkit-color"><span class="swatch" style="background:#F5EDE0"></span>#F5EDE0</span>
+          <span class="brandkit-color"><span class="swatch" style="background:#D4A04A"></span>#D4A04A</span>
+          <span class="brandkit-color"><span class="swatch" style="background:#3D2E24"></span>#3D2E24</span>
+          <span class="brandkit-color"><span class="swatch" style="background:#9B8A7A"></span>#9B8A7A</span>
+          <span class="brandkit-color"><span class="swatch" style="background:#D4837A"></span>#D4837A</span>
+          <span class="brandkit-color"><span class="swatch" style="background:#3A5A7C"></span>#3A5A7C</span>
+          <span class="brandkit-color"><span class="swatch" style="background:#7A9E7E"></span>#7A9E7E</span>
+        </div>
+      </div>
+    </div>
+    <div class="brandkit-step">
+      <div class="brandkit-step-content">
+        <h4>Brand Font 등록</h4>
+        <p>제목: <code>Playfair Display</code> (Regular) / 부제목: <code>Pretendard</code> (SemiBold) / 본문: <code>Pretendard</code> (Regular)</p>
+      </div>
+    </div>
+    <div class="brandkit-step">
+      <div class="brandkit-step-content">
+        <h4>템플릿 검색 &rarr; 커스터마이징</h4>
+        <p>아래 카드의 <strong>"Canva에서 찾기"</strong> 버튼 클릭 &rarr; 마음에 드는 템플릿 선택 &rarr; Brand Kit 색상/폰트 적용 &rarr; IMGROUND 로고 추가</p>
+      </div>
+    </div>
+    <div class="brandkit-step">
+      <div class="brandkit-step-content">
+        <h4>템플릿 링크 연동</h4>
+        <p>완성된 템플릿의 <code>공유 &rarr; 템플릿 링크</code> URL을 복사하여 이 페이지 관리자에게 전달하면 카드에 자동 연결됩니다.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CHECKLIST ═══ -->
+<div class="checklist-section">
+  <h3>Customizing Checklist</h3>
+  <div class="checklist-grid">
+    <div class="checklist-item"><span class="checklist-dot"></span>Main color <code>#E8703A</code></div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Dark color <code>#3D2E24</code></div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Background <code>#FFF8F0</code> cream</div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Brand: "IMGROUND" (Playfair Display)</div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Display font: Playfair Display</div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Body font: Pretendard</div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Skincare <code>#D4837A</code></div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Marketing <code>#E8703A</code></div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Management <code>#3A5A7C</code></div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Product <code>#D4A04A</code></div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Trend <code>#7A9E7E</code></div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Tone: Premium professional education</div>
+    <div class="checklist-item"><span class="checklist-dot"></span>Target: Aesthetic clinic owners</div>
+  </div>
+</div>
+
+</main>
+
+<script>
+// ═══ TEMPLATE DATA ═══
+// Canva search URL builder
+function canvaSearch(query, size) {
+  var q = encodeURIComponent(query);
+  var dim = size ? '&dimension=' + size : '';
+  return 'https://www.canva.com/templates/search/' + q + '/' ;
+}
+
+const TEMPLATES = {
+  shorts: [
+    {
+      name: '피부관리 쇼츠',
+      desc: '브라운 미니멀 스킨케어 -- 시술 테크닉, 피부타입별 관리 팁',
+      url: 'https://www.canva.com/templates/EAGrW7jonTc-brown-minimalist-skincare-routine-youtube-short/',
+      searchUrl: canvaSearch('aesthetic skincare youtube shorts thumbnail'),
+      tags: ['1080x1920', '피부관리', 'Shorts'], cat: 'skincare',
+      guide: [
+        '배경색: 기존 브라운 &rarr; 크림 <code>#FFF8F0</code> 또는 소프트로즈 <code>#F5E0DA</code>',
+        '메인 폰트: Pretendard 800 (제목), Pretendard 400 (본문)',
+        '상단에 "IMGROUND" 텍스트 추가 &mdash; Playfair Display 400, <code>#3D2E24</code>, 자간 4px',
+        '카테고리 뱃지 추가: "피부관리" 필 뱃지, 배경 <code>#D4837A</code>, 글자 흰색',
+        '제목 예시: "모공 축소 3단계 관리법!"',
+        '하단에 "EP.01 | 1min" 태그 + "@imground_official"',
+        '사진 영역: 시술 장면 또는 피부 클로즈업 이미지 삽입',
+        '악센트 라인: 가로 40px, 색상 <code>#D4837A</code>'
+      ]
+    },
+    {
+      name: '마케팅 쇼츠',
+      desc: '크림+브라운 튜토리얼 -- SNS 운영, 고객 유치 전략',
+      url: 'https://www.canva.com/templates/EAEwoBqA0tk-cream-and-brown-simple-animated-tutorial-writing-youtube-short/',
+      searchUrl: canvaSearch('marketing education youtube shorts thumbnail'),
+      tags: ['1080x1920', '마케팅', 'Shorts'], cat: 'marketing',
+      guide: [
+        '배경색: 기존 유지 (크림+브라운 이미 적합) 또는 <code>#FFF8F0</code>',
+        '포인트 컬러: 기존 컬러 &rarr; 브랜드 오렌지 <code>#E8703A</code>로 전부 교체',
+        '상단에 "IMGROUND" 텍스트 추가 &mdash; Playfair Display 400',
+        '카테고리 뱃지: "마케팅" 필 뱃지, 배경 <code>#E8703A</code>',
+        '제목 예시: "인스타 팔로워 1000명 만들기!"',
+        '서브: "에스테틱 SNS 마케팅 전략"',
+        '불릿 포인트 2개: "실전 노하우!" / "바로 적용 가능!"',
+        '하단: "EP.02 | 1min" + "@imground_official"'
+      ]
+    },
+    {
+      name: '경영 쇼츠',
+      desc: '브라운+화이트 비즈니스 -- 매장 운영, 인력 관리, 수익 구조',
+      url: 'https://www.canva.com/templates/EAG5LsdpIgA-brown-and-white-simple-business-excellence-forum-youtube-short/',
+      searchUrl: canvaSearch('business management youtube shorts thumbnail'),
+      tags: ['1080x1920', '경영', 'Shorts'], cat: 'management',
+      guide: [
+        '배경색: 기존 브라운 &rarr; 쿨 그라데이션 <code>#F0F4F8</code> ~ <code>#E4ECF4</code>',
+        '포인트 컬러: 전부 딥네이비 <code>#3A5A7C</code>로 교체',
+        '상단 "IMGROUND" + 카테고리 뱃지 "경영" (배경 <code>#3A5A7C</code>)',
+        '제목 예시: "월 매출 3000만원 매장의 비밀!"',
+        '서브: "에스테틱 경영 노하우"',
+        '불릿: "수익 구조 분석!" / "성공 사례 공개!"',
+        '하단: "EP.03 | 1min" + "@imground_official"',
+        '사진: 매장 인테리어 또는 상담 장면'
+      ]
+    },
+    {
+      name: '제품 쇼츠',
+      desc: '프로덕트 쇼케이스 -- 화장품 성분, 제품 활용법',
+      url: 'https://www.canva.com/templates/EAGTppzYNo4-product-showcase-youtube-shorts/',
+      searchUrl: canvaSearch('cosmetics product youtube shorts thumbnail'),
+      tags: ['1080x1920', '제품', 'Shorts'], cat: 'product',
+      guide: [
+        '배경색: 웜 골드 그라데이션 <code>#FDF8F0</code> ~ <code>#F5ECD8</code>',
+        '포인트 컬러: 골드 <code>#D4A04A</code>로 교체',
+        '상단 "IMGROUND" + 카테고리 뱃지 "제품" (배경 <code>#D4A04A</code>)',
+        '제목 예시: "히알루론산의 진실!"',
+        '서브: "원장이 알아야 할 화장품 성분"',
+        '불릿: "성분 완전 분석!" / "추천 제품 리스트!"',
+        '사진: N2SPA 제품 또는 화장품 클로즈업',
+        '하단: "EP.04 | 1min" + "@imground_official"'
+      ]
+    },
+    {
+      name: '트렌드 쇼츠',
+      desc: '베이지 미니멀 스킨케어 -- 업계 동향, 신기술, 세미나 리뷰',
+      url: 'https://www.canva.com/templates/EAGsBn4-XCE-beige-minimalist-skincare-product-youtube-shorts/',
+      searchUrl: canvaSearch('beauty trend youtube shorts thumbnail'),
+      tags: ['1080x1920', '트렌드', 'Shorts'], cat: 'trend',
+      guide: [
+        '배경색: 세이지 그라데이션 <code>#F2F7F3</code> ~ <code>#E4EDE5</code>',
+        '포인트 컬러: 세이지 그린 <code>#7A9E7E</code>로 교체',
+        '상단 "IMGROUND" + 카테고리 뱃지 "트렌드" (배경 <code>#7A9E7E</code>)',
+        '제목 예시: "2026 에스테틱 트렌드 TOP 5!"',
+        '서브: "글로벌 뷰티 시장 동향"',
+        '불릿: "최신 트렌드!" / "경쟁력 확보 전략!"',
+        '하단: "EP.05 | 1min" + "@imground_official"',
+        '사진: 시술 장비 또는 세미나 현장'
+      ]
+    }
+  ],
+  longform: [
+    {
+      name: '피부관리 교육',
+      desc: '베이지 모던 스킨케어 -- 심화 피부과학, 시술 프로토콜',
+      url: 'https://www.canva.com/ko_kr/templates/EAG_T-gRaLs/',
+      searchUrl: canvaSearch('aesthetic skincare education youtube thumbnail'),
+      tags: ['1280x720', '피부관리', '롱폼'], cat: 'skincare',
+      guide: [
+        '이 템플릿은 베이지/스킨케어 톤이라 색상 변경 최소 &mdash; 거의 그대로 사용 가능',
+        '좌측: 강사(김은경 원장) 사진 또는 시술 장면 삽입',
+        '우측 상단: "EP. 01" &mdash; Playfair Display 400, <code>#9B8A7A</code>',
+        '우측 제목: "피부 장벽 복구의 과학" &mdash; Pretendard 800, 38px, <code>#3D2E24</code>',
+        '우측 서브: "손상 피부 시술 프로토콜 완전 분석" &mdash; Pretendard 400, <code>#9B8A7A</code>',
+        '카테고리 뱃지: "피부관리" 필 뱃지, <code>#D4837A</code>',
+        '상단 4px 컬러 바: <code>#D4837A</code>',
+        '하단: "IMGROUND &mdash; Education for Aesthetic Experts"',
+        '우측 하단: 원형 프로필 + "강사: 김은경 원장"'
+      ]
+    },
+    {
+      name: '마케팅 교육',
+      desc: '깔끔한 마케팅 인터뷰 -- 블로그/인스타 전략, 리뷰 마케팅',
+      url: 'https://www.canva.com/ko_kr/templates/EAGwyFfiDFk/',
+      searchUrl: canvaSearch('marketing class youtube thumbnail'),
+      tags: ['1280x720', '마케팅', '롱폼'], cat: 'marketing',
+      guide: [
+        '배경: 크림 <code>#FFF8F0</code>으로 교체',
+        '포인트 컬러(연두색): 전부 브랜드 오렌지 <code>#E8703A</code>로 교체',
+        '상단 4px 컬러 바: <code>#E8703A</code>',
+        '좌측: 김은경 원장 사진 또는 노트북/SNS 화면 이미지',
+        '우측 제목: "네이버 블로그로 신규 고객 유치" &mdash; Pretendard 800',
+        '서브: "검색 최적화부터 리뷰 관리까지"',
+        '카테고리 뱃지: "마케팅", <code>#E8703A</code>',
+        '하단: "IMGROUND" + "EP.02" + 강사 프로필'
+      ]
+    },
+    {
+      name: '경영 교육',
+      desc: '강사 특강 홍보 -- 매장 경영, 직원 교육, 매출 분석',
+      url: 'https://www.canva.com/ko_kr/templates/EAGwxQr0LTw/',
+      searchUrl: canvaSearch('business education lecture youtube thumbnail'),
+      tags: ['1280x720', '경영', '롱폼'], cat: 'management',
+      guide: [
+        '배경: 크림 <code>#FFF8F0</code> 또는 쿨톤 <code>#F0F4F8</code>',
+        '포인트 컬러(자주색): 전부 딥네이비 <code>#3A5A7C</code>로 교체',
+        '상단 4px 컬러 바: <code>#3A5A7C</code>',
+        '좌측: 김은경 원장 사진 (강의 포즈)',
+        '제목: "직원 채용부터 교육까지" &mdash; Pretendard 800',
+        '서브: "에스테틱 인력 관리 A to Z"',
+        '카테고리 뱃지: "경영", <code>#3A5A7C</code>',
+        '하단: "IMGROUND" + "EP.03" + 강사 프로필'
+      ]
+    },
+    {
+      name: '제품 교육',
+      desc: '베이지 브라운 뷰티 리뷰 -- 성분 분석, 제품 추천 가이드',
+      url: 'https://www.canva.com/ko_kr/templates/EAGIxOiJAmo/',
+      searchUrl: canvaSearch('cosmetics beauty product youtube thumbnail'),
+      tags: ['1280x720', '제품', '롱폼'], cat: 'product',
+      guide: [
+        '이 템플릿은 베이지/브라운/오렌지 톤 &mdash; 색상 변경 거의 불필요',
+        '오렌지 요소: <code>#E8703A</code> 유지 또는 골드 <code>#D4A04A</code>로 변경',
+        '좌측: 제품 사진 또는 성분 비교 이미지',
+        '제목: "레티놀 vs 바쿠치올" &mdash; Pretendard 800',
+        '서브: "안티에이징 성분 비교 분석"',
+        '카테고리 뱃지: "제품", <code>#D4A04A</code>',
+        '상단 컬러 바: <code>#D4A04A</code>',
+        '하단: "IMGROUND" + "EP.04" + 강사 프로필'
+      ]
+    },
+    {
+      name: '트렌드 교육',
+      desc: '베이지 모던 패션뷰티 -- 2026 에스테틱 트렌드, 글로벌 동향',
+      url: 'https://www.canva.com/ko_kr/templates/EAG_S_7BGpM/',
+      searchUrl: canvaSearch('beauty trend education youtube thumbnail'),
+      tags: ['1280x720', '트렌드', '롱폼'], cat: 'trend',
+      guide: [
+        '배경: 베이지 유지 또는 민트 <code>#F2F7F3</code>로 변경',
+        '포인트 컬러: 세이지 그린 <code>#7A9E7E</code>로 교체',
+        '상단 컬러 바: <code>#7A9E7E</code>',
+        '좌측: 세미나/컨퍼런스 현장 사진 또는 트렌드 관련 이미지',
+        '제목: "AI 피부 분석의 현재와 미래" &mdash; Pretendard 800',
+        '서브: "에스테틱 테크 트렌드 2026"',
+        '카테고리 뱃지: "트렌드", <code>#7A9E7E</code>',
+        '하단: "IMGROUND" + "EP.05" + 강사 프로필'
+      ]
+    }
+  ],
+  schedule: [
+    {
+      name: '월간 교육 일정표',
+      desc: '베이지 에스테틱 감성 스케줄 -- 주차별 교육, 카테고리 컬러 뱃지',
+      url: 'https://www.canva.com/ko_kr/templates/EAFyVvPHKyU/',
+      searchUrl: canvaSearch('weekly schedule instagram post aesthetic'),
+      tags: ['1080x1350', '교육일정', '주간'], cat: 'schedule',
+      guide: [
+        '이 템플릿은 "베이지 에스테틱" &mdash; 거의 그대로 사용 가능',
+        '배경: 크림 <code>#FFF8F0</code> 유지',
+        '상단: "IMGROUND" + "Weekly Schedule" &mdash; Playfair Display 400',
+        '골드 악센트 라인: <code>#D4A04A</code>, 가로 60px',
+        '주차별 행 구성 (카테고리 컬러 도트):',
+        '&nbsp;&nbsp;1주차: <span style="color:#D4837A">●</span> 피부관리 (4/7 월)',
+        '&nbsp;&nbsp;2주차: <span style="color:#E8703A">●</span> 마케팅 (4/14 월)',
+        '&nbsp;&nbsp;3주차: <span style="color:#3A5A7C">●</span> 경영 (4/21 월)',
+        '&nbsp;&nbsp;4주차: <span style="color:#D4A04A">●</span> 제품 (4/28 월)',
+        '하단: "@imground_official"'
+      ]
+    },
+    {
+      name: '릴스 커버 템플릿',
+      desc: '베이지 미니멀리스트 -- 교육 릴스 통일감, 회차 넘버링',
+      url: 'https://www.canva.com/ko_kr/templates/EAGxmsrnxz4/',
+      searchUrl: canvaSearch('education reels cover aesthetic'),
+      tags: ['1080x1350', '릴스', '커버'], cat: 'reels',
+      guide: [
+        '배경: 크림 <code>#FFF8F0</code> 또는 웜 베이지 그라데이션',
+        '포인트 컬러(하늘색): 브랜드 오렌지 <code>#E8703A</code>로 교체',
+        '상단: 카테고리 뱃지 (해당 카테고리 색상)',
+        '중앙 상단: "IMGROUND" &mdash; Playfair Display 400, 자간 8px',
+        '중앙: "EP. 01" &mdash; 크게 (80px), Playfair Display',
+        '제목: "모공 관리의 모든 것" &mdash; Pretendard 800, 48px',
+        '서브: "피부관리 시리즈" &mdash; Pretendard 400, <code>#9B8A7A</code>',
+        'CTA 버튼: "지금 시청하기" 오렌지 필 버튼 <code>#E8703A</code>',
+        '** 카테고리별로 복제하여 뱃지 색상+제목만 변경하면 시리즈 통일감 완성'
+      ]
+    },
+    {
+      name: '교육 안내 카드',
+      desc: '핑크 베이지 원데이 클래스 공지 -- CTA 포함, 등록 유도',
+      url: 'https://www.canva.com/ko_kr/templates/EAGgMJo6ENo/',
+      searchUrl: canvaSearch('class announcement instagram post aesthetic'),
+      tags: ['1080x1350', '안내', 'CTA'], cat: 'cta',
+      guide: [
+        '배경: 핑크 &rarr; 크림 <code>#FFF8F0</code>으로 교체',
+        '포인트 컬러(핑크): 전부 오렌지 <code>#E8703A</code>로 교체',
+        '상단: "IMGROUND" + "NEW PROGRAM" 오렌지 뱃지',
+        '악센트 라인: 골드 <code>#D4A04A</code>',
+        '메인 제목: "에스테틱 경영 마스터 클래스" &mdash; Pretendard 800',
+        '불릿 리스트 (골드 체크 아이콘):',
+        '&nbsp;&nbsp;&#10003; 매장 운영 전략',
+        '&nbsp;&nbsp;&#10003; 직원 관리',
+        '&nbsp;&nbsp;&#10003; 매출 극대화',
+        '&nbsp;&nbsp;&#10003; 고객 관리 시스템',
+        'CTA 버튼: "등록하기 &rarr;" 오렌지 필 버튼',
+        '하단: "@imground_official"'
+      ]
+    }
+  ]
+};
+
+// Category color map
+const CAT_COLORS = {
+  skincare: 'var(--cat-skincare)',
+  marketing: 'var(--cat-marketing)',
+  management: 'var(--cat-management)',
+  product: 'var(--cat-product)',
+  trend: 'var(--cat-trend)'
+};
+
+// Category labels in Korean
+const CAT_LABELS = {
+  skincare: 'Skincare',
+  marketing: 'Marketing',
+  management: 'Management',
+  product: 'Product',
+  trend: 'Trend'
+};
+
+// Sample titles for previews
+const SAMPLE_TITLES = {
+  skincare: { short: 'Know Your Skin Type', long: 'Advanced Facial Protocols' },
+  marketing: { short: 'SNS Growth Hacks', long: 'Blog & Review Strategy' },
+  management: { short: 'Revenue Optimization', long: 'Staff Training Essentials' },
+  product: { short: 'Ingredient Spotlight', long: 'Product Line Selection' },
+  trend: { short: '2026 Trend Alert', long: 'Global Industry Outlook' }
+};
+
+// ═══ RENDER MINI-PREVIEW: Shorts (9:16) ═══
+function renderShortsPreview(cat) {
+  var title = SAMPLE_TITLES[cat] ? SAMPLE_TITLES[cat].short : 'Education';
+  var label = CAT_LABELS[cat] || cat;
+  return '<div class="pv pv-shorts ' + cat + '">' +
+    '<span class="pv-brand">IMGROUND</span>' +
+    '<span class="pv-cat-badge" style="background:' + (CAT_COLORS[cat] || 'var(--orange)') + '">' + label + '</span>' +
+    '<div class="pv-title-area">' +
+      '<div class="pv-title-text">' + title + '</div>' +
+      '<div class="pv-subtitle-text">Professional Education Series</div>' +
+    '</div>' +
+    '<span class="pv-ep">EP.01</span>' +
+    '<div class="pv-bottom-line"></div>' +
+  '</div>';
+}
+
+// ═══ RENDER MINI-PREVIEW: Longform (16:9) ═══
+function renderLongformPreview(cat) {
+  var title = SAMPLE_TITLES[cat] ? SAMPLE_TITLES[cat].long : 'Education';
+  var label = CAT_LABELS[cat] || cat;
+  var color = CAT_COLORS[cat] || 'var(--orange)';
+  return '<div class="pv pv-longform ' + cat + '">' +
+    '<div class="pv-accent-bar"></div>' +
+    '<div class="pv-speaker">' +
+      '<div class="pv-speaker-icon">' +
+        '<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>' +
+      '</div>' +
+    '</div>' +
+    '<div class="pv-content">' +
+      '<div class="pv-ep-num">EP.01</div>' +
+      '<div class="pv-lf-title">' + title + '</div>' +
+      '<div class="pv-lf-badge" style="background:' + color + '">' + label + '</div>' +
+      '<div class="pv-watermark">IMGROUND</div>' +
+    '</div>' +
+  '</div>';
+}
+
+// ═══ RENDER MINI-PREVIEW: Schedule (4:5) ═══
+function renderSchedulePreview(cat) {
+  if (cat === 'schedule') {
+    // Weekly schedule card
+    var days = ['MON', 'TUE', 'WED', 'THU', 'FRI'];
+    var cats = ['skincare', 'marketing', 'management', 'product', 'trend'];
+    var labels = ['Skincare', 'Marketing', 'Management', 'Product', 'Trend'];
+    var rows = '';
+    for (var i = 0; i < days.length; i++) {
+      rows += '<div class="pv-sched-row">' +
+        '<span class="pv-sched-day">' + days[i] + '</span>' +
+        '<span class="pv-sched-dot" style="background:' + (CAT_COLORS[cats[i]] || 'var(--orange)') + '"></span>' +
+        '<span class="pv-sched-label">' + labels[i] + '</span>' +
+      '</div>';
+    }
+    return '<div class="pv pv-schedule">' +
+      '<div class="pv-sched-header">' +
+        '<div class="pv-sched-brand">IMGROUND</div>' +
+        '<div class="pv-sched-title">Weekly Schedule</div>' +
+      '</div>' +
+      '<div class="pv-sched-grid">' + rows + '</div>' +
+    '</div>';
+  }
+  if (cat === 'reels') {
+    // Reels cover template
+    return '<div class="pv pv-reels-cover">' +
+      '<div class="pv-rc-brand">IMGROUND</div>' +
+      '<div class="pv-rc-ep">EP.01</div>' +
+      '<div class="pv-rc-title">Education Series</div>' +
+      '<div class="pv-rc-badge">Skincare</div>' +
+    '</div>';
+  }
+  // CTA card
+  return '<div class="pv pv-cta-card">' +
+    '<div class="pv-cta-brand">IMGROUND</div>' +
+    '<div class="pv-cta-title">New Education<br>Program Open</div>' +
+    '<div class="pv-cta-desc">Professional education for<br>aesthetic clinic owners</div>' +
+    '<div class="pv-cta-btn">Register Now</div>' +
+  '</div>';
+}
+
+// ═══ RENDER CARD ═══
+function renderCard(t, type) {
+  var aspectClass = 'ar-4-5';
+  var previewHtml = '';
+
+  if (type === 'shorts') {
+    aspectClass = 'ar-9-16';
+    previewHtml = renderShortsPreview(t.cat);
+  } else if (type === 'longform') {
+    aspectClass = 'ar-16-9';
+    previewHtml = renderLongformPreview(t.cat);
+  } else {
+    aspectClass = 'ar-4-5';
+    previewHtml = renderSchedulePreview(t.cat);
+  }
+
+  // Determine tag class based on category
+  var catTagClass = t.cat && CAT_COLORS[t.cat] ? 'cat-' + t.cat : '';
+
+  var hasUrl = t.url && t.url !== '#';
+  var statusBadge = hasUrl ?
+    '<span class="status-badge ready">TEMPLATE</span>' :
+    '<span class="status-badge wip">WIP</span>';
+
+  // Customization guide (expandable)
+  var guideHtml = '';
+  if (t.guide && t.guide.length > 0) {
+    var guideId = 'guide-' + type + '-' + t.cat;
+    guideHtml = '<div class="guide-section">' +
+      '<button class="guide-toggle" onclick="toggleGuide(\'' + guideId + '\', this)">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>' +
+        ' 커스터마이징 가이드' +
+      '</button>' +
+      '<ol class="guide-list" id="' + guideId + '" style="display:none">' +
+        t.guide.map(function(step) {
+          return '<li>' + step + '</li>';
+        }).join('') +
+      '</ol>' +
+    '</div>';
+  }
+
+  // Canva search button (always shown)
+  var searchBtnHtml = t.searchUrl ?
+    '<a class="btn-canva-search" href="' + t.searchUrl + '" target="_blank" rel="noopener">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+        '<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>' +
+      '</svg>' +
+      'Canva에서 찾기' +
+    '</a>' : '';
+
+  var buttonHtml = hasUrl ?
+    '<a class="btn-canva" href="' + t.url + '" target="_blank" rel="noopener">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+        '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>' +
+        '<polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>' +
+      '</svg>' +
+      'Open in Canva' +
+    '</a>' :
+    '<div class="btn-canva" style="opacity:0.4;cursor:default;pointer-events:none">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+        '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>' +
+        '<polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>' +
+      '</svg>' +
+      'Coming Soon' +
+    '</div>';
+
+  return '<div class="template-card" data-cat="' + t.cat + '">' +
+    '<div class="template-preview ' + aspectClass + '">' +
+      previewHtml +
+      statusBadge +
+    '</div>' +
+    '<div class="template-body">' +
+      '<div class="template-name">' + t.name + '</div>' +
+      '<div class="template-desc">' + t.desc + '</div>' +
+      '<div class="template-tags">' +
+        t.tags.map(function(tag) {
+          return '<span class="template-tag ' + catTagClass + '">' + tag + '</span>';
+        }).join('') +
+      '</div>' +
+      searchBtnHtml +
+      buttonHtml +
+      guideHtml +
+    '</div>' +
+  '</div>';
+}
+
+// ═══ RENDER GRIDS ═══
+document.getElementById('shorts-grid').innerHTML =
+  TEMPLATES.shorts.map(function(t) { return renderCard(t, 'shorts'); }).join('');
+document.getElementById('longform-grid').innerHTML =
+  TEMPLATES.longform.map(function(t) { return renderCard(t, 'longform'); }).join('');
+document.getElementById('schedule-grid').innerHTML =
+  TEMPLATES.schedule.map(function(t) { return renderCard(t, 'schedule'); }).join('');
+
+// ═══ GUIDE TOGGLE ═══
+function toggleGuide(id, btn) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var isOpen = el.style.display !== 'none';
+  el.style.display = isOpen ? 'none' : 'block';
+  btn.classList.toggle('open', !isOpen);
+}
+
+// ═══ FILTER TABS ═══
+(function() {
+  var tabs = document.querySelectorAll('.filter-tab');
+  var categories = document.querySelectorAll('.category[data-category]');
+
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var filter = this.getAttribute('data-filter');
+
+      // Update active tab
+      tabs.forEach(function(t) { t.classList.remove('active'); });
+      this.classList.add('active');
+
+      // Show/hide categories
+      categories.forEach(function(cat) {
+        if (filter === 'all' || cat.getAttribute('data-category') === filter) {
+          cat.classList.remove('hidden');
+        } else {
+          cat.classList.add('hidden');
+        }
+      });
+    });
+  });
+})();
+
+// ═══ LAZY-LOAD IFRAMES (for future Canva embeds) ═══
+(function() {
+  var embeds = document.querySelectorAll('.pv-embed[data-embed-url]');
+  if (!embeds.length) return;
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var el = entry.target;
+        var url = el.getAttribute('data-embed-url');
+        if (url && !el.querySelector('iframe')) {
+          var iframe = document.createElement('iframe');
+          iframe.src = url;
+          iframe.allowFullscreen = true;
+          iframe.setAttribute('allow', 'fullscreen');
+          iframe.onload = function() { el.classList.add('loaded'); };
+          el.insertBefore(iframe, el.querySelector('.pv-overlay'));
+        }
+        observer.unobserve(el);
+      }
+    });
+  }, { rootMargin: '200px 0px' });
+
+  embeds.forEach(function(el) { observer.observe(el); });
+})();
+</script>
+<script src="/nav-shared.js"></script>
+</body>
+</html>
