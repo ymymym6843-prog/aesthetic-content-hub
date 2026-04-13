@@ -543,13 +543,24 @@ main {
 </main>
 
 <script>
-// ═══ Helper: convert canva edit URL → embed URL ═══
-function toEmbed(editUrl) {
-  return editUrl.replace('/edit', '/view?embed');
-}
+// ═══ Helpers ═══
 function toView(editUrl) {
   return editUrl.replace('/edit', '/view');
 }
+// Map template name → preview image filename
+const PREVIEW_MAP = {
+  'IM 웨딩케어 B&A': 'IM 웨딩케어 BA.png',
+  '스킨케어 에스테틱 B&A': '스킨케어 에스테틱 BA.png',
+  'Beige Minimal B&A': 'Beige Minimal BA.png',
+  '실제고객 B&A (회차별)': '실제고객 BA (회차별).png',
+  'Beige Pastel B&A': 'Beige Pastel BA.png',
+  '웨딩 피부관리 팁 (스텝별)': '웨딩 피부관리 팁 (스텝별).png',
+  '이벤트/가격표 카드': '이벤트 가격표 카드.png',
+  '웨딩케어 타임라인': '웨딩케어 타임라인.png',
+  '웨딩케어 리뷰 카드': '웨딩케어 리뷰 카드.png',
+  '리뷰 카드 (감성형)': '리뷰 카드 (감성형).png',
+  '빈 템플릿 (자유 편집)': '빈 템플릿 (자유편집).png'
+};
 
 // ═══ TEMPLATE DATA — all with real Canva embed ═══
 const BA_URLS = [
@@ -596,15 +607,16 @@ const TEMPLATES = {
 
 // ═══ RENDER ═══
 function renderCard(t) {
-  const embedUrl = toEmbed(t.url);
-  const viewUrl = t.url; // edit URL so user can edit directly
+  const viewUrl = t.url;
+  const previewImg = PREVIEW_MAP[t.name] || '';
   return `
     <div class="template-card">
       <div class="template-preview">
-        <div class="pv-embed" data-embed-url="${embedUrl}">
-          <div class="pv-loading">Loading...</div>
-          <a href="${viewUrl}" target="_blank" rel="noopener" class="pv-overlay"></a>
-        </div>
+        <a href="${viewUrl}" target="_blank" rel="noopener" style="display:block;width:100%;height:100%">
+          ${previewImg
+            ? `<img src="/template_previews/${encodeURIComponent(previewImg)}" alt="${t.name}" style="width:100%;height:100%;object-fit:cover">`
+            : `<div style="width:100%;height:100%;background:#FAF4EA;display:flex;align-items:center;justify-content:center;color:#9B8A7A;font-size:12px">No Preview</div>`}
+        </a>
         <span class="status-badge done">CUSTOMIZED</span>
       </div>
       <div class="template-body">
@@ -629,28 +641,6 @@ document.getElementById('cn-grid').innerHTML = TEMPLATES.cn.map(renderCard).join
 document.getElementById('rv-grid').innerHTML = TEMPLATES.rv.map(renderCard).join('');
 document.getElementById('blank-grid').innerHTML = TEMPLATES.blank.map(renderCard).join('');
 
-// Lazy-load iframes only when visible in viewport
-(function() {
-  const embeds = document.querySelectorAll('.pv-embed[data-embed-url]');
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const url = el.getAttribute('data-embed-url');
-        if (url && !el.querySelector('iframe')) {
-          const iframe = document.createElement('iframe');
-          iframe.src = url;
-          iframe.allowFullscreen = true;
-          iframe.setAttribute('allow', 'fullscreen');
-          iframe.onload = function() { el.classList.add('loaded'); };
-          el.insertBefore(iframe, el.querySelector('.pv-overlay'));
-        }
-        observer.unobserve(el);
-      }
-    });
-  }, { rootMargin: '200px 0px' });
-  embeds.forEach(function(el) { observer.observe(el); });
-})();
 </script>
 <script src="/nav-shared.js"></script>
 </body>

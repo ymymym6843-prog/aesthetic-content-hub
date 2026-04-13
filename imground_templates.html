@@ -602,6 +602,7 @@ main {
   color: var(--text-muted);
   line-height: 1.6;
   margin-bottom: 16px;
+  word-break: keep-all;
 }
 .template-tags {
   display: flex; flex-wrap: wrap; gap: 6px;
@@ -1541,11 +1542,22 @@ function renderSchedulePreview(cat) {
 }
 
 // ═══ RENDER CARD ═══
-// Convert Canva edit URL to embed URL
-function toEmbed(editUrl) {
-  if (!editUrl || editUrl === '#') return '';
-  return editUrl.replace('/edit', '/view?embed');
-}
+// Preview image map
+var PREVIEW_MAP = {
+  '피부관리 쇼츠': '피부관리 쇼츠.png',
+  '마케팅 쇼츠': '마케팅 쇼츠.png',
+  '경영 쇼츠': '경영 쇼츠.png',
+  '제품 쇼츠': '제품 쇼츠.png',
+  '트렌드 쇼츠': '트렌드 쇼츠.png',
+  '피부관리 교육': '피부관리 교육.png',
+  '마케팅 교육': '마케팅 교육.png',
+  '경영 교육': '경영 교육.png',
+  '제품 교육': '제품 교육.png',
+  '트렌드 교육': '트렌드 교육.png',
+  '월간 교육 일정표': '월간 교육 일정표.png',
+  '릴스 커버 템플릿': '릴스 커버 템플릿.png',
+  '교육 안내 카드': '교육 안내 카드.png'
+};
 
 function renderCard(t, type) {
   var aspectClass = 'ar-4-5';
@@ -1559,12 +1571,11 @@ function renderCard(t, type) {
     aspectClass = 'ar-4-5';
   }
 
-  var embedUrl = toEmbed(t.url);
-  if (embedUrl) {
-    previewHtml = '<div class="pv-embed" data-embed-url="' + embedUrl + '">' +
-      '<div class="pv-loading">Loading...</div>' +
-      '<div class="pv-overlay"></div>' +
-    '</div>';
+  var previewImg = PREVIEW_MAP[t.name] || '';
+  if (previewImg) {
+    previewHtml = '<a href="' + t.url + '" target="_blank" rel="noopener" style="display:block;width:100%;height:100%">' +
+      '<img src="/template_previews/' + encodeURIComponent(previewImg) + '" alt="' + t.name + '" style="width:100%;height:100%;object-fit:cover">' +
+    '</a>';
   } else if (type === 'shorts') {
     previewHtml = renderShortsPreview(t.cat);
   } else if (type === 'longform') {
@@ -1686,29 +1697,6 @@ function toggleGuide(id, btn) {
 })();
 
 // ═══ LAZY-LOAD IFRAMES (for future Canva embeds) ═══
-(function() {
-  var embeds = document.querySelectorAll('.pv-embed[data-embed-url]');
-  if (!embeds.length) return;
-
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        var el = entry.target;
-        var url = el.getAttribute('data-embed-url');
-        if (url && !el.querySelector('iframe')) {
-          var iframe = document.createElement('iframe');
-          iframe.src = url;
-          iframe.setAttribute('allow', 'fullscreen');
-          iframe.onload = function() { el.classList.add('loaded'); };
-          el.insertBefore(iframe, el.querySelector('.pv-overlay'));
-        }
-        observer.unobserve(el);
-      }
-    });
-  }, { rootMargin: '200px 0px' });
-
-  embeds.forEach(function(el) { observer.observe(el); });
-})();
 </script>
 <script src="/nav-shared.js"></script>
 </body>
