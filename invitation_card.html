@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IM AESTHETIC 초대장 엽서</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&family=Nanum+Pen+Script&family=East+Sea+Dokdo&family=Noto+Serif+KR:wght@300;400&family=Pretendard:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'MapoFlowerIsland';
+    src: url('public/MapoFlowerIsland.ttf') format('truetype');
+    font-weight: 400;
+    font-display: swap;
+  }
+
+  @page {
+    size: 102mm 152mm;
+    margin: 0;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Pretendard', sans-serif;
+    background: #e8e1d8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    padding: 40px 20px;
+  }
+
+  .label {
+    font-family: 'Playfair Display', serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: #9B8A7A;
+    letter-spacing: 0.2em;
+    margin-bottom: 8px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  /* Card dimensions: 102mm x 152mm */
+  .card {
+    width: 102mm;
+    height: 152mm;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 8px 32px rgba(0,0,0,0.1);
+  }
+
+  @media print {
+    body { background: none; padding: 0; gap: 0; }
+    .label, .controls, .edit-hint { display: none; }
+    .card { box-shadow: none; }
+    .card.print-hide { display: none !important; }
+    .front::before, .front::after { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  }
+
+  /* ==================== FRONT (1P) ==================== */
+  .front {
+    background: #FFF8F0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 14mm 10mm;
+  }
+
+  /* Rose ornaments */
+  .rose-ornament {
+    position: absolute;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.7;
+  }
+  .rose-tr {
+    top: 3mm;
+    right: 3mm;
+    width: 22mm;
+    height: 22mm;
+  }
+  .rose-bl {
+    bottom: 3mm;
+    left: 3mm;
+    width: 22mm;
+    height: 22mm;
+    transform: rotate(180deg);
+  }
+
+  /* Corner lines - only where there are no flowers (top-left, bottom-right) */
+  .front .corner-line {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .front .corner-line svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .corner-line-tl {
+    top: 5mm;
+    left: 5mm;
+    width: 18mm;
+    height: 18mm;
+  }
+  .corner-line-br {
+    bottom: 5mm;
+    right: 5mm;
+    width: 18mm;
+    height: 18mm;
+    transform: rotate(180deg);
+  }
+
+  /* Subtle radial warmth */
+  .front::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 50% 35%, rgba(232,112,58,0.04) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  /* Fine linen texture overlay */
+  .front::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='4' height='4' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1' height='1' fill='%23000' opacity='0.015'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    pointer-events: none;
+  }
+
+
+  .front .logo-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5mm;
+    position: relative;
+    z-index: 3;
+  }
+
+  .front .logo-img {
+    width: 28mm;
+    height: auto;
+  }
+
+  .front .divider-gold {
+    width: 18mm;
+    height: 0;
+    border: none;
+    border-top: 0.6px solid #D4A04A;
+    margin-bottom: 4mm;
+    position: relative;
+    z-index: 3;
+  }
+
+
+  .front .invite-title {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 300;
+    font-size: 24px;
+    color: #3D2E24;
+    letter-spacing: 0.18em;
+    margin-bottom: 4mm;
+    position: relative;
+    z-index: 3;
+  }
+
+  .front .invite-to {
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 500;
+    font-size: 11.5px;
+    color: #E8703A;
+    letter-spacing: 0.06em;
+    margin-bottom: 3.5mm;
+    position: relative;
+    z-index: 3;
+  }
+
+  .front .divider-short {
+    width: 6mm;
+    height: 0;
+    border: none;
+    border-top: 0.5px solid #D4A04A;
+    margin-bottom: 4mm;
+    position: relative;
+    z-index: 3;
+  }
+
+  .front .greeting {
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 1.95;
+    color: #3D2E24;
+    text-align: center;
+    word-break: keep-all;
+    max-width: 70mm;
+    position: relative;
+    z-index: 3;
+  }
+
+  .front .bottom-frame {
+    position: absolute;
+    bottom: 8mm;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5mm;
+    z-index: 3;
+  }
+
+  .front .bottom-frame .location {
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 400;
+    font-size: 8px;
+    color: #9B8A7A;
+    letter-spacing: 0.04em;
+  }
+
+  .front .bottom-frame .instagram {
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 600;
+    font-size: 8px;
+    color: #9B8A7A;
+    letter-spacing: 0.1em;
+  }
+
+  /* ==================== BACK (2P) ==================== */
+  .back {
+    background: #FEFCFA;
+    display: flex;
+    flex-direction: column;
+    padding: 9mm 9mm 7mm;
+  }
+
+  .back .back-header {
+    text-align: center;
+    margin-bottom: 4mm;
+    padding-bottom: 3mm;
+    border-bottom: 0.4px solid #E8DDD0;
+  }
+
+  .back .back-brand {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    font-size: 8px;
+    letter-spacing: 0.25em;
+    color: #C4A882;
+    text-transform: uppercase;
+    margin-bottom: 1.5mm;
+  }
+
+  .back .back-title {
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    color: #3D2E24;
+    letter-spacing: 0.06em;
+  }
+
+  .back .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5mm;
+    margin-bottom: 4mm;
+  }
+
+  .back .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 2.5mm;
+  }
+
+  .back .step-num {
+    flex-shrink: 0;
+    width: 5mm;
+    height: 5mm;
+    border-radius: 50%;
+    background: #E8703A;
+    color: #FFF;
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 700;
+    font-size: 8.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5mm;
+  }
+
+  .back .step-text {
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 1.6;
+    color: #3D2E24;
+    word-break: keep-all;
+    flex: 1;
+  }
+
+  .back .step-text .highlight {
+    color: #E8703A;
+    font-weight: 600;
+  }
+
+  .back .step-text .sub {
+    font-size: 8px;
+    color: #9B8A7A;
+    font-weight: 400;
+  }
+
+  .back .care-section {
+    background: #FFF8F0;
+    border-radius: 2.5mm;
+    padding: 3mm 4mm;
+    margin-bottom: 3.5mm;
+    border: 0.4px solid #F0E6D8;
+  }
+
+  .back .care-row {
+    display: flex;
+    align-items: center;
+    gap: 2mm;
+    margin-bottom: 1.5mm;
+  }
+
+  .back .care-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .back .care-label {
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 600;
+    font-size: 9px;
+    color: #9B8A7A;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+    width: 16mm;
+  }
+
+  .back .care-value {
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 600;
+    font-size: 10.5px;
+    color: #3D2E24;
+  }
+
+  .back .care-value.handwrite {
+    border-bottom: 0.5px solid #D4A04A;
+    min-width: 35mm;
+    height: 4.5mm;
+  }
+
+  .back .qr-section {
+    display: flex;
+    align-items: center;
+    gap: 3mm;
+    margin-top: auto;
+    padding-top: 3mm;
+    border-top: 0.4px solid #E8DDD0;
+  }
+
+  .back .qr-box {
+    width: 17mm;
+    height: 17mm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: #FFF;
+    padding: 0.5mm;
+    border: 0.3px solid #E8DDD0;
+    border-radius: 1mm;
+    overflow: hidden;
+  }
+
+  .back .qr-box img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .back .qr-info {
+    flex: 1;
+  }
+
+  .back .qr-info .qr-guide {
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 600;
+    font-size: 9px;
+    color: #E8703A;
+    margin-bottom: 1mm;
+  }
+
+  .back .qr-info .qr-detail {
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 400;
+    font-size: 8px;
+    color: #9B8A7A;
+    line-height: 1.5;
+  }
+
+  .back .back-footer {
+    text-align: center;
+    margin-top: 2.5mm;
+  }
+
+  .back .back-footer .footer-text {
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 400;
+    font-size: 7.5px;
+    color: #C4A882;
+    letter-spacing: 0.04em;
+  }
+
+  /* ==================== CONTROLS ==================== */
+  .controls {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .controls button {
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-print {
+    background: #E8703A;
+    color: #FFF;
+  }
+  .btn-print:hover { background: #d4612e; }
+
+  .btn-png {
+    background: #3D2E24;
+    color: #FFF;
+  }
+  .btn-png:hover { background: #2a1f18; }
+
+  .btn-edit {
+    background: #F5EDE0;
+    color: #3D2E24;
+  }
+  .btn-edit:hover { background: #ebe3d6; }
+
+  /* Edit mode */
+  .editable[contenteditable="true"] {
+    outline: 1px dashed #D4A04A;
+    outline-offset: 2px;
+    cursor: text;
+  }
+
+  .edit-hint {
+    display: none;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 11px;
+    color: #9B8A7A;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .edit-hint.active { display: block; }
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <button class="btn-print" onclick="printPage('front')">앞면 PDF</button>
+  <button class="btn-print" onclick="printPage('back')">뒷면 PDF</button>
+  <button class="btn-png" onclick="savePNG('front')">앞면 PNG (300dpi)</button>
+  <button class="btn-png" onclick="savePNG('back')">뒷면 PNG (300dpi)</button>
+  <button class="btn-edit" onclick="toggleEdit()">문구 수정</button>
+</div>
+<div class="edit-hint" id="editHint">클릭하여 텍스트를 직접 수정할 수 있습니다. 완료 후 다시 "문구 수정"을 눌러주세요.</div>
+
+<div class="controls">
+  <label style="font-family:Pretendard;font-size:13px;color:#3D2E24;font-weight:600;">장미 스타일: </label>
+  <select id="roseSelect" onchange="changeRose(this.value)" style="font-family:Pretendard;font-size:13px;padding:6px 12px;border:1px solid #D4A04A;border-radius:6px;background:#FFF8F0;color:#3D2E24;">
+    <option value="rose_1">Rose 1 — 단일 장미 (세밀)</option>
+    <option value="rose_2">Rose 2 — 줄기 장미 + 잎</option>
+    <option value="rose_3">Rose 3 — 꽃다발 (좌측 잎)</option>
+    <option value="rose_4">Rose 4 — 꽃다발 (우측 잎)</option>
+    <option value="none">없음</option>
+  </select>
+</div>
+
+<!-- ====== FRONT (1P) ====== -->
+<div class="label">Front</div>
+<div class="card front" id="frontCard">
+  <!-- Corner lines (opposite corners from roses) -->
+  <div class="corner-line corner-line-tl">
+    <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 48V6C2 3.8 3.8 2 6 2H48" stroke="#D4A04A" stroke-width="0.8" stroke-linecap="round" opacity="0.5"/>
+    </svg>
+  </div>
+  <div class="corner-line corner-line-br">
+    <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 48V6C2 3.8 3.8 2 6 2H48" stroke="#D4A04A" stroke-width="0.8" stroke-linecap="round" opacity="0.5"/>
+    </svg>
+  </div>
+
+  <!-- Rose ornaments (inline SVG for html2canvas compatibility) -->
+  <div class="rose-ornament rose-tr" id="roseTR"></div>
+  <div class="rose-ornament rose-bl" id="roseBL"></div>
+
+  <div class="logo-area">
+    <svg class="logo-img" viewBox="0 0 921 841.89" xmlns="http://www.w3.org/2000/svg">
+      <g>
+        <path fill="#3D2E24" d="M107.95,673.31l-7.49,22.68h-9.62l24.6-72.1h11.12l24.6,72.1h-9.95l-7.7-22.68h-25.57ZM131.7,666.04l-7.17-20.75c-1.61-4.7-2.67-8.99-3.75-13.16h-.21c-1.07,4.17-2.14,8.67-3.64,13.04l-7.06,20.86h21.82Z"/>
+        <path fill="#3D2E24" d="M231.05,662.18h-27.91v26h31.23v7.81h-40.64v-72.1h39.04v7.82h-29.63v22.78h27.91v7.7Z"/>
+        <path fill="#3D2E24" d="M277.35,684.65c4.17,2.67,10.16,4.71,16.58,4.71,9.52,0,15.08-5.03,15.08-12.3,0-6.63-3.85-10.59-13.58-14.23-11.77-4.27-19.04-10.48-19.04-20.54,0-11.23,9.3-19.58,23.32-19.58,7.27,0,12.73,1.71,15.83,3.54l-2.57,7.59c-2.25-1.39-7.06-3.42-13.58-3.42-9.84,0-13.58,5.87-13.58,10.8,0,6.74,4.39,10.05,14.33,13.91,12.19,4.71,18.29,10.59,18.29,21.18,0,11.12-8.13,20.84-25.14,20.84-6.95,0-14.54-2.14-18.4-4.71l2.46-7.8Z"/>
+        <path fill="#3D2E24" d="M377.03,631.81h-21.92v-7.92h53.37v7.92h-22.03v64.18h-9.42v-64.18Z"/>
+        <path fill="#3D2E24" d="M457.88,623.89v30.17h34.87v-30.17h9.41v72.1h-9.41v-33.81h-34.87v33.81h-9.41v-72.1h9.41Z"/>
+        <path fill="#3D2E24" d="M587.61,662.18h-27.92v26h31.24v7.81h-40.65v-72.1h39.04v7.82h-29.64v22.78h27.92v7.7Z"/>
+        <path fill="#3D2E24" d="M650.49,631.81h-21.92v-7.92h53.37v7.92h-22.03v64.18h-9.41v-64.18Z"/>
+        <path fill="#3D2E24" d="M731.34,623.89v72.1h-9.41v-72.1h9.41Z"/>
+        <path fill="#3D2E24" d="M829.95,693.74c-3.32,1.71-10.27,3.42-19.04,3.42-20.32,0-35.51-12.83-35.51-36.57s15.29-37.87,37.65-37.87c8.88,0,14.65,1.92,17.11,3.21l-2.35,7.59c-3.42-1.71-8.45-2.99-14.43-2.99-16.9,0-28.14,10.81-28.14,29.74,0,17.75,10.17,28.98,27.59,28.98,5.79,0,11.56-1.18,15.29-2.99l1.83,7.49Z"/>
+      </g>
+      <g>
+        <path fill="#E8703A" d="M236.91,121.14c-13.03,0-23.59,10.57-23.59,23.6s10.56,23.6,23.6,23.6c13.03,0,23.6-10.57,23.6-23.6s-10.57-23.6-23.6-23.6Z"/>
+        <path fill="#E8703A" d="M236.92,195.34c-6.52,0-11.8,3.1-11.8,6.91h0v313.62h23.6V202.25h0c0-3.82-5.29-6.91-11.8-6.91Z"/>
+        <path fill="#E8703A" d="M691,195.33c-6.04,0-12.08,2.3-16.7,6.91l-8.42,8.42c2.08-2.02,4.81-3.02,7.54-3.02s5.45,1.01,7.53,3.02c2.09,2.02,3.13,4.66,3.13,7.29,0,.06-.01.12-.01.18h.01v297.73h23.59V202.25h0c0-3.82-7.47-6.92-16.68-6.92Z"/>
+        <path fill="#E8703A" d="M547.42,345.82h0l-8.34-8.33-16.69-16.69-32.82-32.81-85.72-85.73c-4.61-4.61-10.65-6.91-16.69-6.91-9.22,0-16.69,3.1-16.69,6.91v313.62h23.6V225.85l78.82,78.82,49.5,49.5c2.89,2.89,6.53,5.01,10.6,6.1,1.95.51,3.99.82,6.09.82,6.51,0,12.41-2.64,16.69-6.92l8.41-8.41c-1.69,1.66-4.82,2.78-8.41,2.78s-6.65-1.09-8.35-2.72Z"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="divider-gold"></div>
+
+  <div class="invite-title editable">초대합니다</div>
+
+  <div class="invite-to editable">소중한 분께 드리는 특별한 초대</div>
+
+  <div class="divider-short"></div>
+
+  <div class="greeting editable">바쁜 일상 속 나를 위한 시간,<br>IM에스테틱이 특별한 케어를 준비했습니다.<br>프리미엄 관리를 경험해 보시고<br>아름다운 변화를 느껴보세요.</div>
+
+  <div class="bottom-frame">
+    <div class="location">대구 수성구 범어동 마크팰리스 2층</div>
+    <div class="instagram">@im.aesthetic.official</div>
+  </div>
+</div>
+
+<!-- ====== BACK (2P) ====== -->
+<div class="label">Back</div>
+<div class="card back" id="backCard">
+  <div class="back-header">
+    <div class="back-brand">IM AESTHETIC</div>
+    <div class="back-title editable">초대장 이용 안내</div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text editable">아래 QR 또는 <span class="highlight">수성구 아이엠에스테틱</span>을 검색하여 신규 상담으로 예약해 주세요.<br><span class="sub">(예약금 3만 원이 있습니다)</span></div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text editable">예약 후 보내드리는 앱으로 체질 및 피부 테스트를 진행해 주세요.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text editable">예약 시간에 맞추어 방문하시면 됩니다.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-text editable">케어 후 리뷰를 작성해 주세요.</div>
+    </div>
+  </div>
+
+  <div class="care-section">
+    <div class="care-row">
+      <div class="care-label">받으실 케어</div>
+      <div class="care-value editable">톤업 광채결케어</div>
+    </div>
+    <div class="care-row">
+      <div class="care-label">사용기한</div>
+      <div class="care-value handwrite"></div>
+    </div>
+  </div>
+
+  <div class="qr-section">
+    <div class="qr-box">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 41" shape-rendering="crispEdges" style="width:100%;height:100%;"><path fill="#ffffff" d="M0 0h41v41H0z"/><path stroke="#000000" d="M4 4.5h7m2 0h1m1 0h1m1 0h1m2 0h4m3 0h1m2 0h7M4 5.5h1m5 0h1m2 0h9m3 0h2m3 0h1m5 0h1M4 6.5h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h1m2 0h4m4 0h1m1 0h1m1 0h3m1 0h1M4 7.5h1m1 0h3m1 0h1m1 0h5m1 0h1m1 0h1m3 0h2m1 0h1m2 0h1m1 0h3m1 0h1M4 8.5h1m1 0h3m1 0h1m1 0h1m4 0h1m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m1 0h3m1 0h1M4 9.5h1m5 0h1m1 0h2m2 0h2m1 0h3m2 0h1m1 0h1m1 0h1m1 0h1m5 0h1M4 10.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M12 11.5h1m2 0h2m1 0h2m2 0h1m2 0h1m2 0h1M4 12.5h1m1 0h5m3 0h1m2 0h3m1 0h1m2 0h1m1 0h1m1 0h1m1 0h5M4 13.5h2m1 0h2m6 0h2m3 0h1m1 0h3m2 0h1m2 0h2m1 0h2m1 0h1M5 14.5h3m1 0h2m1 0h2m1 0h1m3 0h2m1 0h1m1 0h1m1 0h1m3 0h1m1 0h1m1 0h1M4 15.5h2m3 0h1m2 0h2m2 0h1m1 0h1m1 0h1m3 0h6m2 0h5M4 16.5h3m2 0h5m2 0h1m5 0h1m3 0h2m1 0h1m1 0h3m1 0h1M7 17.5h1m1 0h1m3 0h4m1 0h3m3 0h3m1 0h3m2 0h1m1 0h2M4 18.5h4m1 0h3m1 0h2m1 0h2m3 0h3m2 0h1m2 0h5m1 0h1M4 19.5h3m1 0h2m4 0h3m3 0h1m2 0h5m1 0h3m2 0h1M4 20.5h2m2 0h1m1 0h3m5 0h1m2 0h1m1 0h1m3 0h3m1 0h3m2 0h1M4 21.5h1m1 0h3m2 0h1m1 0h1m3 0h1m2 0h6m1 0h1m2 0h2m1 0h2m1 0h1M4 22.5h2m2 0h3m1 0h2m2 0h1m2 0h1m1 0h1m8 0h3m1 0h2M5 23.5h1m5 0h3m3 0h1m3 0h5m1 0h1m2 0h5m1 0h1M6 24.5h2m1 0h2m2 0h1m2 0h5m3 0h6m1 0h3m1 0h2M4 25.5h2m2 0h2m1 0h1m1 0h2m1 0h4m1 0h2m3 0h3m1 0h1m3 0h1m1 0h1M4 26.5h1m2 0h1m2 0h1m6 0h5m2 0h1m1 0h1m5 0h4M4 27.5h1m1 0h1m1 0h2m2 0h1m1 0h2m3 0h1m5 0h1m1 0h2m1 0h1m1 0h1m1 0h3M4 28.5h1m2 0h2m1 0h2m1 0h1m2 0h4m1 0h1m2 0h1m1 0h1m1 0h6m2 0h1M12 29.5h4m1 0h1m2 0h1m1 0h3m3 0h1m3 0h1m1 0h1m1 0h1M4 30.5h7m3 0h1m4 0h2m1 0h1m1 0h2m1 0h2m1 0h1m1 0h1m1 0h2M4 31.5h1m5 0h1m1 0h1m1 0h2m4 0h1m4 0h1m1 0h2m3 0h4M4 32.5h1m1 0h3m1 0h1m1 0h2m2 0h1m1 0h1m3 0h1m2 0h1m2 0h6m2 0h1M4 33.5h1m1 0h3m1 0h1m1 0h1m1 0h3m1 0h4m2 0h1m2 0h1m1 0h1m2 0h1m1 0h1m1 0h1M4 34.5h1m1 0h3m1 0h1m1 0h3m1 0h3m4 0h1m2 0h2m2 0h2m1 0h1M4 35.5h1m5 0h1m2 0h2m3 0h1m1 0h1m2 0h3m1 0h1m1 0h1m2 0h1m1 0h1M4 36.5h7m1 0h2m7 0h3m2 0h4m1 0h1m3 0h1"/></svg>
+    </div>
+    <div class="qr-info">
+      <div class="qr-guide">QR을 스캔하여 예약하세요</div>
+      <div class="qr-detail">
+        네이버 &gt; 수성구 아이엠에스테틱<br>
+        신규 상담 예약
+      </div>
+    </div>
+  </div>
+
+  <div class="back-footer">
+    <div class="footer-text">대구 수성구 범어동 마크팰리스 2층 | @im.aesthetic.official</div>
+  </div>
+</div>
+
+<script>
+  function savePNG(side) {
+    const el = side === 'front' ? document.getElementById('frontCard') : document.getElementById('backCard');
+    const scale = 3.13; // 102mm at 96dpi = 386px, 386 * 3.13 ≈ 1205px (300dpi)
+
+    html2canvas(el, {
+      scale: scale,
+      useCORS: true,
+      backgroundColor: null,
+      logging: false
+    }).then(canvas => {
+      const link = document.createElement('a');
+      link.download = side === 'front' ? 'invitation_front_300dpi.png' : 'invitation_back_300dpi.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+  }
+
+  function printPage(side) {
+    const front = document.getElementById('frontCard');
+    const back = document.getElementById('backCard');
+
+    if (side === 'front') {
+      back.classList.add('print-hide');
+      front.classList.remove('print-hide');
+    } else {
+      front.classList.add('print-hide');
+      back.classList.remove('print-hide');
+    }
+
+    setTimeout(() => {
+      window.print();
+      front.classList.remove('print-hide');
+      back.classList.remove('print-hide');
+    }, 100);
+  }
+
+  // SVG cache
+  const svgCache = {};
+
+  async function loadSVG(name) {
+    if (svgCache[name]) return svgCache[name];
+    const res = await fetch('public/' + name + '.svg');
+    const text = await res.text();
+    svgCache[name] = text;
+    return text;
+  }
+
+  async function changeRose(value) {
+    const tr = document.getElementById('roseTR');
+    const bl = document.getElementById('roseBL');
+    if (value === 'none') {
+      tr.style.display = 'none';
+      bl.style.display = 'none';
+    } else {
+      const svgContent = await loadSVG(value);
+      tr.innerHTML = svgContent;
+      bl.innerHTML = svgContent;
+      tr.style.display = 'block';
+      bl.style.display = 'block';
+      // Make SVG fill container
+      [tr, bl].forEach(el => {
+        const svg = el.querySelector('svg');
+        if (svg) {
+          svg.style.width = '100%';
+          svg.style.height = '100%';
+        }
+      });
+    }
+  }
+
+  // Load default rose on page load
+  changeRose('rose_1');
+
+  let editMode = false;
+
+  function toggleEdit() {
+    editMode = !editMode;
+    const editables = document.querySelectorAll('.editable');
+    const hint = document.getElementById('editHint');
+
+    editables.forEach(el => {
+      el.contentEditable = editMode ? 'true' : 'false';
+    });
+
+    hint.classList.toggle('active', editMode);
+  }
+</script>
+</body>
+</html>
