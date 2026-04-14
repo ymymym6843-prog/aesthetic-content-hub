@@ -1,0 +1,2432 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skin MBTI - Canva Production Guide | IM AESTHETIC</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700&family=Noto+Serif+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #E8703A;
+  --cream: #FFF8F0;
+  --warm-beige: #F5EDE0;
+  --warm-bg: #FAF6F1;
+  --gold: #D4A04A;
+  --dark: #3D2E24;
+  --text-muted: #9B8A7A;
+  --border: rgba(232,112,58,0.08);
+  --shadow: 0 4px 24px rgba(26,20,16,0.06);
+  --shadow-hover: 0 16px 48px rgba(26,20,16,0.12);
+  --radius: 20px;
+  --ease: cubic-bezier(0.22, 0.68, 0, 1.2);
+
+  /* Group colors */
+  --os-color: #D4837A;
+  --or-color: #3A5A7C;
+  --ds-color: #E8A7B0;
+  --dr-color: #7A9E7E;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Pretendard', system-ui, sans-serif;
+  background: var(--warm-bg);
+  color: var(--dark);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  word-break: keep-all;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(232,112,58,0.06), transparent 60%),
+    radial-gradient(ellipse 60% 80% at 85% 90%, rgba(232,112,58,0.04), transparent 50%);
+  pointer-events: none;
+}
+
+/* ════════ HEADER ════════ */
+.page-header {
+  background: #FFF8F0;
+  padding: 56px 32px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(232,112,58,0.12);
+}
+.page-header::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(232,112,58,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse at 70% 50%, rgba(232,112,58,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+.page-header::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #E8703A, transparent);
+}
+.page-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px; font-weight: 400;
+  color: #3D2E24;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  position: relative;
+}
+.page-header .subtitle {
+  font-size: 13px; font-weight: 400;
+  color: #9B8A7A;
+  letter-spacing: 3px;
+  margin-top: 8px;
+  position: relative;
+}
+.page-header .kr-sub {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: var(--dark);
+  margin-top: 12px;
+  position: relative;
+}
+.page-header .section-badge {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 6px 20px;
+  background: var(--orange);
+  border-radius: 50px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+/* ════════ MAIN ════════ */
+main {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 40px 32px 80px;
+}
+
+/* ════════ SECTION ════════ */
+.section {
+  margin-bottom: 64px;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.section-num {
+  width: 44px; height: 44px;
+  background: var(--orange);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 18px;
+  box-shadow: 0 4px 16px rgba(232,112,58,0.25);
+  flex-shrink: 0;
+}
+.section-title {
+  font-size: 22px; font-weight: 800;
+  color: var(--dark);
+  letter-spacing: -0.3px;
+}
+.section-desc {
+  font-size: 13px; font-weight: 500;
+  color: var(--text-muted);
+  margin-left: 4px;
+}
+.section-line {
+  flex: 1; height: 1px;
+  background: linear-gradient(90deg, var(--border), transparent 80%);
+}
+
+/* ════════ SECTION 1: BRAND GUIDE ════════ */
+.brand-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.brand-card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(0,0,0,0.03);
+}
+.brand-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+.brand-card .card-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+
+/* Color swatches */
+.swatch-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.swatch-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.02);
+}
+.swatch-chip {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.06);
+  flex-shrink: 0;
+}
+.swatch-info {
+  flex: 1;
+  min-width: 0;
+}
+.swatch-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--dark);
+}
+.swatch-hex {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-family: 'SF Mono', Menlo, monospace;
+  margin-top: 1px;
+}
+.swatch-usage {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Typography samples */
+.type-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.type-row {
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.02);
+  border-left: 3px solid var(--orange);
+}
+.type-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+.type-sample {
+  color: var(--dark);
+}
+.type-sample.hook { font-family: 'Noto Serif KR', serif; font-weight: 300; font-size: 17px; }
+.type-sample.title { font-family: 'Pretendard'; font-weight: 600; font-size: 16px; }
+.type-sample.body { font-family: 'Pretendard'; font-weight: 400; font-size: 14px; }
+.type-sample.en { font-family: 'Pretendard'; font-weight: 700; font-size: 16px; letter-spacing: 0.15em; }
+.type-sample.brand { font-family: 'Playfair Display', serif; font-weight: 400; font-size: 20px; letter-spacing: 4px; }
+
+/* Logo card */
+.logo-block {
+  text-align: center;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  margin-bottom: 16px;
+}
+.logo-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  letter-spacing: 6px;
+  color: var(--dark);
+  margin-bottom: 6px;
+}
+.logo-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+}
+.logo-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.logo-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  background: rgba(0,0,0,0.02);
+  border-radius: 8px;
+  font-size: 12px;
+}
+.logo-meta-row .lbl {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.logo-meta-row .val {
+  color: var(--dark);
+  font-weight: 600;
+}
+
+/* ════════ SECTION 2: CARD NEWS 3-SLIDE ════════ */
+.slide-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.slide-item {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.slide-mockup {
+  aspect-ratio: 4 / 5;
+  background: var(--cream);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.03);
+}
+.slide-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: 2px;
+}
+.slide-note {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.slide-note strong { color: var(--orange); font-weight: 700; }
+
+/* Mockup: slide 1 - cover (neutral background for character clarity) */
+.mk-cover {
+  background: var(--cream);
+}
+.mk-cover .mk-logo {
+  position: absolute;
+  top: 14px; left: 14px;
+  font-family: 'Playfair Display', serif;
+  font-size: 10px;
+  color: var(--dark);
+  letter-spacing: 3px;
+  z-index: 2;
+}
+.mk-cover .mk-badge {
+  position: absolute;
+  top: 12px; right: 12px;
+  padding: 3px 10px;
+  background: var(--orange);
+  border-radius: 50px;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  z-index: 2;
+}
+.mk-cover .mk-play {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -65%);
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: rgba(232,112,58,0.15);
+  border: 2px solid var(--orange);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  color: var(--orange);
+}
+.mk-cover .mk-play-lbl {
+  position: absolute;
+  top: 62%; left: 0; right: 0;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+.mk-cover .mk-overlay {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 40px 16px 16px;
+  background: linear-gradient(180deg, transparent, rgba(255,248,240,0.95) 60%);
+}
+.mk-cover .mk-char {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+.mk-cover .mk-nick {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+/* Mockup: slide 2 - dos/donts */
+.mk-do {
+  background: var(--cream);
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+}
+.mk-do .mk-brand-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(232,112,58,0.15);
+}
+.mk-do .mk-brand-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 8px;
+  letter-spacing: 2.5px;
+  color: var(--dark);
+}
+.mk-do .mk-brand-account {
+  font-size: 7px;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+}
+.mk-do .mk-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.mk-do .mk-quote {
+  position: relative;
+  padding: 10px 10px 10px 18px;
+  margin-bottom: 10px;
+  background: var(--warm-beige);
+  border-left: 2px solid var(--orange);
+  border-radius: 4px;
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 300;
+  font-size: 8.5px;
+  line-height: 1.55;
+  color: var(--dark);
+  letter-spacing: -0.2px;
+}
+.mk-do .mk-quote::before {
+  content: '"';
+  position: absolute;
+  top: -2px; left: 6px;
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  color: var(--orange);
+  line-height: 1;
+}
+.mk-do .mk-traits {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(232,112,58,0.12);
+  border-radius: 6px;
+}
+.mk-do .mk-trait-item {
+  font-size: 7px;
+  line-height: 1.4;
+  color: var(--dark);
+  display: flex;
+  gap: 4px;
+  align-items: flex-start;
+}
+.mk-do .mk-trait-dot {
+  color: var(--gold);
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.mk-do .mk-head-badge {
+  padding: 2px 8px;
+  background: var(--orange);
+  color: #fff;
+  border-radius: 50px;
+  font-size: 8px;
+  font-weight: 800;
+}
+.mk-do .mk-head-name {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--dark);
+}
+.mk-do .mk-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  flex: 1;
+}
+.mk-do .mk-col {
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.mk-do .mk-col.good { background: #E8F5E9; }
+.mk-do .mk-col.bad { background: #FFEBEE; }
+.mk-do .mk-col-title {
+  font-size: 9px;
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+.mk-do .mk-col.good .mk-col-title { color: #2E7D32; }
+.mk-do .mk-col.bad .mk-col-title { color: #C62828; }
+.mk-do .mk-item {
+  font-size: 7px;
+  color: var(--dark);
+  display: flex;
+  gap: 3px;
+  align-items: flex-start;
+  line-height: 1.3;
+}
+.mk-do .mk-mark-ok { color: #2E7D32; font-weight: 800; }
+.mk-do .mk-mark-no { color: #C62828; font-weight: 800; }
+.mk-do .mk-footer {
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 7px;
+  letter-spacing: 2px;
+  color: var(--orange);
+}
+
+/* Mockup: slide 3 - energy + fragrance */
+.mk-energy {
+  background: var(--cream);
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+}
+.mk-energy .mk-brand-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(232,112,58,0.15);
+}
+.mk-energy .mk-brand-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 8px;
+  letter-spacing: 2.5px;
+  color: var(--dark);
+}
+.mk-energy .mk-brand-badge {
+  padding: 2px 8px;
+  background: var(--orange);
+  color: #fff;
+  border-radius: 50px;
+  font-size: 8px;
+  font-weight: 800;
+}
+.mk-energy .mk-e-title {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 300;
+  font-size: 12px;
+  color: var(--dark);
+  text-align: center;
+  margin-bottom: 8px;
+}
+.mk-energy .mk-chart {
+  flex: 0 0 55%;
+  border: 1.5px dashed rgba(232,112,58,0.4);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--text-muted);
+  font-size: 8px;
+  text-align: center;
+  padding: 6px;
+}
+.mk-energy .mk-tri {
+  width: 0; height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 14px solid rgba(232,112,58,0.3);
+}
+.mk-energy .mk-divider {
+  height: 1px;
+  background: var(--gold);
+  margin: 8px 0;
+}
+.mk-energy .mk-fr-title {
+  font-size: 9px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 4px;
+}
+.mk-energy .mk-fr-name {
+  font-family: 'Pretendard';
+  font-weight: 600;
+  font-size: 11px;
+  color: var(--dark);
+  text-align: center;
+  margin-bottom: 4px;
+}
+.mk-energy .mk-fr-desc {
+  font-size: 7.5px;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.5;
+  font-style: italic;
+}
+.mk-energy .mk-footer {
+  margin-top: auto;
+  padding-top: 6px;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 7px;
+  letter-spacing: 2px;
+  color: var(--orange);
+}
+
+/* Callout badges on mockups */
+.mk-callout {
+  position: absolute;
+  width: 20px; height: 20px;
+  background: var(--gold);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  z-index: 3;
+}
+
+/* ════════ SECTION 3: FRAME TEMPLATES ════════ */
+.frame-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.frame-card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(0,0,0,0.03);
+}
+.frame-mockup {
+  --mockup-bg: var(--cream);
+  aspect-ratio: 4 / 5;
+  background: var(--mockup-bg);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 14px;
+  border: 1px solid rgba(0,0,0,0.04);
+  position: relative;
+}
+/* 4-tier cream→beige background system */
+.frame-mockup.bg-a { --mockup-bg: #FFF8F0; } /* Cream */
+.frame-mockup.bg-b { --mockup-bg: #F5EDE0; } /* Warm Beige */
+.frame-mockup.bg-c { --mockup-bg: #FAEDE0; } /* Blush Cream */
+.frame-mockup.bg-d { --mockup-bg: #EEE5D5; } /* Mist Beige */
+.frame-mockup .frame-top,
+.frame-mockup .frame-body,
+.frame-mockup .frame-bottom { background: var(--mockup-bg); }
+/* L-bracket gold corners (fixed B-frame) */
+.frame-mockup::before,
+.frame-mockup::after,
+.frame-body::before,
+.frame-body::after {
+  content: '';
+  position: absolute;
+  width: 18px; height: 18px;
+  border: 1.5px solid var(--gold);
+  z-index: 3;
+  pointer-events: none;
+}
+.frame-mockup::before { top: 56px; left: 16px; border-right: 0; border-bottom: 0; }
+.frame-mockup::after  { top: 56px; right: 16px; border-left: 0; border-bottom: 0; }
+.frame-body::before   { bottom: 16px; left: 16px; border-right: 0; border-top: 0; }
+.frame-body::after    { bottom: 16px; right: 16px; border-left: 0; border-top: 0; }
+
+.frame-top {
+  background: var(--cream);
+  padding: 12px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(212,160,74,0.25);
+  position: relative;
+  z-index: 2;
+}
+.frame-top-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 11px;
+  letter-spacing: 3.5px;
+  color: var(--dark);
+  font-weight: 500;
+}
+.frame-top-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--orange);
+  font-weight: 600;
+}
+.frame-session {
+  font-family: 'Playfair Display', serif;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--gold);
+}
+.frame-body {
+  flex: 1;
+  padding: 28px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--cream);
+  position: relative;
+  gap: 14px;
+}
+.frame-icon {
+  width: 64px; height: 64px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold);
+  position: relative;
+  margin-bottom: 4px;
+}
+.frame-icon::before,
+.frame-icon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 28px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
+  opacity: 0.6;
+}
+.frame-icon::before { right: 100%; margin-right: 8px; }
+.frame-icon::after { left: 100%; margin-left: 8px; }
+.frame-icon svg { width: 100%; height: 100%; display: block; }
+.frame-hook {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 300;
+  font-size: 12px;
+  color: var(--dark);
+  text-align: center;
+  line-height: 1.65;
+  letter-spacing: -0.3px;
+  max-width: 80%;
+}
+.frame-hook em {
+  font-style: normal;
+  color: var(--orange);
+}
+.frame-placeholder {
+  width: 100%;
+  flex: 1;
+  border: 1.5px dashed rgba(232,112,58,0.3);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 11px;
+  text-align: center;
+  background: rgba(255,255,255,0.35);
+  padding: 20px;
+  font-weight: 500;
+}
+.frame-bottom {
+  background: var(--cream);
+  padding: 10px 18px 12px;
+  text-align: center;
+  border-top: 1px solid rgba(212,160,74,0.25);
+  position: relative;
+  z-index: 2;
+}
+.frame-tagline {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 300;
+  font-size: 10px;
+  color: var(--dark);
+  letter-spacing: 0.5px;
+  margin-bottom: 3px;
+}
+.frame-account {
+  font-family: 'Playfair Display', serif;
+  font-size: 8px;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+}
+.frame-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+.frame-note {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Canva search hint inside mockup */
+.frame-canva-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #fff;
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  font-size: 10px;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 1.5px;
+  color: var(--dark);
+  box-shadow: 0 2px 6px rgba(212,160,74,0.12);
+}
+.frame-canva-search .canva-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--orange);
+}
+
+/* Recipe card below mockup */
+.frame-recipe {
+  margin-top: 14px;
+  padding: 14px;
+  background: var(--warm-beige);
+  border-radius: 10px;
+  border: 1px solid rgba(212,160,74,0.25);
+}
+.frame-recipe-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  color: var(--gold);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.frame-recipe-title::before {
+  content: '';
+  width: 14px; height: 1px;
+  background: var(--gold);
+}
+.recipe-step {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 8px;
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--dark);
+}
+.recipe-step:last-child { border-bottom: 0; }
+.recipe-step-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 11px;
+  color: var(--orange);
+  font-weight: 600;
+  padding-top: 1px;
+}
+.recipe-step-body strong { color: var(--dark); font-weight: 700; }
+.recipe-keyword {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  padding: 5px 10px;
+  background: #fff;
+  border: 1px dashed rgba(232,112,58,0.4);
+  border-radius: 6px;
+  font-family: 'Consolas', monospace;
+  font-size: 11px;
+  color: var(--orange);
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: all;
+}
+.recipe-keyword:hover {
+  background: var(--cream);
+  border-color: var(--orange);
+}
+.recipe-keyword::before {
+  content: '🔍';
+  font-size: 10px;
+}
+.recipe-color-chip {
+  display: inline-block;
+  width: 12px; height: 12px;
+  border-radius: 3px;
+  border: 1px solid rgba(0,0,0,0.1);
+  vertical-align: middle;
+  margin: 0 2px;
+}
+
+/* Gold accents per template */
+.frame-accent {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  min-height: 32px;
+  margin: 4px 0 2px;
+}
+.acc-a { gap: 10px; }
+.acc-a span {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold);
+}
+.acc-a span:nth-child(2) {
+  width: 8px; height: 8px;
+  background: transparent;
+  border: 1px solid var(--gold);
+}
+.acc-b {
+  flex-direction: column;
+  gap: 4px;
+}
+.acc-b::before {
+  content: '';
+  width: 1.5px; height: 32px;
+  background: var(--gold);
+}
+.acc-b::after {
+  content: '';
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.acc-c::after {
+  content: '';
+  width: 22px; height: 22px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 3px var(--mockup-bg), inset 0 0 0 4px var(--gold);
+}
+.acc-d {
+  gap: 8px;
+}
+.acc-d::before,
+.acc-d::after {
+  content: '';
+  display: block;
+  width: 36px; height: 1.5px;
+  background: var(--gold);
+}
+.acc-d span {
+  width: 5px; height: 5px;
+  background: var(--gold);
+  transform: rotate(45deg);
+}
+
+/* Swatch preview in recipe header */
+.bg-swatch {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.08);
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
+/* ════════ SECTION 4: 16-TYPE DATA ════════ */
+.filter-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+.filter-tab {
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: rgba(0,0,0,0.03);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s;
+  user-select: none;
+}
+.filter-tab:hover {
+  background: rgba(232,112,58,0.06);
+  color: var(--dark);
+}
+.filter-tab.active {
+  background: var(--orange);
+  color: #fff;
+  border-color: var(--orange);
+  box-shadow: 0 2px 8px rgba(232,112,58,0.3);
+}
+
+.type-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.type-card {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(0,0,0,0.03);
+  overflow: hidden;
+  transition: all 0.3s;
+}
+.type-card.hidden { display: none; }
+.type-card[data-group="OS"] { border-top: 3px solid var(--os-color); }
+.type-card[data-group="OR"] { border-top: 3px solid var(--or-color); }
+.type-card[data-group="DS"] { border-top: 3px solid var(--ds-color); }
+.type-card[data-group="DR"] { border-top: 3px solid var(--dr-color); }
+
+.type-head {
+  padding: 18px 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  transition: background 0.2s;
+}
+.type-head:hover { background: rgba(232,112,58,0.03); }
+
+.type-code {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  color: #fff;
+  letter-spacing: 1px;
+}
+.type-card[data-group="OS"] .type-code { background: var(--os-color); }
+.type-card[data-group="OR"] .type-code { background: var(--or-color); }
+.type-card[data-group="DS"] .type-code { background: var(--ds-color); }
+.type-card[data-group="DR"] .type-code { background: var(--dr-color); }
+
+.type-char {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--dark);
+}
+.type-cat {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.type-fragrance {
+  padding: 3px 10px;
+  background: rgba(212,160,74,0.15);
+  color: #A88438;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-left: auto;
+}
+.type-toggle {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--dark);
+  transition: transform 0.3s;
+}
+.type-card.open .type-toggle { transform: rotate(180deg); }
+
+.type-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+.type-card.open .type-body { max-height: 2000px; }
+.type-body-inner {
+  padding: 0 22px 22px;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  padding-top: 16px;
+}
+
+.type-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.type-kw {
+  padding: 3px 10px;
+  background: rgba(232,112,58,0.08);
+  color: var(--orange);
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.type-master {
+  padding: 12px 14px;
+  background: var(--cream);
+  border-left: 3px solid var(--gold);
+  border-radius: 6px;
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 300;
+  font-size: 13px;
+  color: var(--dark);
+  line-height: 1.7;
+  font-style: italic;
+  margin-bottom: 14px;
+  position: relative;
+  padding-right: 50px;
+}
+
+.type-traits {
+  padding: 12px 14px;
+  background: rgba(212,160,74,0.06);
+  border: 1px solid rgba(212,160,74,0.2);
+  border-radius: 10px;
+  margin-bottom: 14px;
+  position: relative;
+  padding-right: 50px;
+}
+.type-traits h5 {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.type-traits ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.type-traits li {
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--dark);
+  padding-left: 16px;
+  position: relative;
+}
+.type-traits li::before {
+  content: '◆';
+  position: absolute;
+  left: 0; top: 1px;
+  color: var(--gold);
+  font-size: 9px;
+}
+
+.type-list-block {
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  position: relative;
+  padding-right: 50px;
+}
+.type-list-block.good { background: #F1F8E9; }
+.type-list-block.bad { background: #FCE4EC; }
+.type-list-block h5 {
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+.type-list-block.good h5 { color: #2E7D32; }
+.type-list-block.bad h5 { color: #C62828; }
+.type-list-block ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.type-list-block li {
+  font-size: 12px;
+  color: var(--dark);
+  line-height: 1.5;
+  padding-left: 14px;
+  position: relative;
+}
+.type-list-block.good li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #2E7D32;
+  font-weight: 800;
+}
+.type-list-block.bad li::before {
+  content: '✗';
+  position: absolute;
+  left: 0;
+  color: #C62828;
+  font-weight: 800;
+}
+
+.type-fragrance-detail {
+  padding: 12px 14px;
+  background: rgba(212,160,74,0.08);
+  border-left: 3px solid var(--gold);
+  border-radius: 6px;
+  font-size: 12px;
+  color: var(--dark);
+  line-height: 1.6;
+  position: relative;
+  padding-right: 50px;
+}
+.type-fragrance-detail strong {
+  display: block;
+  color: #A88438;
+  font-weight: 700;
+  margin-bottom: 4px;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 10px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 50px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.copy-btn:hover {
+  background: var(--orange);
+  color: #fff;
+  border-color: var(--orange);
+}
+
+/* ════════ SECTION 5: PRODUCTION GUIDE ════════ */
+.guide-block {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(0,0,0,0.03);
+  margin-bottom: 20px;
+}
+.guide-block h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 16px;
+  letter-spacing: 1px;
+}
+.steps {
+  list-style: none;
+  counter-reset: step;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.steps li {
+  counter-increment: step;
+  padding: 14px 16px 14px 52px;
+  background: var(--cream);
+  border-radius: 10px;
+  position: relative;
+  font-size: 13px;
+  color: var(--dark);
+  line-height: 1.6;
+}
+.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 26px; height: 26px;
+  background: var(--orange);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 12px;
+}
+.steps code {
+  background: rgba(232,112,58,0.1);
+  color: var(--orange);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: 'SF Mono', Menlo, monospace;
+  font-size: 12px;
+}
+
+/* Video crop diagram */
+.crop-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+.crop-box {
+  border: 2px solid var(--text-muted);
+  border-radius: 8px;
+  position: relative;
+  background: linear-gradient(135deg, #F5EDE0, #FFF8F0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.crop-9-16 {
+  width: 80px;
+  height: 142px;
+}
+.crop-9-16 .crop-focus {
+  position: absolute;
+  top: 50%; left: 0; right: 0;
+  transform: translateY(-50%);
+  height: 100px;
+  border: 2px solid var(--orange);
+  border-radius: 6px;
+  background: rgba(232,112,58,0.08);
+}
+.crop-4-5 {
+  width: 112px;
+  height: 140px;
+  border: 2px solid var(--orange);
+}
+.crop-arrow {
+  font-size: 24px;
+  color: var(--orange);
+}
+.crop-note {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* Font mapping table */
+.font-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.font-table th, .font-table td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.font-table th {
+  background: var(--cream);
+  color: var(--dark);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+.font-table td {
+  color: var(--dark);
+}
+.font-table tr:last-child td { border-bottom: none; }
+.font-table code {
+  background: rgba(232,112,58,0.08);
+  color: var(--orange);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+/* App URL */
+.app-url-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 22px;
+  background: linear-gradient(135deg, var(--cream), var(--warm-beige));
+  border-radius: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.app-url-box .lbl {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.app-url-box a {
+  color: var(--orange);
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 14px;
+}
+.app-url-box a:hover { text-decoration: underline; }
+
+/* Scroll to top */
+.scroll-top {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(232,112,58,0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+  z-index: 100;
+}
+.scroll-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.scroll-top:hover {
+  transform: translateY(-3px);
+  background: var(--dark);
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-120%);
+  padding: 12px 24px;
+  background: var(--dark);
+  color: #fff;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  z-index: 200;
+  transition: transform 0.4s var(--ease);
+}
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ════════ RESPONSIVE ════════ */
+@media (max-width: 960px) {
+  .brand-grid { grid-template-columns: 1fr; }
+  .slide-row { grid-template-columns: 1fr; }
+  .type-grid { grid-template-columns: 1fr; }
+  .frame-grid { grid-template-columns: 1fr; }
+  .page-header h1 { font-size: 28px; letter-spacing: 4px; }
+}
+@media (max-width: 540px) {
+  main { padding: 24px 16px 60px; }
+  .page-header { padding: 40px 20px 32px; }
+  .guide-block { padding: 24px 18px; }
+  .brand-card { padding: 22px; }
+  .section-title { font-size: 18px; }
+}
+
+/* ════════ PRINT ════════ */
+@media print {
+  body { background: #fff; }
+  body::before { display: none; }
+  .scroll-top, .copy-btn, .filter-tabs, .type-toggle { display: none !important; }
+  .type-card .type-body { max-height: none !important; }
+  .type-card { break-inside: avoid; page-break-inside: avoid; }
+  .section { page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <h1>SKIN MBTI</h1>
+  <div class="subtitle">CANVA PRODUCTION GUIDE</div>
+  <div class="kr-sub">당신의 피부가 말하는 이야기</div>
+  <div class="section-badge">IM AESTHETIC · 16 TYPES</div>
+</header>
+
+<main>
+
+<!-- ═════════ SECTION 1: BRAND GUIDE ═════════ -->
+<section class="section" id="section-1">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <div>
+      <div class="section-title">Brand Guide</div>
+      <div class="section-desc">색상 · 타이포그래피 · 로고</div>
+    </div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="brand-grid">
+    <!-- Color Palette -->
+    <div class="brand-card">
+      <h3>COLOR PALETTE</h3>
+      <div class="card-sub">6-Color System</div>
+      <div class="swatch-list">
+        <div class="swatch-row">
+          <div class="swatch-chip" style="background:#E8703A"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Brand Orange</div>
+            <div class="swatch-hex">#E8703A</div>
+            <div class="swatch-usage">CTA, 포인트 (15~25%)</div>
+          </div>
+        </div>
+        <div class="swatch-row">
+          <div class="swatch-chip" style="background:#FFF8F0"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Cream</div>
+            <div class="swatch-hex">#FFF8F0</div>
+            <div class="swatch-usage">기본 배경</div>
+          </div>
+        </div>
+        <div class="swatch-row">
+          <div class="swatch-chip" style="background:#F5EDE0"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Warm Beige</div>
+            <div class="swatch-hex">#F5EDE0</div>
+            <div class="swatch-usage">구분 영역, 서브 배경</div>
+          </div>
+        </div>
+        <div class="swatch-row">
+          <div class="swatch-chip" style="background:#D4A04A"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Gold Accent</div>
+            <div class="swatch-hex">#D4A04A</div>
+            <div class="swatch-usage">배지, 장식선 (오렌지 인접 금지)</div>
+          </div>
+        </div>
+        <div class="swatch-row">
+          <div class="swatch-chip" style="background:#3D2E24"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Body Text</div>
+            <div class="swatch-hex">#3D2E24</div>
+            <div class="swatch-usage">제목, 본문</div>
+          </div>
+        </div>
+        <div class="swatch-row">
+          <div class="swatch-chip" style="background:#9B8A7A"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Sub Text</div>
+            <div class="swatch-hex">#9B8A7A</div>
+            <div class="swatch-usage">캡션, 보조 정보</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Typography -->
+    <div class="brand-card">
+      <h3>TYPOGRAPHY</h3>
+      <div class="card-sub">Elegant-Clear System</div>
+      <div class="type-list">
+        <div class="type-row">
+          <div class="type-label">훅 제목 · Noto Serif KR 300</div>
+          <div class="type-sample hook">당신의 피부가 말하는 이야기</div>
+        </div>
+        <div class="type-row">
+          <div class="type-label">콘텐츠 제목 · Pretendard 600</div>
+          <div class="type-sample title">3인 케어 시스템</div>
+        </div>
+        <div class="type-row">
+          <div class="type-label">본문 · Pretendard 400</div>
+          <div class="type-sample body">피부 유형에 맞는 맞춤 관리</div>
+        </div>
+        <div class="type-row">
+          <div class="type-label">EN 레이블 · Pretendard 700, 0.15em</div>
+          <div class="type-sample en">SKIN CARE</div>
+        </div>
+        <div class="type-row">
+          <div class="type-label">브랜드 · Playfair Display 400</div>
+          <div class="type-sample brand">IM AESTHETIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Logo & Account -->
+    <div class="brand-card">
+      <h3>LOGO &amp; ACCOUNT</h3>
+      <div class="card-sub">Brand Identity</div>
+      <div class="logo-block">
+        <div class="logo-brand">IM AESTHETIC</div>
+        <div class="logo-sub">AESTHETIC CLINIC</div>
+      </div>
+      <div class="logo-meta">
+        <div class="logo-meta-row">
+          <span class="lbl">ACCOUNT</span>
+          <span class="val">@im.aesthetic.official</span>
+        </div>
+        <div class="logo-meta-row">
+          <span class="lbl">LOCATION</span>
+          <span class="val">Daegu · Beomeo-dong</span>
+        </div>
+        <div class="logo-meta-row">
+          <span class="lbl">LOGO FILE</span>
+          <span class="val">logo-orange.svg</span>
+        </div>
+        <div class="logo-meta-row">
+          <span class="lbl">POSITIONING</span>
+          <span class="val">웨딩케어 전문</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ SECTION 2: CARD NEWS 3-SLIDE ═════════ -->
+<section class="section" id="section-2">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <div>
+      <div class="section-title">카드뉴스 캐러셀 시안</div>
+      <div class="section-desc">3-Slide Layout · 1080 × 1350 (4:5)</div>
+    </div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="slide-row">
+    <!-- Slide 1: Cover -->
+    <div class="slide-item">
+      <div class="slide-mockup mk-cover">
+        <div class="mk-logo">IM AESTHETIC</div>
+        <div class="mk-badge">DSNT</div>
+        <div class="mk-play">▶</div>
+        <div class="mk-play-lbl">캐릭터 MP4 영상</div>
+        <div class="mk-overlay">
+          <div class="mk-char">두부 Tofu</div>
+          <div class="mk-nick">#유리피부</div>
+        </div>
+        <div class="mk-callout" style="top:30%;left:8px;">1</div>
+        <div class="mk-callout" style="top:82%;left:8px;">2</div>
+      </div>
+      <div>
+        <div class="slide-title">Slide 1 — 커버 (캐릭터 영상)</div>
+        <div class="slide-note">
+          <strong>①</strong> Canva에서 <strong>프레임(Frames)</strong> 요소로 영상 영역 지정 →
+          9:16 MP4를 프레임에 드래그 드롭하면 자동 마스킹. 더블클릭하여 위치·확대 조절.
+          <strong>②</strong> 캐릭터명 + 닉네임 하단 오버레이 (프레임 위에 텍스트 레이어).
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2: Do's / Don'ts -->
+    <div class="slide-item">
+      <div class="slide-mockup mk-do">
+        <div class="mk-brand-bar">
+          <div class="mk-brand-logo">IM AESTHETIC</div>
+          <div class="mk-brand-account">@im.aesthetic.official</div>
+        </div>
+        <div class="mk-head">
+          <div class="mk-head-badge">DSNT</div>
+          <div class="mk-head-name">두부 Tofu</div>
+        </div>
+        <div class="mk-quote">
+          겉은 촉촉해 보이는데 속은 건조하죠? 깊은 수분을 채워줘야 피부가 진짜 생기를 되찾아요.
+        </div>
+        <div class="mk-traits">
+          <div class="mk-trait-item"><span class="mk-trait-dot">◆</span>겉보기 맑고 깨끗하나 만져보면 종잇장처럼 얇음</div>
+          <div class="mk-trait-item"><span class="mk-trait-dot">◆</span>화장품 바꾸면 쉽게 따갑고 가려움</div>
+          <div class="mk-trait-item"><span class="mk-trait-dot">◆</span>피부 장벽 손상의 전형적인 타입</div>
+          <div class="mk-trait-item"><span class="mk-trait-dot">◆</span>탄력은 좋으므로 장벽 재건만으로 빠르게 호전</div>
+        </div>
+        <div class="mk-cols">
+          <div class="mk-col good">
+            <div class="mk-col-title">Do's ✓</div>
+            <div class="mk-item"><span class="mk-mark-ok">✓</span>순한 보습제 꾸준히</div>
+            <div class="mk-item"><span class="mk-mark-ok">✓</span>진정 성분 제품</div>
+            <div class="mk-item"><span class="mk-mark-ok">✓</span>미온수 세안</div>
+            <div class="mk-item"><span class="mk-mark-ok">✓</span>자외선 차단제</div>
+          </div>
+          <div class="mk-col bad">
+            <div class="mk-col-title">Don'ts ✗</div>
+            <div class="mk-item"><span class="mk-mark-no">✗</span>자극적인 성분 제품</div>
+            <div class="mk-item"><span class="mk-mark-no">✗</span>뜨거운 물 세안</div>
+            <div class="mk-item"><span class="mk-mark-no">✗</span>때수건으로 문지르기</div>
+            <div class="mk-item"><span class="mk-mark-no">✗</span>과도한 스킨케어 단계</div>
+          </div>
+        </div>
+        <div class="mk-footer">IM AESTHETIC · @im.aesthetic.official</div>
+        <div class="mk-callout" style="top:6%;right:8px;">3</div>
+      </div>
+      <div>
+        <div class="slide-title">Slide 2 — Do's &amp; Don'ts</div>
+        <div class="slide-note">
+          <strong>③</strong> 상단에 <strong>마스터의 한마디</strong> 인용구 배치 (아유르베다 관점 감성 멘트).
+          <strong>④</strong> Do's/Don'ts 4개씩 초록/빨강 배경으로 대비.
+          본문 데이터는 <strong>4번 섹션</strong>에서 복사.
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: Energy + Fragrance -->
+    <div class="slide-item">
+      <div class="slide-mockup mk-energy">
+        <div class="mk-brand-bar">
+          <div class="mk-brand-logo">IM AESTHETIC</div>
+          <div class="mk-brand-badge">DSNT</div>
+        </div>
+        <div class="mk-e-title">나의 에너지 체질</div>
+        <div class="mk-chart">
+          <div class="mk-tri"></div>
+          <div>아유르베다 삼각형<br>차트 캡처를 여기에</div>
+        </div>
+        <div class="mk-divider"></div>
+        <div class="mk-fr-title">당신의 에너지에 행운을 더하는 향기</div>
+        <div class="mk-fr-name">카모마일 Chamomile</div>
+        <div class="mk-fr-desc">카모마일 향은 정체된 피부에 부드러운 위로를 건네...</div>
+        <div class="mk-footer">IM AESTHETIC · @im.aesthetic.official</div>
+        <div class="mk-callout" style="top:18%;right:8px;">4</div>
+        <div class="mk-callout" style="top:62%;right:8px;">5</div>
+      </div>
+      <div>
+        <div class="slide-title">Slide 3 — 에너지 체질 + 향기</div>
+        <div class="slide-note">
+          <strong>④</strong> 앱 화면 캡처 후 삽입.
+          <strong>⑤</strong> 향기 텍스트는 타입별 데이터 참조.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ SECTION 3: FRAME TEMPLATES ═════════ -->
+<section class="section" id="section-3">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <div>
+      <div class="section-title">프레임 템플릿 4종</div>
+      <div class="section-desc">사진 프레임 템플릿 · 1080 × 1350 (4:5)</div>
+    </div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="frame-grid">
+    <!-- Template A — Skin MBTI App -->
+    <div class="frame-card">
+      <div class="frame-mockup bg-a">
+        <div class="frame-top">
+          <div class="frame-top-label">SKIN MBTI</div>
+          <div class="frame-session">NO. 01</div>
+        </div>
+        <div class="frame-body">
+          <div class="frame-accent acc-a" aria-hidden="true"><span></span><span></span><span></span></div>
+          <div class="frame-hook">당신의 피부가<br>말하는 <em>16가지</em> 이야기</div>
+          <div class="frame-placeholder">앱 진단 결과 화면<br>(1080×1920 스크린샷)</div>
+        </div>
+        <div class="frame-bottom">
+          <div class="frame-tagline">당신의 피부가 말하는 이야기</div>
+          <div class="frame-account">@ IM.AESTHETIC.OFFICIAL</div>
+        </div>
+      </div>
+      <div class="frame-title">Template A — 스킨 MBTI 앱 진단</div>
+      <div class="frame-recipe">
+        <div class="frame-recipe-title">CANVA 레시피 · 배경 <code>#FFF8F0</code><span class="bg-swatch" style="background:#FFF8F0;"></span></div>
+        <div class="recipe-step">
+          <div class="recipe-step-num">01</div>
+          <div class="recipe-step-body">
+            <strong>에셋 검색</strong> · Canva Elements 탭<br>
+            <span class="recipe-keyword" onclick="navigator.clipboard.writeText(this.textContent.trim())">art deco circle frame gold</span>
+            <span class="recipe-keyword" onclick="navigator.clipboard.writeText(this.textContent.trim())">mandala line gold</span>
+          </div>
+        </div>
+        <div class="recipe-step">
+          <div class="recipe-step-num">02</div>
+          <div class="recipe-step-body"><strong>권장 타입</strong> · 원형 메달 + 내부 4분할 장식 (MBTI 4축 은유). Pro 아이콘보다 Free "Line art" 필터 추천.</div>
+        </div>
+        <div class="recipe-step">
+          <div class="recipe-step-num">03</div>
+          <div class="recipe-step-body"><strong>색 교체</strong> · 요소 선택 → 색상 팔레트 → <span class="recipe-color-chip" style="background:#D4A04A;"></span><code>#D4A04A</code> 골드 단색.</div>
+        </div>
+        <div class="recipe-step">
+          <div class="recipe-step-num">04</div>
+          <div class="recipe-step-body"><strong>오버레이</strong> · L-bracket 프레임 + 상단 바 + 하단 태그라인은 섹션 5 <strong>프리셋 SVG</strong>로 덮어쓰기.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Template B — X-Body Analysis -->
+    <div class="frame-card">
+      <div class="frame-mockup bg-b">
+        <div class="frame-top">
+          <div class="frame-top-label">X &middot; BODY</div>
+          <div class="frame-session">NO. 02</div>
+        </div>
+        <div class="frame-body">
+          <div class="frame-accent acc-b" aria-hidden="true"></div>
+          <div class="frame-hook">몸의 균형이<br><em>피부의 흐름</em>을 만듭니다</div>
+          <div class="frame-placeholder">엑스바디 결과지 촬영<br>(개인정보 모자이크)</div>
+        </div>
+        <div class="frame-bottom">
+          <div class="frame-tagline">당신의 피부가 말하는 이야기</div>
+          <div class="frame-account">@ IM.AESTHETIC.OFFICIAL</div>
+        </div>
+      </div>
+      <div class="frame-title">Template B — 엑스바디 결과지</div>
+      <div class="frame-recipe">
+        <div class="frame-recipe-title">CANVA 레시피 · 배경 <code>#F5EDE0</code><span class="bg-swatch" style="background:#F5EDE0;"></span></div>
+        <div class="recipe-step">
+          <div class="recipe-step-num">01</div>
+          <div class="recipe-step-body">
+            <strong>에셋 검색</strong> · Canva Elements 탭<br>
+            <span class="recipe-keyword" onclick="navigator.clipboard.writeText(this.textContent.trim())">minimal body silhouette line</span>
+            <span class="recipe-keyword" onclick="navigator.clipboard.writeText(this.textContent.trim())">yoga meridian line art</span>
+          </div>
+        </div>
+        <div class="recipe-step">
+          <div class="recipe-step-num">02</div>
+          <div class="recipe-step-body"><strong>권장 타입</strong> · 얇은 단선(0.5~1pt) 몸 실루엣, 척추/경혈 포인트 있는 것. 해부도 느낌은 피하기.</div>
+        </div>
+        <div class="recipe-step">
+          <div class="recipe-step-num">03</div>
+          <div class="recipe-step-body"><strong>색 교체</strong> · <span class="recipe-color-chip" style="background:#D4A04A;"></span><code>#D4A04A</code> 골드 단색. 포인트 점 1~2개만 <span class="recipe-color-chip" style="background:#E8703A;"></span><code>#E8703A</code> 오렌지.</div>
+        </div>
+        <div class="recipe-step">
+          <div class="recipe-step-num">04</div>
+          <div class="recipe-step-body"><strong>사진 처리</strong> · 결과지 촬영 → Canva 내 <strong>Blur</strong> 효과로 이름·번호 영역 모자이크.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Template C — Focuskin Analysis -->
+    <div class="frame-card">
+      <div class="frame-mockup bg-c">
+        <div class="frame-top">
+          <div class="frame-top-label">FOCUSKIN</div>
+          <div class="frame-session">NO. 03</div>
+        </div>
+        <div class="frame-body">
+          <div class="frame-accent acc-c" aria-hidden="true"></div>
+          <div class="frame-hook">눈으로는 보이지 않는<br><em>피부 속 이야기</em></div>
+          <div class="frame-placeholder">포커스킨 결과지<br>(얼굴 영역 블러)</div>
+        </div>
+        <div class="frame-bottom">
+          <div class="frame-tagline">당신의 피부가 말하는 이야기</div>
+          <div class="frame-account">@ IM.AESTHETIC.OFFICIAL</div>
+        </div>
+      </div>
+      <div class="frame-title">Template C — 포커스킨 결과지</div>
+      <div class="frame-recipe">
+        <div class="frame-recipe-title">CANVA 레시피 · 배경 <code>#FAEDE0</code><span class="bg-swatch" style="background:#FAEDE0;"></span></div>
+        <div class="recipe-step">
+          <div class="recipe-step-num">01</div>
+          <div class="recipe-step-body">
+            <strong>에셋 검색</strong> · Canva Elements 탭<br>
+            <span class="recipe-keyword" onclick="navigator.clipboard.writeText(this.textContent.trim())">vintage magnifier botanical</span>
+            <span class="recipe-keyword" onclick="navigator.clipboard.writeText(this.textContent.trim())">magnifier line art gold</span>
+          </div>
+        </div>
+        <div class="recipe-step">
+          <div class="recipe-step-num">02</div>
+          <div class="recipe-step-body"><strong>권장 타입</strong> · 빈티지 돋보기 + 잎/식물 장식이 붙은 에셋. 순수 돋보기는 차가워 보임 — 보태니컬 요소 필수.</div>
+        </div>
+        <div class="recipe-step">
+          <div class="recipe-step-num">03</div>
+          <div class="recipe-step-body"><strong>색 교체</strong> · 메탈 프레임 <span class="recipe-color-chip" style="background:#D4A04A;"></span><code>#D4A04A</code> 골드, 식물 잎 <span class="recipe-color-chip" style="background:#9B8A7A;"></span><code>#9B8A7A</code> 서브.</div>
+        </div>
+        <div class="recipe-step">
+          <div class="recipe-step-num">04</div>
+          <div class="recipe-step-body"><strong>사진 처리</strong> · 고객 얼굴 영역은 <strong>Blur 90%</strong> 또는 식물 에셋으로 덮어 가림. 수치 데이터는 유지.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Template D — Skin Story -->
+    <div class="frame-card">
+      <div class="frame-mockup bg-d">
+        <div class="frame-top">
+          <div class="frame-top-label">SKIN STORY</div>
+          <div class="frame-session">NO. 04</div>
+        </div>
+        <div class="frame-body">
+          <div class="frame-accent acc-d" aria-hidden="true"><span></span></div>
+          <div class="frame-hook">당신의 피부에<br>귀 <em>기울이는</em> 시간</div>
+          <div class="frame-placeholder">질문지 작성 손/펜 클로즈업<br>(감성 앵글)</div>
+        </div>
+        <div class="frame-bottom">
+          <div class="frame-tagline">당신의 피부가 말하는 이야기</div>
+          <div class="frame-account">@ IM.AESTHETIC.OFFICIAL</div>
+        </div>
+      </div>
+      <div class="frame-title">Template D — 질문지 작성</div>
+      <div class="frame-recipe">
+        <div class="frame-recipe-title">CANVA 레시피 · 배경 <code>#EEE5D5</code><span class="bg-swatch" style="background:#EEE5D5;"></span></div>
+        <div class="recipe-step">
+          <div class="recipe-step-num">01</div>
+          <div class="recipe-step-body">
+            <strong>에셋 검색</strong> · Canva Elements 탭<br>
+            <span class="recipe-keyword" onclick="navigator.clipboard.writeText(this.textContent.trim())">fountain pen ink illustration</span>
+            <span class="recipe-keyword" onclick="navigator.clipboard.writeText(this.textContent.trim())">calligraphy pen line art</span>
+          </div>
+        </div>
+        <div class="recipe-step">
+          <div class="recipe-step-num">02</div>
+          <div class="recipe-step-body"><strong>권장 타입</strong> · 만년필 + 잉크 번짐 장식. 볼펜/연필은 피하기 — 웨딩 감성과 충돌.</div>
+        </div>
+        <div class="recipe-step">
+          <div class="recipe-step-num">03</div>
+          <div class="recipe-step-body"><strong>색 교체</strong> · 펜 바디 <span class="recipe-color-chip" style="background:#3D2E24;"></span><code>#3D2E24</code> 딥브라운, 잉크 번짐 <span class="recipe-color-chip" style="background:#D4A04A;"></span><code>#D4A04A</code> 골드 반투명.</div>
+        </div>
+        <div class="recipe-step">
+          <div class="recipe-step-num">04</div>
+          <div class="recipe-step-body"><strong>촬영</strong> · 오버헤드(탑뷰) 앵글, 자연광, 크림 배경 매트 1장. iPhone 인물모드 추천.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Canva Master Guide -->
+  <div class="guide-block" style="margin-top:28px;">
+    <h3>CANVA 활용 마스터 가이드</h3>
+    <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:20px; font-size:13px; line-height:1.7; color:var(--dark);">
+      <div>
+        <strong style="color:var(--orange); font-size:13px;">① Brand Kit 설정 (최초 1회)</strong>
+        <ul style="margin-top:8px; padding-left:18px; color:var(--text-muted);">
+          <li>좌측 메뉴 <strong>Brand</strong> → <strong>Brand Kit</strong> 생성</li>
+          <li>Colors: <code>#E8703A</code> <code>#D4A04A</code> <code>#FFF8F0</code> <code>#F5EDE0</code> <code>#3D2E24</code> <code>#9B8A7A</code></li>
+          <li>Fonts: Playfair Display / Noto Serif KR / Pretendard 등록</li>
+          <li>Logo: <code>public/logo-orange.svg</code> 업로드</li>
+        </ul>
+      </div>
+      <div>
+        <strong style="color:var(--orange); font-size:13px;">② 에셋 색상 일괄 교체</strong>
+        <ul style="margin-top:8px; padding-left:18px; color:var(--text-muted);">
+          <li>Elements에서 SVG/라인 에셋 선택</li>
+          <li>상단 <strong>색상 팔레트 아이콘</strong> 클릭 → 원래 색 선택</li>
+          <li>Brand Kit 색 중 <strong>#D4A04A 골드</strong>로 교체</li>
+          <li>다색 에셋은 각 색 개별 교체</li>
+        </ul>
+      </div>
+      <div>
+        <strong style="color:var(--orange); font-size:13px;">③ 고정 오버레이 프리셋</strong>
+        <ul style="margin-top:8px; padding-left:18px; color:var(--text-muted);">
+          <li>L-bracket 4코너, 상단 브랜드 바, 하단 태그라인은 <strong>그룹화 후 잠금(🔒)</strong></li>
+          <li>모든 템플릿에 동일하게 복붙 → 통일성 확보</li>
+          <li><strong>Page 1</strong>에서 프리셋 완성 → Duplicate로 A~D 템플릿 생성</li>
+        </ul>
+      </div>
+      <div>
+        <strong style="color:var(--orange); font-size:13px;">④ 저작권 안전 체크</strong>
+        <ul style="margin-top:8px; padding-left:18px; color:var(--text-muted);">
+          <li>에셋 우하단 <strong>🌟 Pro 마크</strong> 확인 — 없으면 Free</li>
+          <li>Pro 에셋 사용 시 Canva Pro 구독 필수 (상업적 이용 포함)</li>
+          <li>다운로드 전 <strong>Share → License</strong> 확인</li>
+          <li>고객 사진은 반드시 <strong>동의서</strong> 받고 사용</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:18px; padding:14px; background:var(--cream); border-radius:8px; border-left:3px solid var(--orange); font-size:12px; color:var(--dark); line-height:1.6;">
+      <strong style="color:var(--orange);">💡 핵심 원칙</strong> ·
+      <em>에셋은 Canva에서 빌리고, 프레임은 우리가 고정한다.</em>
+      템플릿마다 아이콘·식물·장식은 자유롭게 바꿔도 — 상단 브랜드 바, L-bracket 코너, 하단 태그라인 3요소만 유지하면 브랜드 일관성은 유지됩니다.
+    </div>
+  </div>
+
+  <!-- Hybrid system note (retained, simplified) -->
+  <div class="guide-block" style="margin-top:20px;">
+    <h3>하이브리드 프레임 시스템 · A+B</h3>
+    <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:16px; font-size:13px; line-height:1.7; color:var(--dark);">
+      <div>
+        <strong style="color:var(--orange);">고정 요소 (B · 진단 리포트 톤)</strong>
+        <ul style="margin-top:6px; padding-left:18px; color:var(--text-muted);">
+          <li>상단 브랜드 바 — 템플릿명 + 세션 넘버 (NO. 01~04)</li>
+          <li>4면 골드 L-bracket 코너 장식</li>
+          <li>하단 푸터 — 태그라인 "당신의 피부가 말하는 이야기" + 계정</li>
+          <li>Playfair Display 라벨 + 골드 구분선</li>
+        </ul>
+      </div>
+      <div>
+        <strong style="color:var(--orange);">가변 요소 (A · 에디토리얼 톤)</strong>
+        <ul style="margin-top:6px; padding-left:18px; color:var(--text-muted);">
+          <li>Noto Serif KR 300 감성 훅 문구 + 오렌지 강조어</li>
+          <li>Canva 에셋으로 교체 가능한 심볼 (보태니컬/아르데코)</li>
+          <li>크림 베이스 여백 — 사진/스크린샷이 주인공</li>
+          <li>점선 placeholder — 소재 교체 자유도 확보</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ SECTION 4: 16-TYPE DATA ═════════ -->
+<section class="section" id="section-4">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <div>
+      <div class="section-title">16타입 데이터 참조</div>
+      <div class="section-desc">클릭하여 펼치기 · 복사 버튼으로 Canva에 붙여넣기</div>
+    </div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="filter-tabs">
+    <div class="filter-tab active" data-filter="all">전체</div>
+    <div class="filter-tab" data-filter="OS">지성+민감 (OS)</div>
+    <div class="filter-tab" data-filter="OR">지성+저항 (OR)</div>
+    <div class="filter-tab" data-filter="DS">건성+민감 (DS)</div>
+    <div class="filter-tab" data-filter="DR">건성+저항 (DR)</div>
+  </div>
+
+  <div class="type-grid" id="typeGrid"><!-- Types injected via JS --></div>
+</section>
+
+<!-- ═════════ SECTION 5: PRODUCTION GUIDE ═════════ -->
+<section class="section" id="section-5">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <div>
+      <div class="section-title">Canva 제작 가이드</div>
+      <div class="section-desc">Step-by-Step · 영상 프레임 · 폰트 매핑</div>
+    </div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="guide-block">
+    <h3>STEP-BY-STEP</h3>
+    <ol class="steps">
+      <li>Canva에서 <code>사용자 정의 크기</code> → <code>1080 × 1350 px</code> 생성</li>
+      <li>배경색 <code>#FFF8F0</code> (크림) 설정</li>
+      <li>브랜드 폰트 설정 (아래 매핑표 참조)</li>
+      <li>로고 SVG 업로드 (<code>public/logo-orange.svg</code>)</li>
+      <li>각 템플릿별 레이아웃 배치 (2·3번 섹션 참조)</li>
+      <li>텍스트는 이 가이드의 <strong>16타입 데이터</strong> 섹션에서 복사</li>
+    </ol>
+  </div>
+
+  <div class="guide-block">
+    <h3>VIDEO FRAME GUIDE · Canva 프레임 활용</h3>
+    <div class="crop-diagram">
+      <div class="crop-box crop-9-16">
+        9:16 MP4
+        <div class="crop-focus"></div>
+      </div>
+      <div class="crop-arrow">⬇</div>
+      <div class="crop-box crop-4-5">
+        <div style="font-size:10px;letter-spacing:1px;opacity:0.7;margin-bottom:4px;">FRAME</div>
+        4:5
+      </div>
+    </div>
+    <div class="crop-note">
+      <strong style="color:var(--orange)">영상을 미리 크롭할 필요 없음.</strong>
+      Canva 템플릿에 <strong>프레임(Frames)</strong> 요소로 영상 영역을 지정해두면,
+      9:16 MP4를 프레임에 드래그 드롭할 때 자동으로 마스킹됩니다.
+      프레임을 <strong>더블클릭</strong>하여 영상 위치·확대를 조절하세요.
+    </div>
+    <ol class="steps" style="margin-top:16px;">
+      <li>Canva 좌측 <code>요소 → 프레임</code>에서 사각형 프레임 선택</li>
+      <li>프레임을 슬라이드 1의 영상 영역에 배치 (4:5 또는 원하는 비율)</li>
+      <li>16종 MP4 중 해당 타입 영상을 프레임에 드래그 드롭</li>
+      <li>더블클릭하여 영상 위치·확대 조절 (캐릭터 중앙 정렬)</li>
+      <li>프레임 위에 캐릭터명·닉네임·로고 텍스트 레이어 추가</li>
+    </ol>
+  </div>
+
+  <div class="guide-block">
+    <h3>FONT MAPPING TABLE</h3>
+    <table class="font-table">
+      <thead>
+        <tr>
+          <th>용도</th>
+          <th>원본 폰트</th>
+          <th>Canva 대체 폰트</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>훅 제목</td>
+          <td><code>Noto Serif KR 300</code></td>
+          <td>Noto Serif KR Light</td>
+        </tr>
+        <tr>
+          <td>본문</td>
+          <td><code>Pretendard 400</code></td>
+          <td>Noto Sans KR Regular</td>
+        </tr>
+        <tr>
+          <td>강조</td>
+          <td><code>Pretendard 600</code></td>
+          <td>Noto Sans KR Bold</td>
+        </tr>
+        <tr>
+          <td>브랜드</td>
+          <td><code>Playfair Display 400</code></td>
+          <td>Playfair Display</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="guide-block">
+    <h3>APP URL</h3>
+    <div class="app-url-box">
+      <span class="lbl">SKIN MBTI APP</span>
+      <a href="https://im-aesthetic.vercel.app/" target="_blank" rel="noopener">https://im-aesthetic.vercel.app/</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<button class="scroll-top" id="scrollTop" aria-label="맨 위로">↑</button>
+<div class="toast" id="toast" role="status" aria-live="polite">복사됨!</div>
+
+<script>
+/* ══════════ 16-TYPE DATA ══════════ */
+const CANVA_TYPES = [
+  {
+    code: "OSNT", group: "OS",
+    character: "알로에 (Aloe)", category: "지성·민감성·비색소·탄력형",
+    fragrance: "티트리 (Tea Tree)",
+    keywords: ["빠른 회복", "맑은 피부", "진정 케어", "예민+강함"],
+    masterComment: "열과 노폐물이 만나 트러블로 드러나는 타입이에요. 짜기보다는 배출의 통로를 열어주는 것이 먼저입니다.",
+    characteristics: ["피지 왕성하지만 장벽 손상, 수분 쉽게 증발", "탄력 좋으나 자극에 취약해 좁쌀+홍조 잦음", "번들거림 심하나 속당김도 심한 이중고", "진정 우선! 유분 제거에만 몰두 금지"],
+    dos: ["진정 토너", "가벼운 수분 젤 크림", "순한 클렌저 세안", "자외선 차단제"],
+    donts: ["자극적인 제품", "과도한 스킨케어 루틴", "유분기 많은 크림", "피부를 자주 만지기"],
+    fragranceDetail: "티트리 향은 독소가 만든 염증을 정화하고 막힌 배출의 통로를 깨끗이 열어줍니다."
+  },
+  {
+    code: "OSNW", group: "OS",
+    character: "흰 복숭아 (White Peach)", category: "지성·민감성·비색소·주름형",
+    fragrance: "네롤리 (Neroli)",
+    keywords: ["투명한 결", "발그레함", "섬세함", "탄력 관리"],
+    masterComment: "번들거림은 피부가 수분을 지키려는 신호예요. 잃어버린 수분을 채워주면 유분도 자연스럽게 가라앉습니다.",
+    characteristics: ["피지 왕성해 모공 넓고 민감해서 쉽게 붉어짐", "세로로 늘어지는 모공 + 탄력 저하가 큰 고민", "색소 적어 톤은 맑으나 피부 결 울퉁불퉁", "처짐이 눈에 띄기 시작하는 유형"],
+    dos: ["진정 성분 세럼", "가벼운 수분크림", "순한 클렌저 세안", "콜라겐 세럼"],
+    donts: ["자극적인 성분 제품", "뜨거운 물 세안", "유분기 많은 크림", "피부를 문지르기"],
+    fragranceDetail: "네롤리 향은 예민하게 곤두선 유분막을 진정시키고 수분과 유분의 균형을 다시 잡아줍니다."
+  },
+  {
+    code: "OSPT", group: "OS",
+    character: "토마토 (Tomato)", category: "지성·민감성·색소성·탄력형",
+    fragrance: "유칼립투스 (Eucalyptus)",
+    keywords: ["탱탱함", "예민+번들", "잡티 관리", "빛나는 타입"],
+    masterComment: "염증이 지나간 흔적이 남아있네요. 열감을 진정시키는 것이 가장 빠른 화이트닝입니다.",
+    characteristics: ["피지 왕성해 트러블 잦고 금방 붉어짐", "가장 큰 고민은 여드름 자국+잡티 (진하게 남음)", "안색 전반적으로 얼룩덜룩", "진정 후 미백 순서가 핵심"],
+    dos: ["순한 미백 에센스", "진정 토너로 피부 안정", "SPF 매일", "수분 세럼"],
+    donts: ["강한 미백 제품 갑자기 사용", "유분기 많은 크림", "뜨거운 물 세안", "과도한 필링"],
+    fragranceDetail: "유칼립투스 향은 훈장처럼 남은 염증의 흔적을 식히고 맑은 숨결로 피부를 다시 일으킵니다."
+  },
+  {
+    code: "OSPW", group: "OS",
+    character: "딸기 (Strawberry)", category: "지성·민감성·색소성·주름형",
+    fragrance: "페퍼민트 (Peppermint)",
+    keywords: ["관리 필수", "예민+번들", "색소 주의", "정성 케어"],
+    masterComment: "피부 속 불길이 멜라닌을 태우고 있어요. 기름을 닦지 말고 불을 꺼야 안색이 맑아집니다.",
+    characteristics: ["피지 왕성하지만 장벽 무너져 늘 붉고 예민", "염증 자리에 짙은 색소 침착(PIH)", "만성 염증이 콜라겐 파괴해 주름 깊게 패임", "유분+염증+잡티+주름 4중고 까다로운 피부"],
+    dos: ["순한 저자극 클렌저", "진정+보습 겸용", "매일 자외선 차단", "순한 BHA 모공 관리"],
+    donts: ["자극적인 각질 제거", "알코올 함유 제품", "유분기 많은 크림", "여러 제품 동시에 바꾸기"],
+    fragranceDetail: "페퍼민트 향은 타오르는 피부 속 불길을 시원하게 잠재우고 멜라닌의 폭주를 멈춰 세웁니다."
+  },
+  {
+    code: "ORNT", group: "OR",
+    character: "청포도 (Green Grape)", category: "지성·저항성·비색소·탄력형",
+    fragrance: "자몽 (Grapefruit)",
+    keywords: ["만점 피부", "싱싱함", "트러블 없음", "유지가 답"],
+    masterComment: "지금도 충분히 완벽해 보이지만, 막힌 순환을 풀어주면 피부가 한층 더 투명하게 빛날 거예요.",
+    characteristics: ["타고난 피부 건강하고 두꺼움", "피지 왕성해 블랙헤드+넓은 모공이 주 고민", "화장품 아무거나 써도 안 뒤집어지는 무적 피부", "각질 정돈 안 되면 결 거칠고 칙칙"],
+    dos: ["가벼운 수분크림으로 유지", "피지 조절 토너", "자외선 차단제", "충분한 수면+수분 섭취"],
+    donts: ["과도한 스킨케어 루틴", "유분기 많은 제품", "세안 후 방치", "기본 관리 소홀"],
+    fragranceDetail: "자몽 향은 완벽해 보이는 피부 속 고인 정체를 풀고 산뜻한 에너지로 흐름을 되찾아줍니다."
+  },
+  {
+    code: "ORNW", group: "OR",
+    character: "배 (Pear)", category: "지성·저항성·비색소·주름형",
+    fragrance: "레몬그라스 (Lemongrass)",
+    keywords: ["맑은 피부", "촉촉함", "탄력 관리", "거의 완벽"],
+    masterComment: "장벽이 성벽처럼 단단해요. 튼튼한 게 아니라 잠겨 있는 겁니다. 문부터 여세요.",
+    characteristics: ["피지 활발해 건조 덜하지만 무게감 있어 아래로 처짐", "팔자·이중턱·불독살 같은 굵고 깊은 주름", "노화형 지성, 피부 질기고 주름 깊게 고착", "강력한 수기 윤곽+근막 릴리즈가 가장 효과적"],
+    dos: ["콜라겐 부스팅 세럼", "가벼운 수분크림", "자외선 차단제 꾸준히", "항산화 식품 섭취"],
+    donts: ["항노화 관리 미루기", "유분기 많은 제품", "수분 섭취 부족", "자외선 차단 생략"],
+    fragranceDetail: "레몬그라스 향은 잠긴 성벽 같은 피부의 문을 열고 정체된 에너지에 활력의 바람을 불어넣습니다."
+  },
+  {
+    code: "ORPT", group: "OR",
+    character: "메추리알 (Quail Egg)", category: "지성·저항성·색소성·탄력형",
+    fragrance: "베르가못 (Bergamot)",
+    keywords: ["탱탱함", "톤 불균일", "강한 저항", "잠재력"],
+    masterComment: "모공 속에 갇힌 피지가 길을 잃었네요. 피부 결 사이사이에 숨통을 틔워줘야 합니다.",
+    characteristics: ["피부 두껍고 유분 많아 번들거림+잡티 쉽게", "장벽 튼튼해 기능성 제품에 자극 안 느낌", "각질 정돈 안 되면 금방 어두워지는 건강 지성", "여드름 자국이 오래 가는 편"],
+    dos: ["나이아신아마이드 미백 세럼", "가벼운 수분크림", "주 1회 순한 각질 관리", "SPF 필수"],
+    donts: ["자외선 차단 빼먹기", "유분기 많은 크림", "피부 톤 관리 무시", "과도한 각질 제거"],
+    fragranceDetail: "베르가못 향은 모공 속 갇힌 피지에 길을 열어주고 피부 결 사이사이에 가벼운 숨을 불어넣습니다."
+  },
+  {
+    code: "ORPW", group: "OR",
+    character: "아보카도 (Avocado)", category: "지성·저항성·색소성·주름형",
+    fragrance: "로즈마리 (Rosemary)",
+    keywords: ["영양 가득", "톤 관리", "강한 피부", "피지 조절"],
+    masterComment: "피부가 두꺼워 색소도 뿌리가 깊습니다. 강력한 투과 관리로 닫힌 피부를 깨워야 합니다.",
+    characteristics: ["피지 왕성해 번들거리지만 조직 매우 견고", "잔주름보다 이마·팔자의 깊은 골이 고민", "색소가 진피 깊숙이 자리잡아 안색 매우 탁함", "순한 관리로는 기별도 안 가는 가죽 피부 전형"],
+    dos: ["비타민C 세럼 미백", "가벼운 수분 크림", "레티놀 주름 예방", "자외선 차단제 매일"],
+    donts: ["무거운 유분 크림", "자외선 차단 생략", "유분기 방치", "보습 아예 안 하기"],
+    fragranceDetail: "로즈마리 향은 두꺼운 피부 깊이 잠든 색소를 깨우고 강력한 순환으로 닫힌 결을 열어줍니다."
+  },
+  {
+    code: "DSNT", group: "DS",
+    character: "두부 (Tofu)", category: "건성·민감성·비색소·탄력형",
+    fragrance: "카모마일 (Chamomile)",
+    keywords: ["하얀 피부", "탱탱함", "예민 주의", "순한 케어"],
+    masterComment: "겉은 촉촉해 보이는데 속은 건조하죠? 깊은 수분을 채워줘야 피부가 진짜 생기를 되찾아요.",
+    characteristics: ["겉보기 맑고 깨끗하나 만져보면 종잇장처럼 얇음", "화장품 바꾸면 쉽게 따갑고 가려움", "피부 장벽 손상의 전형적인 타입", "탄력은 좋으므로 장벽 재건만으로 빠르게 호전"],
+    dos: ["순한 보습제 꾸준히", "진정 성분 제품", "미온수 세안", "자외선 차단제"],
+    donts: ["자극적인 성분 제품", "뜨거운 물 세안", "때수건으로 문지르기", "과도한 스킨케어 단계"],
+    fragranceDetail: "카모마일 향은 정체된 피부에 부드러운 위로를 건네 막힌 순환의 길을 살며시 열어줍니다."
+  },
+  {
+    code: "DSNW", group: "DS",
+    character: "코코넛 (Coconut)", category: "건성·민감성·비색소·주름형",
+    fragrance: "라벤더 (Lavender)",
+    keywords: ["깨끗한 톤", "건조 예민", "속보습", "주름 예방"],
+    masterComment: "투명하지만 너무 얇아요. 작은 자극에도 쉽게 흔들리는 예민한 피부를 먼저 달래야 해요.",
+    characteristics: ["피지 거의 없어 늘 메마르고 장벽 얇음", "색소 고민 적어 안색 투명", "탄력 떨어지면 자글자글 접히는 건성 노화 초기", "눈가·입가 잔주름 눈에 띔"],
+    dos: ["수분크림 충분히", "순한 저자극 클렌저", "수분팩 주 2-3회", "항노화 세럼"],
+    donts: ["세안 후 보습 안 하기", "알코올 토너", "건조한 환경에 오래 있기", "자극적인 각질 제거"],
+    fragranceDetail: "라벤더 향은 예민해진 신경을 어루만지고 깊은 휴식을 선물해 잠든 피부를 깨워줍니다."
+  },
+  {
+    code: "DSPT", group: "DS",
+    character: "석류알 (Pomegranate Seed)", category: "건성·민감성·색소성·탄력형",
+    fragrance: "로즈 (Rose)",
+    keywords: ["탱탱함", "예민 주의", "미백 관리", "잠재력"],
+    masterComment: "민감해서 미백 제품도 못 쓰시죠? 속열을 식혀야 잡티가 비로소 흐려집니다.",
+    characteristics: ["톤은 맑지만 광대 주변 잡티 도드라짐", "미백 기능성 제품에 따갑거나 뒤집어짐", "방어적인 미백이 필요한 상태", "외출 후 피부 온도 낮추기 중요"],
+    dos: ["순한 미백 에센스", "보습+진정 겸용", "SPF 자외선 차단 필수", "항산화 세럼"],
+    donts: ["자극적인 필링", "고농축 미백 제품 바로 사용", "보습 단계 생략", "예민할 때 새 제품 시도"],
+    fragranceDetail: "로즈 향은 열기로 지친 피부를 식히고 사랑의 에너지로 잡티 위에 새 살결을 피워냅니다."
+  },
+  {
+    code: "DSPW", group: "DS",
+    character: "라즈베리 (Raspberry)", category: "건성·민감성·색소성·주름형",
+    fragrance: "샌달우드 (Sandalwood)",
+    keywords: ["섬세함", "관리 필수", "색소 주의", "정성 케어"],
+    masterComment: "바람이 불을 만나 수분을 다 말려버렸네요. 기미보다 급한 건 장벽의 휴식입니다.",
+    characteristics: ["피부가 매우 얇고 메말라 있음", "작은 자극에도 쉽게 붉어지고 기미·잔주름 깊음", "고함량 기능성 제품이 오히려 독이 됨", "건조·기미·깊은 주름이 동시 진행되는 섬세한 피부"],
+    dos: ["순한 저자극 클렌저", "세라마이드 보습제", "매일 자외선 차단", "진정 성분 앰플"],
+    donts: ["새 제품 여러 개 동시에 바꾸기", "알코올 함유 토너", "뜨거운 물 세안", "각질 제거 자주"],
+    fragranceDetail: "샌달우드 향은 뜨거운 속열을 식히고 붕 뜬 마음을 가라앉혀 피부 장벽이 비로소 숨을 쉬게 합니다."
+  },
+  {
+    code: "DRNT", group: "DR",
+    character: "선인장 (Cactus)", category: "건성·저항성·비색소·탄력형",
+    fragrance: "일랑일랑 (Ylang Ylang)",
+    keywords: ["탄탄함", "보습 핵심", "건조 주의", "예방 관리"],
+    masterComment: "겉은 맑지만 속은 텅 비어있어요. 탄력이 소진되기 전에 영양을 저축해야 할 때입니다.",
+    characteristics: ["예민하진 않지만 피지 적어 각질 하얗게 일어남", "안색 푸석, 방치하면 결 거칠고 윤기 사라짐", "색소+주름 고민 적은 건강한 건성", "관리만 시작하면 빠르게 호전되는 유형"],
+    dos: ["가벼운 보습제 꾸준히", "수분 충분히 섭취", "계절별 보습 강도 조절", "자외선 차단제"],
+    donts: ["보습 아예 건너뛰기", "세안 후 방치", "과도한 스킨케어 루틴", "뜨거운 물 세안"],
+    fragranceDetail: "일랑일랑 향은 텅 빈 피부 속에 풍요로운 영양을 채우고 사라진 탄력을 다시 불러옵니다."
+  },
+  {
+    code: "DRNW", group: "DR",
+    character: "감자 (Potato)", category: "건성·저항성·비색소·주름형",
+    fragrance: "시나몬 (Cinnamon)",
+    keywords: ["균일한 톤", "건조 주의", "주름 예방", "든든함"],
+    masterComment: "차갑고 단단하게 굳어버린 피부. 따뜻한 온기를 불어넣어야 영양이 비로소 스며듭니다.",
+    characteristics: ["피지 매우 적어 늘 건조하고 빳빳", "자극에 강하나 탄력 떨어지면 굵은 주름 고착", "색소 고민 적어 안색 맑으나 윤기 없어 생기 부족", "고기능성 제품+장비로 주름 깊어지기 전 케어"],
+    dos: ["리치한 보습 크림 꾸준히", "레티놀 주름 예방", "콜라겐 부스팅", "수분팩 주 2-3회"],
+    donts: ["세안 후 보습 미루기", "건조한 환경에 오래 있기", "수분 섭취 부족", "강한 클렌저"],
+    fragranceDetail: "시나몬 향은 차갑게 굳은 피부에 따스한 온기를 불어넣어 영양이 비로소 스며들 길을 만듭니다."
+  },
+  {
+    code: "DRPT", group: "DR",
+    character: "올리브 (Olive)", category: "건성·저항성·색소성·탄력형",
+    fragrance: "패츌리 (Patchouli)",
+    keywords: ["탄탄함", "잡티 주의", "보습 필수", "거의 완벽"],
+    masterComment: "안색이 탁한 건 순환의 문제예요. 목과 어깨의 긴장을 풀어야 얼굴 빛이 살아납니다.",
+    characteristics: ["예민하진 않지만 매우 건조", "자극에 강해 고농축 기능성 제품 잘 받아냄", "각질 정돈 안 되면 텁텁+잡티 도드라짐", "탄력 좋으나 윤기 없어 실제보다 나이 들어 보임"],
+    dos: ["나이아신아마이드 미백", "세라마이드 보습제", "자외선 차단제", "항산화 성분 제품"],
+    donts: ["보습 없이 피부 방치", "강한 필링 자주", "자외선 차단 빼먹기", "알코올 성분 토너"],
+    fragranceDetail: "패츌리 향은 탁한 안색 뒤에 숨은 긴장을 풀어주고 맑은 빛이 피부 표면으로 떠오르게 합니다."
+  },
+  {
+    code: "DRPW", group: "DR",
+    character: "무화과 (Fig)", category: "건성·저항성·색소성·주름형",
+    fragrance: "진저 (Ginger)",
+    keywords: ["강한 피부", "칙칙함", "주름 케어", "고급 관리"],
+    masterComment: "건조한 땅에 잡티가 자리잡은 상태예요. 깊은 보습 관리가 가장 시급합니다.",
+    characteristics: ["유수분 모두 고갈, 피부 딱딱하고 거침", "자극에 강해 시술에도 안 붉어짐", "깊은 주름+짙은 기미가 얼굴 전체 덮음", "관리하는 만큼 정직하게 젊어지는 유형"],
+    dos: ["매일 SPF 50", "비타민C 세럼 톤 관리", "리치한 보습 크림", "레티놀 주름 예방"],
+    donts: ["자외선 차단 없이 외출", "너무 뜨거운 물 세안", "보습 단계 생략", "각질 제거 너무 자주"],
+    fragranceDetail: "진저 향은 가뭄 든 피부에 생기의 불씨를 피워 메마른 잡티 밭에 새 생명을 깨웁니다."
+  }
+];
+
+/* ══════════ UTILS ══════════ */
+const escapeHtml = (s) => String(s).replace(/[&<>"']/g, m => ({
+  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+})[m]);
+
+/* ══════════ RENDER TYPE CARDS ══════════ */
+function renderTypes() {
+  const grid = document.getElementById('typeGrid');
+  grid.innerHTML = CANVA_TYPES.map(t => {
+    const kw = t.keywords.map(k => `<span class="type-kw">${escapeHtml(k)}</span>`).join('');
+    const traits = (t.characteristics || []).map(c => `<li>${escapeHtml(c)}</li>`).join('');
+    const traitsText = (t.characteristics || []).join('\n');
+    const dos = t.dos.map(d => `<li>${escapeHtml(d)}</li>`).join('');
+    const donts = t.donts.map(d => `<li>${escapeHtml(d)}</li>`).join('');
+    const dosText = t.dos.join('\n');
+    const dontsText = t.donts.join('\n');
+    return `
+      <article class="type-card" data-group="${t.group}">
+        <header class="type-head">
+          <span class="type-code">${t.code}</span>
+          <span class="type-char">${escapeHtml(t.character)}</span>
+          <span class="type-cat">${escapeHtml(t.category)}</span>
+          <span class="type-fragrance">${escapeHtml(t.fragrance)}</span>
+          <span class="type-toggle">▼</span>
+        </header>
+        <div class="type-body">
+          <div class="type-body-inner">
+            <div class="type-keywords">${kw}</div>
+            <div class="type-master">
+              ${escapeHtml(t.masterComment)}
+              <button class="copy-btn" data-copy="${escapeHtml(t.masterComment)}">복사</button>
+            </div>
+            <div class="type-traits">
+              <h5>피부 특성</h5>
+              <ul>${traits}</ul>
+              <button class="copy-btn" data-copy="${escapeHtml(traitsText)}">복사</button>
+            </div>
+            <div class="type-list-block good">
+              <h5>Do's ✓</h5>
+              <ul>${dos}</ul>
+              <button class="copy-btn" data-copy="${escapeHtml(dosText)}">복사</button>
+            </div>
+            <div class="type-list-block bad">
+              <h5>Don'ts ✗</h5>
+              <ul>${donts}</ul>
+              <button class="copy-btn" data-copy="${escapeHtml(dontsText)}">복사</button>
+            </div>
+            <div class="type-fragrance-detail">
+              <strong>${escapeHtml(t.fragrance)}</strong>
+              ${escapeHtml(t.fragranceDetail)}
+              <button class="copy-btn" data-copy="${escapeHtml(t.fragranceDetail)}">복사</button>
+            </div>
+          </div>
+        </div>
+      </article>
+    `;
+  }).join('');
+}
+
+/* ══════════ ACCORDION ══════════ */
+function bindAccordion() {
+  document.querySelectorAll('.type-head').forEach(head => {
+    head.addEventListener('click', (e) => {
+      if (e.target.classList.contains('copy-btn')) return;
+      head.parentElement.classList.toggle('open');
+    });
+  });
+}
+
+/* ══════════ FILTER ══════════ */
+function bindFilter() {
+  document.querySelectorAll('.filter-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const filter = tab.dataset.filter;
+      document.querySelectorAll('.type-card').forEach(card => {
+        const show = filter === 'all' || card.dataset.group === filter;
+        card.classList.toggle('hidden', !show);
+      });
+    });
+  });
+}
+
+/* ══════════ COPY ══════════ */
+function bindCopy() {
+  const toast = document.getElementById('toast');
+  let toastTimer;
+  document.addEventListener('click', async (e) => {
+    const btn = e.target.closest('.copy-btn');
+    if (!btn) return;
+    e.stopPropagation();
+    const text = btn.dataset.copy;
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.textContent = '복사됨!';
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 1600);
+    } catch {
+      toast.textContent = '복사 실패';
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 1600);
+    }
+  });
+}
+
+/* ══════════ SCROLL TOP ══════════ */
+function bindScrollTop() {
+  const btn = document.getElementById('scrollTop');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > 400);
+  });
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+/* ══════════ INIT ══════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  renderTypes();
+  bindAccordion();
+  bindFilter();
+  bindCopy();
+  bindScrollTop();
+});
+</script>
+
+</body>
+</html>
