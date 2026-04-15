@@ -389,6 +389,99 @@ main {
   color: var(--text-muted);
 }
 
+/* Mockup: Carousel B cover — dosha symbol cover */
+.mk-cover-b {
+  background: linear-gradient(180deg, #FFF8F0 0%, #F5EDE0 100%);
+  position: relative;
+}
+.mk-cover-b .mk-b-logo {
+  position: absolute;
+  top: 14px; left: 14px;
+  font-family: 'Playfair Display', serif;
+  font-size: 10px;
+  color: var(--dark);
+  letter-spacing: 3px;
+  z-index: 2;
+}
+.mk-cover-b .mk-b-badge {
+  position: absolute;
+  top: 12px; right: 12px;
+  padding: 3px 10px;
+  background: #D4A04A;
+  border-radius: 50px;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  z-index: 2;
+}
+.mk-cover-b .mk-b-tri {
+  position: absolute;
+  top: 22%; left: 50%;
+  transform: translateX(-50%);
+  width: 110px; height: 96px;
+}
+.mk-cover-b .mk-b-tri svg {
+  width: 100%; height: 100%;
+  stroke: #D4A04A;
+  stroke-width: 1.2;
+  fill: none;
+}
+.mk-cover-b .mk-b-tri-lbl {
+  position: absolute;
+  font-family: 'Playfair Display', serif;
+  font-size: 7px;
+  letter-spacing: 2px;
+  color: #9B8A7A;
+}
+.mk-cover-b .mk-b-tri-lbl.v { top: 18%; left: 50%; transform: translateX(-50%); }
+.mk-cover-b .mk-b-tri-lbl.p { top: 42%; left: 14%; }
+.mk-cover-b .mk-b-tri-lbl.k { top: 42%; right: 14%; }
+.mk-cover-b .mk-b-hook {
+  position: absolute;
+  top: 55%; left: 16px; right: 16px;
+  text-align: center;
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--dark);
+  letter-spacing: -0.3px;
+}
+.mk-cover-b .mk-b-hook .accent { color: #D4A04A; }
+.mk-cover-b .mk-b-sub {
+  position: absolute;
+  top: 72%; left: 16px; right: 16px;
+  text-align: center;
+  font-size: 8.5px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  letter-spacing: 0.2px;
+}
+.mk-cover-b .mk-b-divider {
+  position: absolute;
+  top: 80%; left: 50%;
+  transform: translateX(-50%);
+  width: 32px; height: 1px;
+  background: #D4A04A;
+}
+.mk-cover-b .mk-b-swipe {
+  position: absolute;
+  bottom: 34px; right: 14px;
+  font-family: 'Playfair Display', serif;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  color: #D4A04A;
+}
+.mk-cover-b .mk-b-footer {
+  position: absolute;
+  bottom: 12px; left: 0; right: 0;
+  text-align: center;
+  font-size: 7px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
 /* Mockup: slide 2 - dos/donts */
 .mk-do {
   background: var(--cream);
@@ -1681,19 +1774,26 @@ main {
   </div>
 </section>
 
-<!-- ═════════ SECTION 2: CARD NEWS 3-SLIDE ═════════ -->
+<!-- ═════════ SECTION 2: CARD NEWS CAROUSELS (SPLIT) ═════════ -->
 <section class="section" id="section-2">
   <div class="section-header">
     <div class="section-num">2</div>
     <div>
-      <div class="section-title">카드뉴스 캐러셀 시안</div>
-      <div class="section-desc">3-Slide Layout · 1080 × 1350 (4:5)</div>
+      <div class="section-title">카드뉴스 캐러셀 시안 (2종 분리)</div>
+      <div class="section-desc">Skin MBTI와 에너지 체질은 진단 체계가 달라 캐러셀을 분리합니다. · 각 3-Slide · 1080 × 1350 (4:5)</div>
     </div>
     <div class="section-line"></div>
   </div>
 
+  <!-- ── Carousel A: Skin MBTI ── -->
+  <div style="margin:24px 0 12px;padding:14px 18px;background:#FFF8F0;border-left:4px solid #E8703A;border-radius:4px;">
+    <div style="font-family:'Playfair Display',serif;font-size:14px;letter-spacing:0.12em;color:#E8703A;">CAROUSEL A</div>
+    <div style="font-family:'Pretendard';font-weight:600;font-size:18px;color:#3D2E24;margin-top:4px;">Skin MBTI · 피부 타입 진단</div>
+    <div style="font-family:'Pretendard';font-size:13px;color:#9B8A7A;margin-top:4px;">16개 피부 타입별로 제작 · 커버 → Do's/Don'ts → 클리닉 케어 연결</div>
+  </div>
+
   <div class="slide-row">
-    <!-- Slide 1: Cover -->
+    <!-- Slide A-1: Cover -->
     <div class="slide-item">
       <div class="slide-mockup mk-cover">
         <div class="mk-logo">IM AESTHETIC</div>
@@ -1708,7 +1808,7 @@ main {
         <div class="mk-callout" style="top:82%;left:8px;">2</div>
       </div>
       <div>
-        <div class="slide-title">Slide 1 — 커버 (캐릭터 영상)</div>
+        <div class="slide-title">Slide A-1 — 커버 (캐릭터 영상)</div>
         <div class="slide-note">
           <strong>①</strong> Canva에서 <strong>프레임(Frames)</strong> 요소로 영상 영역 지정 →
           9:16 MP4를 프레임에 드래그 드롭하면 자동 마스킹. 더블클릭하여 위치·확대 조절.
@@ -1717,7 +1817,7 @@ main {
       </div>
     </div>
 
-    <!-- Slide 2: Do's / Don'ts -->
+    <!-- Slide A-2: Do's / Don'ts -->
     <div class="slide-item">
       <div class="slide-mockup mk-do">
         <div class="mk-brand-bar">
@@ -1757,40 +1857,176 @@ main {
         <div class="mk-callout" style="top:6%;right:8px;">3</div>
       </div>
       <div>
-        <div class="slide-title">Slide 2 — Do's &amp; Don'ts</div>
+        <div class="slide-title">Slide A-2 — Do's &amp; Don'ts</div>
         <div class="slide-note">
-          <strong>③</strong> 상단에 <strong>마스터의 한마디</strong> 인용구 배치 (아유르베다 관점 감성 멘트).
+          <strong>③</strong> 상단에 <strong>마스터의 한마디</strong> 인용구 배치 (감성 멘트).
           <strong>④</strong> Do's/Don'ts 4개씩 초록/빨강 배경으로 대비.
           본문 데이터는 <strong>4번 섹션</strong>에서 복사.
         </div>
       </div>
     </div>
 
-    <!-- Slide 3: Energy + Fragrance -->
+    <!-- Slide A-3: CTA / Clinic Care -->
+    <div class="slide-item">
+      <div class="slide-mockup mk-do">
+        <div class="mk-brand-bar">
+          <div class="mk-brand-logo">IM AESTHETIC</div>
+          <div class="mk-brand-account">@im.aesthetic.official</div>
+        </div>
+        <div class="mk-head">
+          <div class="mk-head-badge">DSNT</div>
+          <div class="mk-head-name">두부 Tofu · 맞춤 케어</div>
+        </div>
+        <div class="mk-quote">
+          홈케어만으로 부족할 때, 전문가의 손길이 피부의 균형을 되찾아줍니다.
+        </div>
+        <div class="mk-traits">
+          <div class="mk-trait-item"><span class="mk-trait-dot">◆</span>장벽 재건 집중 케어 프로그램</div>
+          <div class="mk-trait-item"><span class="mk-trait-dot">◆</span>수분 공급 + 진정 2-STEP 관리</div>
+          <div class="mk-trait-item"><span class="mk-trait-dot">◆</span>3인 전문가 케어 시스템</div>
+          <div class="mk-trait-item"><span class="mk-trait-dot">◆</span>1:1 상담 후 맞춤 프로토콜 설계</div>
+        </div>
+        <div class="mk-footer">예약 문의 · @im.aesthetic.official</div>
+        <div class="mk-callout" style="top:6%;right:8px;">3</div>
+      </div>
+      <div>
+        <div class="slide-title">Slide A-3 — 클리닉 케어 CTA</div>
+        <div class="slide-note">
+          <strong>③</strong> 타입별 <strong>추천 시술/프로그램</strong> 4개 + DM 유도 문구.
+          상단 배지는 타입 코드(DSNT 등) 그대로 유지하여 A-1·A-2와 시각적 연속성 확보.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Carousel B: Energy & Fragrance ── -->
+  <div style="margin:48px 0 12px;padding:14px 18px;background:#F5EDE0;border-left:4px solid #D4A04A;border-radius:4px;">
+    <div style="font-family:'Playfair Display',serif;font-size:14px;letter-spacing:0.12em;color:#D4A04A;">CAROUSEL B</div>
+    <div style="font-family:'Pretendard';font-weight:600;font-size:18px;color:#3D2E24;margin-top:4px;">에너지 체질 · 아유르베다 7 프라크리티 + 향기</div>
+    <div style="font-family:'Pretendard';font-size:13px;color:#9B8A7A;margin-top:4px;">앱의 <strong>아유르베다 테스트 결과</strong>(V·P·K·VP·VK·PK·VPK 7종) 기반 · 커버(고정) → 프라크리티 공개 → 매칭 향기 · <strong>바우만 테스트(MBTI)와 독립</strong>이므로 같은 MBTI 고객도 프라크리티가 다를 수 있음</div>
+  </div>
+
+  <div class="slide-row">
+    <!-- Slide B-1: Cover (Dosha symbol intro) -->
+    <div class="slide-item">
+      <div class="slide-mockup mk-cover-b">
+        <div class="mk-b-logo">IM AESTHETIC</div>
+        <div class="mk-b-badge">DOSHA</div>
+        <div class="mk-b-tri">
+          <svg viewBox="0 0 110 96">
+            <polygon points="55,6 104,90 6,90"></polygon>
+            <circle cx="55" cy="6" r="2.5" fill="#D4A04A" stroke="none"></circle>
+            <circle cx="6" cy="90" r="2.5" fill="#D4A04A" stroke="none"></circle>
+            <circle cx="104" cy="90" r="2.5" fill="#D4A04A" stroke="none"></circle>
+          </svg>
+        </div>
+        <div class="mk-b-tri-lbl v">VATA</div>
+        <div class="mk-b-tri-lbl p">PITTA</div>
+        <div class="mk-b-tri-lbl k">KAPHA</div>
+        <div class="mk-b-hook">
+          바람 · 불 · 물,,,<br>
+          당신 안의 <span class="accent">세 가지 결</span>
+        </div>
+        <div class="mk-b-divider"></div>
+        <div class="mk-b-sub">아유르베다 3,000년의 지혜로<br>읽는 나의 에너지 체질</div>
+        <div class="mk-b-swipe">→ SWIPE</div>
+        <div class="mk-b-footer">@im.aesthetic.official</div>
+        <div class="mk-callout" style="top:8%;left:8px;">1</div>
+        <div class="mk-callout" style="top:28%;right:8px;">2</div>
+        <div class="mk-callout" style="top:58%;left:8px;">3</div>
+        <div class="mk-callout" style="top:85%;right:8px;">4</div>
+      </div>
+      <div>
+        <div class="slide-title">Slide B-1 — 커버 (도샤 심볼 인트로)</div>
+        <div class="slide-note">
+          <strong>①</strong> 상단: 로고(좌) + <strong>DOSHA 골드 뱃지</strong>(우) — Carousel A 오렌지 뱃지와 의도적 차별화.
+          <strong>②</strong> 중앙 <strong>도샤 삼각형</strong> — Vata(상)·Pitta(좌하)·Kapha(우하) 3꼭짓점 라벨.
+          Canva 에셋 검색어: <code>ayurveda triangle dosha minimal gold</code>, <code>three element symbol line art</code>.
+          <strong>③</strong> Noto Serif KR 300 훅 "바람·불·물,,, 당신 안의 세 가지 결" + 골드 강조.
+          서브: "아유르베다 3,000년의 지혜로 읽는 나의 에너지 체질".
+          <strong>④</strong> 우하단 → SWIPE 넛지로 진입 유도. 고객 개별 진단은 Slide B-2에서 공개.
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide B-2: Prakriti Reveal (app-mirrored) -->
     <div class="slide-item">
       <div class="slide-mockup mk-energy">
         <div class="mk-brand-bar">
           <div class="mk-brand-logo">IM AESTHETIC</div>
-          <div class="mk-brand-badge">DSNT</div>
+          <div class="mk-brand-badge" style="background:#D4A04A;">PK</div>
         </div>
-        <div class="mk-e-title">나의 에너지 체질</div>
-        <div class="mk-chart">
-          <div class="mk-tri"></div>
-          <div>아유르베다 삼각형<br>차트 캡처를 여기에</div>
+        <div class="mk-e-title" style="font-size:14px;color:#D4A04A;">나의 에너지 체질</div>
+        <div style="font-family:'Noto Serif KR',serif;font-weight:400;font-size:15px;text-align:center;color:#3D2E24;margin-top:2px;">피타 카파</div>
+        <div class="mk-chart" style="margin-top:6px;">
+          <svg viewBox="0 0 110 96" style="width:82px;height:72px;">
+            <polygon points="55,6 104,90 6,90" stroke="#D4A04A" stroke-width="1" fill="rgba(212,160,74,0.08)"></polygon>
+            <circle cx="55" cy="6" r="2" fill="#E8703A"></circle>
+            <circle cx="30" cy="55" r="2" fill="#9B8AC0"></circle>
+            <circle cx="75" cy="55" r="2" fill="#8FAE6A"></circle>
+            <polygon points="55,30 35,60 75,60" fill="rgba(212,160,74,0.25)" stroke="#D4A04A" stroke-width="0.5"></polygon>
+          </svg>
+          <div style="font-size:6.5px;color:#9B8A7A;margin-top:2px;">바타 · 피타 · 카파</div>
         </div>
-        <div class="mk-divider"></div>
-        <div class="mk-fr-title">당신의 에너지에 행운을 더하는 향기</div>
-        <div class="mk-fr-name">카모마일 Chamomile</div>
-        <div class="mk-fr-desc">카모마일 향은 정체된 피부에 부드러운 위로를 건네...</div>
+        <div style="font-size:6.5px;line-height:1.45;color:#3D2E24;text-align:center;padding:4px 8px;margin-top:4px;">
+          겉은 맑아 보이나 속은 얇고 거칠어요,,, 장벽만 재건하면 빠르게 좋아져요.
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:0 8px;margin-top:4px;">
+          <div style="background:rgba(143,174,106,0.15);border:1px solid rgba(143,174,106,0.4);border-radius:4px;padding:4px;">
+            <div style="font-size:6.5px;color:#5A7A3E;font-weight:600;">✓ 좋은 것</div>
+            <div style="font-size:5.5px;color:#3D2E24;line-height:1.4;margin-top:2px;">진정 제품·미온수 세안</div>
+          </div>
+          <div style="background:rgba(220,100,80,0.1);border:1px solid rgba(220,100,80,0.35);border-radius:4px;padding:4px;">
+            <div style="font-size:6.5px;color:#B8463A;font-weight:600;">✗ 주의할 점</div>
+            <div style="font-size:5.5px;color:#3D2E24;line-height:1.4;margin-top:2px;">뜨거운 물·자극 성분</div>
+          </div>
+        </div>
         <div class="mk-footer">IM AESTHETIC · @im.aesthetic.official</div>
-        <div class="mk-callout" style="top:18%;right:8px;">4</div>
-        <div class="mk-callout" style="top:62%;right:8px;">5</div>
+        <div class="mk-callout" style="top:6%;right:8px;">2</div>
+        <div class="mk-callout" style="top:32%;right:8px;">3</div>
+        <div class="mk-callout" style="top:70%;right:8px;">4</div>
       </div>
       <div>
-        <div class="slide-title">Slide 3 — 에너지 체질 + 향기</div>
+        <div class="slide-title">Slide B-2 — 프라크리티 공개 (앱 미러링)</div>
         <div class="slide-note">
-          <strong>④</strong> 앱 화면 캡처 후 삽입.
-          <strong>⑤</strong> 향기 텍스트는 타입별 데이터 참조.
+          <strong>②</strong> 상단 코드 뱃지 — 7 프라크리티 중 하나 (V/P/K/VP/VK/PK/VPK).
+          제목 "나의 에너지 체질" 골드 + 조합명(Noto Serif) 중앙.
+          <strong>③</strong> <strong>앱 삼각형 차트</strong> 캡처 또는 재현 — 3꼭짓점(바타·피타·카파) + 개인별 도트 위치 + 내부 도형으로 분포 표현.
+          하단 해석 문구는 4-B 섹션의 <code>characteristics</code> 참조.
+          <strong>④</strong> 앱의 <strong>좋은 것 / 주의할 점</strong> 박스 — 프라크리티 기반 <em>라이프스타일</em> (MBTI 피부 케어와 별개).
+          4-B 섹션의 <code>dos</code> / <code>donts</code> 참조.
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide B-3: Fragrance + CTA (app-mirrored) -->
+    <div class="slide-item">
+      <div class="slide-mockup mk-energy">
+        <div class="mk-brand-bar">
+          <div class="mk-brand-logo">IM AESTHETIC</div>
+          <div class="mk-brand-badge" style="background:#D4A04A;">PK</div>
+        </div>
+        <div class="mk-e-title" style="font-size:12px;color:#D4A04A;">당신의 에너지에 행운을 더하는 향기</div>
+        <div class="mk-divider" style="margin-top:10px;"></div>
+        <div class="mk-fr-title" style="margin-top:16px;font-size:8px;">오늘의 추천 향</div>
+        <div class="mk-fr-name" style="font-size:16px;">카모마일 Chamomile</div>
+        <div class="mk-fr-desc">정체된 에너지에 부드러운 위로를 건네 막힌 순환의 길을 살며시 열어줍니다.</div>
+        <div style="margin-top:14px;padding:0 10px;">
+          <div style="background:#3D2E24;color:#FFF8F0;text-align:center;padding:7px;border-radius:4px;font-size:8px;font-weight:600;letter-spacing:1px;">예약하러 가기</div>
+          <div style="background:transparent;border:1px solid #3D2E24;color:#3D2E24;text-align:center;padding:6px;border-radius:4px;font-size:8px;margin-top:4px;letter-spacing:1px;">더 알아보기</div>
+        </div>
+        <div class="mk-footer">IM AESTHETIC · @im.aesthetic.official</div>
+        <div class="mk-callout" style="top:18%;right:8px;">5</div>
+        <div class="mk-callout" style="top:72%;right:8px;">6</div>
+      </div>
+      <div>
+        <div class="slide-title">Slide B-3 — 맞춤 향기</div>
+        <div class="slide-title">Slide B-3 — 매칭 향기 + CTA</div>
+        <div class="slide-note">
+          <strong>⑤</strong> 프라크리티별 향기 — 4-B 섹션의 <code>fragrances</code> 참조 (한 프라크리티당 2~3개).
+          앱의 "당신의 에너지에 행운을 더하는 향기" 문구 그대로 차용.
+          <strong>⑥</strong> 앱과 동일하게 <strong>CTA 2개</strong>: "예약하러 가기"(진한 배경) + "더 알아보기"(아웃라인).
+          Skin MBTI와 독립 진단이므로 같은 MBTI 고객도 프라크리티·향기가 다를 수 있음.
         </div>
       </div>
     </div>
@@ -2217,15 +2453,22 @@ main {
   </div>
 </section>
 
-<!-- ═════════ SECTION 4: 16-TYPE DATA ═════════ -->
+<!-- ═════════ SECTION 4: DATA REFERENCE (MBTI + DOSHA 분리) ═════════ -->
 <section class="section" id="section-4">
   <div class="section-header">
     <div class="section-num">4</div>
     <div>
-      <div class="section-title">16타입 데이터 참조</div>
-      <div class="section-desc">클릭하여 펼치기 · 복사 버튼으로 Canva에 붙여넣기</div>
+      <div class="section-title">진단 데이터 참조</div>
+      <div class="section-desc">16 스킨 타입(Carousel A용) + 3 도샤 체질(Carousel B용) · 복사 버튼으로 Canva에 붙여넣기</div>
     </div>
     <div class="section-line"></div>
+  </div>
+
+  <!-- ── 4-A: Skin MBTI 16 Types ── -->
+  <div style="margin:24px 0 12px;padding:14px 18px;background:#FFF8F0;border-left:4px solid #E8703A;border-radius:4px;">
+    <div style="font-family:'Playfair Display',serif;font-size:14px;letter-spacing:0.12em;color:#E8703A;">4-A · SKIN MBTI</div>
+    <div style="font-family:'Pretendard';font-weight:600;font-size:18px;color:#3D2E24;margin-top:4px;">16 스킨 타입 데이터</div>
+    <div style="font-family:'Pretendard';font-size:13px;color:#9B8A7A;margin-top:4px;">피부 표면 진단 기준(유분·민감·색소·탄력) · Carousel A에만 사용</div>
   </div>
 
   <div class="filter-tabs">
@@ -2237,6 +2480,15 @@ main {
   </div>
 
   <div class="type-grid" id="typeGrid"><!-- Types injected via JS --></div>
+
+  <!-- ── 4-B: Dosha 3 Types ── -->
+  <div style="margin:56px 0 12px;padding:14px 18px;background:#F5EDE0;border-left:4px solid #D4A04A;border-radius:4px;">
+    <div style="font-family:'Playfair Display',serif;font-size:14px;letter-spacing:0.12em;color:#D4A04A;">4-B · AYURVEDA PRAKRITI</div>
+    <div style="font-family:'Pretendard';font-weight:600;font-size:18px;color:#3D2E24;margin-top:4px;">7 프라크리티 데이터 (전통 아유르베다)</div>
+    <div style="font-family:'Pretendard';font-size:13px;color:#9B8A7A;margin-top:4px;">V·P·K 단일 3종 + VP·VK·PK 이중 3종 + VPK 삼중 1종 · 앱은 바우만 테스트(피부) + 아유르베다 테스트(체질) 혼용 설문으로 두 결과를 <strong>독립 산출</strong> · 향기는 프라크리티 결과에 매칭</div>
+  </div>
+
+  <div class="type-grid" id="doshaGrid"><!-- Dosha types injected via JS --></div>
 </section>
 
 <!-- ═════════ SECTION 5: PRODUCTION GUIDE ═════════ -->
@@ -2520,6 +2772,143 @@ const CANVA_TYPES = [
   }
 ];
 
+/* ══════════ DOSHA PRAKRITI DATA (7 TYPES) ══════════ */
+/* 앱이 바우만 테스트(Skin MBTI) + 아유르베다 테스트 질문을 혼용.
+   두 결과는 독립적으로 산출되며 MBTI와 프라크리티는 1:1 매핑이 아님.
+   전통 아유르베다 7 프라크리티: V/P/K 단일 3종 + VP/VK/PK 이중 3종 + VPK 삼중 1종 */
+const DOSHA_TYPES = [
+  {
+    code: "V", group: "V",
+    character: "바타 Vata", category: "단일 · 바람·공기 우세",
+    keywords: ["가벼움", "민첩함", "창의적", "쉽게 건조", "변화 민감"],
+    masterComment: "바람처럼 흔들리는 에너지. 따뜻하고 무게감 있는 향으로 뿌리 내려 진정시켜야 해요.",
+    characteristics: [
+      "피부 건조·얇고 주름 생기기 쉬움",
+      "체온 낮고 손발 차가운 편, 혈색 옅음",
+      "생각·감정·루틴이 변덕스럽고 불안정",
+      "과도한 활동 후 쉽게 지치고 수면 얕음"
+    ],
+    dos: ["따뜻하고 촉촉한 음식", "규칙적 수면·식사", "오일 마사지(아비앙가)", "명상·호흡 루틴"],
+    donts: ["차갑고 건조한 환경", "카페인·자극성 음료 과다", "불규칙한 식사", "과도한 운동"],
+    fragrances: [
+      { name: "샌달우드 (Sandalwood)", note: "붕 뜬 마음을 가라앉혀 에너지가 비로소 뿌리 내리게 합니다." },
+      { name: "일랑일랑 (Ylang Ylang)", note: "텅 빈 에너지에 풍요로운 영양을 채우고 탄력을 불러옵니다." },
+      { name: "시나몬 (Cinnamon)", note: "차갑게 굳은 몸에 따스한 온기를 불어넣어 영양의 길을 엽니다." }
+    ]
+  },
+  {
+    code: "P", group: "P",
+    character: "피타 Pitta", category: "단일 · 불·열 우세",
+    keywords: ["강렬함", "예리함", "열정적", "완벽주의", "쉽게 달아오름"],
+    masterComment: "불꽃처럼 강렬한 에너지. 시원하고 부드러운 향으로 열감을 식혀 균형을 잡아주세요.",
+    characteristics: [
+      "피부 붉어지기 쉽고 염증·색소 잦음",
+      "체온 높고 땀 많으며 배고픔·갈증 강함",
+      "목표 지향적, 스트레스 시 짜증·분노",
+      "소화력 좋으나 매운 음식에 쉽게 자극"
+    ],
+    dos: ["시원하고 달콤한 음식", "햇빛 과다 노출 피하기", "여유로운 시간 확보", "물·허브티 충분히"],
+    donts: ["매운·짠·신 음식 과다", "강한 햇빛 장시간", "과도한 경쟁·압박", "늦은 시간 과식"],
+    fragrances: [
+      { name: "네롤리 (Neroli)", note: "예민하게 곤두선 유분막을 진정시키고 균형을 잡아줍니다." },
+      { name: "로즈 (Rose)", note: "열기로 지친 피부와 마음을 식히고 새 살결을 피워냅니다." },
+      { name: "페퍼민트 (Peppermint)", note: "타오르는 피부 속 불길을 시원하게 잠재웁니다." }
+    ]
+  },
+  {
+    code: "K", group: "K",
+    character: "카파 Kapha", category: "단일 · 물·흙 우세",
+    keywords: ["안정감", "느긋함", "축적형", "지구력", "쉽게 정체"],
+    masterComment: "호수처럼 고요한 에너지. 자극적이고 산뜻한 향으로 고인 흐름을 깨워 순환시키세요.",
+    characteristics: [
+      "피부 유분 많고 모공 크며 촉촉한 결",
+      "체형 단단·지구력 강하나 순환 느림",
+      "차분·인내심 강하지만 변화에 둔감",
+      "수면 길고 깊으나 무기력감 쉽게 옴"
+    ],
+    dos: ["가볍고 따뜻한 음식", "규칙적 유산소 운동", "이른 기상·활동적 아침", "새로운 자극·변화"],
+    donts: ["기름지고 무거운 음식", "낮잠·과도한 수면", "차가운 유제품 과다", "앉아있는 시간 과다"],
+    fragrances: [
+      { name: "티트리 (Tea Tree)", note: "독소가 만든 정체를 정화하고 막힌 통로를 열어줍니다." },
+      { name: "유칼립투스 (Eucalyptus)", note: "무거움의 흔적을 식히고 맑은 숨결로 다시 일으킵니다." },
+      { name: "레몬그라스 (Lemongrass)", note: "잠긴 성벽 같은 몸에 활력의 바람을 불어넣습니다." }
+    ]
+  },
+  {
+    code: "VP", group: "VP",
+    character: "바타 피타 Vata-Pitta", category: "이중 · 건조함 + 열감 공존",
+    keywords: ["창의적 열정", "예민함", "건조 + 붉어짐", "추진력 강함"],
+    masterComment: "바람과 불이 함께 부는 체질. 차가운 수분과 따뜻한 영양을 동시에 채워 균형을 잡아주세요.",
+    characteristics: [
+      "건조함과 홍조·염증이 함께 나타남",
+      "체온 조절 불안정 (춥다-덥다 전환 잦음)",
+      "창의적이고 열정적이나 번아웃 주의",
+      "수면·소화 리듬 쉽게 깨짐"
+    ],
+    dos: ["수분감 있는 시원한 음식", "규칙적 휴식·명상", "오일 마사지 + 시원한 미스트", "경쟁보다 협업"],
+    donts: ["매운·건조한 음식", "과도한 일정 압박", "늦은 취침", "카페인 과다"],
+    fragrances: [
+      { name: "라벤더 (Lavender)", note: "예민해진 신경을 어루만지고 깊은 휴식을 선물합니다." },
+      { name: "카모마일 (Chamomile)", note: "정체된 에너지에 부드러운 위로를 건네 순환의 길을 엽니다." }
+    ]
+  },
+  {
+    code: "VK", group: "VK",
+    character: "바타 카파 Vata-Kapha", category: "이중 · 건조함 + 정체 공존",
+    keywords: ["차분한 창의력", "느린 추진력", "건조 + 무거움", "냉증 주의"],
+    masterComment: "바람과 물이 교차하는 체질. 따뜻한 자극으로 얼어붙은 흐름을 녹여 순환시켜야 해요.",
+    characteristics: [
+      "피부 건조하나 부위별로 유분 정체",
+      "체온 낮고 혈액 순환 느림",
+      "차분하나 시작이 느리고 정체되기 쉬움",
+      "감기·소화불량·무기력 자주 동반"
+    ],
+    dos: ["따뜻하고 가벼운 음식", "활동적 아침 루틴", "따뜻한 허브티", "꾸준한 유산소"],
+    donts: ["차가운 음식·음료", "장시간 정지 자세", "과도한 낮잠", "기름진 식사"],
+    fragrances: [
+      { name: "진저 (Ginger)", note: "가뭄 든 에너지에 생기의 불씨를 피워 새 생명을 깨웁니다." },
+      { name: "베르가못 (Bergamot)", note: "갇힌 피지와 기운에 길을 열어 가벼운 숨을 불어넣습니다." }
+    ]
+  },
+  {
+    code: "PK", group: "PK",
+    character: "피타 카파 Pitta-Kapha", category: "이중 · 열감 + 정체 공존",
+    keywords: ["강한 지구력", "열감 + 무거움", "안정적 추진", "염증 축적"],
+    masterComment: "불과 물이 공존하는 체질. 열감은 식히되 정체는 풀어주는 이중 밸런싱이 필요해요.",
+    characteristics: [
+      "유분 많고 모공 크며 염증·색소 함께 나타남",
+      "체형 단단하고 지구력 강하나 발열 잦음",
+      "목표 지향적이고 인내심 강함",
+      "독소 축적·순환 지연으로 트러블 누적"
+    ],
+    dos: ["시원하고 가벼운 음식", "규칙적 유산소", "디톡스·수분 섭취", "스트레스 해소 루틴"],
+    donts: ["매운+기름진 음식", "과도한 일정 압박", "낮잠·과식", "감정 억누름"],
+    fragrances: [
+      { name: "자몽 (Grapefruit)", note: "고인 정체를 풀고 산뜻한 에너지로 흐름을 되찾아줍니다." },
+      { name: "패츌리 (Patchouli)", note: "탁한 안색 뒤 긴장을 풀어주고 맑은 빛을 끌어올립니다." },
+      { name: "로즈마리 (Rosemary)", note: "잠든 색소를 깨우고 강력한 순환으로 닫힌 결을 엽니다." }
+    ]
+  },
+  {
+    code: "VPK", group: "VPK",
+    character: "트리도샤 Tridosha", category: "삼중 · 바타·피타·카파 균형형",
+    keywords: ["희귀형", "타고난 균형", "회복력 탁월", "적응력 높음"],
+    masterComment: "세 원소가 조화로운 이상적 체질. 현재의 균형을 섬세하게 유지하는 케어가 최선이에요.",
+    characteristics: [
+      "피부 결·유수분·탄력이 전반적으로 균형",
+      "체력·소화·수면 모두 안정적",
+      "감정 기복 적고 회복력 뛰어남",
+      "계절·환경 변화에 적응력 높음"
+    ],
+    dos: ["계절에 맞춘 식단", "균형 잡힌 운동·휴식", "예방 중심 루틴", "현재 상태 관찰 유지"],
+    donts: ["극단적 식이요법", "한 가지 도샤 과도 자극", "생활 리듬 급변", "과도한 디톡스"],
+    fragrances: [
+      { name: "로즈 + 라벤더 블렌드", note: "세 원소의 섬세한 균형을 유지하는 조화로운 블렌드." },
+      { name: "베르가못 + 샌달우드 블렌드", note: "활력과 안정을 동시에 주는 밸런스 향기." }
+    ]
+  }
+];
+
 /* ══════════ UTILS ══════════ */
 const escapeHtml = (s) => String(s).replace(/[&<>"']/g, m => ({
   '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
@@ -2542,7 +2931,6 @@ function renderTypes() {
           <span class="type-code">${t.code}</span>
           <span class="type-char">${escapeHtml(t.character)}</span>
           <span class="type-cat">${escapeHtml(t.category)}</span>
-          <span class="type-fragrance">${escapeHtml(t.fragrance)}</span>
           <span class="type-toggle">▼</span>
         </header>
         <div class="type-body">
@@ -2567,11 +2955,6 @@ function renderTypes() {
               <ul>${donts}</ul>
               <button class="copy-btn" data-copy="${escapeHtml(dontsText)}">복사</button>
             </div>
-            <div class="type-fragrance-detail">
-              <strong>${escapeHtml(t.fragrance)}</strong>
-              ${escapeHtml(t.fragranceDetail)}
-              <button class="copy-btn" data-copy="${escapeHtml(t.fragranceDetail)}">복사</button>
-            </div>
           </div>
         </div>
       </article>
@@ -2589,6 +2972,64 @@ function bindAccordion() {
   });
 }
 
+/* ══════════ RENDER DOSHA CARDS ══════════ */
+function renderDosha() {
+  const grid = document.getElementById('doshaGrid');
+  if (!grid) return;
+  grid.innerHTML = DOSHA_TYPES.map(t => {
+    const kw = t.keywords.map(k => `<span class="type-kw">${escapeHtml(k)}</span>`).join('');
+    const traits = t.characteristics.map(c => `<li>${escapeHtml(c)}</li>`).join('');
+    const traitsText = t.characteristics.join('\n');
+    const dos = t.dos.map(d => `<li>${escapeHtml(d)}</li>`).join('');
+    const donts = t.donts.map(d => `<li>${escapeHtml(d)}</li>`).join('');
+    const dosText = t.dos.join('\n');
+    const dontsText = t.donts.join('\n');
+    const frags = t.fragrances.map(f => `
+      <div class="type-fragrance-detail">
+        <strong>${escapeHtml(f.name)}</strong>
+        ${escapeHtml(f.note)}
+        <button class="copy-btn" data-copy="${escapeHtml(f.name + ' — ' + f.note)}">복사</button>
+      </div>
+    `).join('');
+    return `
+      <article class="type-card open" data-group="${t.group}">
+        <header class="type-head">
+          <span class="type-code">${t.code}</span>
+          <span class="type-char">${escapeHtml(t.character)}</span>
+          <span class="type-cat">${escapeHtml(t.category)}</span>
+          <span class="type-toggle">▼</span>
+        </header>
+        <div class="type-body">
+          <div class="type-body-inner">
+            <div class="type-keywords">${kw}</div>
+            <div class="type-master">
+              ${escapeHtml(t.masterComment)}
+              <button class="copy-btn" data-copy="${escapeHtml(t.masterComment)}">복사</button>
+            </div>
+            <div class="type-traits">
+              <h5>체질 특성</h5>
+              <ul>${traits}</ul>
+              <button class="copy-btn" data-copy="${escapeHtml(traitsText)}">복사</button>
+            </div>
+            <div class="type-list-block good">
+              <h5>Do's ✓ (체질 밸런싱)</h5>
+              <ul>${dos}</ul>
+              <button class="copy-btn" data-copy="${escapeHtml(dosText)}">복사</button>
+            </div>
+            <div class="type-list-block bad">
+              <h5>Don'ts ✗ (체질 악화)</h5>
+              <ul>${donts}</ul>
+              <button class="copy-btn" data-copy="${escapeHtml(dontsText)}">복사</button>
+            </div>
+            <h5 style="margin-top:12px;font-family:'Playfair Display',serif;color:#D4A04A;letter-spacing:0.12em;">BALANCING FRAGRANCES</h5>
+            ${frags}
+          </div>
+        </div>
+      </article>
+    `;
+  }).join('');
+}
+
 /* ══════════ FILTER ══════════ */
 function bindFilter() {
   document.querySelectorAll('.filter-tab').forEach(tab => {
@@ -2596,7 +3037,7 @@ function bindFilter() {
       document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       const filter = tab.dataset.filter;
-      document.querySelectorAll('.type-card').forEach(card => {
+      document.querySelectorAll('#typeGrid .type-card').forEach(card => {
         const show = filter === 'all' || card.dataset.group === filter;
         card.classList.toggle('hidden', !show);
       });
@@ -2642,6 +3083,7 @@ function bindScrollTop() {
 /* ══════════ INIT ══════════ */
 document.addEventListener('DOMContentLoaded', () => {
   renderTypes();
+  renderDosha();
   bindAccordion();
   bindFilter();
   bindCopy();
