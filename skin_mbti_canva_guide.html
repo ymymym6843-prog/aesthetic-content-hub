@@ -1886,9 +1886,9 @@ main {
     <div class="slide-item">
       <div class="slide-mockup mk-cover-b" id="slide-b1">
         <div class="mk-b-logo">IM AESTHETIC</div>
-        <div class="mk-b-badge">PK</div>
+        <div class="mk-b-badge">VK</div>
         <div style="font-family:'Playfair Display',serif;font-size:8px;letter-spacing:0.16em;color:#D4A04A;text-align:center;margin-top:44px;">ENERGY · FRAGRANCE MAP</div>
-        <div style="font-family:'Noto Serif KR',serif;font-weight:300;font-size:16px;text-align:center;color:#3D2E24;margin-top:4px;">피타 카파 <span style="color:#D4A04A;">∙</span> Pitta Kapha</div>
+        <div style="font-family:'Noto Serif KR',serif;font-weight:300;font-size:16px;text-align:center;color:#3D2E24;margin-top:4px;">바타 카파 <span style="color:#D4A04A;">∙</span> Vata Kapha</div>
         <!-- Fragrance Triangle Chart -->
         <div style="position:relative;width:140px;height:130px;margin:10px auto 0;">
           <svg viewBox="0 0 140 130" style="width:100%;height:100%;">
@@ -2434,7 +2434,8 @@ main {
 const CANVA_TYPES = [
   {
     code: "OSNT", group: "OS",
-    character: "알로에 (Aloe)", category: "지성·민감성·비색소·탄력형",
+    character: "알로에 (Aloe)", nickname: "좁쌀 밭 프로예민러", category: "지성·민감성·비색소·탄력형",
+    doshaProfile: "Pitta-Kapha",
     fragrance: "티트리 (Tea Tree)",
     keywords: ["빠른 회복", "맑은 피부", "진정 케어", "예민+강함"],
     masterComment: "열과 노폐물이 만나 트러블로 드러나는 타입이에요. 짜기보다는 배출의 통로를 열어주는 것이 먼저입니다.",
@@ -2445,7 +2446,8 @@ const CANVA_TYPES = [
   },
   {
     code: "OSNW", group: "OS",
-    character: "흰 복숭아 (White Peach)", category: "지성·민감성·비색소·주름형",
+    character: "흰 복숭아 (White Peach)", nickname: "예민한 기름종이", category: "지성·민감성·비색소·주름형",
+    doshaProfile: "Pitta-Vata",
     fragrance: "네롤리 (Neroli)",
     keywords: ["투명한 결", "발그레함", "섬세함", "탄력 관리"],
     masterComment: "번들거림은 피부가 수분을 지키려는 신호예요. 잃어버린 수분을 채워주면 유분도 자연스럽게 가라앉습니다.",
@@ -2456,7 +2458,8 @@ const CANVA_TYPES = [
   },
   {
     code: "OSPT", group: "OS",
-    character: "토마토 (Tomato)", category: "지성·민감성·색소성·탄력형",
+    character: "토마토 (Tomato)", nickname: "얼룩덜룩 트러블퀸", category: "지성·민감성·색소성·탄력형",
+    doshaProfile: "Pitta-Pure",
     fragrance: "유칼립투스 (Eucalyptus)",
     keywords: ["탱탱함", "예민+번들", "잡티 관리", "빛나는 타입"],
     masterComment: "염증이 지나간 흔적이 남아있네요. 열감을 진정시키는 것이 가장 빠른 화이트닝입니다.",
@@ -2467,7 +2470,8 @@ const CANVA_TYPES = [
   },
   {
     code: "OSPW", group: "OS",
-    character: "딸기 (Strawberry)", category: "지성·민감성·색소성·주름형",
+    character: "딸기 (Strawberry)", nickname: "폭발하는 붉은 화산", category: "지성·민감성·색소성·주름형",
+    doshaProfile: "Pitta-Pure",
     fragrance: "페퍼민트 (Peppermint)",
     keywords: ["관리 필수", "예민+번들", "색소 주의", "정성 케어"],
     masterComment: "피부 속 불길이 멜라닌을 태우고 있어요. 기름을 닦지 말고 불을 꺼야 안색이 맑아집니다.",
@@ -2478,7 +2482,8 @@ const CANVA_TYPES = [
   },
   {
     code: "ORNT", group: "OR",
-    character: "청포도 (Green Grape)", category: "지성·저항성·비색소·탄력형",
+    character: "청포도 (Green Grape)", nickname: "매끈한 대리석", category: "지성·저항성·비색소·탄력형",
+    doshaProfile: "Kapha-Pure",
     fragrance: "자몽 (Grapefruit)",
     keywords: ["만점 피부", "싱싱함", "트러블 없음", "유지가 답"],
     masterComment: "지금도 충분히 완벽해 보이지만, 막힌 순환을 풀어주면 피부가 한층 더 투명하게 빛날 거예요.",
@@ -2489,7 +2494,8 @@ const CANVA_TYPES = [
   },
   {
     code: "ORNW", group: "OR",
-    character: "배 (Pear)", category: "지성·저항성·비색소·주름형",
+    character: "배 (Pear)", nickname: "무적의 거북이 등껍질", category: "지성·저항성·비색소·주름형",
+    doshaProfile: "Kapha-Pure",
     fragrance: "레몬그라스 (Lemongrass)",
     keywords: ["맑은 피부", "촉촉함", "탄력 관리", "거의 완벽"],
     masterComment: "장벽이 성벽처럼 단단해요. 튼튼한 게 아니라 잠겨 있는 겁니다. 문부터 여세요.",
@@ -2500,7 +2506,8 @@ const CANVA_TYPES = [
   },
   {
     code: "ORPT", group: "OR",
-    character: "메추리알 (Quail Egg)", category: "지성·저항성·색소성·탄력형",
+    character: "메추리알 (Quail Egg)", nickname: "튼튼한 균열질", category: "지성·저항성·색소성·탄력형",
+    doshaProfile: "Kapha-Vata",
     fragrance: "베르가못 (Bergamot)",
     keywords: ["탱탱함", "톤 불균일", "강한 저항", "잠재력"],
     masterComment: "모공 속에 갇힌 피지가 길을 잃었네요. 피부 결 사이사이에 숨통을 틔워줘야 합니다.",
@@ -2511,7 +2518,8 @@ const CANVA_TYPES = [
   },
   {
     code: "ORPW", group: "OR",
-    character: "아보카도 (Avocado)", category: "지성·저항성·색소성·주름형",
+    character: "아보카도 (Avocado)", nickname: "두꺼운 잡티 부자", category: "지성·저항성·색소성·주름형",
+    doshaProfile: "Kapha-Pitta",
     fragrance: "로즈마리 (Rosemary)",
     keywords: ["영양 가득", "톤 관리", "강한 피부", "피지 조절"],
     masterComment: "피부가 두꺼워 색소도 뿌리가 깊습니다. 강력한 투과 관리로 닫힌 피부를 깨워야 합니다.",
@@ -2522,7 +2530,8 @@ const CANVA_TYPES = [
   },
   {
     code: "DSNT", group: "DS",
-    character: "두부 (Tofu)", category: "건성·민감성·비색소·탄력형",
+    character: "두부 (Tofu)", nickname: "푸석푸석 민감초", category: "건성·민감성·비색소·탄력형",
+    doshaProfile: "Vata-Kapha",
     fragrance: "카모마일 (Chamomile)",
     keywords: ["하얀 피부", "탱탱함", "예민 주의", "순한 케어"],
     masterComment: "겉은 촉촉해 보이는데 속은 건조하죠? 깊은 수분을 채워줘야 피부가 진짜 생기를 되찾아요.",
@@ -2533,7 +2542,8 @@ const CANVA_TYPES = [
   },
   {
     code: "DSNW", group: "DS",
-    character: "코코넛 (Coconut)", category: "건성·민감성·비색소·주름형",
+    character: "코코넛 (Coconut)", nickname: "유리 멘탈 종잇장", category: "건성·민감성·비색소·주름형",
+    doshaProfile: "Vata-Pure",
     fragrance: "라벤더 (Lavender)",
     keywords: ["깨끗한 톤", "건조 예민", "속보습", "주름 예방"],
     masterComment: "투명하지만 너무 얇아요. 작은 자극에도 쉽게 흔들리는 예민한 피부를 먼저 달래야 해요.",
@@ -2544,7 +2554,8 @@ const CANVA_TYPES = [
   },
   {
     code: "DSPT", group: "DS",
-    character: "석류알 (Pomegranate Seed)", category: "건성·민감성·색소성·탄력형",
+    character: "석류알 (Pomegranate Seed)", nickname: "잡티 핀 민들레", category: "건성·민감성·색소성·탄력형",
+    doshaProfile: "Vata-Pitta",
     fragrance: "로즈 (Rose)",
     keywords: ["탱탱함", "예민 주의", "미백 관리", "잠재력"],
     masterComment: "민감해서 미백 제품도 못 쓰시죠? 속열을 식혀야 잡티가 비로소 흐려집니다.",
@@ -2555,7 +2566,8 @@ const CANVA_TYPES = [
   },
   {
     code: "DSPW", group: "DS",
-    character: "라즈베리 (Raspberry)", category: "건성·민감성·색소성·주름형",
+    character: "라즈베리 (Raspberry)", nickname: "사막 위의 고목", category: "건성·민감성·색소성·주름형",
+    doshaProfile: "Vata-Pitta",
     fragrance: "샌달우드 (Sandalwood)",
     keywords: ["섬세함", "관리 필수", "색소 주의", "정성 케어"],
     masterComment: "바람이 불을 만나 수분을 다 말려버렸네요. 기미보다 급한 건 장벽의 휴식입니다.",
@@ -2566,7 +2578,8 @@ const CANVA_TYPES = [
   },
   {
     code: "DRNT", group: "DR",
-    character: "선인장 (Cactus)", category: "건성·저항성·비색소·탄력형",
+    character: "선인장 (Cactus)", nickname: "결 고운 얼음공주", category: "건성·저항성·비색소·탄력형",
+    doshaProfile: "Vata-Pure",
     fragrance: "일랑일랑 (Ylang Ylang)",
     keywords: ["탄탄함", "보습 핵심", "건조 주의", "예방 관리"],
     masterComment: "겉은 맑지만 속은 텅 비어있어요. 탄력이 소진되기 전에 영양을 저축해야 할 때입니다.",
@@ -2577,7 +2590,8 @@ const CANVA_TYPES = [
   },
   {
     code: "DRNW", group: "DR",
-    character: "감자 (Potato)", category: "건성·저항성·비색소·주름형",
+    character: "감자 (Potato)", nickname: "빡빡하게 굳은 도자기", category: "건성·저항성·비색소·주름형",
+    doshaProfile: "Vata-Kapha",
     fragrance: "시나몬 (Cinnamon)",
     keywords: ["균일한 톤", "건조 주의", "주름 예방", "든든함"],
     masterComment: "차갑고 단단하게 굳어버린 피부. 따뜻한 온기를 불어넣어야 영양이 비로소 스며듭니다.",
@@ -2588,7 +2602,8 @@ const CANVA_TYPES = [
   },
   {
     code: "DRPT", group: "DR",
-    character: "올리브 (Olive)", category: "건성·저항성·색소성·탄력형",
+    character: "올리브 (Olive)", nickname: "맑은데 칙칙한 구름", category: "건성·저항성·색소성·탄력형",
+    doshaProfile: "Kapha-Vata",
     fragrance: "패츌리 (Patchouli)",
     keywords: ["탄탄함", "잡티 주의", "보습 필수", "거의 완벽"],
     masterComment: "안색이 탁한 건 순환의 문제예요. 목과 어깨의 긴장을 풀어야 얼굴 빛이 살아납니다.",
@@ -2599,7 +2614,8 @@ const CANVA_TYPES = [
   },
   {
     code: "DRPW", group: "DR",
-    character: "무화과 (Fig)", category: "건성·저항성·색소성·주름형",
+    character: "무화과 (Fig)", nickname: "메마른 잡티 밭", category: "건성·저항성·색소성·주름형",
+    doshaProfile: "Vata-Kapha",
     fragrance: "진저 (Ginger)",
     keywords: ["강한 피부", "칙칙함", "주름 케어", "고급 관리"],
     masterComment: "건조한 땅에 잡티가 자리잡은 상태예요. 깊은 보습 관리가 가장 시급합니다.",
@@ -2763,6 +2779,9 @@ function renderTypes() {
     const donts = t.donts.map(d => `<li>${escapeHtml(d)}</li>`).join('');
     const dosText = t.dos.join('\n');
     const dontsText = t.donts.join('\n');
+    const nick = t.nickname ? `<span style="font-size:11px;color:#E8703A;font-weight:600;margin-right:6px;">#${escapeHtml(t.nickname)}</span>` : '';
+    const dosha = t.doshaProfile ? `<span style="font-size:10px;color:#D4A04A;border:1px solid #D4A04A;padding:2px 6px;border-radius:3px;letter-spacing:0.08em;font-weight:600;">${escapeHtml(t.doshaProfile)}</span>` : '';
+    const fragTag = t.fragrance ? `<span style="font-size:10px;color:#9B8A7A;margin-left:6px;">· ${escapeHtml(t.fragrance)}</span>` : '';
     return `
       <article class="type-card" data-group="${t.group}">
         <header class="type-head">
@@ -2773,6 +2792,9 @@ function renderTypes() {
         </header>
         <div class="type-body">
           <div class="type-body-inner">
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px dashed rgba(212,160,74,0.3);">
+              ${nick}${dosha}${fragTag}
+            </div>
             <div class="type-keywords">${kw}</div>
             <div class="type-master">
               ${escapeHtml(t.masterComment)}
