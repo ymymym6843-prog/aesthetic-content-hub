@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Skin MBTI - Canva Production Guide | IM AESTHETIC</title>
 <link rel="icon" type="image/svg+xml" href="/logo-symbol-only.svg">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700&family=Noto+Serif+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -1636,6 +1637,38 @@ main {
   .type-card { break-inside: avoid; page-break-inside: avoid; }
   .section { page-break-inside: avoid; }
 }
+.btn-png {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 6px 16px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #3D2E24;
+  background: #FFF8F0;
+  border: 1.5px solid #D4A04A;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.04em;
+}
+.btn-png:hover { background: #E8703A; color: #fff; border-color: #E8703A; }
+.btn-png-all {
+  display: inline-block;
+  margin: 20px 0 10px;
+  padding: 10px 24px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  background: #E8703A;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  transition: all 0.2s;
+}
+.btn-png-all:hover { background: #d4632f; transform: translateY(-1px); }
 </style>
 </head>
 <body>
@@ -1786,6 +1819,8 @@ main {
     <div class="section-line"></div>
   </div>
 
+  <button class="btn-png-all" onclick="downloadAllMockups()">ALL PNG Export (슬라이드 6 + 프레임 4)</button>
+
   <!-- ── Carousel A: Skin MBTI ── -->
   <div style="margin:24px 0 12px;padding:14px 18px;background:#FFF8F0;border-left:4px solid #E8703A;border-radius:4px;">
     <div style="font-family:'Playfair Display',serif;font-size:14px;letter-spacing:0.12em;color:#E8703A;">CAROUSEL A</div>
@@ -1796,7 +1831,7 @@ main {
   <div class="slide-row">
     <!-- Slide A-1: Cover -->
     <div class="slide-item">
-      <div class="slide-mockup mk-cover">
+      <div class="slide-mockup mk-cover" id="slide-a1">
         <div class="mk-logo">IM AESTHETIC</div>
         <div class="mk-badge">DSNT</div>
         <div class="mk-play">▶</div>
@@ -1810,6 +1845,7 @@ main {
       </div>
       <div>
         <div class="slide-title">Slide A-1 — 커버 (캐릭터 영상)</div>
+        <button class="btn-png" onclick="downloadMockup('slide-a1','skin-mbti-slide-A1-cover.png')">PNG Download</button>
         <div class="slide-note">
           <strong>①</strong> Canva에서 <strong>프레임(Frames)</strong> 요소로 영상 영역 지정 →
           9:16 MP4를 프레임에 드래그 드롭하면 자동 마스킹. 더블클릭하여 위치·확대 조절.
@@ -1820,7 +1856,7 @@ main {
 
     <!-- Slide A-2: Do's / Don'ts -->
     <div class="slide-item">
-      <div class="slide-mockup mk-do">
+      <div class="slide-mockup mk-do" id="slide-a2">
         <div class="mk-brand-bar">
           <div class="mk-brand-logo">IM AESTHETIC</div>
           <div class="mk-brand-account">@im.aesthetic.official</div>
@@ -1859,6 +1895,7 @@ main {
       </div>
       <div>
         <div class="slide-title">Slide A-2 — Do's &amp; Don'ts</div>
+        <button class="btn-png" onclick="downloadMockup('slide-a2','skin-mbti-slide-A2-dos-donts.png')">PNG Download</button>
         <div class="slide-note">
           <strong>③</strong> 상단에 <strong>마스터의 한마디</strong> 인용구 배치 (감성 멘트).
           <strong>④</strong> Do's/Don'ts 4개씩 초록/빨강 배경으로 대비.
@@ -1869,7 +1906,7 @@ main {
 
     <!-- Slide A-3: CTA / Clinic Care -->
     <div class="slide-item">
-      <div class="slide-mockup mk-do">
+      <div class="slide-mockup mk-do" id="slide-a3">
         <div class="mk-brand-bar">
           <div class="mk-brand-logo">IM AESTHETIC</div>
           <div class="mk-brand-account">@im.aesthetic.official</div>
@@ -1892,6 +1929,7 @@ main {
       </div>
       <div>
         <div class="slide-title">Slide A-3 — 클리닉 케어 CTA</div>
+        <button class="btn-png" onclick="downloadMockup('slide-a3','skin-mbti-slide-A3-cta.png')">PNG Download</button>
         <div class="slide-note">
           <strong>③</strong> 타입별 <strong>추천 시술/프로그램</strong> 4개 + DM 유도 문구.
           상단 배지는 타입 코드(DSNT 등) 그대로 유지하여 A-1·A-2와 시각적 연속성 확보.
@@ -1910,7 +1948,7 @@ main {
   <div class="slide-row">
     <!-- Slide B-1: Cover (Dosha symbol intro) -->
     <div class="slide-item">
-      <div class="slide-mockup mk-cover-b">
+      <div class="slide-mockup mk-cover-b" id="slide-b1">
         <div class="mk-b-logo">IM AESTHETIC</div>
         <div class="mk-b-badge">DOSHA</div>
         <div class="mk-b-tri">
@@ -1939,6 +1977,7 @@ main {
       </div>
       <div>
         <div class="slide-title">Slide B-1 — 커버 (도샤 심볼 인트로)</div>
+        <button class="btn-png" onclick="downloadMockup('slide-b1','skin-mbti-slide-B1-cover.png')">PNG Download</button>
         <div class="slide-note">
           <strong>①</strong> 상단: 로고(좌) + <strong>DOSHA 골드 뱃지</strong>(우) — Carousel A 오렌지 뱃지와 의도적 차별화.
           <strong>②</strong> 중앙 <strong>도샤 삼각형</strong> — Vata(상)·Pitta(좌하)·Kapha(우하) 3꼭짓점 라벨.
@@ -1952,7 +1991,7 @@ main {
 
     <!-- Slide B-2: Prakriti Reveal (app-mirrored) -->
     <div class="slide-item">
-      <div class="slide-mockup mk-energy">
+      <div class="slide-mockup mk-energy" id="slide-b2">
         <div class="mk-brand-bar">
           <div class="mk-brand-logo">IM AESTHETIC</div>
           <div class="mk-brand-badge" style="background:#D4A04A;">PK</div>
@@ -1989,6 +2028,7 @@ main {
       </div>
       <div>
         <div class="slide-title">Slide B-2 — 프라크리티 공개 (앱 미러링)</div>
+        <button class="btn-png" onclick="downloadMockup('slide-b2','skin-mbti-slide-B2-prakriti.png')">PNG Download</button>
         <div class="slide-note">
           <strong>②</strong> 상단 코드 뱃지 — 7 프라크리티 중 하나 (V/P/K/VP/VK/PK/VPK).
           제목 "나의 에너지 체질" 골드 + 조합명(Noto Serif) 중앙.
@@ -2002,7 +2042,7 @@ main {
 
     <!-- Slide B-3: Fragrance + CTA (app-mirrored) -->
     <div class="slide-item">
-      <div class="slide-mockup mk-energy">
+      <div class="slide-mockup mk-energy" id="slide-b3">
         <div class="mk-brand-bar">
           <div class="mk-brand-logo">IM AESTHETIC</div>
           <div class="mk-brand-badge" style="background:#D4A04A;">PK</div>
@@ -2021,8 +2061,8 @@ main {
         <div class="mk-callout" style="top:72%;right:8px;">6</div>
       </div>
       <div>
-        <div class="slide-title">Slide B-3 — 맞춤 향기</div>
         <div class="slide-title">Slide B-3 — 매칭 향기 + CTA</div>
+        <button class="btn-png" onclick="downloadMockup('slide-b3','skin-mbti-slide-B3-fragrance-cta.png')">PNG Download</button>
         <div class="slide-note">
           <strong>⑤</strong> 프라크리티별 향기 — 4-B 섹션의 <code>fragrances</code> 참조 (한 프라크리티당 2~3개).
           앱의 "당신의 에너지에 행운을 더하는 향기" 문구 그대로 차용.
@@ -2048,7 +2088,7 @@ main {
   <div class="frame-grid">
     <!-- Template A — Skin MBTI App -->
     <div class="frame-card">
-      <div class="frame-mockup bg-a">
+      <div class="frame-mockup bg-a" id="frame-a">
         <div class="frame-top">
           <div class="frame-top-label">SKIN MBTI</div>
           <div class="frame-session">NO. 01</div>
@@ -2064,6 +2104,7 @@ main {
         </div>
       </div>
       <div class="frame-title">Template A — 스킨 MBTI 앱 진단</div>
+      <button class="btn-png" onclick="downloadMockup('frame-a','skin-mbti-frame-A-app.png')">PNG Download</button>
       <div class="frame-recipe">
         <div class="recipe-icon-gallery">
           <div class="recipe-icon-gallery-label">ICON CANDIDATES · 3 OPTIONS</div>
@@ -2129,7 +2170,7 @@ main {
 
     <!-- Template B — X-Body Analysis -->
     <div class="frame-card">
-      <div class="frame-mockup bg-b">
+      <div class="frame-mockup bg-b" id="frame-b">
         <div class="frame-top">
           <div class="frame-top-label">X &middot; BODY</div>
           <div class="frame-session">NO. 02</div>
@@ -2145,6 +2186,7 @@ main {
         </div>
       </div>
       <div class="frame-title">Template B — 엑스바디 결과지</div>
+      <button class="btn-png" onclick="downloadMockup('frame-b','skin-mbti-frame-B-xbody.png')">PNG Download</button>
       <div class="frame-recipe">
         <div class="recipe-icon-gallery">
           <div class="recipe-icon-gallery-label">ICON CANDIDATES · 3 OPTIONS</div>
@@ -2217,7 +2259,7 @@ main {
 
     <!-- Template C — Focuskin Analysis -->
     <div class="frame-card">
-      <div class="frame-mockup bg-c">
+      <div class="frame-mockup bg-c" id="frame-c">
         <div class="frame-top">
           <div class="frame-top-label">FOCUSKIN</div>
           <div class="frame-session">NO. 03</div>
@@ -2233,6 +2275,7 @@ main {
         </div>
       </div>
       <div class="frame-title">Template C — 포커스킨 결과지</div>
+      <button class="btn-png" onclick="downloadMockup('frame-c','skin-mbti-frame-C-focuskin.png')">PNG Download</button>
       <div class="frame-recipe">
         <div class="recipe-icon-gallery">
           <div class="recipe-icon-gallery-label">ICON CANDIDATES · 3 OPTIONS</div>
@@ -2300,7 +2343,7 @@ main {
 
     <!-- Template D — Skin Story -->
     <div class="frame-card">
-      <div class="frame-mockup bg-d">
+      <div class="frame-mockup bg-d" id="frame-d">
         <div class="frame-top">
           <div class="frame-top-label">SKIN STORY</div>
           <div class="frame-session">NO. 04</div>
@@ -2316,6 +2359,7 @@ main {
         </div>
       </div>
       <div class="frame-title">Template D — 질문지 작성</div>
+      <button class="btn-png" onclick="downloadMockup('frame-d','skin-mbti-frame-D-questionnaire.png')">PNG Download</button>
       <div class="frame-recipe">
         <div class="recipe-icon-gallery">
           <div class="recipe-icon-gallery-label">ICON CANDIDATES · 3 OPTIONS</div>
@@ -3079,6 +3123,50 @@ function bindScrollTop() {
   btn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+}
+
+/* ══════════ PNG DOWNLOAD ══════════ */
+function downloadMockup(id, filename) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var style = window.getComputedStyle(el);
+  var cssW = parseInt(style.width);
+  var cssH = parseInt(style.height);
+  var scale = Math.max(Math.ceil(1080 / cssW), 3);
+  html2canvas(el, {
+    scale: scale,
+    useCORS: true,
+    allowTaint: true,
+    backgroundColor: null
+  }).then(function(canvas) {
+    var link = document.createElement('a');
+    link.download = filename;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  });
+}
+
+function downloadAllMockups() {
+  var items = [
+    ['slide-a1', 'skin-mbti-slide-A1-cover.png'],
+    ['slide-a2', 'skin-mbti-slide-A2-dos-donts.png'],
+    ['slide-a3', 'skin-mbti-slide-A3-cta.png'],
+    ['slide-b1', 'skin-mbti-slide-B1-cover.png'],
+    ['slide-b2', 'skin-mbti-slide-B2-prakriti.png'],
+    ['slide-b3', 'skin-mbti-slide-B3-fragrance-cta.png'],
+    ['frame-a', 'skin-mbti-frame-A-app.png'],
+    ['frame-b', 'skin-mbti-frame-B-xbody.png'],
+    ['frame-c', 'skin-mbti-frame-C-focuskin.png'],
+    ['frame-d', 'skin-mbti-frame-D-questionnaire.png']
+  ];
+  var i = 0;
+  function next() {
+    if (i >= items.length) return;
+    downloadMockup(items[i][0], items[i][1]);
+    i++;
+    setTimeout(next, 800);
+  }
+  next();
 }
 
 /* ══════════ INIT ══════════ */
