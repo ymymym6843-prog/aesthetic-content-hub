@@ -1770,19 +1770,28 @@ main {
   <div class="section-header">
     <div class="section-num">2</div>
     <div>
-      <div class="section-title">카드뉴스 캐러셀 시안 (2종 분리)</div>
-      <div class="section-desc">Skin MBTI와 에너지 체질은 진단 체계가 달라 캐러셀을 분리합니다. · 각 3-Slide · 1080 × 1350 (4:5)</div>
+      <div class="section-title">카드뉴스 4장 1세트 시안</div>
+      <div class="section-desc">고객 1명당 4슬라이드 · Carousel A (피부 타입 2장) + Carousel B (아유르베다·향기 2장) · 1080 × 1350 (4:5)</div>
     </div>
     <div class="section-line"></div>
   </div>
 
-  <button class="btn-png-all" onclick="downloadAllMockups()">ALL PNG Export (슬라이드 6 + 프레임 4)</button>
+  <button class="btn-png-all" onclick="downloadAllMockups()">ALL PNG Export (카드뉴스 4장 + 프레임 4)</button>
+
+  <!-- ── 4장 1세트 구조 안내 ── -->
+  <div style="margin:24px 0 12px;padding:16px 20px;background:linear-gradient(90deg,#FFF8F0,#F5EDE0);border-left:4px solid #3D2E24;border-radius:4px;">
+    <div style="font-family:'Playfair Display',serif;font-size:13px;letter-spacing:0.14em;color:#3D2E24;">CUSTOMER SET · 4 SLIDES</div>
+    <div style="font-family:'Pretendard';font-weight:600;font-size:16px;color:#3D2E24;margin-top:4px;">고객 한 명 = 카드뉴스 4장 1세트</div>
+    <div style="font-family:'Pretendard';font-size:12px;color:#9B8A7A;margin-top:6px;line-height:1.6;">
+      Slide 1 (A-1) 커버 캐릭터 영상 → Slide 2 (A-2) 한 줄 처방 + OX → Slide 3 (B-1) 아유르베다 체질 + 향기 삼각형 → Slide 4 (B-2) 매칭 향기 + CTA
+    </div>
+  </div>
 
   <!-- ── Carousel A: Skin MBTI ── -->
   <div style="margin:24px 0 12px;padding:14px 18px;background:#FFF8F0;border-left:4px solid #E8703A;border-radius:4px;">
-    <div style="font-family:'Playfair Display',serif;font-size:14px;letter-spacing:0.12em;color:#E8703A;">CAROUSEL A</div>
+    <div style="font-family:'Playfair Display',serif;font-size:14px;letter-spacing:0.12em;color:#E8703A;">CAROUSEL A · 2 SLIDES</div>
     <div style="font-family:'Pretendard';font-weight:600;font-size:18px;color:#3D2E24;margin-top:4px;">Skin MBTI · 피부 타입 진단</div>
-    <div style="font-family:'Pretendard';font-size:13px;color:#9B8A7A;margin-top:4px;">16개 피부 타입별로 제작 · 커버 → Do's/Don'ts → 클리닉 케어 연결</div>
+    <div style="font-family:'Pretendard';font-size:13px;color:#9B8A7A;margin-top:4px;">16 타입별 커버 → 한 줄 처방 + Do's/Don'ts (피부특성 상세는 생략, 핵심 압축)</div>
   </div>
 
   <div class="slide-row">
@@ -1801,8 +1810,8 @@ main {
         <div class="mk-callout" style="top:82%;left:8px;">2</div>
       </div>
       <div>
-        <div class="slide-title">Slide A-1 — 커버 (캐릭터 영상)</div>
-        <button class="btn-png" onclick="downloadMockup('slide-a1','skin-mbti-slide-A1-cover.png')">PNG Download</button>
+        <div class="slide-title">Slide A-1 (Slide 1) — 커버 (캐릭터 영상)</div>
+        <button class="btn-png" onclick="downloadMockup('slide-a1','customer-set-01-cover.png')">PNG Download</button>
         <div class="slide-note">
           <strong>①</strong> Canva에서 <strong>프레임(Frames)</strong> 요소로 영상 영역 지정 →
           9:16 MP4를 프레임에 드래그 드롭하면 자동 마스킹. 더블클릭하여 위치·확대 조절.
@@ -1811,7 +1820,7 @@ main {
       </div>
     </div>
 
-    <!-- Slide A-2: Do's / Don'ts -->
+    <!-- Slide A-2: 한 줄 처방 + OX -->
     <div class="slide-item">
       <div class="slide-mockup mk-do" id="slide-a2">
         <div class="mk-brand-bar">
@@ -1820,18 +1829,17 @@ main {
         </div>
         <div class="mk-head">
           <div class="mk-head-badge">DSNT</div>
-          <div class="mk-head-name">두부 Tofu</div>
+          <div class="mk-head-name">두부 Tofu · #유리피부</div>
         </div>
-        <div class="mk-quote">
-          겉은 촉촉해 보이는데 속은 건조하죠? 깊은 수분을 채워줘야 피부가 진짜 생기를 되찾아요.
+        <div style="font-family:'Playfair Display',serif;font-size:8px;letter-spacing:0.16em;color:#D4A04A;text-align:center;margin-top:10px;">ONE-LINE PRESCRIPTION</div>
+        <div style="font-family:'Noto Serif KR',serif;font-weight:300;font-size:20px;line-height:1.35;text-align:center;color:#3D2E24;margin-top:4px;padding:0 14px;">
+          "장벽 재건<br><em style="color:#E8703A;font-style:normal;">세라마이드 보충</em>"
         </div>
-        <div class="mk-traits">
-          <div class="mk-trait-item"><span class="mk-trait-dot">◆</span>겉보기 맑고 깨끗하나 만져보면 종잇장처럼 얇음</div>
-          <div class="mk-trait-item"><span class="mk-trait-dot">◆</span>화장품 바꾸면 쉽게 따갑고 가려움</div>
-          <div class="mk-trait-item"><span class="mk-trait-dot">◆</span>피부 장벽 손상의 전형적인 타입</div>
-          <div class="mk-trait-item"><span class="mk-trait-dot">◆</span>탄력은 좋으므로 장벽 재건만으로 빠르게 호전</div>
+        <div class="mk-divider" style="margin:12px auto;width:40px;"></div>
+        <div class="mk-quote" style="font-size:8px;padding:0 12px;">
+          겉은 촉촉해 보이지만 속은 건조해요,,, 깊은 수분을 채워야 진짜 생기를 되찾아요.
         </div>
-        <div class="mk-cols">
+        <div class="mk-cols" style="margin-top:10px;">
           <div class="mk-col good">
             <div class="mk-col-title">Do's ✓</div>
             <div class="mk-item"><span class="mk-mark-ok">✓</span>순한 보습제 꾸준히</div>
@@ -1848,158 +1856,99 @@ main {
           </div>
         </div>
         <div class="mk-footer">IM AESTHETIC · @im.aesthetic.official</div>
-        <div class="mk-callout" style="top:6%;right:8px;">3</div>
+        <div class="mk-callout" style="top:18%;right:8px;">3</div>
+        <div class="mk-callout" style="top:32%;right:8px;">4</div>
+        <div class="mk-callout" style="top:68%;right:8px;">5</div>
       </div>
       <div>
-        <div class="slide-title">Slide A-2 — Do's &amp; Don'ts</div>
-        <button class="btn-png" onclick="downloadMockup('slide-a2','skin-mbti-slide-A2-dos-donts.png')">PNG Download</button>
+        <div class="slide-title">Slide A-2 (Slide 2) — 한 줄 처방 + OX</div>
+        <button class="btn-png" onclick="downloadMockup('slide-a2','customer-set-02-prescription-ox.png')">PNG Download</button>
         <div class="slide-note">
-          <strong>③</strong> 상단에 <strong>마스터의 한마디</strong> 인용구 배치 (감성 멘트).
-          <strong>④</strong> Do's/Don'ts 4개씩 초록/빨강 배경으로 대비.
-          본문 데이터는 <strong>4번 섹션</strong>에서 복사.
-        </div>
-      </div>
-    </div>
-
-    <!-- Slide A-3: CTA / Clinic Care -->
-    <div class="slide-item">
-      <div class="slide-mockup mk-do" id="slide-a3">
-        <div class="mk-brand-bar">
-          <div class="mk-brand-logo">IM AESTHETIC</div>
-          <div class="mk-brand-account">@im.aesthetic.official</div>
-        </div>
-        <div class="mk-head">
-          <div class="mk-head-badge">DSNT</div>
-          <div class="mk-head-name">두부 Tofu · 맞춤 케어</div>
-        </div>
-        <div class="mk-quote">
-          홈케어만으로 부족할 때, 전문가의 손길이 피부의 균형을 되찾아줍니다.
-        </div>
-        <div class="mk-traits">
-          <div class="mk-trait-item"><span class="mk-trait-dot">◆</span>장벽 재건 집중 케어 프로그램</div>
-          <div class="mk-trait-item"><span class="mk-trait-dot">◆</span>수분 공급 + 진정 2-STEP 관리</div>
-          <div class="mk-trait-item"><span class="mk-trait-dot">◆</span>3인 전문가 케어 시스템</div>
-          <div class="mk-trait-item"><span class="mk-trait-dot">◆</span>1:1 상담 후 맞춤 프로토콜 설계</div>
-        </div>
-        <div class="mk-footer">예약 문의 · @im.aesthetic.official</div>
-        <div class="mk-callout" style="top:6%;right:8px;">3</div>
-      </div>
-      <div>
-        <div class="slide-title">Slide A-3 — 클리닉 케어 CTA</div>
-        <button class="btn-png" onclick="downloadMockup('slide-a3','skin-mbti-slide-A3-cta.png')">PNG Download</button>
-        <div class="slide-note">
-          <strong>③</strong> 타입별 <strong>추천 시술/프로그램</strong> 4개 + DM 유도 문구.
-          상단 배지는 타입 코드(DSNT 등) 그대로 유지하여 A-1·A-2와 시각적 연속성 확보.
+          <strong>③ 한 줄 처방</strong> — docx <em>"16가지 유형별 한 줄 처방"</em> 참조.
+          예: OSNT "진정 레이어링", DSNT "장벽 재건 (세라)", DSPW "고보습 리빌딩", ORPW "강력 재생 리모델링".
+          Playfair 레이블 + Noto Serif 대형 문구(골드 강조어).
+          <strong>④ 마스터의 한마디</strong> 감성 멘트 (축약본).
+          <strong>⑤ Do's/Don'ts</strong> 4개씩 초록/빨강 대비. 상세 피부특성은 의도적으로 제외 (이미 A-1 닉네임으로 커버).
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ── Carousel B: Energy & Fragrance ── -->
+  <!-- ── Carousel B: Ayurveda + Fragrance ── -->
   <div style="margin:48px 0 12px;padding:14px 18px;background:#F5EDE0;border-left:4px solid #D4A04A;border-radius:4px;">
-    <div style="font-family:'Playfair Display',serif;font-size:14px;letter-spacing:0.12em;color:#D4A04A;">CAROUSEL B</div>
-    <div style="font-family:'Pretendard';font-weight:600;font-size:18px;color:#3D2E24;margin-top:4px;">에너지 체질 · 아유르베다 7 프라크리티 + 향기</div>
-    <div style="font-family:'Pretendard';font-size:13px;color:#9B8A7A;margin-top:4px;">앱의 <strong>아유르베다 테스트 결과</strong>(V·P·K·VP·VK·PK·VPK 7종) 기반 · 커버(고정) → 프라크리티 공개 → 매칭 향기 · <strong>바우만 테스트(MBTI)와 독립</strong>이므로 같은 MBTI 고객도 프라크리티가 다를 수 있음</div>
+    <div style="font-family:'Playfair Display',serif;font-size:14px;letter-spacing:0.12em;color:#D4A04A;">CAROUSEL B · 2 SLIDES</div>
+    <div style="font-family:'Pretendard';font-weight:600;font-size:18px;color:#3D2E24;margin-top:4px;">아유르베다 체질 + 향기 삼각형</div>
+    <div style="font-family:'Pretendard';font-size:13px;color:#9B8A7A;margin-top:4px;">앱 7 프라크리티(V·P·K·VP·VK·PK·VPK) + 향기 삼각형 차트 → 매칭 향기 · <strong>바우만(MBTI)과 독립</strong> 진단이라 같은 MBTI 고객도 체질·향기가 다를 수 있음</div>
   </div>
 
   <div class="slide-row">
-    <!-- Slide B-1: Cover (Dosha symbol intro) -->
+    <!-- Slide B-1: 아유르베다 체질 + 향기 삼각형 차트 (병합) -->
     <div class="slide-item">
       <div class="slide-mockup mk-cover-b" id="slide-b1">
         <div class="mk-b-logo">IM AESTHETIC</div>
-        <div class="mk-b-badge">DOSHA</div>
-        <div class="mk-b-tri">
-          <svg viewBox="0 0 110 96">
-            <polygon points="55,6 104,90 6,90"></polygon>
-            <circle cx="55" cy="6" r="2.5" fill="#D4A04A" stroke="none"></circle>
-            <circle cx="6" cy="90" r="2.5" fill="#D4A04A" stroke="none"></circle>
-            <circle cx="104" cy="90" r="2.5" fill="#D4A04A" stroke="none"></circle>
+        <div class="mk-b-badge">PK</div>
+        <div style="font-family:'Playfair Display',serif;font-size:8px;letter-spacing:0.16em;color:#D4A04A;text-align:center;margin-top:44px;">ENERGY · FRAGRANCE MAP</div>
+        <div style="font-family:'Noto Serif KR',serif;font-weight:300;font-size:16px;text-align:center;color:#3D2E24;margin-top:4px;">피타 카파 <span style="color:#D4A04A;">∙</span> Pitta Kapha</div>
+        <!-- Fragrance Triangle Chart -->
+        <div style="position:relative;width:140px;height:130px;margin:10px auto 0;">
+          <svg viewBox="0 0 140 130" style="width:100%;height:100%;">
+            <!-- Outer triangle -->
+            <polygon points="70,8 132,120 8,120" fill="rgba(212,160,74,0.08)" stroke="#D4A04A" stroke-width="1"/>
+            <!-- Inner guide grid -->
+            <polygon points="70,40 103,98 37,98" fill="none" stroke="#D4A04A" stroke-width="0.4" stroke-dasharray="1,1" opacity="0.5"/>
+            <!-- Vertex dots -->
+            <circle cx="70" cy="8" r="3" fill="#9B8AC0"/>
+            <circle cx="132" cy="120" r="3" fill="#8FAE6A"/>
+            <circle cx="8" cy="120" r="3" fill="#E8703A"/>
+            <!-- User's blend point (Pitta-Kapha high, Vata low) -->
+            <polygon points="70,46 108,100 48,100" fill="rgba(212,160,74,0.35)" stroke="#D4A04A" stroke-width="0.7"/>
+            <circle cx="75" cy="82" r="3.5" fill="#D4A04A" stroke="#3D2E24" stroke-width="0.5"/>
           </svg>
+          <!-- Vertex labels with fragrances -->
+          <div style="position:absolute;top:-2px;left:50%;transform:translateX(-50%);text-align:center;">
+            <div style="font-family:'Playfair Display',serif;font-size:7px;letter-spacing:0.14em;color:#9B8AC0;font-weight:600;">VATA</div>
+            <div style="font-size:5.5px;color:#9B8A7A;margin-top:1px;">샌달우드·라벤더</div>
+          </div>
+          <div style="position:absolute;bottom:-6px;right:-10px;text-align:right;">
+            <div style="font-family:'Playfair Display',serif;font-size:7px;letter-spacing:0.14em;color:#8FAE6A;font-weight:600;">KAPHA</div>
+            <div style="font-size:5.5px;color:#9B8A7A;margin-top:1px;">진저·페퍼민트</div>
+          </div>
+          <div style="position:absolute;bottom:-6px;left:-10px;text-align:left;">
+            <div style="font-family:'Playfair Display',serif;font-size:7px;letter-spacing:0.14em;color:#E8703A;font-weight:600;">PITTA</div>
+            <div style="font-size:5.5px;color:#9B8A7A;margin-top:1px;">로즈·네롤리</div>
+          </div>
         </div>
-        <div class="mk-b-tri-lbl v">VATA</div>
-        <div class="mk-b-tri-lbl p">PITTA</div>
-        <div class="mk-b-tri-lbl k">KAPHA</div>
-        <div class="mk-b-hook">
-          바람 · 불 · 물,,,<br>
-          당신 안의 <span class="accent">세 가지 결</span>
+        <div style="font-size:7px;line-height:1.5;color:#3D2E24;text-align:center;padding:8px 14px 0;margin-top:14px;">
+          불(Pitta)과 물(Kapha)이 우세한 체질,,,<br>
+          <span style="color:#D4A04A;">쿨링과 순환</span>이 균형의 열쇠입니다.
         </div>
-        <div class="mk-b-divider"></div>
-        <div class="mk-b-sub">아유르베다 3,000년의 지혜로<br>읽는 나의 에너지 체질</div>
-        <div class="mk-b-swipe">→ SWIPE</div>
-        <div class="mk-b-footer">@im.aesthetic.official</div>
-        <div class="mk-callout" style="top:8%;left:8px;">1</div>
-        <div class="mk-callout" style="top:28%;right:8px;">2</div>
-        <div class="mk-callout" style="top:58%;left:8px;">3</div>
-        <div class="mk-callout" style="top:85%;right:8px;">4</div>
+        <div class="mk-b-footer" style="margin-top:10px;">@im.aesthetic.official</div>
+        <div class="mk-callout" style="top:6%;right:8px;">1</div>
+        <div class="mk-callout" style="top:32%;left:8px;">2</div>
+        <div class="mk-callout" style="top:60%;right:8px;">3</div>
       </div>
       <div>
-        <div class="slide-title">Slide B-1 — 커버 (도샤 심볼 인트로)</div>
-        <button class="btn-png" onclick="downloadMockup('slide-b1','skin-mbti-slide-B1-cover.png')">PNG Download</button>
+        <div class="slide-title">Slide B-1 (Slide 3) — 아유르베다 + 향기 삼각형</div>
+        <button class="btn-png" onclick="downloadMockup('slide-b1','customer-set-03-ayurveda-fragrance-triangle.png')">PNG Download</button>
         <div class="slide-note">
-          <strong>①</strong> 상단: 로고(좌) + <strong>DOSHA 골드 뱃지</strong>(우) — Carousel A 오렌지 뱃지와 의도적 차별화.
-          <strong>②</strong> 중앙 <strong>도샤 삼각형</strong> — Vata(상)·Pitta(좌하)·Kapha(우하) 3꼭짓점 라벨.
-          Canva 에셋 검색어: <code>ayurveda triangle dosha minimal gold</code>, <code>three element symbol line art</code>.
-          <strong>③</strong> Noto Serif KR 300 훅 "바람·불·물,,, 당신 안의 세 가지 결" + 골드 강조.
-          서브: "아유르베다 3,000년의 지혜로 읽는 나의 에너지 체질".
-          <strong>④</strong> 우하단 → SWIPE 넛지로 진입 유도. 고객 개별 진단은 Slide B-2에서 공개.
+          <strong>① 상단 뱃지</strong> — 고객의 프라크리티 코드(V/P/K/VP/VK/PK/VPK 중 1개) + "ENERGY · FRAGRANCE MAP" 레이블 + Noto Serif 체질명.
+          <strong>② 향기 삼각형 차트</strong> — 3꼭짓점에 <span style="color:#9B8AC0;">바타(샌달우드·라벤더)</span>, <span style="color:#E8703A;">피타(로즈·네롤리)</span>, <span style="color:#8FAE6A;">카파(진저·페퍼민트)</span> 대표 향기 배치.
+          내부 작은 삼각형 + 골드 도트 = 고객 개별 블렌드 포인트.
+          <strong>③ 해석 문구</strong> — 4-B 섹션 <code>characteristics</code> 참조, "불(Pitta)과 물(Kapha)이 우세한 체질..." 형식으로 핵심 키워드 골드 강조.
+          <br><br>
+          <strong>제작 팁</strong> — 프라크리티 7종 각각 도트 위치와 내부 삼각형 색/크기 조정:
+          <br>• V: 위쪽 꼭짓점 근처 (퍼플)
+          <br>• P: 좌하 꼭짓점 근처 (오렌지)
+          <br>• K: 우하 꼭짓점 근처 (그린)
+          <br>• VP/VK/PK: 두 꼭짓점 사이 중앙선
+          <br>• VPK: 정중앙 (균형)
         </div>
       </div>
     </div>
 
-    <!-- Slide B-2: Prakriti Reveal (app-mirrored) -->
+    <!-- Slide B-2: 매칭 향기 + CTA (기존 B-3) -->
     <div class="slide-item">
       <div class="slide-mockup mk-energy" id="slide-b2">
-        <div class="mk-brand-bar">
-          <div class="mk-brand-logo">IM AESTHETIC</div>
-          <div class="mk-brand-badge" style="background:#D4A04A;">PK</div>
-        </div>
-        <div class="mk-e-title" style="font-size:14px;color:#D4A04A;">나의 에너지 체질</div>
-        <div style="font-family:'Noto Serif KR',serif;font-weight:400;font-size:15px;text-align:center;color:#3D2E24;margin-top:2px;">피타 카파</div>
-        <div class="mk-chart" style="margin-top:6px;">
-          <svg viewBox="0 0 110 96" style="width:82px;height:72px;">
-            <polygon points="55,6 104,90 6,90" stroke="#D4A04A" stroke-width="1" fill="rgba(212,160,74,0.08)"></polygon>
-            <circle cx="55" cy="6" r="2" fill="#E8703A"></circle>
-            <circle cx="30" cy="55" r="2" fill="#9B8AC0"></circle>
-            <circle cx="75" cy="55" r="2" fill="#8FAE6A"></circle>
-            <polygon points="55,30 35,60 75,60" fill="rgba(212,160,74,0.25)" stroke="#D4A04A" stroke-width="0.5"></polygon>
-          </svg>
-          <div style="font-size:6.5px;color:#9B8A7A;margin-top:2px;">바타 · 피타 · 카파</div>
-        </div>
-        <div style="font-size:6.5px;line-height:1.45;color:#3D2E24;text-align:center;padding:4px 8px;margin-top:4px;">
-          겉은 맑아 보이나 속은 얇고 거칠어요,,, 장벽만 재건하면 빠르게 좋아져요.
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:0 8px;margin-top:4px;">
-          <div style="background:rgba(143,174,106,0.15);border:1px solid rgba(143,174,106,0.4);border-radius:4px;padding:4px;">
-            <div style="font-size:6.5px;color:#5A7A3E;font-weight:600;">✓ 좋은 것</div>
-            <div style="font-size:5.5px;color:#3D2E24;line-height:1.4;margin-top:2px;">진정 제품·미온수 세안</div>
-          </div>
-          <div style="background:rgba(220,100,80,0.1);border:1px solid rgba(220,100,80,0.35);border-radius:4px;padding:4px;">
-            <div style="font-size:6.5px;color:#B8463A;font-weight:600;">✗ 주의할 점</div>
-            <div style="font-size:5.5px;color:#3D2E24;line-height:1.4;margin-top:2px;">뜨거운 물·자극 성분</div>
-          </div>
-        </div>
-        <div class="mk-footer">IM AESTHETIC · @im.aesthetic.official</div>
-        <div class="mk-callout" style="top:6%;right:8px;">2</div>
-        <div class="mk-callout" style="top:32%;right:8px;">3</div>
-        <div class="mk-callout" style="top:70%;right:8px;">4</div>
-      </div>
-      <div>
-        <div class="slide-title">Slide B-2 — 프라크리티 공개 (앱 미러링)</div>
-        <button class="btn-png" onclick="downloadMockup('slide-b2','skin-mbti-slide-B2-prakriti.png')">PNG Download</button>
-        <div class="slide-note">
-          <strong>②</strong> 상단 코드 뱃지 — 7 프라크리티 중 하나 (V/P/K/VP/VK/PK/VPK).
-          제목 "나의 에너지 체질" 골드 + 조합명(Noto Serif) 중앙.
-          <strong>③</strong> <strong>앱 삼각형 차트</strong> 캡처 또는 재현 — 3꼭짓점(바타·피타·카파) + 개인별 도트 위치 + 내부 도형으로 분포 표현.
-          하단 해석 문구는 4-B 섹션의 <code>characteristics</code> 참조.
-          <strong>④</strong> 앱의 <strong>좋은 것 / 주의할 점</strong> 박스 — 프라크리티 기반 <em>라이프스타일</em> (MBTI 피부 케어와 별개).
-          4-B 섹션의 <code>dos</code> / <code>donts</code> 참조.
-        </div>
-      </div>
-    </div>
-
-    <!-- Slide B-3: Fragrance + CTA (app-mirrored) -->
-    <div class="slide-item">
-      <div class="slide-mockup mk-energy" id="slide-b3">
         <div class="mk-brand-bar">
           <div class="mk-brand-logo">IM AESTHETIC</div>
           <div class="mk-brand-badge" style="background:#D4A04A;">PK</div>
@@ -2014,19 +1963,17 @@ main {
           <div style="background:transparent;border:1px solid #3D2E24;color:#3D2E24;text-align:center;padding:6px;border-radius:4px;font-size:8px;margin-top:4px;letter-spacing:1px;">더 알아보기</div>
         </div>
         <div class="mk-footer">IM AESTHETIC · @im.aesthetic.official</div>
-        <div class="mk-callout" style="top:18%;right:8px;">5</div>
-        <div class="mk-callout" style="top:72%;right:8px;">6</div>
+        <div class="mk-callout" style="top:18%;right:8px;">4</div>
+        <div class="mk-callout" style="top:72%;right:8px;">5</div>
       </div>
       <div>
-        <div class="slide-title">Slide B-3 — 매칭 향기 + CTA</div>
-        <button class="btn-png" onclick="downloadMockup('slide-b3','skin-mbti-slide-B3-fragrance-cta.png')">PNG Download</button>
+        <div class="slide-title">Slide B-2 (Slide 4) — 매칭 향기 + CTA</div>
+        <button class="btn-png" onclick="downloadMockup('slide-b2','customer-set-04-fragrance-cta.png')">PNG Download</button>
         <div class="slide-note">
-          <strong>⑤</strong> 프라크리티별 향기 — 4-B 섹션의 <code>fragrances</code> 참조 (한 프라크리티당 2~3개).
-          앱의 "당신의 에너지에 행운을 더하는 향기" 문구 그대로 차용.
-          <strong>⑥</strong> 앱과 동일하게 <strong>CTA 2개</strong>: "예약하러 가기"(진한 배경) + "더 알아보기"(아웃라인).
-          Skin MBTI와 독립 진단이므로 같은 MBTI 고객도 프라크리티·향기가 다를 수 있음.
+          <strong>④ 매칭 향기</strong> — 4-B 섹션 <code>fragrances</code> 참조 (프라크리티당 2~3개). 앱 문구 "당신의 에너지에 행운을 더하는 향기" 그대로 차용.
+          <strong>⑤ CTA 2개</strong> — "예약하러 가기"(진한 배경) + "더 알아보기"(아웃라인). Skin MBTI와 독립 진단이라 같은 MBTI 고객도 향기가 다를 수 있음.
           <br><br>
-          <strong>⑦ 향기 일러스트</strong> — 빈 공간에 Canva Elements 검색으로 감성 일러스트 배치. 색상을 <code>#D4A04A</code> 골드로 교체.
+          <strong>⑥ 향기 일러스트</strong> — 빈 공간에 Canva Elements 검색으로 감성 일러스트 배치. 색상을 <code>#D4A04A</code> 골드로 교체.
         </div>
         <div style="margin-top:10px;padding:10px 14px;background:#FFF8F0;border:1px solid rgba(212,160,74,0.3);border-radius:6px;font-size:11px;">
           <div style="font-family:'Playfair Display',serif;font-size:11px;letter-spacing:0.1em;color:#D4A04A;margin-bottom:6px;">FRAGRANCE CANVA KEYWORDS</div>
@@ -2994,12 +2941,10 @@ function downloadMockup(id, filename) {
 
 function downloadAllMockups() {
   var items = [
-    ['slide-a1', 'skin-mbti-slide-A1-cover.png'],
-    ['slide-a2', 'skin-mbti-slide-A2-dos-donts.png'],
-    ['slide-a3', 'skin-mbti-slide-A3-cta.png'],
-    ['slide-b1', 'skin-mbti-slide-B1-cover.png'],
-    ['slide-b2', 'skin-mbti-slide-B2-prakriti.png'],
-    ['slide-b3', 'skin-mbti-slide-B3-fragrance-cta.png'],
+    ['slide-a1', 'customer-set-01-cover.png'],
+    ['slide-a2', 'customer-set-02-prescription-ox.png'],
+    ['slide-b1', 'customer-set-03-ayurveda-fragrance-triangle.png'],
+    ['slide-b2', 'customer-set-04-fragrance-cta.png'],
     ['frame-a', 'skin-mbti-frame-A-app.png'],
     ['frame-b', 'skin-mbti-frame-B-xbody.png'],
     ['frame-c', 'skin-mbti-frame-C-focuskin.png'],
