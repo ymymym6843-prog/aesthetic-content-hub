@@ -1007,52 +1007,9 @@ main {
   min-height: 32px;
   margin: 4px 0 2px;
 }
-.acc-a { gap: 10px; }
-.acc-a span {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--gold);
-}
-.acc-a span:nth-child(2) {
-  width: 8px; height: 8px;
-  background: transparent;
-  border: 1px solid var(--gold);
-}
-.acc-b {
-  flex-direction: column;
-  gap: 4px;
-}
-.acc-b::before {
-  content: '';
-  width: 1.5px; height: 32px;
-  background: var(--gold);
-}
-.acc-b::after {
-  content: '';
-  width: 4px; height: 4px;
-  border-radius: 50%;
-  background: var(--gold);
-}
-.acc-c::after {
-  content: '';
-  width: 22px; height: 22px;
-  border: 1.5px solid var(--gold);
-  border-radius: 50%;
-  box-shadow: inset 0 0 0 3px var(--mockup-bg), inset 0 0 0 4px var(--gold);
-}
-.acc-d {
-  gap: 8px;
-}
-.acc-d::before,
-.acc-d::after {
-  content: '';
-  display: block;
-  width: 36px; height: 1.5px;
-  background: var(--gold);
-}
-.acc-d span {
-  width: 5px; height: 5px;
-  background: var(--gold);
-  transform: rotate(45deg);
+.frame-accent svg {
+  width: 56px;
+  height: 56px;
 }
 
 /* Swatch preview in recipe header */
@@ -2094,7 +2051,7 @@ main {
           <div class="frame-session">NO. 01</div>
         </div>
         <div class="frame-body">
-          <div class="frame-accent acc-a" aria-hidden="true"><span></span><span></span><span></span></div>
+          <div class="frame-accent" aria-hidden="true"><img src="/icon-skin-mbti.svg" alt="" style="width:56px;height:56px;"></div>
           <div class="frame-hook">당신의 피부가<br>말하는 <em>16가지</em> 이야기</div>
           <div class="frame-placeholder">앱 진단 결과 화면<br>(1080×1920 스크린샷)</div>
         </div>
@@ -2107,41 +2064,10 @@ main {
       <button class="btn-png" onclick="downloadMockup('frame-a','skin-mbti-frame-A-app.png')">PNG Download</button>
       <div class="frame-recipe">
         <div class="recipe-icon-gallery">
-          <div class="recipe-icon-gallery-label">ICON CANDIDATES · 3 OPTIONS</div>
-          <div class="icon-thumb" onclick="navigator.clipboard.writeText('art deco compass rose')">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="24" cy="24" r="16" opacity="0.4"/>
-              <circle cx="24" cy="24" r="11"/>
-              <path d="M24 8 L26 24 L24 40 L22 24 Z" fill="currentColor" opacity="0.7"/>
-              <path d="M8 24 L24 22 L40 24 L24 26 Z" fill="currentColor" opacity="0.7"/>
-              <circle cx="24" cy="24" r="2" fill="currentColor"/>
-            </svg>
-            <div class="icon-thumb-label">컴퍼스</div>
-            <div class="icon-thumb-search">art deco<br>compass rose</div>
-          </div>
-          <div class="icon-thumb" onclick="navigator.clipboard.writeText('constellation line minimal gold')">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round">
-              <path d="M24 10 L36 24 L24 38 L12 24 Z" opacity="0.5"/>
-              <circle cx="24" cy="10" r="1.8" fill="currentColor"/>
-              <circle cx="36" cy="24" r="1.8" fill="currentColor"/>
-              <circle cx="24" cy="38" r="1.8" fill="currentColor"/>
-              <circle cx="12" cy="24" r="1.8" fill="currentColor"/>
-              <circle cx="24" cy="24" r="2.5" fill="none" stroke-width="1"/>
-              <path d="M24 14 L22 24 M24 14 L26 24" opacity="0.3"/>
-            </svg>
-            <div class="icon-thumb-label">별자리</div>
-            <div class="icon-thumb-search">constellation<br>line minimal</div>
-          </div>
-          <div class="icon-thumb" onclick="navigator.clipboard.writeText('blooming bud line art gold')">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M24 40 L24 22"/>
-              <path d="M24 26 C18 26 16 22 16 18 C20 18 24 22 24 26 Z" opacity="0.7"/>
-              <path d="M24 26 C30 26 32 22 32 18 C28 18 24 22 24 26 Z" opacity="0.7"/>
-              <ellipse cx="24" cy="16" rx="4" ry="7"/>
-              <path d="M24 9 L24 6 M22 7 L26 7" opacity="0.6"/>
-            </svg>
-            <div class="icon-thumb-label">꽃봉오리</div>
-            <div class="icon-thumb-search">blooming bud<br>line art</div>
+          <div class="recipe-icon-gallery-label">CONFIRMED ICON · Quiver AI</div>
+          <div class="icon-thumb">
+            <img src="/icon-skin-mbti.svg" alt="Skin MBTI icon" style="width:48px;height:48px;">
+            <div class="icon-thumb-label">Skin MBTI</div>
           </div>
         </div>
         <div class="frame-recipe-title">CANVA 레시피 · 배경 <code>#FFF8F0</code><span class="bg-swatch" style="background:#FFF8F0;"></span></div>
@@ -2176,7 +2102,7 @@ main {
           <div class="frame-session">NO. 02</div>
         </div>
         <div class="frame-body">
-          <div class="frame-accent acc-b" aria-hidden="true"></div>
+          <div class="frame-accent" aria-hidden="true"><img src="/icon-ex-body.svg" alt="" style="width:56px;height:56px;"></div>
           <div class="frame-hook">몸의 균형이<br><em>피부의 흐름</em>을 만듭니다</div>
           <div class="frame-placeholder">엑스바디 결과지 촬영<br>(개인정보 모자이크)</div>
         </div>
@@ -2189,48 +2115,10 @@ main {
       <button class="btn-png" onclick="downloadMockup('frame-b','skin-mbti-frame-B-xbody.png')">PNG Download</button>
       <div class="frame-recipe">
         <div class="recipe-icon-gallery">
-          <div class="recipe-icon-gallery-label">ICON CANDIDATES · 3 OPTIONS</div>
-          <div class="icon-thumb" onclick="navigator.clipboard.writeText('spine botanical line art')">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M24 8 Q22 14 24 20 Q26 26 24 32 Q22 38 24 42"/>
-              <path d="M24 14 Q18 13 16 10" opacity="0.8"/>
-              <path d="M24 14 Q30 13 32 10" opacity="0.8"/>
-              <path d="M24 22 Q17 21 14 18" opacity="0.7"/>
-              <path d="M24 22 Q31 21 34 18" opacity="0.7"/>
-              <path d="M24 30 Q18 29 16 26" opacity="0.6"/>
-              <path d="M24 30 Q30 29 32 26" opacity="0.6"/>
-              <circle cx="24" cy="8" r="1.3" fill="currentColor"/>
-              <circle cx="24" cy="42" r="1.3" fill="currentColor"/>
-            </svg>
-            <div class="icon-thumb-label">척추+잎</div>
-            <div class="icon-thumb-search">spine<br>botanical line</div>
-          </div>
-          <div class="icon-thumb" onclick="navigator.clipboard.writeText('chakra triangle minimal gold')">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M24 8 L34 22 L14 22 Z"/>
-              <path d="M14 22 L34 22 L24 36 Z" opacity="0.7"/>
-              <circle cx="24" cy="22" r="2" fill="currentColor"/>
-              <path d="M24 36 L24 42" opacity="0.5"/>
-              <path d="M24 8 L24 4" opacity="0.5"/>
-              <path d="M20 26 L28 26" opacity="0.4"/>
-            </svg>
-            <div class="icon-thumb-label">차크라</div>
-            <div class="icon-thumb-search">chakra triangle<br>minimal</div>
-          </div>
-          <div class="icon-thumb" onclick="navigator.clipboard.writeText('meridian line body illustration')">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="24" cy="12" r="3"/>
-              <path d="M24 15 L24 30"/>
-              <path d="M16 20 L24 18 L32 20" opacity="0.8"/>
-              <path d="M24 30 L18 42" opacity="0.9"/>
-              <path d="M24 30 L30 42" opacity="0.9"/>
-              <circle cx="24" cy="22" r="1.2" fill="currentColor"/>
-              <circle cx="24" cy="28" r="1.2" fill="currentColor"/>
-              <path d="M14 24 Q10 24 10 28" opacity="0.4"/>
-              <path d="M34 24 Q38 24 38 28" opacity="0.4"/>
-            </svg>
-            <div class="icon-thumb-label">경혈 바디</div>
-            <div class="icon-thumb-search">meridian body<br>line art</div>
+          <div class="recipe-icon-gallery-label">CONFIRMED ICON · Quiver AI</div>
+          <div class="icon-thumb">
+            <img src="/icon-ex-body.svg" alt="EX-body icon" style="width:48px;height:48px;">
+            <div class="icon-thumb-label">EX-body</div>
           </div>
         </div>
         <div class="frame-recipe-title">CANVA 레시피 · 배경 <code>#F5EDE0</code><span class="bg-swatch" style="background:#F5EDE0;"></span></div>
@@ -2265,7 +2153,7 @@ main {
           <div class="frame-session">NO. 03</div>
         </div>
         <div class="frame-body">
-          <div class="frame-accent acc-c" aria-hidden="true"></div>
+          <div class="frame-accent" aria-hidden="true"><img src="/icon-focuskin.svg" alt="" style="width:56px;height:56px;"></div>
           <div class="frame-hook">눈으로는 보이지 않는<br><em>피부 속 이야기</em></div>
           <div class="frame-placeholder">포커스킨 결과지<br>(얼굴 영역 블러)</div>
         </div>
@@ -2278,43 +2166,10 @@ main {
       <button class="btn-png" onclick="downloadMockup('frame-c','skin-mbti-frame-C-focuskin.png')">PNG Download</button>
       <div class="frame-recipe">
         <div class="recipe-icon-gallery">
-          <div class="recipe-icon-gallery-label">ICON CANDIDATES · 3 OPTIONS</div>
-          <div class="icon-thumb" onclick="navigator.clipboard.writeText('hexagon cells pattern minimal')">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M24 10 L32 14 L32 22 L24 26 L16 22 L16 14 Z"/>
-              <path d="M14 22 L22 26 L22 34 L14 38 L6 34 L6 26 Z" opacity="0.6"/>
-              <path d="M34 22 L42 26 L42 34 L34 38 L26 34 L26 26 Z" opacity="0.6"/>
-              <circle cx="24" cy="18" r="1.2" fill="currentColor"/>
-              <circle cx="14" cy="30" r="1" fill="currentColor" opacity="0.7"/>
-              <circle cx="34" cy="30" r="1" fill="currentColor" opacity="0.7"/>
-            </svg>
-            <div class="icon-thumb-label">세포 패턴</div>
-            <div class="icon-thumb-search">hexagon cells<br>pattern</div>
-          </div>
-          <div class="icon-thumb" onclick="navigator.clipboard.writeText('magnifier water drop gold')">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="20" cy="20" r="11"/>
-              <circle cx="20" cy="20" r="8" opacity="0.4"/>
-              <line x1="28" y1="28" x2="38" y2="38" stroke-width="1.5"/>
-              <path d="M20 15 C17 18 17 21 20 23 C23 21 23 18 20 15 Z" fill="currentColor" opacity="0.6"/>
-              <circle cx="20" cy="20" r="1" fill="#fff"/>
-            </svg>
-            <div class="icon-thumb-label">돋보기+물방울</div>
-            <div class="icon-thumb-search">magnifier<br>water drop</div>
-          </div>
-          <div class="icon-thumb" onclick="navigator.clipboard.writeText('radar circle concentric line art')">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="0.9" stroke-linecap="round">
-              <circle cx="24" cy="24" r="16" opacity="0.4"/>
-              <circle cx="24" cy="24" r="11" opacity="0.6"/>
-              <circle cx="24" cy="24" r="6"/>
-              <line x1="24" y1="8" x2="24" y2="40" opacity="0.3"/>
-              <line x1="8" y1="24" x2="40" y2="24" opacity="0.3"/>
-              <line x1="12" y1="12" x2="36" y2="36" opacity="0.2"/>
-              <line x1="36" y1="12" x2="12" y2="36" opacity="0.2"/>
-              <circle cx="24" cy="24" r="1.8" fill="currentColor"/>
-            </svg>
-            <div class="icon-thumb-label">레이더 차트</div>
-            <div class="icon-thumb-search">radar concentric<br>circle</div>
+          <div class="recipe-icon-gallery-label">CONFIRMED ICON · Quiver AI</div>
+          <div class="icon-thumb">
+            <img src="/icon-focuskin.svg" alt="Focuskin icon" style="width:48px;height:48px;">
+            <div class="icon-thumb-label">Focuskin</div>
           </div>
         </div>
         <div class="frame-recipe-title">CANVA 레시피 · 배경 <code>#FAEDE0</code><span class="bg-swatch" style="background:#FAEDE0;"></span></div>
@@ -2349,7 +2204,7 @@ main {
           <div class="frame-session">NO. 04</div>
         </div>
         <div class="frame-body">
-          <div class="frame-accent acc-d" aria-hidden="true"><span></span></div>
+          <div class="frame-accent" aria-hidden="true"><img src="/icon-skin-story.svg" alt="" style="width:56px;height:56px;"></div>
           <div class="frame-hook">당신의 피부에<br>귀 <em>기울이는</em> 시간</div>
           <div class="frame-placeholder">질문지 작성 손/펜 클로즈업<br>(감성 앵글)</div>
         </div>
@@ -2362,42 +2217,10 @@ main {
       <button class="btn-png" onclick="downloadMockup('frame-d','skin-mbti-frame-D-questionnaire.png')">PNG Download</button>
       <div class="frame-recipe">
         <div class="recipe-icon-gallery">
-          <div class="recipe-icon-gallery-label">ICON CANDIDATES · 3 OPTIONS</div>
-          <div class="icon-thumb" onclick="navigator.clipboard.writeText('fountain pen nib line art')">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M24 6 L30 22 L24 38 L18 22 Z"/>
-              <line x1="24" y1="10" x2="24" y2="34" opacity="0.5"/>
-              <circle cx="24" cy="22" r="1.8" fill="currentColor"/>
-              <path d="M24 40 L24 44" opacity="0.6"/>
-              <circle cx="24" cy="42" r="1.2" fill="currentColor"/>
-              <path d="M20 28 L16 34" opacity="0.4"/>
-              <path d="M28 28 L32 34" opacity="0.4"/>
-            </svg>
-            <div class="icon-thumb-label">만년필 촉</div>
-            <div class="icon-thumb-search">fountain pen<br>nib line art</div>
-          </div>
-          <div class="icon-thumb" onclick="navigator.clipboard.writeText('wax seal ribbon minimal gold')">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="24" cy="22" r="10"/>
-              <circle cx="24" cy="22" r="6" opacity="0.5"/>
-              <text x="24" y="25" text-anchor="middle" font-size="8" font-family="Playfair Display" fill="currentColor" stroke="none" font-style="italic">IM</text>
-              <path d="M16 30 L14 44 L20 40 L22 44 L24 32" opacity="0.8"/>
-              <path d="M32 30 L34 44 L28 40 L26 44 L24 32" opacity="0.8"/>
-            </svg>
-            <div class="icon-thumb-label">왁스 인장</div>
-            <div class="icon-thumb-search">wax seal<br>ribbon</div>
-          </div>
-          <div class="icon-thumb" onclick="navigator.clipboard.writeText('pen with leaves calligraphy')">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M10 38 L30 18 L34 22 L14 42 Z" opacity="0.8"/>
-              <path d="M10 38 L14 42" stroke-width="1.5"/>
-              <path d="M30 18 L34 14 L38 18 L34 22 Z"/>
-              <path d="M34 18 Q38 14 40 8 Q34 10 32 16" opacity="0.6"/>
-              <path d="M38 22 Q42 18 44 12 Q38 14 36 20" opacity="0.6"/>
-              <circle cx="12" cy="40" r="0.9" fill="currentColor"/>
-            </svg>
-            <div class="icon-thumb-label">펜+잎사귀</div>
-            <div class="icon-thumb-search">pen with leaves<br>calligraphy</div>
+          <div class="recipe-icon-gallery-label">CONFIRMED ICON · Quiver AI</div>
+          <div class="icon-thumb">
+            <img src="/icon-skin-story.svg" alt="Skin Story icon" style="width:48px;height:48px;">
+            <div class="icon-thumb-label">Skin Story</div>
           </div>
         </div>
         <div class="frame-recipe-title">CANVA 레시피 · 배경 <code>#EEE5D5</code><span class="bg-swatch" style="background:#EEE5D5;"></span></div>
