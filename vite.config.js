@@ -31,6 +31,7 @@ export default defineConfig({
         imground: resolve(__dirname, 'imground_templates.html'),
         imgroundMockups: resolve(__dirname, 'imground_mockups.html'),
         skinMbtiCanva: resolve(__dirname, 'skin_mbti_canva_guide.html'),
+        skinMbtiTemplates: resolve(__dirname, 'skin_mbti_templates.html'),
         invitationCard: resolve(__dirname, 'invitation_card.html'),
       },
     },
