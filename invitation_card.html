@@ -4,13 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IM AESTHETIC 초대장 엽서</title>
+<link rel="icon" type="image/svg+xml" href="/logo-symbol-only.svg">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&family=Nanum+Pen+Script&family=East+Sea+Dokdo&family=Noto+Serif+KR:wght@300;400&family=Pretendard:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
   @font-face {
     font-family: 'MapoFlowerIsland';
-    src: url('public/MapoFlowerIsland.ttf') format('truetype');
+    src: url('/MapoFlowerIsland.ttf') format('truetype');
     font-weight: 400;
     font-display: swap;
   }
@@ -655,7 +656,7 @@
 
   async function loadSVG(name) {
     if (svgCache[name]) return svgCache[name];
-    const res = await fetch('public/' + name + '.svg');
+    const res = await fetch('/' + name + '.svg');
     const text = await res.text();
     svgCache[name] = text;
     return text;
