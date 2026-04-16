@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skin MBTI Templates · MBTI 16 + Prakriti 9 + Fragrance 16 = 41 Templates</title>
+<link rel="icon" type="image/svg+xml" href="/logo-symbol-only.svg">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600&family=Noto+Serif+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #E8703A;
+  --cream: #FFF8F0;
+  --warm-beige: #F5EDE0;
+  --gold: #D4A04A;
+  --dark: #3D2E24;
+  --muted: #9B8A7A;
+  --ok: #5A7A3E;
+  --ng: #B8463A;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Pretendard', system-ui, sans-serif;
+  background: #FAF6F1;
+  color: var(--dark);
+  padding: 40px 20px 80px;
+  -webkit-font-smoothing: antialiased;
+  word-break: keep-all;
+}
+
+/* ──── HEADER ──── */
+.page-header {
+  max-width: 1400px;
+  margin: 0 auto 24px;
+  text-align: center;
+  padding: 40px 0 28px;
+  border-bottom: 2px solid var(--warm-beige);
+}
+.page-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px; font-weight: 400;
+  letter-spacing: 6px; color: var(--dark);
+}
+.page-header .sub { font-size: 13px; color: var(--muted); letter-spacing: 2px; margin-top: 8px; }
+.page-header .kr {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 16px; font-weight: 300;
+  color: var(--dark); margin-top: 14px; line-height: 1.6;
+}
+.page-header .kr strong { color: var(--orange); font-weight: 500; }
+
+/* ──── TAB NAV ──── */
+.tabs {
+  max-width: 1400px; margin: 0 auto 28px;
+  display: flex; gap: 4px;
+  padding: 6px; background: #FFF;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(26,20,16,0.06);
+}
+.tab-btn {
+  flex: 1;
+  font-family: 'Pretendard'; font-size: 14px; font-weight: 600;
+  padding: 14px 20px;
+  border: none; background: transparent;
+  color: var(--muted); cursor: pointer;
+  border-radius: 8px; transition: all 0.2s;
+}
+.tab-btn:hover { background: var(--warm-beige); color: var(--dark); }
+.tab-btn.active {
+  background: var(--orange); color: #FFF;
+  box-shadow: 0 4px 12px rgba(232,112,58,0.25);
+}
+.tab-btn span { opacity: 0.7; margin-left: 6px; font-weight: 400; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ──── CONTROLS ──── */
+.controls {
+  max-width: 1400px; margin: 0 auto 28px;
+  display: flex; gap: 10px;
+  flex-wrap: wrap; align-items: center;
+  padding: 16px 20px; background: #FFF;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(26,20,16,0.05);
+}
+.controls label { font-weight: 600; font-size: 13px; color: var(--dark); }
+.controls select {
+  font-family: 'Pretendard'; font-size: 13px;
+  padding: 8px 14px; border: 1px solid var(--gold);
+  border-radius: 6px; background: #FFF; color: var(--dark);
+  min-width: 280px; cursor: pointer;
+}
+.controls button {
+  font-family: 'Pretendard'; font-weight: 600; font-size: 13px;
+  padding: 8px 18px; border: none; border-radius: 6px;
+  cursor: pointer; transition: all 0.2s;
+}
+.btn-primary { background: var(--orange); color: #FFF; }
+.btn-primary:hover { background: #d4612e; }
+.btn-secondary { background: var(--warm-beige); color: var(--dark); }
+.btn-secondary:hover { background: #ebe3d6; }
+.btn-all { background: var(--dark); color: #FFF; }
+.btn-all:hover { background: #2a1f18; }
+.progress { font-size: 12px; color: var(--muted); margin-left: auto; }
+
+/* ──── TEMPLATE SET BOX ──── */
+.template-set {
+  max-width: 1400px; margin: 0 auto;
+  background: #FFF; border-radius: 16px;
+  padding: 32px; box-shadow: 0 8px 32px rgba(26,20,16,0.06);
+}
+.set-header {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 24px; padding-bottom: 16px;
+  border-bottom: 1px solid var(--warm-beige);
+}
+.set-header .code-badge {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 600; color: #FFF;
+  background: var(--orange); padding: 8px 16px;
+  border-radius: 6px; letter-spacing: 0.12em;
+}
+.set-header .set-name {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 400; font-size: 24px; color: var(--dark);
+}
+.set-header .set-cat {
+  font-size: 12px; color: var(--muted); letter-spacing: 0.08em;
+}
+
+/* ──── SLIDE GRID ──── */
+.slide-grid {
+  display: grid; gap: 40px;
+  justify-items: center;
+}
+.slide-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.slide-grid.cols-1 { grid-template-columns: 1fr; }
+@media (max-width: 1200px) {
+  .slide-grid.cols-2 { grid-template-columns: 1fr; }
+}
+
+.slide-item {
+  display: flex; flex-direction: column;
+  gap: 12px; align-items: center;
+  width: 100%; max-width: 540px;
+}
+.slide-label {
+  font-size: 12px; font-weight: 700; color: var(--muted);
+  letter-spacing: 0.14em; text-transform: uppercase;
+  align-self: flex-start;
+}
+.slide-btn {
+  font-family: 'Pretendard'; font-size: 12px; font-weight: 600;
+  padding: 8px 16px; border: 1px solid var(--orange);
+  background: #FFF; color: var(--orange);
+  border-radius: 4px; cursor: pointer;
+  align-self: flex-start;
+}
+.slide-btn:hover { background: var(--orange); color: #FFF; }
+
+/* ══════════ SLIDE MOCKUP (540×675 = 1080×1350 @ scale:2 · Instagram Feed 4:5) ══════════ */
+.slide-mockup {
+  width: 540px; height: 675px;
+  position: relative; overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  font-family: 'Pretendard', sans-serif;
+  color: var(--dark);
+}
+@media (max-width: 1200px) {
+  .slide-mockup { transform: scale(0.85); transform-origin: top left; margin-bottom: -101px; }
+}
+
+/* Corner brackets */
+.slide-mockup .brk {
+  position: absolute; width: 36px; height: 36px;
+  border: 2px solid var(--gold); opacity: 0.55;
+  pointer-events: none;
+}
+.slide-mockup .brk.tl { top: 18px; left: 18px; border-right: none; border-bottom: none; }
+.slide-mockup .brk.tr { top: 18px; right: 18px; border-left: none; border-bottom: none; }
+.slide-mockup .brk.bl { bottom: 18px; left: 18px; border-right: none; border-top: none; }
+.slide-mockup .brk.br { bottom: 18px; right: 18px; border-left: none; border-top: none; }
+
+/* Brand bar */
+.mk-bar {
+  position: absolute; top: 30px; left: 0; right: 0;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 44px; z-index: 2;
+}
+.mk-bar-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px; font-weight: 500;
+  letter-spacing: 0.28em; color: var(--gold);
+}
+.mk-bar-acc {
+  font-size: 11px; color: var(--muted);
+  letter-spacing: 0.06em; font-weight: 500;
+}
+.mk-bar-badge {
+  color: #FFF; font-size: 13px; font-weight: 700;
+  padding: 4px 12px; border-radius: 3px;
+  letter-spacing: 0.14em; background: var(--orange);
+}
+
+/* Footer */
+.mk-tagline {
+  position: absolute; bottom: 50px; left: 0; right: 0;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 10px; letter-spacing: 0.32em;
+  color: var(--gold); text-transform: uppercase;
+}
+.mk-tagline::before, .mk-tagline::after {
+  content: '—'; color: var(--gold); opacity: 0.6;
+  margin: 0 10px; font-weight: 300;
+}
+.mk-footer {
+  position: absolute; bottom: 30px; left: 0; right: 0;
+  text-align: center; font-size: 10px; color: var(--muted);
+  letter-spacing: 0.05em; font-weight: 500;
+}
+
+/* ───── MBTI SLIDE 1: COVER ───── */
+.mk-cover { background: linear-gradient(180deg, #FFF8F0 0%, #FEF3E4 100%); }
+.mk-cover .cover-label {
+  position: absolute; top: 82px; left: 0; right: 0;
+  text-align: center; font-family: 'Playfair Display', serif;
+  font-size: 10px; letter-spacing: 0.36em;
+  color: var(--muted); text-transform: uppercase;
+}
+.mk-cover .cover-title {
+  position: absolute; top: 108px; left: 0; right: 0;
+  text-align: center; font-family: 'Noto Serif KR', serif;
+  font-weight: 300; font-size: 22px;
+  color: var(--dark); letter-spacing: 0.08em;
+}
+.mk-cover .cover-divider {
+  position: absolute; top: 150px; left: 50%;
+  transform: translateX(-50%); width: 44px;
+  height: 0; border-top: 1px solid var(--gold); opacity: 0.6;
+}
+.mk-cover .cover-emoji-wrap {
+  position: absolute; top: 180px; left: 50%;
+  transform: translateX(-50%); width: 200px; height: 200px;
+  display: flex; align-items: center; justify-content: center;
+}
+.mk-cover .cover-emoji {
+  font-size: 130px; line-height: 1;
+  filter: drop-shadow(0 6px 18px rgba(232,112,58,0.15)); z-index: 2;
+}
+.mk-cover .cover-emoji-ring {
+  position: absolute; top: 0; left: 0;
+  width: 200px; height: 200px; border-radius: 50%;
+  border: 1px solid var(--gold); opacity: 0.2;
+}
+.mk-cover .cover-name-box {
+  position: absolute; bottom: 158px; left: 0; right: 0; text-align: center;
+}
+.mk-cover .cover-name-ko {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 400; font-size: 36px;
+  color: var(--dark); letter-spacing: 0.04em; line-height: 1.1;
+}
+.mk-cover .cover-name-en {
+  font-family: 'Playfair Display', serif;
+  font-style: italic; font-size: 16px;
+  color: var(--muted); margin-top: 4px; letter-spacing: 0.04em;
+}
+.mk-cover .cover-code-box {
+  position: absolute; bottom: 116px; left: 0; right: 0; text-align: center;
+}
+.mk-cover .cover-code-box span {
+  background: var(--orange); color: #FFF;
+  font-size: 14px; font-weight: 700; padding: 6px 18px;
+  border-radius: 3px; letter-spacing: 0.2em;
+  box-shadow: 0 4px 12px rgba(232,112,58,0.25);
+}
+.mk-cover .cover-cat {
+  position: absolute; bottom: 88px; left: 0; right: 0;
+  text-align: center; font-size: 11px;
+  color: var(--muted); letter-spacing: 0.12em; font-weight: 500;
+}
+
+/* ───── MBTI SLIDE 2: PRESCRIPTION ───── */
+.mk-rx { background: var(--cream); padding: 72px 44px 72px; }
+.mk-rx .rx-sub {
+  text-align: center; font-family: 'Noto Serif KR', serif;
+  font-weight: 300; font-size: 15px; color: var(--dark);
+  letter-spacing: 0.04em; margin-bottom: 6px;
+}
+.mk-rx .rx-sub em {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  color: var(--muted); margin-left: 6px;
+}
+.mk-rx .rx-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 10px; letter-spacing: 0.32em; color: var(--gold);
+  text-align: center; margin-bottom: 10px; text-transform: uppercase;
+}
+.mk-rx .rx-title {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 300; font-size: 26px; line-height: 1.35;
+  text-align: center; color: var(--dark); letter-spacing: 0.02em;
+}
+.mk-rx .rx-title-quote { color: var(--muted); opacity: 0.7; }
+.mk-rx .rx-title em {
+  color: var(--orange); font-style: normal; font-weight: 500;
+  display: block; margin-top: 2px;
+}
+.mk-rx .rx-divider {
+  width: 48px; height: 0; border-top: 1px solid var(--gold);
+  margin: 16px auto; opacity: 0.6;
+}
+.mk-rx .rx-quote {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 300; font-style: italic; font-size: 12px;
+  line-height: 1.65; color: var(--muted);
+  text-align: center; margin-bottom: 20px; padding: 0 6px;
+}
+.mk-rx .rx-cols {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+}
+.mk-rx .rx-col { padding: 12px; border-radius: 6px; }
+.mk-rx .rx-col.good { background: rgba(143,174,106,0.12); border: 1px solid rgba(143,174,106,0.35); }
+.mk-rx .rx-col.bad { background: rgba(220,100,80,0.1); border: 1px solid rgba(220,100,80,0.35); }
+.mk-rx .rx-col-title {
+  font-size: 12px; font-weight: 700; margin-bottom: 8px;
+  text-align: center; letter-spacing: 0.05em;
+  padding-bottom: 5px; border-bottom: 1px solid currentColor; opacity: 0.9;
+}
+.mk-rx .rx-col.good .rx-col-title { color: var(--ok); }
+.mk-rx .rx-col.bad .rx-col-title { color: var(--ng); }
+.mk-rx .rx-item {
+  font-size: 10.5px; line-height: 1.8; color: var(--dark);
+  display: flex; align-items: flex-start; gap: 5px;
+}
+.mk-rx .rx-item::before { font-weight: 700; flex-shrink: 0; font-size: 10px; }
+.mk-rx .rx-col.good .rx-item::before { content: '✓'; color: var(--ok); }
+.mk-rx .rx-col.bad .rx-item::before { content: '✗'; color: var(--ng); }
+
+/* ───── PRAKRITI SLIDE: TRIANGLE + LIFESTYLE ───── */
+.mk-dosha { background: linear-gradient(180deg, #F5EDE0 0%, #EEE0CC 100%); padding: 66px 40px 66px; }
+.mk-dosha .d-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 9.5px; letter-spacing: 0.32em;
+  text-align: center; text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.mk-dosha .d-title {
+  font-family: 'Noto Serif KR', serif; font-weight: 300;
+  font-size: 13px; color: var(--dark);
+  text-align: center; letter-spacing: 0.08em; margin-bottom: 4px;
+}
+.mk-dosha .d-name {
+  font-family: 'Noto Serif KR', serif; font-weight: 400;
+  font-size: 26px; text-align: center; letter-spacing: 0.06em;
+}
+.mk-dosha .d-name-en {
+  font-family: 'Playfair Display', serif;
+  font-size: 10px; letter-spacing: 0.42em;
+  color: var(--muted); text-align: center;
+  margin-top: 3px; text-transform: uppercase;
+}
+.mk-dosha .triangle-wrap {
+  width: 190px; height: 160px;
+  margin: 8px auto 4px; position: relative;
+}
+.mk-dosha .d-comment {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 300; font-style: italic;
+  font-size: 10.5px; line-height: 1.55;
+  color: var(--dark); text-align: center;
+  padding: 6px 12px 0;
+  border-top: 1px solid rgba(212,160,74,0.3);
+  margin: 6px 24px 10px;
+}
+.mk-dosha .d-cols {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+}
+.mk-dosha .d-col { padding: 10px 12px 12px; border-radius: 6px; }
+.mk-dosha .d-col.good { background: rgba(143,174,106,0.15); border: 1px solid rgba(143,174,106,0.4); }
+.mk-dosha .d-col.bad { background: rgba(220,100,80,0.1); border: 1px solid rgba(220,100,80,0.35); }
+.mk-dosha .d-col-title {
+  font-size: 11px; font-weight: 700; margin-bottom: 6px;
+  text-align: center; letter-spacing: 0.05em;
+  padding-bottom: 4px; border-bottom: 1px solid currentColor;
+  opacity: 0.9;
+}
+.mk-dosha .d-col.good .d-col-title { color: var(--ok); }
+.mk-dosha .d-col.bad .d-col-title { color: var(--ng); }
+.mk-dosha .d-item {
+  font-size: 9.5px; line-height: 1.7; color: var(--dark);
+  display: flex; align-items: flex-start; gap: 4px;
+}
+.mk-dosha .d-item::before { font-weight: 700; flex-shrink: 0; font-size: 9px; }
+.mk-dosha .d-col.good .d-item::before { content: '✓'; color: var(--ok); }
+.mk-dosha .d-col.bad .d-item::before { content: '✗'; color: var(--ng); }
+
+/* ───── FRAGRANCE SLIDE ───── */
+.mk-fr { background: linear-gradient(180deg, #FFF8F0 0%, #F5EDE0 100%); padding: 72px 44px 72px; }
+.mk-fr .fr-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 10px; letter-spacing: 0.34em;
+  text-align: center; text-transform: uppercase; margin-bottom: 4px;
+}
+.mk-fr .fr-title {
+  font-family: 'Noto Serif KR', serif; font-weight: 300;
+  font-size: 15px; text-align: center;
+  letter-spacing: 0.06em; margin-bottom: 6px;
+}
+.mk-fr .fr-divider {
+  width: 44px; height: 0; border-top: 1px solid;
+  margin: 12px auto; opacity: 0.6;
+}
+.mk-fr .fr-flower-wrap {
+  text-align: center; margin-top: 16px; position: relative;
+  height: 160px; display: flex; align-items: center; justify-content: center;
+}
+.mk-fr .fr-flower {
+  font-size: 84px; line-height: 1; display: inline-block;
+  filter: drop-shadow(0 4px 16px rgba(212,160,74,0.22));
+  z-index: 2; position: relative;
+}
+.mk-fr .fr-flower-ring {
+  width: 140px; height: 140px; border-radius: 50%;
+  border: 1px solid; opacity: 0.25;
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+.mk-fr .fr-name {
+  font-family: 'Noto Serif KR', serif; font-weight: 400;
+  font-size: 32px; color: var(--dark);
+  text-align: center; margin-top: 14px; letter-spacing: 0.02em;
+}
+.mk-fr .fr-name-en {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 16px; color: var(--muted);
+  text-align: center; margin-top: 4px; letter-spacing: 0.08em;
+}
+.mk-fr .fr-desc {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 300; font-style: italic;
+  font-size: 12px; line-height: 1.7;
+  color: var(--dark); text-align: center;
+  padding: 0 12px; margin-top: 16px;
+}
+.mk-fr .fr-pk-tag {
+  display: inline-block;
+  background: rgba(212,160,74,0.1); border: 1px solid rgba(212,160,74,0.3);
+  padding: 4px 12px; border-radius: 3px;
+  font-size: 9px; letter-spacing: 0.15em;
+  color: var(--muted); margin-top: 14px; text-transform: uppercase;
+}
+.mk-fr .fr-tag-wrap { text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>SKIN MBTI TEMPLATES</h1>
+  <div class="sub">INDEPENDENT TEMPLATES · MIX & MATCH</div>
+  <div class="kr">
+    <strong>MBTI 16</strong> × <strong>프라크리티 9</strong> × <strong>향기 16</strong> = 총 <strong>41개 독립 템플릿</strong><br>
+    고객의 테스트 결과에 따라 원장님이 자유롭게 조합 (4장 1세트)
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" data-tab="mbti">MBTI 템플릿 <span>16</span></button>
+  <button class="tab-btn" data-tab="prakriti">프라크리티 템플릿 <span>9</span></button>
+  <button class="tab-btn" data-tab="fragrance">향기 템플릿 <span>16</span></button>
+</div>
+
+<!-- ══════════ MBTI TAB ══════════ -->
+<div class="tab-content active" id="tab-mbti">
+  <div class="controls">
+    <label>MBTI 선택:</label>
+    <select id="mbtiSelect"></select>
+    <button class="btn-secondary" onclick="mbtiChange(-1)">← 이전</button>
+    <button class="btn-secondary" onclick="mbtiChange(1)">다음 →</button>
+    <button class="btn-primary" onclick="mbtiDownloadCurrent()">현재 MBTI 2장 PNG</button>
+    <button class="btn-all" onclick="mbtiDownloadAll()">전체 32장 (16×2)</button>
+    <span class="progress" id="mbtiProgress"></span>
+  </div>
+  <div class="template-set" id="mbtiSet"></div>
+</div>
+
+<!-- ══════════ PRAKRITI TAB ══════════ -->
+<div class="tab-content" id="tab-prakriti">
+  <div class="controls">
+    <label>프라크리티 선택:</label>
+    <select id="prakritiSelect"></select>
+    <button class="btn-secondary" onclick="prakritiChange(-1)">← 이전</button>
+    <button class="btn-secondary" onclick="prakritiChange(1)">다음 →</button>
+    <button class="btn-primary" onclick="prakritiDownloadCurrent()">현재 프라크리티 PNG</button>
+    <button class="btn-all" onclick="prakritiDownloadAll()">전체 9장</button>
+    <span class="progress" id="prakritiProgress"></span>
+  </div>
+  <div class="template-set" id="prakritiSet"></div>
+</div>
+
+<!-- ══════════ FRAGRANCE TAB ══════════ -->
+<div class="tab-content" id="tab-fragrance">
+  <div class="controls">
+    <label>향기 선택:</label>
+    <select id="fragranceSelect"></select>
+    <button class="btn-secondary" onclick="fragranceChange(-1)">← 이전</button>
+    <button class="btn-secondary" onclick="fragranceChange(1)">다음 →</button>
+    <button class="btn-primary" onclick="fragranceDownloadCurrent()">현재 향기 PNG</button>
+    <button class="btn-all" onclick="fragranceDownloadAll()">전체 16장</button>
+    <span class="progress" id="fragranceProgress"></span>
+  </div>
+  <div class="template-set" id="fragranceSet"></div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════
+   DATA: MBTI 16 TYPES (skin only)
+   ══════════════════════════════════════════════════════ */
+const MBTI_TYPES = [
+  { code:"OSNT", charKo:"알로에", charEn:"Aloe", emoji:"🌿", cat:"지성·민감성·비색소·탄력형",
+    rxTitle:"진정 레이어링", rxHighlight:"LDM 쿨링 모드",
+    master:"열과 노폐물이 만나 트러블로 드러나는 타입이에요. 짜기보다는 배출의 통로를 열어주는 것이 먼저입니다.",
+    dos:["진정 토너","수분 젤 크림","순한 클렌저","자외선 차단제"],
+    donts:["자극적인 제품","과도한 루틴","유분기 많은 크림","피부 자주 만지기"] },
+  { code:"OSNW", charKo:"흰 복숭아", charEn:"White Peach", emoji:"🍑", cat:"지성·민감성·비색소·주름형",
+    rxTitle:"진정 리밸런싱", rxHighlight:"네롤리 밸런스",
+    master:"번들거림은 피부가 수분을 지키려는 신호예요. 잃어버린 수분을 채워주면 유분도 자연스럽게 가라앉습니다.",
+    dos:["진정 성분 세럼","가벼운 수분크림","순한 클렌저","콜라겐 세럼"],
+    donts:["자극적인 성분","뜨거운 물 세안","유분기 많은 크림","피부 문지르기"] },
+  { code:"OSPT", charKo:"토마토", charEn:"Tomato", emoji:"🍅", cat:"지성·민감성·색소성·탄력형",
+    rxTitle:"색소 진정", rxHighlight:"유칼립투스 쿨링",
+    master:"염증이 지나간 흔적이 남아있네요. 열감을 진정시키는 것이 가장 빠른 화이트닝입니다.",
+    dos:["순한 미백 에센스","진정 토너","SPF 매일","수분 세럼"],
+    donts:["강한 미백 제품","유분기 많은 크림","뜨거운 물 세안","과도한 필링"] },
+  { code:"OSPW", charKo:"딸기", charEn:"Strawberry", emoji:"🍓", cat:"지성·민감성·색소성·주름형",
+    rxTitle:"4중 재건", rxHighlight:"페퍼민트 디톡스",
+    master:"피부 속 불길이 멜라닌을 태우고 있어요. 기름을 닦지 말고 불을 꺼야 안색이 맑아집니다.",
+    dos:["저자극 클렌저","진정+보습 겸용","매일 자외선 차단","순한 BHA"],
+    donts:["자극 각질 제거","알코올 제품","유분기 많은 크림","여러 제품 동시에"] },
+  { code:"ORNT", charKo:"청포도", charEn:"Green Grape", emoji:"🍇", cat:"지성·저항성·비색소·탄력형",
+    rxTitle:"딥 클렌징", rxHighlight:"자몽 순환",
+    master:"지금도 충분히 완벽해 보이지만 막힌 순환을 풀어주면 피부가 한층 더 투명하게 빛날 거예요.",
+    dos:["가벼운 수분크림","피지 조절 토너","자외선 차단제","충분한 수분 섭취"],
+    donts:["과도한 루틴","유분기 많은 제품","세안 후 방치","기본 관리 소홀"] },
+  { code:"ORNW", charKo:"배", charEn:"Pear", emoji:"🍐", cat:"지성·저항성·비색소·주름형",
+    rxTitle:"수기 리프팅", rxHighlight:"레몬그라스 활력",
+    master:"장벽이 성벽처럼 단단해요. 튼튼한 게 아니라 잠겨 있는 겁니다. 문부터 여세요.",
+    dos:["콜라겐 부스팅","가벼운 수분크림","자외선 차단","항산화 식품"],
+    donts:["항노화 미루기","유분기 많은 제품","수분 섭취 부족","자외선 차단 생략"] },
+  { code:"ORPT", charKo:"메추리알", charEn:"Quail Egg", emoji:"🥚", cat:"지성·저항성·색소성·탄력형",
+    rxTitle:"톤업 리셋", rxHighlight:"베르가못 숨결",
+    master:"모공 속에 갇힌 피지가 길을 잃었네요. 피부 결 사이사이에 숨통을 틔워줘야 합니다.",
+    dos:["나이아신아마이드 세럼","가벼운 수분크림","주 1회 각질 관리","SPF 필수"],
+    donts:["자외선 차단 빼먹기","유분기 많은 크림","톤 관리 무시","과도한 각질 제거"] },
+  { code:"ORPW", charKo:"아보카도", charEn:"Avocado", emoji:"🥑", cat:"지성·저항성·색소성·주름형",
+    rxTitle:"강력 재생 리모델링", rxHighlight:"로즈마리 투과",
+    master:"피부가 두꺼워 색소도 뿌리가 깊습니다. 강력한 투과 관리로 닫힌 피부를 깨워야 합니다.",
+    dos:["비타민C 세럼","가벼운 수분크림","레티놀 예방","자외선 차단 매일"],
+    donts:["무거운 유분 크림","자외선 차단 생략","유분기 방치","보습 안 하기"] },
+  { code:"DSNT", charKo:"두부", charEn:"Tofu", emoji:"🍥", cat:"건성·민감성·비색소·탄력형",
+    rxTitle:"장벽 재건", rxHighlight:"세라마이드 보충",
+    master:"겉은 촉촉해 보이는데 속은 건조하죠? 깊은 수분을 채워줘야 피부가 진짜 생기를 되찾아요.",
+    dos:["순한 보습제","진정 성분","미온수 세안","자외선 차단제"],
+    donts:["자극적인 성분","뜨거운 물 세안","때수건으로 문지르기","과도한 루틴"] },
+  { code:"DSNW", charKo:"코코넛", charEn:"Coconut", emoji:"🥥", cat:"건성·민감성·비색소·주름형",
+    rxTitle:"속보습 리셋", rxHighlight:"라벤더 휴식",
+    master:"투명하지만 너무 얇아요. 작은 자극에도 쉽게 흔들리는 예민한 피부를 먼저 달래야 해요.",
+    dos:["수분크림 충분히","저자극 클렌저","수분팩 주 2-3회","항노화 세럼"],
+    donts:["세안 후 보습 안 하기","알코올 토너","건조한 환경","자극 각질 제거"] },
+  { code:"DSPT", charKo:"석류알", charEn:"Pomegranate Seed", emoji:"🍑", cat:"건성·민감성·색소성·탄력형",
+    rxTitle:"방어적 미백", rxHighlight:"로즈 쿨링",
+    master:"민감해서 미백 제품도 못 쓰시죠? 속열을 식혀야 잡티가 비로소 흐려집니다.",
+    dos:["순한 미백 에센스","보습+진정 겸용","SPF 필수","항산화 세럼"],
+    donts:["자극적인 필링","고농축 미백","보습 단계 생략","예민할 때 새 제품"] },
+  { code:"DSPW", charKo:"라즈베리", charEn:"Raspberry", emoji:"🫐", cat:"건성·민감성·색소성·주름형",
+    rxTitle:"총체적 재건", rxHighlight:"샌달우드 압착",
+    master:"바람이 불을 만나 수분을 다 말려버렸네요. 기미보다 급한 건 장벽의 휴식입니다.",
+    dos:["저자극 클렌저","세라마이드 보습제","매일 자외선 차단","진정 앰플"],
+    donts:["새 제품 동시에 바꾸기","알코올 토너","뜨거운 물 세안","각질 제거 자주"] },
+  { code:"DRNT", charKo:"선인장", charEn:"Cactus", emoji:"🌵", cat:"건성·저항성·비색소·탄력형",
+    rxTitle:"영양 저축", rxHighlight:"일랑일랑 탄력",
+    master:"겉은 맑지만 속은 텅 비어있어요. 탄력이 소진되기 전에 영양을 저축해야 할 때입니다.",
+    dos:["가벼운 보습제","수분 충분히 섭취","계절별 보습 조절","자외선 차단제"],
+    donts:["보습 건너뛰기","세안 후 방치","과도한 루틴","뜨거운 물 세안"] },
+  { code:"DRNW", charKo:"감자", charEn:"Potato", emoji:"🥔", cat:"건성·저항성·비색소·주름형",
+    rxTitle:"고영양 재생", rxHighlight:"시나몬 온열",
+    master:"차갑고 단단하게 굳어버린 피부. 따뜻한 온기를 불어넣어야 영양이 비로소 스며듭니다.",
+    dos:["리치한 보습 크림","레티놀 예방","콜라겐 부스팅","수분팩 주 2-3회"],
+    donts:["세안 후 보습 미루기","건조한 환경","수분 섭취 부족","강한 클렌저"] },
+  { code:"DRPT", charKo:"올리브", charEn:"Olive", emoji:"🫒", cat:"건성·저항성·색소성·탄력형",
+    rxTitle:"미백 리셋", rxHighlight:"패츌리 순환",
+    master:"안색이 탁한 건 순환의 문제예요. 목과 어깨의 긴장을 풀어야 얼굴 빛이 살아납니다.",
+    dos:["나이아신아마이드 미백","세라마이드 보습제","자외선 차단제","항산화 제품"],
+    donts:["보습 없이 방치","강한 필링","자외선 차단 빼먹기","알코올 토너"] },
+  { code:"DRPW", charKo:"무화과", charEn:"Fig", emoji:"🍇", cat:"건성·저항성·색소성·주름형",
+    rxTitle:"고보습 + 미백", rxHighlight:"진저 활력",
+    master:"건조한 땅에 잡티가 자리잡은 상태예요. 깊은 보습 관리가 가장 시급합니다.",
+    dos:["매일 SPF 50","비타민C 세럼","리치한 보습 크림","레티놀 예방"],
+    donts:["자외선 차단 없이 외출","너무 뜨거운 물 세안","보습 단계 생략","각질 제거 너무 자주"] }
+];
+
+/* ══════════════════════════════════════════════════════
+   DATA: PRAKRITI 9 TYPES (constitution + lifestyle)
+   ══════════════════════════════════════════════════════ */
+const PRAKRITI_COLORS = {
+  V:  '#8C9BB8', VP: '#C4917A', VK: '#9BA788',
+  P:  '#E8703A', PV: '#D58068', PK: '#B5824F',
+  K:  '#7F8F78', KP: '#A08559', KV: '#8C98A0'
+};
+const BALANCE = {
+  V:  { V:70, P:15, K:15 },
+  VP: { V:50, P:35, K:15 },
+  VK: { V:50, P:15, K:35 },
+  P:  { V:15, P:70, K:15 },
+  PV: { V:35, P:50, K:15 },
+  PK: { V:15, P:50, K:35 },
+  K:  { V:15, P:15, K:70 },
+  KP: { V:15, P:35, K:50 },
+  KV: { V:35, P:15, K:50 }
+};
+const PRAKRITI_TYPES = [
+  { code:"V", nameKo:"바타", nameEn:"VATA", note:"AIR · ETHER",
+    interpretation:"바람처럼 흔들리는 에너지. 따뜻하고 무게감 있는 향으로 뿌리 내려 진정시켜야 해요.",
+    lifestyleDos:["따뜻하고 촉촉한 음식","규칙적 수면·식사","오일 마사지(아비앙가)","명상·호흡 루틴"],
+    lifestyleDonts:["차갑고 건조한 환경","카페인·자극성 음료","불규칙한 식사","과도한 운동"] },
+  { code:"VP", nameKo:"바타-피타", nameEn:"VATA·PITTA", note:"AIR + FIRE",
+    interpretation:"바람이 불을 만나 수분을 말린 체질. 식히면서도 영양을 채워 균형을 잡아주세요.",
+    lifestyleDos:["수분감 시원한 음식","규칙적 휴식·명상","오일 + 시원한 미스트","경쟁보다 협업"],
+    lifestyleDonts:["매운·건조한 음식","과도한 일정 압박","늦은 취침","카페인 과다"] },
+  { code:"VK", nameKo:"바타-카파", nameEn:"VATA·KAPHA", note:"AIR + EARTH",
+    interpretation:"바람과 물이 교차하는 체질. 따뜻한 자극으로 얼어붙은 흐름을 녹여야 해요.",
+    lifestyleDos:["따뜻하고 가벼운 음식","활동적 아침 루틴","따뜻한 허브티","꾸준한 유산소"],
+    lifestyleDonts:["차가운 음식·음료","장시간 정지 자세","과도한 낮잠","기름진 식사"] },
+  { code:"P", nameKo:"피타", nameEn:"PITTA", note:"FIRE",
+    interpretation:"불꽃처럼 강렬한 에너지. 시원한 향으로 열감을 식혀 균형을 잡아주세요.",
+    lifestyleDos:["시원하고 달콤한 음식","햇빛 과다 노출 피하기","여유로운 시간 확보","물·허브티 충분히"],
+    lifestyleDonts:["매운·짠·신 음식","강한 햇빛 장시간","과도한 경쟁·압박","늦은 시간 과식"] },
+  { code:"PV", nameKo:"피타-바타", nameEn:"PITTA·VATA", note:"FIRE + AIR",
+    interpretation:"불꽃이 마른 잎을 만난 체질. 열을 식히면서 영양을 잃지 않게 균형을 맞춰요.",
+    lifestyleDos:["수분 가득한 시원한 음식","규칙적 휴식·짧은 낮잠","보습 우선 + 진정 케어","감정 환기 루틴"],
+    lifestyleDonts:["맵고 건조한 음식","장시간 자외선 노출","예민할 때 새 자극","과도한 일정"] },
+  { code:"PK", nameKo:"피타-카파", nameEn:"PITTA·KAPHA", note:"FIRE + EARTH",
+    interpretation:"불과 물이 공존하는 체질. 열은 식히되 정체는 풀어주는 이중 밸런싱.",
+    lifestyleDos:["시원하고 가벼운 음식","규칙적 유산소","디톡스·수분 섭취","스트레스 해소 루틴"],
+    lifestyleDonts:["매운+기름진 음식","과도한 일정 압박","낮잠·과식","감정 억누름"] },
+  { code:"K", nameKo:"카파", nameEn:"KAPHA", note:"EARTH · WATER",
+    interpretation:"호수처럼 고요한 에너지. 산뜻한 향으로 고인 흐름을 깨워 순환시키세요.",
+    lifestyleDos:["가볍고 따뜻한 음식","규칙적 유산소 운동","이른 기상·활동적 아침","새로운 자극·변화"],
+    lifestyleDonts:["기름지고 무거운 음식","낮잠·과도한 수면","차가운 유제품","앉아있는 시간 과다"] },
+  { code:"KP", nameKo:"카파-피타", nameEn:"KAPHA·PITTA", note:"EARTH + FIRE",
+    interpretation:"두꺼운 흙이 불씨를 품은 체질. 막힌 흐름을 강하게 풀어 깊이 잠든 열을 깨워요.",
+    lifestyleDos:["강력한 디톡스 루틴","고기능성 미백·재생","유산소 + 발한 운동","딥 마사지"],
+    lifestyleDonts:["기름진 야식","보습만 의존","소극적 유지 케어","수분 섭취 부족"] },
+  { code:"KV", nameKo:"카파-바타", nameEn:"KAPHA·VATA", note:"EARTH + AIR",
+    interpretation:"물이 마른 잎을 가둔 체질. 따뜻한 순환으로 굳은 결을 풀어 다시 흐르게 해요.",
+    lifestyleDos:["온열 마사지 루틴","꾸준한 보습·디톡스","활동적 아침 + 보습 압착","허브티·따뜻한 식단"],
+    lifestyleDonts:["차가운 음료·기름진 음식","장시간 정지 자세","보습 없는 외출","과도한 각질 제거"] }
+];
+
+/* ══════════════════════════════════════════════════════
+   DATA: FRAGRANCE 16 TYPES (aroma + description)
+   ══════════════════════════════════════════════════════ */
+const FRAGRANCE_TYPES = [
+  { nameKo:"샌달우드", nameEn:"Sandalwood", parentPK:"VP", flower:"❀",
+    tagline:"뜨거운 속열을 식히는 고요의 향",
+    desc:"뜨거운 속열을 식히고 붕 뜬 마음을 가라앉혀 피부 장벽이 비로소 숨을 쉬게 합니다." },
+  { nameKo:"로즈", nameEn:"Rose", parentPK:"VP", flower:"✿",
+    tagline:"지친 피부를 위로하는 사랑의 향",
+    desc:"열기로 지친 피부를 식히고 사랑의 에너지로 잡티 위에 새 살결을 피워냅니다." },
+  { nameKo:"라벤더", nameEn:"Lavender", parentPK:"V", flower:"✾",
+    tagline:"예민한 신경을 어루만지는 휴식의 향",
+    desc:"예민해진 신경을 어루만지고 깊은 휴식을 선물해 잠든 피부를 깨워줍니다." },
+  { nameKo:"일랑일랑", nameEn:"Ylang Ylang", parentPK:"V", flower:"✺",
+    tagline:"텅 빈 피부를 채우는 영양의 향",
+    desc:"텅 빈 피부 속에 풍요로운 영양을 채우고 사라진 탄력을 다시 불러옵니다." },
+  { nameKo:"카모마일", nameEn:"Chamomile", parentPK:"VK", flower:"❋",
+    tagline:"정체된 피부를 녹이는 위로의 향",
+    desc:"정체된 피부에 부드러운 위로를 건네 막힌 순환의 길을 살며시 열어줍니다." },
+  { nameKo:"시나몬", nameEn:"Cinnamon", parentPK:"VK", flower:"✤",
+    tagline:"차가운 피부에 온기를 불어넣는 향",
+    desc:"차갑게 굳은 피부에 따스한 온기를 불어넣어 영양이 비로소 스며들 길을 만듭니다." },
+  { nameKo:"진저", nameEn:"Ginger", parentPK:"VK", flower:"✦",
+    tagline:"메마른 피부에 생기를 피우는 향",
+    desc:"가뭄 든 피부에 생기의 불씨를 피워 메마른 잡티 밭에 새 생명을 깨웁니다." },
+  { nameKo:"페퍼민트", nameEn:"Peppermint", parentPK:"P", flower:"❈",
+    tagline:"타오르는 피부를 잠재우는 쿨링의 향",
+    desc:"타오르는 피부 속 불길을 시원하게 잠재우고 멜라닌의 폭주를 멈춰 세웁니다." },
+  { nameKo:"유칼립투스", nameEn:"Eucalyptus", parentPK:"P", flower:"✽",
+    tagline:"염증의 흔적을 맑게 식히는 향",
+    desc:"훈장처럼 남은 염증의 흔적을 식히고 맑은 숨결로 피부를 다시 일으킵니다." },
+  { nameKo:"네롤리", nameEn:"Neroli", parentPK:"PV", flower:"✻",
+    tagline:"곤두선 유분막을 진정시키는 향",
+    desc:"예민하게 곤두선 유분막을 진정시키고 수분과 유분의 균형을 다시 잡아줍니다." },
+  { nameKo:"티트리", nameEn:"Tea Tree", parentPK:"PK", flower:"❀",
+    tagline:"독소의 정체를 정화하는 향",
+    desc:"독소가 만든 염증을 정화하고 막힌 배출의 통로를 깨끗이 열어줍니다." },
+  { nameKo:"자몽", nameEn:"Grapefruit", parentPK:"K", flower:"✿",
+    tagline:"완벽한 피부 속 정체를 푸는 향",
+    desc:"완벽해 보이는 피부 속 고인 정체를 풀고 산뜻한 에너지로 흐름을 되찾아줍니다." },
+  { nameKo:"레몬그라스", nameEn:"Lemongrass", parentPK:"K", flower:"✾",
+    tagline:"잠긴 성벽을 여는 활력의 향",
+    desc:"잠긴 성벽 같은 피부의 문을 열고 정체된 에너지에 활력의 바람을 불어넣습니다." },
+  { nameKo:"로즈마리", nameEn:"Rosemary", parentPK:"KP", flower:"✺",
+    tagline:"잠든 색소를 깨우는 순환의 향",
+    desc:"두꺼운 피부 깊이 잠든 색소를 깨우고 강력한 순환으로 닫힌 결을 열어줍니다." },
+  { nameKo:"베르가못", nameEn:"Bergamot", parentPK:"KV", flower:"❋",
+    tagline:"갇힌 피지에 숨을 틔우는 향",
+    desc:"모공 속 갇힌 피지에 길을 열어주고 피부 결 사이사이에 가벼운 숨을 불어넣습니다." },
+  { nameKo:"패츌리", nameEn:"Patchouli", parentPK:"KV", flower:"✤",
+    tagline:"탁한 안색 뒤 긴장을 푸는 향",
+    desc:"탁한 안색 뒤에 숨은 긴장을 풀어주고 맑은 빛이 피부 표면으로 떠오르게 합니다." }
+];
+
+/* ══════════════════════════════════════════════════════
+   UTILS
+   ══════════════════════════════════════════════════════ */
+const brk = `<div class="brk tl"></div><div class="brk tr"></div><div class="brk bl"></div><div class="brk br"></div>`;
+const foot = `<div class="mk-tagline">당신의 피부가 말하는 이야기</div><div class="mk-footer">@im.aesthetic.official</div>`;
+const bar = (badge, badgeColor) => `
+  <div class="mk-bar">
+    <div class="mk-bar-logo">IM AESTHETIC</div>
+    ${badge ? `<div class="mk-bar-badge" style="${badgeColor?`background:${badgeColor};`:''}">${badge}</div>` : `<div class="mk-bar-acc">@im.aesthetic.official</div>`}
+  </div>`;
+
+/* Triangle chart (prakriti visualization) */
+function renderTriangle(code) {
+  const b = BALANCE[code] || { V:33, P:33, K:33 };
+  const color = PRAKRITI_COLORS[code] || '#E8703A';
+  const vx = 160, vy = 50;
+  const px = 40, py = 250;
+  const kx = 280, ky = 250;
+  const total = b.V + b.P + b.K;
+  const dotX = (vx * b.V + px * b.P + kx * b.K) / total;
+  const dotY = (vy * b.V + py * b.P + ky * b.K) / total;
+  const vBg={V:'#F5D6D3',P:'#CDDCE8',K:'#CDDFC8'}, vStr={V:'#D98782',P:'#6B8AA9',K:'#7CA06F'};
+  const lbl = (cx,cy,nm,sb,k) => {
+    const w=56,h=38;
+    return `<rect x="${cx-w/2}" y="${cy-h/2}" width="${w}" height="${h}" rx="4" fill="${vBg[k]}" stroke="${vStr[k]}" stroke-width="0.8"/>
+      <text x="${cx}" y="${cy-4}" text-anchor="middle" font-family="Pretendard" font-size="11" font-weight="700" fill="${vStr[k]}">${nm}</text>
+      <text x="${cx}" y="${cy+10}" text-anchor="middle" font-family="Pretendard" font-size="9" fill="${vStr[k]}" opacity="0.85">${sb}</text>`;
+  };
+  return `<svg viewBox="0 0 320 280" style="width:100%;height:100%;">
+    <defs><linearGradient id="triG-${code}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="${color}" stop-opacity="0.12"/><stop offset="100%" stop-color="${color}" stop-opacity="0.03"/>
+    </linearGradient></defs>
+    <polygon points="${vx},${vy} ${kx},${ky} ${px},${py}" fill="url(#triG-${code})" stroke="#D4A04A" stroke-width="1.2"/>
+    <line x1="${vx}" y1="${vy}" x2="${(px+kx)/2}" y2="${(py+ky)/2}" stroke="#D4A04A" stroke-width="0.4" stroke-dasharray="3 3" opacity="0.35"/>
+    <line x1="${px}" y1="${py}" x2="${(vx+kx)/2}" y2="${(vy+ky)/2}" stroke="#D4A04A" stroke-width="0.4" stroke-dasharray="3 3" opacity="0.35"/>
+    <line x1="${kx}" y1="${ky}" x2="${(vx+px)/2}" y2="${(vy+py)/2}" stroke="#D4A04A" stroke-width="0.4" stroke-dasharray="3 3" opacity="0.35"/>
+    <circle cx="${dotX}" cy="${dotY}" r="18" fill="none" stroke="${color}" stroke-width="1" opacity="0.2"/>
+    <circle cx="${dotX}" cy="${dotY}" r="11" fill="none" stroke="${color}" stroke-width="1" opacity="0.45"/>
+    <circle cx="${dotX}" cy="${dotY}" r="6" fill="${color}"/>
+    ${lbl(vx,vy-8,'바타','순기','V')}${lbl(px+10,py+8,'피타','진정','P')}${lbl(kx-10,ky+8,'카파','순환','K')}
+  </svg>`;
+}
+
+/* ══════════════════════════════════════════════════════
+   RENDER: MBTI (2 slides)
+   ══════════════════════════════════════════════════════ */
+function renderMbti(index) {
+  const t = MBTI_TYPES[index];
+  document.getElementById('mbtiSet').innerHTML = `
+    <div class="set-header">
+      <div class="code-badge">${t.code}</div>
+      <div>
+        <div class="set-name">${t.charKo} <span style="font-family:'Playfair Display',serif;font-size:18px;color:var(--muted);margin-left:8px;font-style:italic;">${t.charEn}</span></div>
+        <div class="set-cat">${t.cat}</div>
+      </div>
+    </div>
+    <div class="slide-grid cols-2">
+      <div class="slide-item">
+        <div class="slide-label">Slide 1 · Cover</div>
+        <div class="slide-mockup mk-cover" id="m-1">
+          ${brk}${bar()}
+          <div class="cover-label">Skin MBTI · Character</div>
+          <div class="cover-title">나의 피부 캐릭터는?</div>
+          <div class="cover-divider"></div>
+          <div class="cover-emoji-wrap">
+            <div class="cover-emoji-ring"></div>
+            <div class="cover-emoji">${t.emoji}</div>
+          </div>
+          <div class="cover-name-box">
+            <div class="cover-name-ko">${t.charKo}</div>
+            <div class="cover-name-en">${t.charEn}</div>
+          </div>
+          <div class="cover-code-box"><span>${t.code}</span></div>
+          <div class="cover-cat">${t.cat}</div>
+          ${foot}
+        </div>
+        <button class="slide-btn" onclick="dl('m-1','MBTI_${t.code}_01_cover')">PNG 다운로드</button>
+      </div>
+      <div class="slide-item">
+        <div class="slide-label">Slide 2 · One-line Prescription + OX</div>
+        <div class="slide-mockup mk-rx" id="m-2">
+          ${brk}${bar(t.code)}
+          <div class="rx-sub">${t.charKo} <em>${t.charEn}</em></div>
+          <div class="rx-label">One-line Prescription</div>
+          <div class="rx-title"><span class="rx-title-quote">“</span>${t.rxTitle}<em>${t.rxHighlight}</em><span class="rx-title-quote">”</span></div>
+          <div class="rx-divider"></div>
+          <div class="rx-quote">${t.master}</div>
+          <div class="rx-cols">
+            <div class="rx-col good">
+              <div class="rx-col-title">Do's</div>
+              ${t.dos.map(d => `<div class="rx-item">${d}</div>`).join('')}
+            </div>
+            <div class="rx-col bad">
+              <div class="rx-col-title">Don'ts</div>
+              ${t.donts.map(d => `<div class="rx-item">${d}</div>`).join('')}
+            </div>
+          </div>
+          ${foot}
+        </div>
+        <button class="slide-btn" onclick="dl('m-2','MBTI_${t.code}_02_prescription')">PNG 다운로드</button>
+      </div>
+    </div>`;
+}
+
+/* ══════════════════════════════════════════════════════
+   RENDER: PRAKRITI (1 slide)
+   ══════════════════════════════════════════════════════ */
+function renderPrakriti(index) {
+  const p = PRAKRITI_TYPES[index];
+  const color = PRAKRITI_COLORS[p.code];
+  document.getElementById('prakritiSet').innerHTML = `
+    <div class="set-header">
+      <div class="code-badge" style="background:${color};">${p.code}</div>
+      <div>
+        <div class="set-name">${p.nameKo} <span style="font-family:'Playfair Display',serif;font-size:18px;color:var(--muted);margin-left:8px;font-style:italic;">${p.nameEn}</span></div>
+        <div class="set-cat">${p.note}</div>
+      </div>
+    </div>
+    <div class="slide-grid cols-1">
+      <div class="slide-item">
+        <div class="slide-label">Prakriti Template · Triangle + Lifestyle OX</div>
+        <div class="slide-mockup mk-dosha" id="p-1">
+          ${brk}${bar(p.code, color)}
+          <div style="height:28px;"></div>
+          <div class="d-label" style="color:${color};opacity:0.85;">${p.note}</div>
+          <div class="d-title">나의 에너지 체질</div>
+          <div class="d-name" style="color:${color};">${p.nameKo}</div>
+          <div class="d-name-en">${p.nameEn}</div>
+          <div class="triangle-wrap">${renderTriangle(p.code)}</div>
+          <div class="d-comment">${p.interpretation}</div>
+          <div class="d-cols">
+            <div class="d-col good">
+              <div class="d-col-title">Do's · 체질 밸런싱</div>
+              ${p.lifestyleDos.map(d => `<div class="d-item">${d}</div>`).join('')}
+            </div>
+            <div class="d-col bad">
+              <div class="d-col-title">Don'ts · 체질 악화</div>
+              ${p.lifestyleDonts.map(d => `<div class="d-item">${d}</div>`).join('')}
+            </div>
+          </div>
+          ${foot}
+        </div>
+        <button class="slide-btn" onclick="dl('p-1','PRAKRITI_${p.code}')">PNG 다운로드</button>
+      </div>
+    </div>`;
+}
+
+/* ══════════════════════════════════════════════════════
+   RENDER: FRAGRANCE (1 slide)
+   ══════════════════════════════════════════════════════ */
+function renderFragrance(index) {
+  const f = FRAGRANCE_TYPES[index];
+  const color = PRAKRITI_COLORS[f.parentPK] || 'var(--gold)';
+  document.getElementById('fragranceSet').innerHTML = `
+    <div class="set-header">
+      <div class="code-badge" style="background:${color};letter-spacing:0.06em;">${f.nameEn}</div>
+      <div>
+        <div class="set-name">${f.nameKo} <span style="font-family:'Playfair Display',serif;font-size:18px;color:var(--muted);margin-left:8px;font-style:italic;">${f.nameEn}</span></div>
+        <div class="set-cat">매칭 프라크리티: ${f.parentPK} · ${f.tagline}</div>
+      </div>
+    </div>
+    <div class="slide-grid cols-1">
+      <div class="slide-item">
+        <div class="slide-label">Fragrance Template · Lucky Aroma</div>
+        <div class="slide-mockup mk-fr" id="f-1">
+          ${brk}${bar(f.parentPK, color)}
+          <div style="height:28px;"></div>
+          <div class="fr-label" style="color:${color};opacity:0.85;">Lucky Fragrance</div>
+          <div class="fr-title" style="color:${color};">당신의 에너지에 행운을 더하는 향기</div>
+          <div class="fr-divider" style="border-top-color:${color};"></div>
+          <div class="fr-flower-wrap">
+            <span class="fr-flower-ring" style="border-color:${color};"></span>
+            <span class="fr-flower" style="color:${color};">${f.flower}</span>
+          </div>
+          <div class="fr-name">${f.nameKo}</div>
+          <div class="fr-name-en">${f.nameEn}</div>
+          <div class="fr-desc">${f.desc}</div>
+          <div class="fr-tag-wrap"><span class="fr-pk-tag">for ${f.parentPK} prakriti</span></div>
+          ${foot}
+        </div>
+        <button class="slide-btn" onclick="dl('f-1','FRAGRANCE_${f.nameEn.replace(/\\s/g,'')}')">PNG 다운로드</button>
+      </div>
+    </div>`;
+}
+
+/* ══════════════════════════════════════════════════════
+   TAB SWITCHING
+   ══════════════════════════════════════════════════════ */
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+/* ══════════════════════════════════════════════════════
+   SELECTORS & NAVIGATION
+   ══════════════════════════════════════════════════════ */
+let mbtiIndex = 0, prakritiIndex = 0, fragranceIndex = 0;
+
+const mbtiSelect = document.getElementById('mbtiSelect');
+MBTI_TYPES.forEach((t,i) => {
+  const o = document.createElement('option');
+  o.value = i; o.textContent = `${t.code} · ${t.charKo} (${t.charEn})`;
+  mbtiSelect.appendChild(o);
+});
+mbtiSelect.addEventListener('change', e => { mbtiIndex = +e.target.value; renderMbti(mbtiIndex); });
+function mbtiChange(d) { mbtiIndex = (mbtiIndex + d + MBTI_TYPES.length) % MBTI_TYPES.length; mbtiSelect.value = mbtiIndex; renderMbti(mbtiIndex); }
+
+const prakritiSelect = document.getElementById('prakritiSelect');
+PRAKRITI_TYPES.forEach((p,i) => {
+  const o = document.createElement('option');
+  o.value = i; o.textContent = `${p.code} · ${p.nameKo} (${p.nameEn})`;
+  prakritiSelect.appendChild(o);
+});
+prakritiSelect.addEventListener('change', e => { prakritiIndex = +e.target.value; renderPrakriti(prakritiIndex); });
+function prakritiChange(d) { prakritiIndex = (prakritiIndex + d + PRAKRITI_TYPES.length) % PRAKRITI_TYPES.length; prakritiSelect.value = prakritiIndex; renderPrakriti(prakritiIndex); }
+
+const fragranceSelect = document.getElementById('fragranceSelect');
+FRAGRANCE_TYPES.forEach((f,i) => {
+  const o = document.createElement('option');
+  o.value = i; o.textContent = `${f.nameKo} · ${f.nameEn} (${f.parentPK})`;
+  fragranceSelect.appendChild(o);
+});
+fragranceSelect.addEventListener('change', e => { fragranceIndex = +e.target.value; renderFragrance(fragranceIndex); });
+function fragranceChange(d) { fragranceIndex = (fragranceIndex + d + FRAGRANCE_TYPES.length) % FRAGRANCE_TYPES.length; fragranceSelect.value = fragranceIndex; renderFragrance(fragranceIndex); }
+
+/* ══════════════════════════════════════════════════════
+   DOWNLOAD (540×675 @ scale:2 = 1080×1350 4:5 Feed)
+   ══════════════════════════════════════════════════════ */
+async function dl(id, filename) {
+  const el = document.getElementById(id);
+  const canvas = await html2canvas(el, { scale: 2, backgroundColor: null, useCORS: true, logging: false, width: 540, height: 675 });
+  const link = document.createElement('a');
+  link.download = `${filename}.png`;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+
+async function mbtiDownloadCurrent() {
+  const t = MBTI_TYPES[mbtiIndex];
+  await dl('m-1', `MBTI_${t.code}_01_cover`);
+  await new Promise(r => setTimeout(r, 200));
+  await dl('m-2', `MBTI_${t.code}_02_prescription`);
+}
+async function mbtiDownloadAll() {
+  const prog = document.getElementById('mbtiProgress');
+  for (let i = 0; i < MBTI_TYPES.length; i++) {
+    mbtiIndex = i; mbtiSelect.value = i; renderMbti(i);
+    await new Promise(r => setTimeout(r, 300));
+    prog.textContent = `${i+1}/${MBTI_TYPES.length} · ${MBTI_TYPES[i].code}`;
+    await mbtiDownloadCurrent();
+  }
+  prog.textContent = '완료! 32장 다운로드됨';
+  setTimeout(() => prog.textContent = '', 3000);
+}
+
+async function prakritiDownloadCurrent() {
+  const p = PRAKRITI_TYPES[prakritiIndex];
+  await dl('p-1', `PRAKRITI_${p.code}`);
+}
+async function prakritiDownloadAll() {
+  const prog = document.getElementById('prakritiProgress');
+  for (let i = 0; i < PRAKRITI_TYPES.length; i++) {
+    prakritiIndex = i; prakritiSelect.value = i; renderPrakriti(i);
+    await new Promise(r => setTimeout(r, 300));
+    prog.textContent = `${i+1}/${PRAKRITI_TYPES.length} · ${PRAKRITI_TYPES[i].code}`;
+    await prakritiDownloadCurrent();
+    await new Promise(r => setTimeout(r, 200));
+  }
+  prog.textContent = '완료! 9장 다운로드됨';
+  setTimeout(() => prog.textContent = '', 3000);
+}
+
+async function fragranceDownloadCurrent() {
+  const f = FRAGRANCE_TYPES[fragranceIndex];
+  await dl('f-1', `FRAGRANCE_${f.nameEn.replace(/\s/g,'')}`);
+}
+async function fragranceDownloadAll() {
+  const prog = document.getElementById('fragranceProgress');
+  for (let i = 0; i < FRAGRANCE_TYPES.length; i++) {
+    fragranceIndex = i; fragranceSelect.value = i; renderFragrance(i);
+    await new Promise(r => setTimeout(r, 300));
+    prog.textContent = `${i+1}/${FRAGRANCE_TYPES.length} · ${FRAGRANCE_TYPES[i].nameKo}`;
+    await fragranceDownloadCurrent();
+    await new Promise(r => setTimeout(r, 200));
+  }
+  prog.textContent = '완료! 16장 다운로드됨';
+  setTimeout(() => prog.textContent = '', 3000);
+}
+
+/* ══════════════════════════════════════════════════════
+   INIT
+   ══════════════════════════════════════════════════════ */
+renderMbti(0);
+renderPrakriti(0);
+renderFragrance(0);
+</script>
+</body>
+</html>

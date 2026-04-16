@@ -1804,8 +1804,7 @@ main {
         <div class="mk-play-lbl" style="top:68%;">캐릭터 MP4 / 이미지</div>
         <div class="mk-overlay">
           <div class="mk-char">두부 Tofu</div>
-          <div style="text-align:center;margin-top:2px;"><span style="background:#E8703A;color:#fff;font-size:8px;font-weight:600;padding:2px 8px;border-radius:3px;letter-spacing:0.1em;">DSNT</span></div>
-          <div class="mk-nick" style="margin-top:4px;">#푸석푸석 민감초</div>
+          <div style="text-align:center;margin-top:4px;"><span style="background:#E8703A;color:#fff;font-size:8px;font-weight:600;padding:2px 8px;border-radius:3px;letter-spacing:0.1em;">DSNT</span></div>
         </div>
         <div class="mk-callout" style="top:10%;left:8px;">1</div>
         <div class="mk-callout" style="top:55%;left:8px;">2</div>
@@ -1817,7 +1816,7 @@ main {
         <div class="slide-note">
           <strong>① 타이틀</strong> — 앱 문구 그대로 "<strong>나의 피부 캐릭터는?</strong>" (Noto Serif KR 300, 자간 0.08em).
           <strong>② 캐릭터 비주얼</strong> — Canva Frames로 MP4(9:16) 또는 캐릭터 정적 이미지 배치.
-          <strong>③ 이름 + 코드 뱃지 + 닉네임</strong> — 앱처럼 "두부 Tofu / <strong>DSNT</strong> 뱃지 / #푸석푸석 민감초" 3단 구성 (하단 정렬).
+          <strong>③ 캐릭터명 + 코드 뱃지</strong> — "두부 Tofu" + 오렌지 <strong>DSNT</strong> 뱃지 2단 구성 (하단 정렬). 캐릭터명만으로 식별 충분 → 닉네임은 생략하여 시선 분산 방지.
         </div>
       </div>
     </div>
@@ -1831,7 +1830,7 @@ main {
         </div>
         <div class="mk-head">
           <div class="mk-head-badge">DSNT</div>
-          <div class="mk-head-name">두부 Tofu · #유리피부</div>
+          <div class="mk-head-name">두부 Tofu</div>
         </div>
         <div style="font-family:'Playfair Display',serif;font-size:8px;letter-spacing:0.16em;color:#D4A04A;text-align:center;margin-top:10px;">ONE-LINE PRESCRIPTION</div>
         <div style="font-family:'Noto Serif KR',serif;font-weight:300;font-size:20px;line-height:1.35;text-align:center;color:#3D2E24;margin-top:4px;padding:0 14px;">
@@ -1870,7 +1869,7 @@ main {
           예: OSNT "진정 레이어링", DSNT "장벽 재건 (세라)", DSPW "고보습 리빌딩", ORPW "강력 재생 리모델링".
           Playfair 레이블 + Noto Serif 대형 문구(골드 강조어).
           <strong>④ 마스터의 한마디</strong> 감성 멘트 (축약본).
-          <strong>⑤ Do's/Don'ts</strong> 4개씩 초록/빨강 대비. 상세 피부특성은 의도적으로 제외 (이미 A-1 닉네임으로 커버).
+          <strong>⑤ Do's/Don'ts</strong> 4개씩 초록/빨강 대비. 상세 피부특성은 의도적으로 제외 (이미 A-1 캐릭터명/뱃지로 식별 완료).
         </div>
       </div>
     </div>
@@ -1934,7 +1933,7 @@ main {
         <div class="slide-title">Slide B-1 (Slide 3) — 아유르베다 + 향기 삼각형</div>
         <button class="btn-png" onclick="downloadMockup('slide-b1','customer-set-03-ayurveda-fragrance-triangle.png')">PNG Download</button>
         <div class="slide-note">
-          <strong>① 상단 뱃지</strong> — 고객의 프라크리티 코드(V/P/K/VP/VK/PK/VPK 중 1개) + "ENERGY · FRAGRANCE MAP" 레이블 + Noto Serif 체질명.
+          <strong>① 상단 뱃지</strong> — 고객의 프라크리티 코드(V/P/K 단일 3종 또는 VP/VK/PV/PK/KP/KV 이중 6종 — 총 9가지 중 1개) + "ENERGY · FRAGRANCE MAP" 레이블 + Noto Serif 체질명.
           <strong>② 향기 삼각형 차트</strong> — 3꼭짓점에 <span style="color:#9B8AC0;">바타(샌달우드·라벤더)</span>, <span style="color:#E8703A;">피타(로즈·네롤리)</span>, <span style="color:#8FAE6A;">카파(진저·페퍼민트)</span> 대표 향기 배치.
           내부 작은 삼각형 + 골드 도트 = 고객 개별 블렌드 포인트.
           <strong>③ 해석 문구</strong> — 4-B 섹션 <code>characteristics</code> 참조, "불(Pitta)과 물(Kapha)이 우세한 체질..." 형식으로 핵심 키워드 골드 강조.
@@ -1956,8 +1955,15 @@ main {
           <div class="mk-brand-logo">IM AESTHETIC</div>
           <div class="mk-brand-badge" style="background:#D4A04A;">VK</div>
         </div>
-        <!-- 좋은 것 / 주의할 점 OX 박스 (앱 구조 반영) -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:6px 8px 0;margin-top:6px;">
+        <!-- 향기 영역 (메인) -->
+        <div class="mk-e-title" style="font-size:10px;color:#D4A04A;margin-top:14px;">당신의 에너지에 행운을 더하는 향기</div>
+        <div class="mk-divider" style="margin-top:6px;"></div>
+        <!-- 꽃 일러스트 자리 -->
+        <div style="text-align:center;margin-top:10px;font-size:24px;color:#D4A04A;">❀</div>
+        <div class="mk-fr-name" style="font-size:15px;margin-top:2px;">카모마일 Chamomile</div>
+        <div class="mk-fr-desc" style="padding:0 12px;">정체된 피부에 부드러운 위로를 건네 막힌 순환의 길을 살며시 열어줍니다.</div>
+        <!-- 좋은 것 / 주의할 점 OX 박스 (라이프스타일, 부가정보 → 하단) -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:0 8px;margin-top:14px;">
           <div style="background:rgba(143,174,106,0.15);border:1px solid rgba(143,174,106,0.4);border-radius:4px;padding:5px 4px;">
             <div style="font-size:6.5px;color:#5A7A3E;font-weight:600;text-align:center;">✓ 좋은 것</div>
             <div style="font-size:5.5px;color:#3D2E24;line-height:1.4;margin-top:2px;text-align:center;">시원·달콤한 음식<br>규칙적 수면</div>
@@ -1967,25 +1973,20 @@ main {
             <div style="font-size:5.5px;color:#3D2E24;line-height:1.4;margin-top:2px;text-align:center;">매운 음식·과로<br>차가운 환경</div>
           </div>
         </div>
-        <!-- 향기 영역 -->
-        <div class="mk-e-title" style="font-size:10px;color:#D4A04A;margin-top:12px;">당신의 에너지에 행운을 더하는 향기</div>
-        <div class="mk-divider" style="margin-top:6px;"></div>
-        <!-- 꽃 일러스트 자리 -->
-        <div style="text-align:center;margin-top:10px;font-size:24px;color:#D4A04A;">❀</div>
-        <div class="mk-fr-name" style="font-size:15px;margin-top:2px;">카모마일 Chamomile</div>
-        <div class="mk-fr-desc" style="padding:0 12px;">정체된 피부에 부드러운 위로를 건네 막힌 순환의 길을 살며시 열어줍니다.</div>
         <div class="mk-footer">IM AESTHETIC · @im.aesthetic.official</div>
-        <div class="mk-callout" style="top:10%;right:8px;">4</div>
-        <div class="mk-callout" style="top:42%;right:8px;">5</div>
-        <div class="mk-callout" style="top:62%;right:8px;">6</div>
+        <div class="mk-callout" style="top:14%;right:8px;">4</div>
+        <div class="mk-callout" style="top:34%;right:8px;">5</div>
+        <div class="mk-callout" style="top:72%;right:8px;">6</div>
       </div>
       <div>
-        <div class="slide-title">Slide B-2 (Slide 4) — OX + 매칭 향기 (앱 화면 3 미러링)</div>
+        <div class="slide-title">Slide B-2 (Slide 4) — 매칭 향기 + 라이프스타일 OX (앱 화면 3 미러링)</div>
         <button class="btn-png" onclick="downloadMockup('slide-b2','customer-set-04-fragrance.png')">PNG Download</button>
         <div class="slide-note">
-          <strong>④ 좋은 것 / 주의할 점 OX</strong> — 앱 그대로 체질(아유르베다) 라이프스타일 OX. 예) 바타: 따뜻한 음식 ✓ / 차가운 환경 ✗. 피부 케어 OX(Slide 2)와 <strong>별개</strong>.
-          <strong>⑤ 골드 제목</strong> — 앱 문구 그대로 "<strong>당신의 에너지에 행운을 더하는 향기</strong>".
-          <strong>⑥ 꽃 일러스트 + 향기명 + 설명</strong> — MBTI에서 자동 결정된 향기 (예: DSNT→카모마일). 앱에는 CTA가 없으므로 제거.
+          <strong>④ 골드 제목</strong> — 앱 문구 그대로 "<strong>당신의 에너지에 행운을 더하는 향기</strong>" (상단 메인).
+          <strong>⑤ 꽃 일러스트 + 향기명 + 설명</strong> — MBTI에서 자동 결정된 향기 (예: DSNT→카모마일). 시각적 임팩트가 가장 큰 영역이므로 중앙 강조.
+          <strong>⑥ 좋은 것 / 주의할 점 OX</strong> — 체질(아유르베다) 라이프스타일 OX (하단 부가정보). 예) 바타: 따뜻한 음식 ✓ / 차가운 환경 ✗. 피부 케어 OX(Slide 2)와 <strong>별개</strong>.
+          <br><br>
+          <strong>레이아웃 의도</strong> — 향기(메인 결과) → OX(부가 행동지침) 순서로 시선이 흐르게 배치. 결과를 먼저 보여주고 실천 팁을 받쳐주는 구조.
           <br><br>
           <strong>일러스트 팁</strong> — Canva Elements에서 향기별 꽃 일러스트 검색(아래 키워드 참조), 골드(<code>#D4A04A</code>)로 색 교체.
         </div>
@@ -2336,8 +2337,8 @@ main {
   <!-- ── 4-B: Dosha 3 Types ── -->
   <div style="margin:56px 0 12px;padding:14px 18px;background:#F5EDE0;border-left:4px solid #D4A04A;border-radius:4px;">
     <div style="font-family:'Playfair Display',serif;font-size:14px;letter-spacing:0.12em;color:#D4A04A;">4-B · AYURVEDA PRAKRITI</div>
-    <div style="font-family:'Pretendard';font-weight:600;font-size:18px;color:#3D2E24;margin-top:4px;">7 프라크리티 데이터 (전통 아유르베다)</div>
-    <div style="font-family:'Pretendard';font-size:13px;color:#9B8A7A;margin-top:4px;">V·P·K 단일 3종 + VP·VK·PK 이중 3종 + VPK 삼중 1종 · 앱은 바우만 테스트(피부) + 아유르베다 테스트(체질) 혼용 설문으로 두 결과를 <strong>독립 산출</strong> · 향기는 프라크리티 결과에 매칭</div>
+    <div style="font-family:'Pretendard';font-weight:600;font-size:18px;color:#3D2E24;margin-top:4px;">9 프라크리티 데이터 (순서 구분 아유르베다)</div>
+    <div style="font-family:'Pretendard';font-size:13px;color:#9B8A7A;margin-top:4px;">V·P·K 단일 3종 + 우세 도샤 순서를 구분한 이중 6종 (VP/VK/PV/PK/KP/KV) · 같은 두 도샤라도 어느 쪽이 우세한지에 따라 처방 향기가 달라짐 · 앱은 바우만 테스트(피부) + 아유르베다 테스트(체질) 혼용 설문으로 두 결과를 <strong>독립 산출</strong></div>
   </div>
 
   <div class="type-grid" id="doshaGrid"><!-- Dosha types injected via JS --></div>
@@ -2640,14 +2641,16 @@ const CANVA_TYPES = [
   }
 ];
 
-/* ══════════ DOSHA PRAKRITI DATA (7 TYPES) ══════════ */
+/* ══════════ DOSHA PRAKRITI DATA (9 TYPES, 우세 도샤 순서 구분) ══════════ */
 /* 앱이 바우만 테스트(Skin MBTI) + 아유르베다 테스트 질문을 혼용.
    두 결과는 독립적으로 산출되며 MBTI와 프라크리티는 1:1 매핑이 아님.
-   전통 아유르베다 7 프라크리티: V/P/K 단일 3종 + VP/VK/PK 이중 3종 + VPK 삼중 1종 */
+   9 프라크리티: V/P/K 단일 3종 + 우세 도샤 순서를 구분한 이중 6종 (VP/VK/PV/PK/KP/KV)
+   같은 두 도샤라도 어느 쪽이 우세한지에 따라 처방 향기가 달라짐 (예: VP ≠ PV) */
 const DOSHA_TYPES = [
   {
     code: "V", group: "V",
     character: "바타 Vata", category: "단일 · 바람·공기 우세",
+    mbtiMap: ["DSNW", "DRNT"],
     keywords: ["가벼움", "민첩함", "창의적", "쉽게 건조", "변화 민감"],
     masterComment: "바람처럼 흔들리는 에너지. 따뜻하고 무게감 있는 향으로 뿌리 내려 진정시켜야 해요.",
     characteristics: [
@@ -2659,14 +2662,53 @@ const DOSHA_TYPES = [
     dos: ["따뜻하고 촉촉한 음식", "규칙적 수면·식사", "오일 마사지(아비앙가)", "명상·호흡 루틴"],
     donts: ["차갑고 건조한 환경", "카페인·자극성 음료 과다", "불규칙한 식사", "과도한 운동"],
     fragrances: [
-      { name: "샌달우드 (Sandalwood)", note: "붕 뜬 마음을 가라앉혀 에너지가 비로소 뿌리 내리게 합니다." },
-      { name: "일랑일랑 (Ylang Ylang)", note: "텅 빈 에너지에 풍요로운 영양을 채우고 탄력을 불러옵니다." },
-      { name: "시나몬 (Cinnamon)", note: "차갑게 굳은 몸에 따스한 온기를 불어넣어 영양의 길을 엽니다." }
+      { name: "라벤더 (Lavender)", note: "예민해진 신경을 어루만지고 깊은 휴식을 선물합니다." },
+      { name: "일랑일랑 (Ylang Ylang)", note: "텅 빈 에너지에 풍요로운 영양을 채우고 탄력을 불러옵니다." }
+    ]
+  },
+  {
+    code: "VP", group: "VP",
+    character: "바타-피타 Vata-Pitta", category: "이중 · 건조함 + 열감 (바타 우세)",
+    mbtiMap: ["DSPW", "DSPT"],
+    keywords: ["창의적 열정", "예민함", "건조 + 붉어짐", "추진력 강함"],
+    masterComment: "바람이 불을 만나 수분을 다 말려버린 체질. 식히면서도 영양을 채워 균형을 잡아주세요.",
+    characteristics: [
+      "건조함이 주된 고민, 거기에 홍조·염증이 더해짐",
+      "체온 조절 불안정 (춥다-덥다 전환 잦음)",
+      "창의적이고 열정적이나 번아웃 주의",
+      "수면·소화 리듬 쉽게 깨짐"
+    ],
+    dos: ["수분감 있는 시원한 음식", "규칙적 휴식·명상", "오일 마사지 + 시원한 미스트", "경쟁보다 협업"],
+    donts: ["매운·건조한 음식", "과도한 일정 압박", "늦은 취침", "카페인 과다"],
+    fragrances: [
+      { name: "샌달우드 (Sandalwood)", note: "뜨거운 속열을 식히고 붕 뜬 마음을 가라앉혀 장벽이 비로소 숨을 쉬게 합니다." },
+      { name: "로즈 (Rose)", note: "열기로 지친 피부와 마음을 식히고 잡티 위에 새 살결을 피워냅니다." }
+    ]
+  },
+  {
+    code: "VK", group: "VK",
+    character: "바타-카파 Vata-Kapha", category: "이중 · 건조함 + 정체 (바타 우세)",
+    mbtiMap: ["DSNT", "DRNW", "DRPW"],
+    keywords: ["차분한 창의력", "느린 추진력", "건조 + 무거움", "냉증 주의"],
+    masterComment: "바람과 물이 교차하는 체질. 따뜻한 자극으로 얼어붙은 흐름을 녹여 순환시켜야 해요.",
+    characteristics: [
+      "피부 건조하나 부위별로 유분·정체 동반",
+      "체온 낮고 혈액 순환 느림",
+      "차분하나 시작이 느리고 정체되기 쉬움",
+      "감기·소화불량·무기력 자주 동반"
+    ],
+    dos: ["따뜻하고 가벼운 음식", "활동적 아침 루틴", "따뜻한 허브티", "꾸준한 유산소"],
+    donts: ["차가운 음식·음료", "장시간 정지 자세", "과도한 낮잠", "기름진 식사"],
+    fragrances: [
+      { name: "카모마일 (Chamomile)", note: "정체된 피부에 부드러운 위로를 건네 막힌 순환의 길을 살며시 열어줍니다." },
+      { name: "시나몬 (Cinnamon)", note: "차갑게 굳은 피부에 따스한 온기를 불어넣어 영양이 비로소 스며들 길을 만듭니다." },
+      { name: "진저 (Ginger)", note: "가뭄 든 피부에 생기의 불씨를 피워 메마른 잡티 밭에 새 생명을 깨웁니다." }
     ]
   },
   {
     code: "P", group: "P",
     character: "피타 Pitta", category: "단일 · 불·열 우세",
+    mbtiMap: ["OSPW", "OSPT"],
     keywords: ["강렬함", "예리함", "열정적", "완벽주의", "쉽게 달아오름"],
     masterComment: "불꽃처럼 강렬한 에너지. 시원하고 부드러운 향으로 열감을 식혀 균형을 잡아주세요.",
     characteristics: [
@@ -2678,14 +2720,50 @@ const DOSHA_TYPES = [
     dos: ["시원하고 달콤한 음식", "햇빛 과다 노출 피하기", "여유로운 시간 확보", "물·허브티 충분히"],
     donts: ["매운·짠·신 음식 과다", "강한 햇빛 장시간", "과도한 경쟁·압박", "늦은 시간 과식"],
     fragrances: [
-      { name: "네롤리 (Neroli)", note: "예민하게 곤두선 유분막을 진정시키고 균형을 잡아줍니다." },
-      { name: "로즈 (Rose)", note: "열기로 지친 피부와 마음을 식히고 새 살결을 피워냅니다." },
-      { name: "페퍼민트 (Peppermint)", note: "타오르는 피부 속 불길을 시원하게 잠재웁니다." }
+      { name: "페퍼민트 (Peppermint)", note: "타오르는 피부 속 불길을 시원하게 잠재우고 멜라닌의 폭주를 멈춰 세웁니다." },
+      { name: "유칼립투스 (Eucalyptus)", note: "훈장처럼 남은 염증의 흔적을 식히고 맑은 숨결로 피부를 다시 일으킵니다." }
+    ]
+  },
+  {
+    code: "PV", group: "PV",
+    character: "피타-바타 Pitta-Vata", category: "이중 · 열감 + 건조함 (피타 우세)",
+    mbtiMap: ["OSNW"],
+    keywords: ["뜨거운 추진력", "건조함 동반", "민감 + 번들", "피로 누적"],
+    masterComment: "불꽃이 마른 잎을 만난 체질. 열을 식히면서도 영양을 잃지 않도록 부드럽게 균형을 맞춰야 해요.",
+    characteristics: [
+      "유분이 있어도 속당김·홍조가 잦음",
+      "에너지 강하나 번아웃 후 급격히 처짐",
+      "열감 + 건조감이 동시에 피부를 자극",
+      "예민하면서도 추진력 있는 이중 성향"
+    ],
+    dos: ["수분 가득한 시원한 음식", "규칙적 휴식·짧은 낮잠", "보습 우선 + 진정 케어", "감정 환기 루틴"],
+    donts: ["맵고 건조한 음식 과다", "장시간 자외선 노출", "예민할 때 새 자극", "과도한 일정"],
+    fragrances: [
+      { name: "네롤리 (Neroli)", note: "예민하게 곤두선 유분막을 진정시키고 수분과 유분의 균형을 다시 잡아줍니다." }
+    ]
+  },
+  {
+    code: "PK", group: "PK",
+    character: "피타-카파 Pitta-Kapha", category: "이중 · 열감 + 정체 (피타 우세)",
+    mbtiMap: ["OSNT"],
+    keywords: ["강한 지구력", "열감 + 무거움", "염증 축적", "독소 정체"],
+    masterComment: "불과 물이 공존하는 체질. 열감은 식히되 정체는 풀어주는 이중 밸런싱이 필요해요.",
+    characteristics: [
+      "유분 많고 모공 크며 염증·색소 함께 나타남",
+      "체형 단단하고 지구력 강하나 발열 잦음",
+      "목표 지향적이고 인내심 강함",
+      "독소 축적·순환 지연으로 트러블 누적"
+    ],
+    dos: ["시원하고 가벼운 음식", "규칙적 유산소", "디톡스·수분 섭취", "스트레스 해소 루틴"],
+    donts: ["매운+기름진 음식", "과도한 일정 압박", "낮잠·과식", "감정 억누름"],
+    fragrances: [
+      { name: "티트리 (Tea Tree)", note: "독소가 만든 염증을 정화하고 막힌 배출의 통로를 깨끗이 열어줍니다." }
     ]
   },
   {
     code: "K", group: "K",
     character: "카파 Kapha", category: "단일 · 물·흙 우세",
+    mbtiMap: ["ORNT", "ORNW"],
     keywords: ["안정감", "느긋함", "축적형", "지구력", "쉽게 정체"],
     masterComment: "호수처럼 고요한 에너지. 자극적이고 산뜻한 향으로 고인 흐름을 깨워 순환시키세요.",
     characteristics: [
@@ -2697,82 +2775,45 @@ const DOSHA_TYPES = [
     dos: ["가볍고 따뜻한 음식", "규칙적 유산소 운동", "이른 기상·활동적 아침", "새로운 자극·변화"],
     donts: ["기름지고 무거운 음식", "낮잠·과도한 수면", "차가운 유제품 과다", "앉아있는 시간 과다"],
     fragrances: [
-      { name: "티트리 (Tea Tree)", note: "독소가 만든 정체를 정화하고 막힌 통로를 열어줍니다." },
-      { name: "유칼립투스 (Eucalyptus)", note: "무거움의 흔적을 식히고 맑은 숨결로 다시 일으킵니다." },
-      { name: "레몬그라스 (Lemongrass)", note: "잠긴 성벽 같은 몸에 활력의 바람을 불어넣습니다." }
+      { name: "자몽 (Grapefruit)", note: "완벽해 보이는 피부 속 고인 정체를 풀고 산뜻한 에너지로 흐름을 되찾아줍니다." },
+      { name: "레몬그라스 (Lemongrass)", note: "잠긴 성벽 같은 피부의 문을 열고 정체된 에너지에 활력의 바람을 불어넣습니다." }
     ]
   },
   {
-    code: "VP", group: "VP",
-    character: "바타 피타 Vata-Pitta", category: "이중 · 건조함 + 열감 공존",
-    keywords: ["창의적 열정", "예민함", "건조 + 붉어짐", "추진력 강함"],
-    masterComment: "바람과 불이 함께 부는 체질. 차가운 수분과 따뜻한 영양을 동시에 채워 균형을 잡아주세요.",
+    code: "KP", group: "KP",
+    character: "카파-피타 Kapha-Pitta", category: "이중 · 정체 + 열감 (카파 우세)",
+    mbtiMap: ["ORPW"],
+    keywords: ["깊은 축적", "느린 발열", "지속형 열", "조직 견고"],
+    masterComment: "두꺼운 흙이 불씨를 품은 체질. 막힌 흐름을 강하게 풀어 깊이 잠든 열을 깨워야 해요.",
     characteristics: [
-      "건조함과 홍조·염증이 함께 나타남",
-      "체온 조절 불안정 (춥다-덥다 전환 잦음)",
-      "창의적이고 열정적이나 번아웃 주의",
-      "수면·소화 리듬 쉽게 깨짐"
+      "조직 두껍고 깊이 잠든 색소·염증",
+      "강한 자극에도 견디는 견고한 피부",
+      "독소가 깊이 쌓여 안색 탁함",
+      "변화 느리고 회복도 더디게 진행"
     ],
-    dos: ["수분감 있는 시원한 음식", "규칙적 휴식·명상", "오일 마사지 + 시원한 미스트", "경쟁보다 협업"],
-    donts: ["매운·건조한 음식", "과도한 일정 압박", "늦은 취침", "카페인 과다"],
+    dos: ["강력한 디톡스 루틴", "고기능성 미백·재생", "유산소 + 발한 운동", "딥 마사지"],
+    donts: ["기름진 야식", "보습만 의존", "소극적 유지 케어", "수분 섭취 부족"],
     fragrances: [
-      { name: "라벤더 (Lavender)", note: "예민해진 신경을 어루만지고 깊은 휴식을 선물합니다." },
-      { name: "카모마일 (Chamomile)", note: "정체된 에너지에 부드러운 위로를 건네 순환의 길을 엽니다." }
+      { name: "로즈마리 (Rosemary)", note: "두꺼운 피부 깊이 잠든 색소를 깨우고 강력한 순환으로 닫힌 결을 열어줍니다." }
     ]
   },
   {
-    code: "VK", group: "VK",
-    character: "바타 카파 Vata-Kapha", category: "이중 · 건조함 + 정체 공존",
-    keywords: ["차분한 창의력", "느린 추진력", "건조 + 무거움", "냉증 주의"],
-    masterComment: "바람과 물이 교차하는 체질. 따뜻한 자극으로 얼어붙은 흐름을 녹여 순환시켜야 해요.",
+    code: "KV", group: "KV",
+    character: "카파-바타 Kapha-Vata", category: "이중 · 정체 + 건조함 (카파 우세)",
+    mbtiMap: ["ORPT", "DRPT"],
+    keywords: ["고착된 건조", "딱딱한 결", "느린 회복", "냉성 정체"],
+    masterComment: "물이 마른 잎을 가둔 체질. 따뜻한 순환으로 굳은 결을 풀고 부드럽게 다시 흐르게 해야 해요.",
     characteristics: [
-      "피부 건조하나 부위별로 유분 정체",
-      "체온 낮고 혈액 순환 느림",
-      "차분하나 시작이 느리고 정체되기 쉬움",
-      "감기·소화불량·무기력 자주 동반"
+      "피부 두껍지만 유분 부족, 결 거침",
+      "안색 탁하고 윤기 없음",
+      "변화에 둔감하나 한번 굳으면 회복 더딤",
+      "겉은 단단해 보이나 속은 메말라 있음"
     ],
-    dos: ["따뜻하고 가벼운 음식", "활동적 아침 루틴", "따뜻한 허브티", "꾸준한 유산소"],
-    donts: ["차가운 음식·음료", "장시간 정지 자세", "과도한 낮잠", "기름진 식사"],
+    dos: ["온열 마사지 루틴", "꾸준한 보습·디톡스", "활동적 아침 + 보습 압착", "허브티·따뜻한 식단"],
+    donts: ["차가운 음료·기름진 음식", "장시간 정지 자세", "보습 없는 외출", "과도한 각질 제거"],
     fragrances: [
-      { name: "진저 (Ginger)", note: "가뭄 든 에너지에 생기의 불씨를 피워 새 생명을 깨웁니다." },
-      { name: "베르가못 (Bergamot)", note: "갇힌 피지와 기운에 길을 열어 가벼운 숨을 불어넣습니다." }
-    ]
-  },
-  {
-    code: "PK", group: "PK",
-    character: "피타 카파 Pitta-Kapha", category: "이중 · 열감 + 정체 공존",
-    keywords: ["강한 지구력", "열감 + 무거움", "안정적 추진", "염증 축적"],
-    masterComment: "불과 물이 공존하는 체질. 열감은 식히되 정체는 풀어주는 이중 밸런싱이 필요해요.",
-    characteristics: [
-      "유분 많고 모공 크며 염증·색소 함께 나타남",
-      "체형 단단하고 지구력 강하나 발열 잦음",
-      "목표 지향적이고 인내심 강함",
-      "독소 축적·순환 지연으로 트러블 누적"
-    ],
-    dos: ["시원하고 가벼운 음식", "규칙적 유산소", "디톡스·수분 섭취", "스트레스 해소 루틴"],
-    donts: ["매운+기름진 음식", "과도한 일정 압박", "낮잠·과식", "감정 억누름"],
-    fragrances: [
-      { name: "자몽 (Grapefruit)", note: "고인 정체를 풀고 산뜻한 에너지로 흐름을 되찾아줍니다." },
-      { name: "패츌리 (Patchouli)", note: "탁한 안색 뒤 긴장을 풀어주고 맑은 빛을 끌어올립니다." },
-      { name: "로즈마리 (Rosemary)", note: "잠든 색소를 깨우고 강력한 순환으로 닫힌 결을 엽니다." }
-    ]
-  },
-  {
-    code: "VPK", group: "VPK",
-    character: "트리도샤 Tridosha", category: "삼중 · 바타·피타·카파 균형형",
-    keywords: ["희귀형", "타고난 균형", "회복력 탁월", "적응력 높음"],
-    masterComment: "세 원소가 조화로운 이상적 체질. 현재의 균형을 섬세하게 유지하는 케어가 최선이에요.",
-    characteristics: [
-      "피부 결·유수분·탄력이 전반적으로 균형",
-      "체력·소화·수면 모두 안정적",
-      "감정 기복 적고 회복력 뛰어남",
-      "계절·환경 변화에 적응력 높음"
-    ],
-    dos: ["계절에 맞춘 식단", "균형 잡힌 운동·휴식", "예방 중심 루틴", "현재 상태 관찰 유지"],
-    donts: ["극단적 식이요법", "한 가지 도샤 과도 자극", "생활 리듬 급변", "과도한 디톡스"],
-    fragrances: [
-      { name: "로즈 + 라벤더 블렌드", note: "세 원소의 섬세한 균형을 유지하는 조화로운 블렌드." },
-      { name: "베르가못 + 샌달우드 블렌드", note: "활력과 안정을 동시에 주는 밸런스 향기." }
+      { name: "베르가못 (Bergamot)", note: "모공 속 갇힌 피지에 길을 열어주고 피부 결 사이사이에 가벼운 숨을 불어넣습니다." },
+      { name: "패츌리 (Patchouli)", note: "탁한 안색 뒤에 숨은 긴장을 풀어주고 맑은 빛이 피부 표면으로 떠오르게 합니다." }
     ]
   }
 ];
