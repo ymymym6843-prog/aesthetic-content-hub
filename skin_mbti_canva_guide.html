@@ -601,8 +601,8 @@ main {
   font-weight: 800;
   margin-bottom: 2px;
 }
-.mk-do .mk-col.good .mk-col-title { color: #2E7D32; }
-.mk-do .mk-col.bad .mk-col-title { color: #C62828; }
+.mk-do .mk-col.good .mk-col-title { color: #4A7C59; }
+.mk-do .mk-col.bad .mk-col-title { color: #C0392B; }
 .mk-do .mk-item {
   font-size: 7px;
   color: var(--dark);
@@ -611,8 +611,8 @@ main {
   align-items: flex-start;
   line-height: 1.3;
 }
-.mk-do .mk-mark-ok { color: #2E7D32; font-weight: 800; }
-.mk-do .mk-mark-no { color: #C62828; font-weight: 800; }
+.mk-do .mk-mark-ok { color: #4A7C59; font-weight: 800; }
+.mk-do .mk-mark-no { color: #C0392B; font-weight: 800; }
 .mk-do .mk-footer {
   margin-top: 8px;
   padding-top: 6px;
@@ -1291,8 +1291,8 @@ main {
   font-weight: 800;
   margin-bottom: 6px;
 }
-.type-list-block.good h5 { color: #2E7D32; }
-.type-list-block.bad h5 { color: #C62828; }
+.type-list-block.good h5 { color: #4A7C59; }
+.type-list-block.bad h5 { color: #C0392B; }
 .type-list-block ul {
   list-style: none;
   display: flex;
@@ -1310,14 +1310,14 @@ main {
   content: '✓';
   position: absolute;
   left: 0;
-  color: #2E7D32;
+  color: #4A7C59;
   font-weight: 800;
 }
 .type-list-block.bad li::before {
   content: '✗';
   position: absolute;
   left: 0;
-  color: #C62828;
+  color: #C0392B;
   font-weight: 800;
 }
 
@@ -1904,18 +1904,18 @@ main {
       <div class="slide-mockup mk-do" id="slide-a2">
         <div class="mk-brand-bar">
           <div class="mk-brand-logo">IM AESTHETIC</div>
-          <div class="mk-brand-account">@im.aesthetic.official</div>
+          <div class="mk-head-badge" style="margin-left:auto;">DSNT</div>
         </div>
-        <div class="mk-head">
-          <div class="mk-head-badge">DSNT</div>
-          <div class="mk-head-name">두부 Tofu</div>
+        <div style="text-align:center;margin-bottom:8px;">
+          <span style="font-family:'Noto Serif KR',serif;font-weight:300;font-size:10px;color:#3D2E24;">두부</span>
+          <span style="font-family:'Playfair Display',serif;font-style:italic;font-size:10px;color:#9B8A7A;margin-left:4px;">Tofu</span>
         </div>
         <div style="font-family:'Playfair Display',serif;font-size:8px;letter-spacing:0.16em;color:#D4A04A;text-align:center;margin-top:10px;">ONE-LINE PRESCRIPTION</div>
         <div style="font-family:'Noto Serif KR',serif;font-weight:300;font-size:20px;line-height:1.35;text-align:center;color:#3D2E24;margin-top:4px;padding:0 14px;">
           "장벽 재건<br><em style="color:#E8703A;font-style:normal;">세라마이드 보충</em>"
         </div>
         <div class="mk-divider" style="margin:12px auto;width:40px;"></div>
-        <div class="mk-quote" style="font-size:8px;padding:0 12px;">
+        <div class="mk-quote" style="font-size:8px;">
           겉은 촉촉해 보이지만 속은 건조해요,,, 깊은 수분을 채워야 진짜 생기를 되찾아요.
         </div>
         <div class="mk-cols" style="margin-top:10px;">
@@ -1945,27 +1945,106 @@ main {
         <div class="slide-title">Slide A-2 (Slide 2) — 한 줄 처방 + OX</div>
         <button class="btn-png" onclick="downloadMockup('slide-a2','customer-set-02-prescription-ox.png')">PNG Download</button>
         <div class="slide-note">
-          <strong>① 브랜드 바 (상단)</strong><br>
-          · 로고: "IM AESTHETIC" — <code>Playfair Display 400</code>, <code>12px</code>, 자간 <code>0.2em</code>, 색상 <code>#3D2E24</code><br>
-          · 계정: "@im.aesthetic.official" — <code>Pretendard 400</code>, <code>10px</code>, 색상 <code>#9B8A7A</code><br>
-          · 하단 구분선: <code>rgba(232,112,58,0.15)</code>, 1px<br><br>
-          <strong>② 헤더 (캐릭터 식별)</strong><br>
-          · 뱃지: <code>Pretendard 800</code>, <code>11px</code>, 배경 <code>#E8703A</code>, 글자 <code>#FFF</code>, border-radius 50px, padding 2px 8px<br>
-          · 캐릭터명: "두부 Tofu" — <code>Pretendard 700</code>, <code>14px</code>, 색상 <code>#3D2E24</code><br><br>
+          <strong>① 브랜드 바 (상단)</strong> · 배경 <code>#FFF8F0</code><br>
+          <table style="width:100%;border-collapse:collapse;font-size:11px;line-height:1.7;margin:6px 0 10px;">
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;width:140px;padding:3px 0;">IM AESTHETIC</td>
+              <td><code>Playfair Display Regular</code>, <code>12pt</code>, 자간 <code>200</code>, 색상 <code>#3D2E24</code></td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;">@im.aesthetic.official</td>
+              <td><code>Pretendard Regular</code>, <code>10pt</code>, 자간 <code>50</code>, 색상 <code>#9B8A7A</code></td>
+            </tr>
+            <tr>
+              <td style="color:#9B8A7A;">하단 구분선</td>
+              <td>색상 <code>#E8703A</code> (투명도 15%), 두께 1px</td>
+            </tr>
+          </table>
+
+          <strong>② 뱃지 + 캐릭터명</strong><br>
+          <table style="width:100%;border-collapse:collapse;font-size:11px;line-height:1.7;margin:6px 0 10px;">
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;width:140px;padding:3px 0;">코드 뱃지 (DSNT)</td>
+              <td><code>Pretendard ExtraBold</code>, <code>11pt</code>, 배경 <code>#E8703A</code>, 글자 <code>#FFFFFF</code>, radius 3px, padding 4px 12px · <strong>브랜드바 우측</strong></td>
+            </tr>
+            <tr>
+              <td style="color:#9B8A7A;">캐릭터명</td>
+              <td>"두부 <em>Tofu</em>" — KR: <code>Noto Serif KR Light</code>, <code>14pt</code>, 색상 <code>#3D2E24</code> · EN: <code>Playfair Display Italic</code>, <code>14pt</code>, 색상 <code>#9B8A7A</code> · center</td>
+            </tr>
+          </table>
+
           <strong>③ 한 줄 처방</strong><br>
-          · 레이블: "ONE-LINE PRESCRIPTION" — <code>Playfair Display 400</code>, <code>12px</code>, 자간 <code>0.16em</code>, 색상 <code>#D4A04A</code>, center<br>
-          · 처방 문구: <code>Noto Serif KR 300</code>, <code>28px</code>, line-height <code>1.35</code>, 색상 <code>#3D2E24</code>, center<br>
-          · 강조어(세라마이드 보충 등): 색상 <code>#E8703A</code>, font-style normal<br>
-          · 구분선: 골드 <code>#D4A04A</code>, 폭 40px, 두께 1px<br><br>
+          <table style="width:100%;border-collapse:collapse;font-size:11px;line-height:1.7;margin:6px 0 10px;">
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;width:140px;padding:3px 0;">ONE-LINE PRESCRIPTION</td>
+              <td><code>Playfair Display Regular</code>, <code>12pt</code>, 자간 <code>160</code>, 색상 <code>#D4A04A</code>, center</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;">처방 문구</td>
+              <td><code>Noto Serif KR Light</code>, <code>28pt</code>, line-height <code>1.35</code>, 색상 <code>#3D2E24</code>, center</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;">강조어</td>
+              <td>색상 <code>#E8703A</code>, font-style normal (기울임 해제)</td>
+            </tr>
+            <tr>
+              <td style="color:#9B8A7A;">구분선</td>
+              <td>골드 <code>#D4A04A</code>, 폭 40px, 두께 1px</td>
+            </tr>
+          </table>
+
           <strong>④ 마스터의 한마디</strong><br>
-          · <code>Noto Serif KR 300 italic</code>, <code>12px</code>, line-height <code>1.6</code>, 색상 <code>#9B8A7A</code>, center<br>
+          <table style="width:100%;border-collapse:collapse;font-size:11px;line-height:1.7;margin:6px 0 10px;">
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;width:140px;padding:3px 0;">감성 멘트</td>
+              <td><code>Noto Serif KR Light Italic</code>, <code>12pt</code>, line-height <code>1.6</code>, 색상 <code>#9B8A7A</code>, center</td>
+            </tr>
+            <tr>
+              <td style="color:#9B8A7A;">배경 박스</td>
+              <td>배경 <code>#F5EDE0</code>, 좌측 border <code>#E8703A</code> 2px, radius 4px, padding 10px</td>
+            </tr>
+          </table>
           · 감성 일기체(,,,) 사용. 축약본.<br><br>
+
           <strong>⑤ Do's / Don'ts (4개씩)</strong><br>
-          · 컬럼 타이틀: <code>Pretendard 700</code>, <code>11px</code>, 자간 <code>0.1em</code><br>
-          · Do's 타이틀 색상 <code>#4A7C59</code> / Don'ts 타이틀 색상 <code>#C0392B</code><br>
-          · 항목 텍스트: <code>Pretendard 400</code>, <code>10px</code>, 색상 <code>#3D2E24</code><br>
-          · ✓ 마크 색상 <code>#4A7C59</code> / ✗ 마크 색상 <code>#C0392B</code><br>
-          · Do's 배경 <code>rgba(74,124,89,0.06)</code> / Don'ts 배경 <code>rgba(192,57,43,0.06)</code><br>
+          <table style="width:100%;border-collapse:collapse;font-size:11px;line-height:1.7;margin:6px 0 10px;">
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;width:140px;padding:3px 0;">Do's 타이틀</td>
+              <td><code>Pretendard Bold</code>, <code>11pt</code>, 자간 <code>100</code>, 색상 <code>#4A7C59</code></td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;">Don'ts 타이틀</td>
+              <td><code>Pretendard Bold</code>, <code>11pt</code>, 자간 <code>100</code>, 색상 <code>#C0392B</code></td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;">항목 텍스트</td>
+              <td><code>Pretendard Regular</code>, <code>10pt</code>, 색상 <code>#3D2E24</code></td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;">✓ / ✗ 마크</td>
+              <td>✓ 색상 <code>#4A7C59</code> · ✗ 색상 <code>#C0392B</code>, <code>ExtraBold</code></td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;">Do's 배경</td>
+              <td><code>rgba(74,124,89,0.06)</code> · border <code>rgba(74,124,89,0.15)</code></td>
+            </tr>
+            <tr>
+              <td style="color:#9B8A7A;">Don'ts 배경</td>
+              <td><code>rgba(192,57,43,0.06)</code> · border <code>rgba(192,57,43,0.15)</code></td>
+            </tr>
+          </table>
+
+          <strong>⑥ 푸터</strong><br>
+          <table style="width:100%;border-collapse:collapse;font-size:11px;line-height:1.7;margin:6px 0 10px;">
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;width:140px;padding:3px 0;">IM AESTHETIC · @id</td>
+              <td><code>Pretendard Regular</code>, <code>9pt</code>, 색상 <code>#9B8A7A</code>, center</td>
+            </tr>
+            <tr>
+              <td style="color:#9B8A7A;">상단 구분선</td>
+              <td>색상 <code>#000000</code> (투명도 6%), 두께 1px</td>
+            </tr>
+          </table>
           · 상세 피부특성은 의도적으로 제외 (A-1에서 캐릭터명/뱃지로 식별 완료)
         </div>
       </div>

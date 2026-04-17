@@ -16,8 +16,8 @@
   --gold: #D4A04A;
   --dark: #3D2E24;
   --muted: #9B8A7A;
-  --ok: #5A7A3E;
-  --ng: #B8463A;
+  --ok: #4A7C59;
+  --ng: #C0392B;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
@@ -225,14 +225,14 @@ body {
 /* Override brackets & brand bar for dark video backgrounds */
 .mk-cover .brk { border-color: rgba(255,248,240,0.5); }
 .mk-cover .mk-bar-logo { color: rgba(255,248,240,0.85); text-shadow: 0 1px 4px rgba(0,0,0,0.3); }
-.mk-cover .mk-bar-acc { color: rgba(255,248,240,0.65); text-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+.mk-cover .mk-bar-acc { color: rgba(255,248,240,0.65); font-weight: 400; text-shadow: 0 1px 4px rgba(0,0,0,0.3); }
 .mk-cover { background: linear-gradient(180deg, #FFF8F0 0%, #FEF3E4 100%); overflow: hidden; }
 /* Upper text: cream/white with shadow for dark video backgrounds */
 .mk-cover .cover-label {
   position: absolute; top: 82px; left: 32px;
   font-family: 'Playfair Display', serif;
   font-size: 10px; letter-spacing: 0.36em;
-  color: rgba(255,248,240,0.85); text-transform: uppercase;
+  color: rgba(255,248,240,0.75); text-transform: uppercase;
   text-shadow: 0 1px 4px rgba(0,0,0,0.4);
   z-index: 3;
 }
@@ -278,13 +278,14 @@ body {
 .mk-cover .cover-name-en {
   font-family: 'Playfair Display', serif;
   font-style: italic; font-size: 14px;
-  color: rgba(255,248,240,0.85); margin-top: 2px; letter-spacing: 0.04em;
+  color: rgba(255,248,240,0.70); margin-top: 2px; letter-spacing: 0.04em;
   text-shadow: 0 1px 6px rgba(0,0,0,0.4);
 }
 .mk-cover .cover-code-box {
   margin-top: 10px; text-align: left;
 }
 .mk-cover .cover-code-box span {
+  font-family: 'Pretendard', sans-serif;
   background: var(--orange); color: #FFF;
   font-size: 12px; font-weight: 700; padding: 5px 14px;
   border-radius: 3px; letter-spacing: 0.2em;
@@ -292,7 +293,7 @@ body {
 }
 .mk-cover .cover-cat {
   margin-top: 8px; text-align: left;
-  font-size: 11px; color: rgba(255,248,240,0.8);
+  font-size: 11px; color: rgba(255,248,240,0.65);
   letter-spacing: 0.08em; font-weight: 500;
   text-shadow: 0 1px 6px rgba(0,0,0,0.4);
 }
@@ -330,8 +331,10 @@ body {
 .mk-rx .rx-quote {
   font-family: 'Noto Serif KR', serif;
   font-weight: 300; font-style: italic; font-size: 12px;
-  line-height: 1.65; color: var(--muted);
-  text-align: center; margin-bottom: 20px; padding: 0 6px;
+  line-height: 1.65; color: var(--dark);
+  text-align: left; margin-bottom: 20px; padding: 12px 14px 12px 18px;
+  background: var(--beige); border-left: 2px solid var(--orange);
+  border-radius: 4px; position: relative;
 }
 .mk-rx .rx-cols {
   display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
