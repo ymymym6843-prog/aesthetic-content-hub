@@ -221,41 +221,43 @@ body {
   letter-spacing: 0.05em; font-weight: 500;
 }
 
-/* ───── MBTI SLIDE 1: COVER ───── */
-.mk-cover { background: linear-gradient(180deg, #FFF8F0 0%, #FEF3E4 100%); }
+/* ───── MBTI SLIDE 1: COVER (fullscreen + left-bottom text) ───── */
+.mk-cover { background: linear-gradient(180deg, #FFF8F0 0%, #FEF3E4 100%); overflow: hidden; }
 .mk-cover .cover-label {
-  position: absolute; top: 82px; left: 0; right: 0;
-  text-align: center; font-family: 'Playfair Display', serif;
+  position: absolute; top: 82px; left: 32px;
+  font-family: 'Playfair Display', serif;
   font-size: 10px; letter-spacing: 0.36em;
   color: var(--muted); text-transform: uppercase;
 }
 .mk-cover .cover-title {
-  position: absolute; top: 108px; left: 0; right: 0;
-  text-align: center; font-family: 'Noto Serif KR', serif;
+  position: absolute; top: 108px; left: 32px;
+  font-family: 'Noto Serif KR', serif;
   font-weight: 300; font-size: 22px;
   color: var(--dark); letter-spacing: 0.08em;
 }
 .mk-cover .cover-divider {
-  position: absolute; top: 150px; left: 50%;
-  transform: translateX(-50%); width: 44px;
-  height: 0; border-top: 1px solid var(--gold); opacity: 0.6;
+  position: absolute; top: 150px; left: 32px;
+  width: 44px; height: 0;
+  border-top: 1px solid var(--gold); opacity: 0.6;
 }
 .mk-cover .cover-emoji-wrap {
-  position: absolute; top: 180px; left: 50%;
-  transform: translateX(-50%); width: 200px; height: 200px;
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
   display: flex; align-items: center; justify-content: center;
 }
 .mk-cover .cover-emoji {
-  font-size: 130px; line-height: 1;
-  filter: drop-shadow(0 6px 18px rgba(232,112,58,0.15)); z-index: 2;
+  font-size: 200px; line-height: 1;
+  filter: drop-shadow(0 6px 18px rgba(232,112,58,0.10)); z-index: 1;
+  opacity: 0.9;
 }
-.mk-cover .cover-emoji-ring {
-  position: absolute; top: 0; left: 0;
-  width: 200px; height: 200px; border-radius: 50%;
-  border: 1px solid var(--gold); opacity: 0.2;
+.mk-cover .cover-emoji-ring { display: none; }
+.mk-cover .cover-overlay {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 80px 32px 68px;
+  background: linear-gradient(180deg, transparent 0%, rgba(255,248,240,0.85) 50%);
+  z-index: 2;
 }
 .mk-cover .cover-name-box {
-  position: absolute; bottom: 158px; left: 0; right: 0; text-align: center;
+  text-align: left;
 }
 .mk-cover .cover-name-ko {
   font-family: 'Noto Serif KR', serif;
@@ -264,22 +266,22 @@ body {
 }
 .mk-cover .cover-name-en {
   font-family: 'Playfair Display', serif;
-  font-style: italic; font-size: 16px;
-  color: var(--muted); margin-top: 4px; letter-spacing: 0.04em;
+  font-style: italic; font-size: 14px;
+  color: var(--muted); margin-top: 2px; letter-spacing: 0.04em;
 }
 .mk-cover .cover-code-box {
-  position: absolute; bottom: 116px; left: 0; right: 0; text-align: center;
+  margin-top: 10px; text-align: left;
 }
 .mk-cover .cover-code-box span {
   background: var(--orange); color: #FFF;
-  font-size: 14px; font-weight: 700; padding: 6px 18px;
+  font-size: 12px; font-weight: 700; padding: 5px 14px;
   border-radius: 3px; letter-spacing: 0.2em;
   box-shadow: 0 4px 12px rgba(232,112,58,0.25);
 }
 .mk-cover .cover-cat {
-  position: absolute; bottom: 88px; left: 0; right: 0;
-  text-align: center; font-size: 11px;
-  color: var(--muted); letter-spacing: 0.12em; font-weight: 500;
+  margin-top: 8px; text-align: left;
+  font-size: 11px; color: var(--muted);
+  letter-spacing: 0.08em; font-weight: 500;
 }
 
 /* ───── MBTI SLIDE 2: PRESCRIPTION ───── */
@@ -779,15 +781,16 @@ function renderMbti(index) {
           <div class="cover-title">나의 피부 캐릭터는?</div>
           <div class="cover-divider"></div>
           <div class="cover-emoji-wrap">
-            <div class="cover-emoji-ring"></div>
             <div class="cover-emoji">${t.emoji}</div>
           </div>
-          <div class="cover-name-box">
-            <div class="cover-name-ko">${t.charKo}</div>
-            <div class="cover-name-en">${t.charEn}</div>
+          <div class="cover-overlay">
+            <div class="cover-name-box">
+              <div class="cover-name-ko">${t.charKo}</div>
+              <div class="cover-name-en">${t.charEn}</div>
+            </div>
+            <div class="cover-code-box"><span>${t.code}</span></div>
+            <div class="cover-cat">${t.cat}</div>
           </div>
-          <div class="cover-code-box"><span>${t.code}</span></div>
-          <div class="cover-cat">${t.cat}</div>
           ${foot}
         </div>
         <button class="slide-btn" onclick="dl('m-1','MBTI_${t.code}_01_cover')">PNG 다운로드</button>

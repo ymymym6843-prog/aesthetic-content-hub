@@ -328,9 +328,10 @@ main {
 }
 .slide-note strong { color: var(--orange); font-weight: 700; }
 
-/* Mockup: slide 1 - cover (neutral background for character clarity) */
+/* Mockup: slide 1 - cover (fullscreen + left-bottom text) */
 .mk-cover {
   background: var(--cream);
+  overflow: hidden;
 }
 .mk-cover .mk-logo {
   position: absolute;
@@ -339,7 +340,7 @@ main {
   font-size: 10px;
   color: var(--dark);
   letter-spacing: 3px;
-  z-index: 2;
+  z-index: 3;
 }
 .mk-cover .mk-badge {
   position: absolute;
@@ -351,12 +352,12 @@ main {
   font-size: 9px;
   font-weight: 800;
   letter-spacing: 1px;
-  z-index: 2;
+  z-index: 3;
 }
 .mk-cover .mk-play {
   position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -65%);
+  top: 45%; left: 50%;
+  transform: translate(-50%, -50%);
   width: 52px; height: 52px;
   border-radius: 50%;
   background: rgba(232,112,58,0.15);
@@ -364,20 +365,23 @@ main {
   display: flex; align-items: center; justify-content: center;
   font-size: 18px;
   color: var(--orange);
+  z-index: 1;
 }
 .mk-cover .mk-play-lbl {
   position: absolute;
-  top: 62%; left: 0; right: 0;
+  top: 56%; left: 0; right: 0;
   text-align: center;
   color: var(--text-muted);
   font-size: 9px;
   letter-spacing: 1px;
+  z-index: 1;
 }
 .mk-cover .mk-overlay {
   position: absolute;
   left: 0; right: 0; bottom: 0;
-  padding: 40px 16px 16px;
-  background: linear-gradient(180deg, transparent, rgba(255,248,240,0.95) 60%);
+  padding: 60px 16px 16px;
+  background: linear-gradient(180deg, transparent 0%, rgba(255,248,240,0.85) 50%);
+  z-index: 2;
 }
 .mk-cover .mk-char {
   font-family: 'Noto Serif KR', serif;
@@ -385,10 +389,12 @@ main {
   font-size: 16px;
   color: var(--dark);
   margin-bottom: 4px;
+  text-align: left;
 }
 .mk-cover .mk-nick {
   font-size: 10px;
   color: var(--text-muted);
+  text-align: left;
 }
 
 /* Mockup: Carousel B cover — dosha symbol cover */
@@ -1799,24 +1805,28 @@ main {
     <div class="slide-item">
       <div class="slide-mockup mk-cover" id="slide-a1">
         <div class="mk-logo">IM AESTHETIC</div>
-        <div style="position:absolute;top:40px;left:0;right:0;font-family:'Noto Serif KR',serif;font-weight:300;font-size:13px;text-align:center;color:#3D2E24;letter-spacing:0.08em;">나의 피부 캐릭터는?</div>
-        <div class="mk-play" style="top:56%;">▶</div>
-        <div class="mk-play-lbl" style="top:68%;">캐릭터 MP4 / 이미지</div>
+        <div style="position:absolute;top:14px;right:14px;font-family:'Pretendard',sans-serif;font-size:8px;color:var(--text-muted);letter-spacing:0.08em;z-index:3;">@im.aesthetic.official</div>
+        <div style="position:absolute;top:42px;left:16px;font-family:'Playfair Display',serif;font-size:8px;letter-spacing:0.3em;color:var(--text-muted);text-transform:uppercase;z-index:3;">Skin MBTI · Character</div>
+        <div style="position:absolute;top:56px;left:16px;font-family:'Noto Serif KR',serif;font-weight:300;font-size:13px;color:#3D2E24;letter-spacing:0.08em;z-index:3;">나의 피부 캐릭터는?</div>
+        <div class="mk-play">▶</div>
+        <div class="mk-play-lbl">캐릭터 MP4 / 이미지 (풀화면)</div>
         <div class="mk-overlay">
-          <div class="mk-char">두부 Tofu</div>
-          <div style="text-align:center;margin-top:4px;"><span style="background:#E8703A;color:#fff;font-size:8px;font-weight:600;padding:2px 8px;border-radius:3px;letter-spacing:0.1em;">DSNT</span></div>
+          <div class="mk-char">두부</div>
+          <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:11px;color:var(--text-muted);text-align:left;">Tofu</div>
+          <div style="text-align:left;margin-top:6px;"><span style="background:#E8703A;color:#fff;font-size:8px;font-weight:600;padding:2px 8px;border-radius:3px;letter-spacing:0.1em;">DSNT</span></div>
+          <div style="font-size:8px;color:var(--text-muted);text-align:left;margin-top:4px;letter-spacing:0.06em;">건성·민감성·비색소·탄력형</div>
         </div>
-        <div class="mk-callout" style="top:10%;left:8px;">1</div>
-        <div class="mk-callout" style="top:55%;left:8px;">2</div>
-        <div class="mk-callout" style="top:82%;left:8px;">3</div>
+        <div class="mk-callout" style="top:8%;left:8px;">1</div>
+        <div class="mk-callout" style="top:42%;left:8px;">2</div>
+        <div class="mk-callout" style="top:72%;left:8px;">3</div>
       </div>
       <div>
         <div class="slide-title">Slide A-1 (Slide 1) — 커버 (앱 화면 1 미러링)</div>
         <button class="btn-png" onclick="downloadMockup('slide-a1','customer-set-01-cover.png')">PNG Download</button>
         <div class="slide-note">
-          <strong>① 타이틀</strong> — 앱 문구 그대로 "<strong>나의 피부 캐릭터는?</strong>" (Noto Serif KR 300, 자간 0.08em).
-          <strong>② 캐릭터 비주얼</strong> — Canva Frames로 MP4(9:16) 또는 캐릭터 정적 이미지 배치.
-          <strong>③ 캐릭터명 + 코드 뱃지</strong> — "두부 Tofu" + 오렌지 <strong>DSNT</strong> 뱃지 2단 구성 (하단 정렬). 캐릭터명만으로 식별 충분 → 닉네임은 생략하여 시선 분산 방지.
+          <strong>① 타이틀</strong> — 좌측 상단 배치. "Skin MBTI · Character" 라벨 + "<strong>나의 피부 캐릭터는?</strong>" (Noto Serif KR 300).
+          <strong>② 캐릭터 비주얼</strong> — <strong>풀화면</strong> 배치. Canva Frames로 MP4(4:5) 또는 캐릭터 정적 이미지. 캐릭터 얼굴이 중앙~상단에 오도록 배치.
+          <strong>③ 좌측 하단 정보</strong> — 하단 그라디언트 오버레이 위에 <strong>left-align</strong>: 캐릭터명(두부) + 영문(Tofu) + 오렌지 뱃지(DSNT) + 피부 유형. 매거진/시네마틱 무드.
         </div>
       </div>
     </div>

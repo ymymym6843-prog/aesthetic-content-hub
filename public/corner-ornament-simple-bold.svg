@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <!-- 굵은 심플 L자 -->
+  <path d="M4 96 L4 12 Q4 4 12 4 L96 4"
+        stroke="#D4A04A" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.6"/>
+</svg>
