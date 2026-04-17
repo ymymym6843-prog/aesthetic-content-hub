@@ -1803,18 +1803,18 @@ main {
   <div class="slide-row">
     <!-- Slide A-1: Cover -->
     <div class="slide-item">
-      <div class="slide-mockup mk-cover" id="slide-a1">
-        <div class="mk-logo">IM AESTHETIC</div>
-        <div style="position:absolute;top:14px;right:14px;font-family:'Pretendard',sans-serif;font-size:8px;color:var(--text-muted);letter-spacing:0.08em;z-index:3;">@im.aesthetic.official</div>
-        <div style="position:absolute;top:42px;left:16px;font-family:'Playfair Display',serif;font-size:8px;letter-spacing:0.3em;color:var(--text-muted);text-transform:uppercase;z-index:3;">Skin MBTI · Character</div>
-        <div style="position:absolute;top:56px;left:16px;font-family:'Noto Serif KR',serif;font-weight:300;font-size:13px;color:#3D2E24;letter-spacing:0.08em;z-index:3;">나의 피부 캐릭터는?</div>
+      <div class="slide-mockup mk-cover" id="slide-a1" style="background:#5C4A3A;">
+        <div class="mk-logo" style="color:rgba(255,248,240,0.85);text-shadow:0 1px 4px rgba(0,0,0,0.3);">IM AESTHETIC</div>
+        <div style="position:absolute;top:14px;right:14px;font-family:'Pretendard',sans-serif;font-size:8px;color:rgba(255,248,240,0.65);letter-spacing:0.08em;z-index:3;text-shadow:0 1px 3px rgba(0,0,0,0.3);">@im.aesthetic.official</div>
+        <div style="position:absolute;top:42px;left:16px;font-family:'Playfair Display',serif;font-size:8px;letter-spacing:0.3em;color:rgba(255,248,240,0.75);text-transform:uppercase;z-index:3;text-shadow:0 1px 3px rgba(0,0,0,0.3);">Skin MBTI · Character</div>
+        <div style="position:absolute;top:56px;left:16px;font-family:'Noto Serif KR',serif;font-weight:300;font-size:13px;color:#FFF8F0;letter-spacing:0.08em;z-index:3;text-shadow:0 1px 4px rgba(0,0,0,0.35);">나의 피부 캐릭터는?</div>
         <div class="mk-play">▶</div>
         <div class="mk-play-lbl">캐릭터 MP4 / 이미지 (풀화면)</div>
-        <div class="mk-overlay">
-          <div class="mk-char">두부</div>
-          <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:11px;color:var(--text-muted);text-align:left;">Tofu</div>
+        <div class="mk-overlay" style="background:none;">
+          <div class="mk-char" style="color:#FFF8F0;text-shadow:0 2px 8px rgba(0,0,0,0.5), 0 0 20px rgba(0,0,0,0.3);">두부</div>
+          <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:11px;color:rgba(255,248,240,0.7);text-align:left;">Tofu</div>
           <div style="text-align:left;margin-top:6px;"><span style="background:#E8703A;color:#fff;font-size:8px;font-weight:600;padding:2px 8px;border-radius:3px;letter-spacing:0.1em;">DSNT</span></div>
-          <div style="font-size:8px;color:var(--text-muted);text-align:left;margin-top:4px;letter-spacing:0.06em;">건성·민감성·비색소·탄력형</div>
+          <div style="font-size:8px;color:rgba(255,248,240,0.65);text-align:left;margin-top:4px;letter-spacing:0.06em;">건성·민감성·비색소·탄력형</div>
         </div>
         <div class="mk-callout" style="top:8%;left:8px;">1</div>
         <div class="mk-callout" style="top:42%;left:8px;">2</div>
@@ -1824,21 +1824,77 @@ main {
         <div class="slide-title">Slide A-1 (Slide 1) — 커버 (앱 화면 1 미러링)</div>
         <button class="btn-png" onclick="downloadMockup('slide-a1','customer-set-01-cover.png')">PNG Download</button>
         <div class="slide-note">
-          <strong>① 타이틀 (좌측 상단)</strong><br>
-          · 라벨: "SKIN MBTI · CHARACTER" — <code>Playfair Display 400</code>, <code>14px</code>, 자간 <code>0.3em</code>, 색상 <code>#9B8A7A</code>, uppercase<br>
-          · 제목: "나의 피부 캐릭터는?" — <code>Noto Serif KR 300</code>, <code>28px</code>, 자간 <code>0.08em</code>, 색상 <code>#3D2E24</code><br>
-          · 구분선: 골드 <code>#D4A04A</code>, 폭 44px, 두께 1px, opacity 0.6<br>
-          · 계정: "@im.aesthetic.official" — <code>Pretendard 400</code>, <code>12px</code>, 색상 <code>#9B8A7A</code>, 우측 상단<br><br>
+          <strong>① 브랜드명 + 타이틀 (좌측 상단)</strong><br>
+          <table style="width:100%;border-collapse:collapse;font-size:11px;line-height:1.7;margin:6px 0 10px;">
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;width:140px;padding:3px 0;">IM AESTHETIC</td>
+              <td><code>Playfair Display Regular</code>, <code>28pt</code>, 자간 <code>280</code>, 색상 <code>#FFF8F0</code></td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;">@im.aesthetic.official</td>
+              <td><code>Pretendard Regular</code>, <code>12pt</code>, 색상 <code>#FFF8F0</code> (투명도 65%), 우측 상단</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;">SKIN MBTI · CHARACTER</td>
+              <td><code>Playfair Display Regular</code>, <code>14pt</code>, 자간 <code>300</code>, 색상 <code>#FFF8F0</code> (투명도 75%), uppercase</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;">나의 피부 캐릭터는?</td>
+              <td><code>Noto Serif KR Light</code>, <code>28pt</code>, 자간 <code>80</code>, 색상 <code>#FFF8F0</code></td>
+            </tr>
+            <tr>
+              <td style="color:#9B8A7A;">구분선</td>
+              <td>크림 <code>#FFF8F0</code> (투명도 60%), 폭 44px, 두께 1.5px</td>
+            </tr>
+          </table>
+          · L-bracket 코너: 색상 <code>#FFF8F0</code> (투명도 50%), 두께 2px, 크기 36×36px<br><br>
+
+          <strong style="color:#D4A04A;">📌 Canva 텍스트 효과 설정 (어두운 배경 가독성)</strong><br>
+          <table style="width:100%;border-collapse:collapse;font-size:11px;line-height:1.7;margin:6px 0 10px;">
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;width:140px;padding:3px 0;">IM AESTHETIC</td>
+              <td>효과 → <strong>글로우</strong> · 크기 <code>20</code>, 투명도 <code>30%</code>, 색상 <code>#000000</code></td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;">나의 피부 캐릭터는?</td>
+              <td>효과 → <strong>글로우</strong> · 크기 <code>25</code>, 투명도 <code>35%</code>, 색상 <code>#000000</code></td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;">라벨 / 계정</td>
+              <td>효과 → <strong>그림자</strong> · offset <code>0</code>, blur <code>8</code>, 투명도 <code>40%</code>, 색상 <code>#000000</code></td>
+            </tr>
+            <tr>
+              <td style="color:#9B8A7A;">캐릭터명 (두부)</td>
+              <td>효과 → <strong>글로우</strong> · 크기 <code>40</code>, 투명도 <code>35%</code>, 색상 <code>#000000</code></td>
+            </tr>
+          </table>
+          <em style="font-size:10px;color:#9B8A7A;">※ 그라디언트 오버레이 없음 — 캐릭터 영상 색감 원본 보존. text-shadow/글로우만으로 가독성 확보.</em><br><br>
+
           <strong>② 캐릭터 비주얼 (풀화면)</strong><br>
           · Canva Frames로 MP4(4:5) 또는 캐릭터 정적 이미지 배치<br>
           · 캐릭터 얼굴이 <strong>중앙~상단</strong>에 오도록 위치 조정<br>
-          · 텍스트 영역과 겹치지 않게 상단 70% 안에 캐릭터 배치<br><br>
+          · 텍스트 영역과 겹치지 않게 상단 70% 안에 캐릭터 배치<br>
+          · 영상 배경이 어두운 톤(카페/인테리어)이므로 텍스트는 반드시 밝은 색 사용<br><br>
+
           <strong>③ 좌측 하단 정보 (left-align)</strong><br>
-          · 오버레이 배경: <code>linear-gradient(transparent → rgba(255,248,240,0.85))</code>, 하단 30% 영역<br>
-          · 캐릭터명(KR): <code>Noto Serif KR 400</code>, <code>36px</code>, 색상 <code>#3D2E24</code><br>
-          · 캐릭터명(EN): <code>Playfair Display 400 italic</code>, <code>16px</code>, 색상 <code>#9B8A7A</code><br>
-          · 코드 뱃지: <code>Pretendard 700</code>, <code>14px</code>, 자간 <code>0.2em</code>, 배경 <code>#E8703A</code>, 글자 <code>#FFFFFF</code>, padding 5px 14px, border-radius 3px<br>
-          · 피부 유형: <code>Pretendard 500</code>, <code>12px</code>, 자간 <code>0.08em</code>, 색상 <code>#9B8A7A</code>
+          <table style="width:100%;border-collapse:collapse;font-size:11px;line-height:1.7;margin:6px 0 10px;">
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;width:140px;padding:3px 0;">캐릭터명 (KR)</td>
+              <td><code>Noto Serif KR Regular</code>, <code>36pt</code>, 색상 <code>#FFF8F0</code>, 글로우 크기 40/투명도 35%/<code>#000</code></td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;">캐릭터명 (EN)</td>
+              <td><code>Playfair Display Italic</code>, <code>16pt</code>, 색상 <code>#FFF8F0</code> (투명도 70%), 글로우 크기 25/투명도 30%/<code>#000</code></td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;">코드 뱃지 (DSNT)</td>
+              <td><code>Pretendard Bold</code>, <code>14pt</code>, 자간 <code>200</code>, 배경 <code>#E8703A</code>, 글자 <code>#FFFFFF</code>, radius 3px</td>
+            </tr>
+            <tr>
+              <td style="color:#9B8A7A;">피부 유형</td>
+              <td><code>Pretendard Medium</code>, <code>12pt</code>, 자간 <code>80</code>, 색상 <code>#FFF8F0</code> (투명도 65%), 그림자 blur 6/<code>#000</code></td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>

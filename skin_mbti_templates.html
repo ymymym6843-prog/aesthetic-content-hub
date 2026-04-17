@@ -222,23 +222,33 @@ body {
 }
 
 /* ───── MBTI SLIDE 1: COVER (fullscreen + left-bottom text) ───── */
+/* Override brackets & brand bar for dark video backgrounds */
+.mk-cover .brk { border-color: rgba(255,248,240,0.5); }
+.mk-cover .mk-bar-logo { color: rgba(255,248,240,0.85); text-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+.mk-cover .mk-bar-acc { color: rgba(255,248,240,0.65); text-shadow: 0 1px 4px rgba(0,0,0,0.3); }
 .mk-cover { background: linear-gradient(180deg, #FFF8F0 0%, #FEF3E4 100%); overflow: hidden; }
+/* Upper text: cream/white with shadow for dark video backgrounds */
 .mk-cover .cover-label {
   position: absolute; top: 82px; left: 32px;
   font-family: 'Playfair Display', serif;
   font-size: 10px; letter-spacing: 0.36em;
-  color: var(--muted); text-transform: uppercase;
+  color: rgba(255,248,240,0.85); text-transform: uppercase;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  z-index: 3;
 }
 .mk-cover .cover-title {
   position: absolute; top: 108px; left: 32px;
   font-family: 'Noto Serif KR', serif;
   font-weight: 300; font-size: 22px;
-  color: var(--dark); letter-spacing: 0.08em;
+  color: #FFF8F0; letter-spacing: 0.08em;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.35);
+  z-index: 3;
 }
 .mk-cover .cover-divider {
   position: absolute; top: 150px; left: 32px;
   width: 44px; height: 0;
-  border-top: 1px solid var(--gold); opacity: 0.6;
+  border-top: 1.5px solid rgba(255,248,240,0.6);
+  z-index: 3;
 }
 .mk-cover .cover-emoji-wrap {
   position: absolute; top: 0; left: 0; right: 0; bottom: 0;
@@ -250,10 +260,10 @@ body {
   opacity: 0.9;
 }
 .mk-cover .cover-emoji-ring { display: none; }
+/* Bottom overlay: no gradient — text-shadow only for readability */
 .mk-cover .cover-overlay {
   position: absolute; left: 0; right: 0; bottom: 0;
   padding: 80px 32px 68px;
-  background: linear-gradient(180deg, transparent 0%, rgba(255,248,240,0.85) 50%);
   z-index: 2;
 }
 .mk-cover .cover-name-box {
@@ -262,12 +272,14 @@ body {
 .mk-cover .cover-name-ko {
   font-family: 'Noto Serif KR', serif;
   font-weight: 400; font-size: 36px;
-  color: var(--dark); letter-spacing: 0.04em; line-height: 1.1;
+  color: #FFF8F0; letter-spacing: 0.04em; line-height: 1.1;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5), 0 0 20px rgba(0,0,0,0.3);
 }
 .mk-cover .cover-name-en {
   font-family: 'Playfair Display', serif;
   font-style: italic; font-size: 14px;
-  color: var(--muted); margin-top: 2px; letter-spacing: 0.04em;
+  color: rgba(255,248,240,0.85); margin-top: 2px; letter-spacing: 0.04em;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.4);
 }
 .mk-cover .cover-code-box {
   margin-top: 10px; text-align: left;
@@ -276,12 +288,13 @@ body {
   background: var(--orange); color: #FFF;
   font-size: 12px; font-weight: 700; padding: 5px 14px;
   border-radius: 3px; letter-spacing: 0.2em;
-  box-shadow: 0 4px 12px rgba(232,112,58,0.25);
+  box-shadow: 0 4px 12px rgba(232,112,58,0.35);
 }
 .mk-cover .cover-cat {
   margin-top: 8px; text-align: left;
-  font-size: 11px; color: var(--muted);
+  font-size: 11px; color: rgba(255,248,240,0.8);
   letter-spacing: 0.08em; font-weight: 500;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.4);
 }
 
 /* ───── MBTI SLIDE 2: PRESCRIPTION ───── */
