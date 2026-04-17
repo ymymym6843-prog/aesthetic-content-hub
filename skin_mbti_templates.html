@@ -418,7 +418,8 @@ body {
   height: 160px; display: flex; align-items: center; justify-content: center;
 }
 .mk-fr .fr-flower {
-  font-size: 84px; line-height: 1; display: inline-block;
+  width: 130px; height: 130px; object-fit: cover;
+  border-radius: 50%;
   filter: drop-shadow(0 4px 16px rgba(212,160,74,0.22));
   z-index: 2; position: relative;
 }
@@ -663,54 +664,54 @@ const PRAKRITI_TYPES = [
    DATA: FRAGRANCE 16 TYPES (aroma + description)
    ══════════════════════════════════════════════════════ */
 const FRAGRANCE_TYPES = [
-  { nameKo:"샌달우드", nameEn:"Sandalwood", parentPK:"VP", flower:"❀",
+  { nameKo:"샌달우드", nameEn:"Sandalwood", parentPK:"VP", icon:"fragrance_sandalwood.png",
     tagline:"뜨거운 속열을 식히는 고요의 향",
-    desc:"뜨거운 속열을 식히고 붕 뜬 마음을 가라앉혀 피부 장벽이 비로소 숨을 쉬게 합니다." },
-  { nameKo:"로즈", nameEn:"Rose", parentPK:"VP", flower:"✿",
+    desc:"뜨거운 속열을 식히고 붕 뜬 마음을 가라앉혀<br>피부 장벽이 비로소 숨을 쉬게 합니다." },
+  { nameKo:"로즈", nameEn:"Rose", parentPK:"VP", icon:"fragrance_rose.png",
     tagline:"지친 피부를 위로하는 사랑의 향",
-    desc:"열기로 지친 피부를 식히고 사랑의 에너지로 잡티 위에 새 살결을 피워냅니다." },
-  { nameKo:"라벤더", nameEn:"Lavender", parentPK:"V", flower:"✾",
+    desc:"열기로 지친 피부를 식히고<br>사랑의 에너지로 잡티 위에 새 살결을 피워냅니다." },
+  { nameKo:"라벤더", nameEn:"Lavender", parentPK:"V", icon:"fragrance_lavender.png",
     tagline:"예민한 신경을 어루만지는 휴식의 향",
-    desc:"예민해진 신경을 어루만지고 깊은 휴식을 선물해 잠든 피부를 깨워줍니다." },
-  { nameKo:"일랑일랑", nameEn:"Ylang Ylang", parentPK:"V", flower:"✺",
+    desc:"예민해진 신경을 어루만지고 깊은 휴식을 선물해<br>잠든 피부를 깨워줍니다." },
+  { nameKo:"일랑일랑", nameEn:"Ylang Ylang", parentPK:"V", icon:"fragrance_ylangylang.png",
     tagline:"텅 빈 피부를 채우는 영양의 향",
-    desc:"텅 빈 피부 속에 풍요로운 영양을 채우고 사라진 탄력을 다시 불러옵니다." },
-  { nameKo:"카모마일", nameEn:"Chamomile", parentPK:"VK", flower:"❋",
+    desc:"텅 빈 피부 속에 풍요로운 영양을 채우고<br>사라진 탄력을 다시 불러옵니다." },
+  { nameKo:"카모마일", nameEn:"Chamomile", parentPK:"VK", icon:"fragrance_chamomile.png",
     tagline:"정체된 피부를 녹이는 위로의 향",
-    desc:"정체된 피부에 부드러운 위로를 건네 막힌 순환의 길을 살며시 열어줍니다." },
-  { nameKo:"시나몬", nameEn:"Cinnamon", parentPK:"VK", flower:"✤",
+    desc:"정체된 피부에 부드러운 위로를 건네<br>막힌 순환의 길을 살며시 열어줍니다." },
+  { nameKo:"시나몬", nameEn:"Cinnamon", parentPK:"VK", icon:"fragrance_cinnamon.png",
     tagline:"차가운 피부에 온기를 불어넣는 향",
-    desc:"차갑게 굳은 피부에 따스한 온기를 불어넣어 영양이 비로소 스며들 길을 만듭니다." },
-  { nameKo:"진저", nameEn:"Ginger", parentPK:"VK", flower:"✦",
+    desc:"차갑게 굳은 피부에 따스한 온기를 불어넣어<br>영양이 비로소 스며들 길을 만듭니다." },
+  { nameKo:"진저", nameEn:"Ginger", parentPK:"VK", icon:"fragrance_ginger.png",
     tagline:"메마른 피부에 생기를 피우는 향",
-    desc:"가뭄 든 피부에 생기의 불씨를 피워 메마른 잡티 밭에 새 생명을 깨웁니다." },
-  { nameKo:"페퍼민트", nameEn:"Peppermint", parentPK:"P", flower:"❈",
+    desc:"가뭄 든 피부에 생기의 불씨를 피워<br>메마른 잡티 밭에 새 생명을 깨웁니다." },
+  { nameKo:"페퍼민트", nameEn:"Peppermint", parentPK:"P", icon:"fragrance_peppermint.png",
     tagline:"타오르는 피부를 잠재우는 쿨링의 향",
-    desc:"타오르는 피부 속 불길을 시원하게 잠재우고 멜라닌의 폭주를 멈춰 세웁니다." },
-  { nameKo:"유칼립투스", nameEn:"Eucalyptus", parentPK:"P", flower:"✽",
+    desc:"타오르는 피부 속 불길을 시원하게 잠재우고<br>멜라닌의 폭주를 멈춰 세웁니다." },
+  { nameKo:"유칼립투스", nameEn:"Eucalyptus", parentPK:"P", icon:"fragrance_eucalyptus.png",
     tagline:"염증의 흔적을 맑게 식히는 향",
-    desc:"훈장처럼 남은 염증의 흔적을 식히고 맑은 숨결로 피부를 다시 일으킵니다." },
-  { nameKo:"네롤리", nameEn:"Neroli", parentPK:"PV", flower:"✻",
+    desc:"훈장처럼 남은 염증의 흔적을 식히고<br>맑은 숨결로 피부를 다시 일으킵니다." },
+  { nameKo:"네롤리", nameEn:"Neroli", parentPK:"PV", icon:"fragrance_neroli.png",
     tagline:"곤두선 유분막을 진정시키는 향",
-    desc:"예민하게 곤두선 유분막을 진정시키고 수분과 유분의 균형을 다시 잡아줍니다." },
-  { nameKo:"티트리", nameEn:"Tea Tree", parentPK:"PK", flower:"❀",
+    desc:"예민하게 곤두선 유분막을 진정시키고<br>수분과 유분의 균형을 다시 잡아줍니다." },
+  { nameKo:"티트리", nameEn:"Tea Tree", parentPK:"PK", icon:"fragrance_teatree.png",
     tagline:"독소의 정체를 정화하는 향",
-    desc:"독소가 만든 염증을 정화하고 막힌 배출의 통로를 깨끗이 열어줍니다." },
-  { nameKo:"자몽", nameEn:"Grapefruit", parentPK:"K", flower:"✿",
+    desc:"독소가 만든 염증을 정화하고<br>막힌 배출의 통로를 깨끗이 열어줍니다." },
+  { nameKo:"자몽", nameEn:"Grapefruit", parentPK:"K", icon:"fragrance_grapefruit.png",
     tagline:"완벽한 피부 속 정체를 푸는 향",
-    desc:"완벽해 보이는 피부 속 고인 정체를 풀고 산뜻한 에너지로 흐름을 되찾아줍니다." },
-  { nameKo:"레몬그라스", nameEn:"Lemongrass", parentPK:"K", flower:"✾",
+    desc:"완벽해 보이는 피부 속 고인 정체를 풀고<br>산뜻한 에너지로 흐름을 되찾아줍니다." },
+  { nameKo:"레몬그라스", nameEn:"Lemongrass", parentPK:"K", icon:"fragrance_lemongrass.png",
     tagline:"잠긴 성벽을 여는 활력의 향",
-    desc:"잠긴 성벽 같은 피부의 문을 열고 정체된 에너지에 활력의 바람을 불어넣습니다." },
-  { nameKo:"로즈마리", nameEn:"Rosemary", parentPK:"KP", flower:"✺",
+    desc:"잠긴 성벽 같은 피부의 문을 열고<br>정체된 에너지에 활력의 바람을 불어넣습니다." },
+  { nameKo:"로즈마리", nameEn:"Rosemary", parentPK:"KP", icon:"fragrance_rosemary.png",
     tagline:"잠든 색소를 깨우는 순환의 향",
-    desc:"두꺼운 피부 깊이 잠든 색소를 깨우고 강력한 순환으로 닫힌 결을 열어줍니다." },
-  { nameKo:"베르가못", nameEn:"Bergamot", parentPK:"KV", flower:"❋",
+    desc:"두꺼운 피부 깊이 잠든 색소를 깨우고<br>강력한 순환으로 닫힌 결을 열어줍니다." },
+  { nameKo:"베르가못", nameEn:"Bergamot", parentPK:"KV", icon:"fragrance_bergamot.png",
     tagline:"갇힌 피지에 숨을 틔우는 향",
-    desc:"모공 속 갇힌 피지에 길을 열어주고 피부 결 사이사이에 가벼운 숨을 불어넣습니다." },
-  { nameKo:"패츌리", nameEn:"Patchouli", parentPK:"KV", flower:"✤",
+    desc:"모공 속 갇힌 피지에 길을 열어주고<br>피부 결 사이사이에 가벼운 숨을 불어넣습니다." },
+  { nameKo:"패츌리", nameEn:"Patchouli", parentPK:"KV", icon:"fragrance_patchouli.png",
     tagline:"탁한 안색 뒤 긴장을 푸는 향",
-    desc:"탁한 안색 뒤에 숨은 긴장을 풀어주고 맑은 빛이 피부 표면으로 떠오르게 합니다." }
+    desc:"탁한 안색 뒤에 숨은 긴장을 풀어주고<br>맑은 빛이 피부 표면으로 떠오르게 합니다." }
 ];
 
 /* ══════════════════════════════════════════════════════
@@ -885,7 +886,7 @@ function renderFragrance(index) {
           <div class="fr-divider" style="border-top-color:${color};"></div>
           <div class="fr-flower-wrap">
             <span class="fr-flower-ring" style="border-color:${color};"></span>
-            <span class="fr-flower" style="color:${color};">${f.flower}</span>
+            <img class="fr-flower" src="fragrance_icons/${f.icon}" alt="${f.nameEn}">
           </div>
           <div class="fr-name">${f.nameKo}</div>
           <div class="fr-name-en">${f.nameEn}</div>
