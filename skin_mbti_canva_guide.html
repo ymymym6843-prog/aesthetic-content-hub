@@ -1824,9 +1824,21 @@ main {
         <div class="slide-title">Slide A-1 (Slide 1) — 커버 (앱 화면 1 미러링)</div>
         <button class="btn-png" onclick="downloadMockup('slide-a1','customer-set-01-cover.png')">PNG Download</button>
         <div class="slide-note">
-          <strong>① 타이틀</strong> — 좌측 상단 배치. "Skin MBTI · Character" 라벨 + "<strong>나의 피부 캐릭터는?</strong>" (Noto Serif KR 300).
-          <strong>② 캐릭터 비주얼</strong> — <strong>풀화면</strong> 배치. Canva Frames로 MP4(4:5) 또는 캐릭터 정적 이미지. 캐릭터 얼굴이 중앙~상단에 오도록 배치.
-          <strong>③ 좌측 하단 정보</strong> — 하단 그라디언트 오버레이 위에 <strong>left-align</strong>: 캐릭터명(두부) + 영문(Tofu) + 오렌지 뱃지(DSNT) + 피부 유형. 매거진/시네마틱 무드.
+          <strong>① 타이틀 (좌측 상단)</strong><br>
+          · 라벨: "SKIN MBTI · CHARACTER" — <code>Playfair Display 400</code>, <code>14px</code>, 자간 <code>0.3em</code>, 색상 <code>#9B8A7A</code>, uppercase<br>
+          · 제목: "나의 피부 캐릭터는?" — <code>Noto Serif KR 300</code>, <code>28px</code>, 자간 <code>0.08em</code>, 색상 <code>#3D2E24</code><br>
+          · 구분선: 골드 <code>#D4A04A</code>, 폭 44px, 두께 1px, opacity 0.6<br>
+          · 계정: "@im.aesthetic.official" — <code>Pretendard 400</code>, <code>12px</code>, 색상 <code>#9B8A7A</code>, 우측 상단<br><br>
+          <strong>② 캐릭터 비주얼 (풀화면)</strong><br>
+          · Canva Frames로 MP4(4:5) 또는 캐릭터 정적 이미지 배치<br>
+          · 캐릭터 얼굴이 <strong>중앙~상단</strong>에 오도록 위치 조정<br>
+          · 텍스트 영역과 겹치지 않게 상단 70% 안에 캐릭터 배치<br><br>
+          <strong>③ 좌측 하단 정보 (left-align)</strong><br>
+          · 오버레이 배경: <code>linear-gradient(transparent → rgba(255,248,240,0.85))</code>, 하단 30% 영역<br>
+          · 캐릭터명(KR): <code>Noto Serif KR 400</code>, <code>36px</code>, 색상 <code>#3D2E24</code><br>
+          · 캐릭터명(EN): <code>Playfair Display 400 italic</code>, <code>16px</code>, 색상 <code>#9B8A7A</code><br>
+          · 코드 뱃지: <code>Pretendard 700</code>, <code>14px</code>, 자간 <code>0.2em</code>, 배경 <code>#E8703A</code>, 글자 <code>#FFFFFF</code>, padding 5px 14px, border-radius 3px<br>
+          · 피부 유형: <code>Pretendard 500</code>, <code>12px</code>, 자간 <code>0.08em</code>, 색상 <code>#9B8A7A</code>
         </div>
       </div>
     </div>
@@ -1867,19 +1879,38 @@ main {
           </div>
         </div>
         <div class="mk-footer">IM AESTHETIC · @im.aesthetic.official</div>
-        <div class="mk-callout" style="top:18%;right:8px;">3</div>
-        <div class="mk-callout" style="top:32%;right:8px;">4</div>
+        <div class="mk-callout" style="top:4%;left:8px;">1</div>
+        <div class="mk-callout" style="top:12%;left:8px;">2</div>
+        <div class="mk-callout" style="top:24%;right:8px;">3</div>
+        <div class="mk-callout" style="top:42%;right:8px;">4</div>
         <div class="mk-callout" style="top:68%;right:8px;">5</div>
       </div>
       <div>
         <div class="slide-title">Slide A-2 (Slide 2) — 한 줄 처방 + OX</div>
         <button class="btn-png" onclick="downloadMockup('slide-a2','customer-set-02-prescription-ox.png')">PNG Download</button>
         <div class="slide-note">
-          <strong>③ 한 줄 처방</strong> — docx <em>"16가지 유형별 한 줄 처방"</em> 참조.
-          예: OSNT "진정 레이어링", DSNT "장벽 재건 (세라)", DSPW "고보습 리빌딩", ORPW "강력 재생 리모델링".
-          Playfair 레이블 + Noto Serif 대형 문구(골드 강조어).
-          <strong>④ 마스터의 한마디</strong> 감성 멘트 (축약본).
-          <strong>⑤ Do's/Don'ts</strong> 4개씩 초록/빨강 대비. 상세 피부특성은 의도적으로 제외 (이미 A-1 캐릭터명/뱃지로 식별 완료).
+          <strong>① 브랜드 바 (상단)</strong><br>
+          · 로고: "IM AESTHETIC" — <code>Playfair Display 400</code>, <code>12px</code>, 자간 <code>0.2em</code>, 색상 <code>#3D2E24</code><br>
+          · 계정: "@im.aesthetic.official" — <code>Pretendard 400</code>, <code>10px</code>, 색상 <code>#9B8A7A</code><br>
+          · 하단 구분선: <code>rgba(232,112,58,0.15)</code>, 1px<br><br>
+          <strong>② 헤더 (캐릭터 식별)</strong><br>
+          · 뱃지: <code>Pretendard 800</code>, <code>11px</code>, 배경 <code>#E8703A</code>, 글자 <code>#FFF</code>, border-radius 50px, padding 2px 8px<br>
+          · 캐릭터명: "두부 Tofu" — <code>Pretendard 700</code>, <code>14px</code>, 색상 <code>#3D2E24</code><br><br>
+          <strong>③ 한 줄 처방</strong><br>
+          · 레이블: "ONE-LINE PRESCRIPTION" — <code>Playfair Display 400</code>, <code>12px</code>, 자간 <code>0.16em</code>, 색상 <code>#D4A04A</code>, center<br>
+          · 처방 문구: <code>Noto Serif KR 300</code>, <code>28px</code>, line-height <code>1.35</code>, 색상 <code>#3D2E24</code>, center<br>
+          · 강조어(세라마이드 보충 등): 색상 <code>#E8703A</code>, font-style normal<br>
+          · 구분선: 골드 <code>#D4A04A</code>, 폭 40px, 두께 1px<br><br>
+          <strong>④ 마스터의 한마디</strong><br>
+          · <code>Noto Serif KR 300 italic</code>, <code>12px</code>, line-height <code>1.6</code>, 색상 <code>#9B8A7A</code>, center<br>
+          · 감성 일기체(,,,) 사용. 축약본.<br><br>
+          <strong>⑤ Do's / Don'ts (4개씩)</strong><br>
+          · 컬럼 타이틀: <code>Pretendard 700</code>, <code>11px</code>, 자간 <code>0.1em</code><br>
+          · Do's 타이틀 색상 <code>#4A7C59</code> / Don'ts 타이틀 색상 <code>#C0392B</code><br>
+          · 항목 텍스트: <code>Pretendard 400</code>, <code>10px</code>, 색상 <code>#3D2E24</code><br>
+          · ✓ 마크 색상 <code>#4A7C59</code> / ✗ 마크 색상 <code>#C0392B</code><br>
+          · Do's 배경 <code>rgba(74,124,89,0.06)</code> / Don'ts 배경 <code>rgba(192,57,43,0.06)</code><br>
+          · 상세 피부특성은 의도적으로 제외 (A-1에서 캐릭터명/뱃지로 식별 완료)
         </div>
       </div>
     </div>
@@ -1943,11 +1974,22 @@ main {
         <div class="slide-title">Slide B-1 (Slide 3) — 아유르베다 + 향기 삼각형</div>
         <button class="btn-png" onclick="downloadMockup('slide-b1','customer-set-03-ayurveda-fragrance-triangle.png')">PNG Download</button>
         <div class="slide-note">
-          <strong>① 상단 뱃지</strong> — 고객의 프라크리티 코드(V/P/K 단일 3종 또는 VP/VK/PV/PK/KP/KV 이중 6종 — 총 9가지 중 1개) + "ENERGY · FRAGRANCE MAP" 레이블 + Noto Serif 체질명.
-          <strong>② 향기 삼각형 차트</strong> — 3꼭짓점에 <span style="color:#9B8AC0;">바타(샌달우드·라벤더)</span>, <span style="color:#E8703A;">피타(로즈·네롤리)</span>, <span style="color:#8FAE6A;">카파(진저·페퍼민트)</span> 대표 향기 배치.
-          내부 작은 삼각형 + 골드 도트 = 고객 개별 블렌드 포인트.
-          <strong>③ 해석 문구</strong> — 4-B 섹션 <code>characteristics</code> 참조, "불(Pitta)과 물(Kapha)이 우세한 체질..." 형식으로 핵심 키워드 골드 강조.
-          <br><br>
+          <strong>① 상단 영역</strong><br>
+          · 로고: "IM AESTHETIC" — <code>Playfair Display 400</code>, <code>14px</code>, 자간 <code>0.2em</code>, 색상 <code>#3D2E24</code>, 좌상단<br>
+          · 뱃지: 프라크리티 코드 (V/P/K/VP/VK 등 9종 중 1개) — <code>Pretendard 800</code>, <code>12px</code>, 자간 <code>0.1em</code>, 배경 <code>#D4A04A</code>, 글자 <code>#FFF</code>, 우상단<br>
+          · 체질 라벨: "나의 에너지 체질" — <code>Noto Serif KR 300</code>, <code>18px</code>, 자간 <code>0.08em</code>, 색상 <code>#3D2E24</code>, center<br>
+          · 체질명(KR): <code>Noto Serif KR 400</code>, <code>24px</code>, 색상 <code>#D4A04A</code>, center<br>
+          · 체질명(EN): <code>Playfair Display 400</code>, <code>10px</code>, 자간 <code>0.16em</code>, 색상 <code>#9B8A7A</code>, center<br><br>
+          <strong>② 향기 삼각형 차트</strong><br>
+          · 외곽 삼각형: stroke <code>#D4A04A</code>, width 1px, fill <code>rgba(212,160,74,0.08)</code><br>
+          · 내부 가이드: stroke <code>#D4A04A</code>, dasharray, opacity 0.5<br>
+          · 꼭짓점 도트: <span style="color:#9B8AC0;">바타 <code>#9B8AC0</code></span> · <span style="color:#E8703A;">피타 <code>#E8703A</code></span> · <span style="color:#8FAE6A;">카파 <code>#8FAE6A</code></span><br>
+          · 꼭짓점 라벨: <code>Playfair Display 600</code>, <code>10px</code>, 자간 <code>0.14em</code>, 각 도샤 색상<br>
+          · 꼭짓점 향기: <code>Pretendard 400</code>, <code>8px</code>, 색상 <code>#9B8A7A</code><br>
+          · 블렌드 포인트: <code>#D4A04A</code> 골드 도트, stroke <code>#3D2E24</code><br><br>
+          <strong>③ 해석 문구</strong><br>
+          · <code>Pretendard 400</code>, <code>11px</code>, line-height <code>1.5</code>, 색상 <code>#3D2E24</code>, center<br>
+          · 키워드 강조: 색상 <code>#D4A04A</code><br><br>
           <strong>MBTI → 아유르베다 자동 매핑</strong> (docx "아유르베다 연결" 근거):
           <br>• <strong>V (바타)</strong>: 건성·얇은 피부 — DSNT, DSNW, DSPT, DSPW
           <br>• <strong>P (피타)</strong>: 염증·붉은 기 — OSNT, OSNW, OSPT, OSPW
@@ -1992,13 +2034,23 @@ main {
         <div class="slide-title">Slide B-2 (Slide 4) — 매칭 향기 + 라이프스타일 OX (앱 화면 3 미러링)</div>
         <button class="btn-png" onclick="downloadMockup('slide-b2','customer-set-04-fragrance.png')">PNG Download</button>
         <div class="slide-note">
-          <strong>④ 골드 제목</strong> — 앱 문구 그대로 "<strong>당신의 에너지에 행운을 더하는 향기</strong>" (상단 메인).
-          <strong>⑤ 꽃 일러스트 + 향기명 + 설명</strong> — MBTI에서 자동 결정된 향기 (예: DSNT→카모마일). 시각적 임팩트가 가장 큰 영역이므로 중앙 강조.
-          <strong>⑥ 좋은 것 / 주의할 점 OX</strong> — 체질(아유르베다) 라이프스타일 OX (하단 부가정보). 예) 바타: 따뜻한 음식 ✓ / 차가운 환경 ✗. 피부 케어 OX(Slide 2)와 <strong>별개</strong>.
+          <strong>④ 골드 제목</strong><br>
+          · "당신의 에너지에 행운을 더하는 향기" — <code>Noto Serif KR 300</code>, <code>14px</code>, 색상 <code>#D4A04A</code>, center<br>
+          · 구분선: 골드 <code>#D4A04A</code>, 폭 40px, 두께 1px<br><br>
+          <strong>⑤ 꽃 일러스트 + 향기명 + 설명</strong><br>
+          · 일러스트: <code>public/fragrance_icons/</code> 이미지 사용 또는 Canva Elements 검색<br>
+          · 향기명(KR+EN): <code>Noto Serif KR 400</code>, <code>20px</code>, 색상 <code>#3D2E24</code>, center<br>
+          · 설명 문구: <code>Noto Serif KR 300 italic</code>, <code>10px</code>, line-height <code>1.6</code>, 색상 <code>#3D2E24</code>, center, padding 좌우 12px<br><br>
+          <strong>⑥ 좋은 것 / 주의할 점 OX</strong><br>
+          · 컬럼 타이틀 "✓ 좋은 것": <code>Pretendard 600</code>, <code>10px</code>, 색상 <code>#5A7A3E</code><br>
+          · 컬럼 타이틀 "✗ 주의할 점": <code>Pretendard 600</code>, <code>10px</code>, 색상 <code>#B8463A</code><br>
+          · 항목 텍스트: <code>Pretendard 400</code>, <code>9px</code>, 색상 <code>#3D2E24</code>, line-height <code>1.4</code><br>
+          · 좋은 것 배경: <code>rgba(143,174,106,0.15)</code>, border <code>rgba(143,174,106,0.4)</code><br>
+          · 주의할 점 배경: <code>rgba(220,100,80,0.1)</code>, border <code>rgba(220,100,80,0.35)</code><br>
+          · border-radius: <code>4px</code>, padding: <code>5px 4px</code><br><br>
+          <strong>레이아웃 의도</strong> — 향기(메인 결과) → OX(부가 행동지침) 순서. 피부 케어 OX(Slide 2)와 <strong>별개</strong>(체질 라이프스타일).
           <br><br>
-          <strong>레이아웃 의도</strong> — 향기(메인 결과) → OX(부가 행동지침) 순서로 시선이 흐르게 배치. 결과를 먼저 보여주고 실천 팁을 받쳐주는 구조.
-          <br><br>
-          <strong>일러스트 팁</strong> — Canva Elements에서 향기별 꽃 일러스트 검색(아래 키워드 참조), 골드(<code>#D4A04A</code>)로 색 교체.
+          <strong>일러스트 팁</strong> — <code>public/fragrance_icons/fragrance_{영문명}.png</code> 16종 보타니컬 수채화 아이콘 사용 가능. 또는 Canva Elements에서 아래 키워드로 검색 후 골드(<code>#D4A04A</code>)로 색 교체.
         </div>
         <div style="margin-top:10px;padding:10px 14px;background:#FFF8F0;border:1px solid rgba(212,160,74,0.3);border-radius:6px;font-size:11px;">
           <div style="font-family:'Playfair Display',serif;font-size:11px;letter-spacing:0.1em;color:#D4A04A;margin-bottom:6px;">FRAGRANCE CANVA KEYWORDS</div>
@@ -2057,6 +2109,23 @@ main {
       </div>
       <div class="frame-title">Template A — 스킨 MBTI 앱 진단</div>
       <button class="btn-png" onclick="downloadMockup('frame-a','skin-mbti-frame-A-app.png')">PNG Download</button>
+      <div class="frame-note" style="margin-bottom:10px;">
+        <strong style="color:var(--orange);">상단 바</strong><br>
+        · 라벨: "SKIN MBTI" — <code>Playfair Display 500</code>, <code>16px</code>, 자간 <code>0.25em</code>, 색상 <code>#3D2E24</code><br>
+        · 세션: "NO. 01" — <code>Playfair Display 400</code>, <code>12px</code>, 자간 <code>0.15em</code>, 색상 <code>#D4A04A</code><br>
+        · 하단 구분선: <code>rgba(212,160,74,0.25)</code>, 1px<br><br>
+        <strong style="color:var(--orange);">본문 영역</strong> · 배경 <code>#FFF8F0</code><br>
+        · 아이콘: 골드 <code>#D4A04A</code>, 56×56px, 좌우 골드 라인(28px, opacity 0.6)<br>
+        · 훅 카피: <code>Noto Serif KR 300</code>, <code>18px</code>, line-height <code>1.65</code>, 자간 <code>-0.3px</code>, 색상 <code>#3D2E24</code>, center<br>
+        · 강조어: 색상 <code>#E8703A</code>, font-style normal<br>
+        · 사진 영역: 점선 border <code>rgba(232,112,58,0.3)</code>, 1.5px dashed, radius <code>6px</code><br><br>
+        <strong style="color:var(--orange);">하단 바</strong><br>
+        · 태그라인: "당신의 피부가 말하는 이야기" — <code>Noto Serif KR 300</code>, <code>14px</code>, 색상 <code>#3D2E24</code>, 자간 <code>0.5px</code><br>
+        · 계정: "@ IM.AESTHETIC.OFFICIAL" — <code>Playfair Display 400</code>, <code>10px</code>, 자간 <code>0.12em</code>, 색상 <code>#9B8A7A</code><br>
+        · 상단 구분선: <code>rgba(212,160,74,0.25)</code>, 1px<br><br>
+        <strong style="color:var(--orange);">L-bracket 코너 장식</strong><br>
+        · 골드 <code>#D4A04A</code>, 1.5px, 18×18px, 4모서리
+      </div>
       <div class="frame-recipe">
         <div class="recipe-icon-gallery">
           <div class="recipe-icon-gallery-label">CONFIRMED ICON · Quiver AI</div>
@@ -2108,6 +2177,20 @@ main {
       </div>
       <div class="frame-title">Template B — 엑스바디 결과지</div>
       <button class="btn-png" onclick="downloadMockup('frame-b','skin-mbti-frame-B-xbody.png')">PNG Download</button>
+      <div class="frame-note" style="margin-bottom:10px;">
+        <strong style="color:var(--orange);">상단 바</strong><br>
+        · 라벨: "X · BODY" — <code>Playfair Display 500</code>, <code>16px</code>, 자간 <code>0.25em</code>, 색상 <code>#3D2E24</code><br>
+        · 세션: "NO. 02" — <code>Playfair Display 400</code>, <code>12px</code>, 자간 <code>0.15em</code>, 색상 <code>#D4A04A</code><br><br>
+        <strong style="color:var(--orange);">본문 영역</strong> · 배경 <code>#F5EDE0</code><br>
+        · 아이콘: 골드 <code>#D4A04A</code>, 52×52px, 좌우 골드 라인<br>
+        · 훅 카피: <code>Noto Serif KR 300</code>, <code>18px</code>, line-height <code>1.65</code>, 색상 <code>#3D2E24</code>, center<br>
+        · 강조어: 색상 <code>#E8703A</code><br>
+        · 사진 영역: 점선 border, 엑스바디 결과지 촬영 (개인정보 모자이크)<br><br>
+        <strong style="color:var(--orange);">하단 바</strong><br>
+        · 태그라인: <code>Noto Serif KR 300</code>, <code>14px</code>, 색상 <code>#3D2E24</code><br>
+        · 계정: <code>Playfair Display 400</code>, <code>10px</code>, 색상 <code>#9B8A7A</code><br><br>
+        <strong style="color:var(--orange);">L-bracket 코너 장식</strong> · 골드 <code>#D4A04A</code>, 1.5px, 18×18px
+      </div>
       <div class="frame-recipe">
         <div class="recipe-icon-gallery">
           <div class="recipe-icon-gallery-label">CONFIRMED ICON · Quiver AI</div>
@@ -2159,6 +2242,20 @@ main {
       </div>
       <div class="frame-title">Template C — 포커스킨 결과지</div>
       <button class="btn-png" onclick="downloadMockup('frame-c','skin-mbti-frame-C-focuskin.png')">PNG Download</button>
+      <div class="frame-note" style="margin-bottom:10px;">
+        <strong style="color:var(--orange);">상단 바</strong><br>
+        · 라벨: "FOCUSKIN" — <code>Playfair Display 500</code>, <code>16px</code>, 자간 <code>0.25em</code>, 색상 <code>#3D2E24</code><br>
+        · 세션: "NO. 03" — <code>Playfair Display 400</code>, <code>12px</code>, 자간 <code>0.15em</code>, 색상 <code>#D4A04A</code><br><br>
+        <strong style="color:var(--orange);">본문 영역</strong> · 배경 <code>#FAEDE0</code> (Blush Cream)<br>
+        · 아이콘: 골드 <code>#D4A04A</code>, 40×40px, 좌우 골드 라인<br>
+        · 훅 카피: <code>Noto Serif KR 300</code>, <code>18px</code>, line-height <code>1.65</code>, 색상 <code>#3D2E24</code>, center<br>
+        · 강조어: 색상 <code>#E8703A</code><br>
+        · 사진 영역: 포커스킨 결과지 (얼굴 영역 Blur 90%)<br><br>
+        <strong style="color:var(--orange);">하단 바</strong><br>
+        · 태그라인: <code>Noto Serif KR 300</code>, <code>14px</code>, 색상 <code>#3D2E24</code><br>
+        · 계정: <code>Playfair Display 400</code>, <code>10px</code>, 색상 <code>#9B8A7A</code><br><br>
+        <strong style="color:var(--orange);">L-bracket 코너 장식</strong> · 골드 <code>#D4A04A</code>, 1.5px, 18×18px
+      </div>
       <div class="frame-recipe">
         <div class="recipe-icon-gallery">
           <div class="recipe-icon-gallery-label">CONFIRMED ICON · Quiver AI</div>
@@ -2210,6 +2307,20 @@ main {
       </div>
       <div class="frame-title">Template D — 질문지 작성</div>
       <button class="btn-png" onclick="downloadMockup('frame-d','skin-mbti-frame-D-questionnaire.png')">PNG Download</button>
+      <div class="frame-note" style="margin-bottom:10px;">
+        <strong style="color:var(--orange);">상단 바</strong><br>
+        · 라벨: "SKIN STORY" — <code>Playfair Display 500</code>, <code>16px</code>, 자간 <code>0.25em</code>, 색상 <code>#3D2E24</code><br>
+        · 세션: "NO. 04" — <code>Playfair Display 400</code>, <code>12px</code>, 자간 <code>0.15em</code>, 색상 <code>#D4A04A</code><br><br>
+        <strong style="color:var(--orange);">본문 영역</strong> · 배경 <code>#EEE5D5</code> (Mist Beige)<br>
+        · 아이콘: 골드 <code>#D4A04A</code>, 52×52px, 좌우 골드 라인<br>
+        · 훅 카피: <code>Noto Serif KR 300</code>, <code>18px</code>, line-height <code>1.65</code>, 색상 <code>#3D2E24</code>, center<br>
+        · 강조어: 색상 <code>#E8703A</code><br>
+        · 사진 영역: 질문지 작성 손/펜 클로즈업 (오버헤드 앵글, 자연광)<br><br>
+        <strong style="color:var(--orange);">하단 바</strong><br>
+        · 태그라인: <code>Noto Serif KR 300</code>, <code>14px</code>, 색상 <code>#3D2E24</code><br>
+        · 계정: <code>Playfair Display 400</code>, <code>10px</code>, 색상 <code>#9B8A7A</code><br><br>
+        <strong style="color:var(--orange);">L-bracket 코너 장식</strong> · 골드 <code>#D4A04A</code>, 1.5px, 18×18px
+      </div>
       <div class="frame-recipe">
         <div class="recipe-icon-gallery">
           <div class="recipe-icon-gallery-label">CONFIRMED ICON · Quiver AI</div>
