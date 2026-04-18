@@ -1963,6 +1963,26 @@ main {
     <div style="font-family:'Pretendard';font-size:13px;color:#9B8A7A;margin-top:4px;">16 타입별 커버 → 한 줄 처방 + Do's/Don'ts (피부특성 상세는 생략, 핵심 압축)</div>
   </div>
 
+  <!-- ── MBTI 4그룹 동적 색상 ── -->
+  <div style="margin:12px 0 20px;padding:14px 18px;background:#FFFEF9;border:1px dashed #E8703A;border-radius:6px;">
+    <div style="font-family:'Playfair Display',serif;font-size:12px;letter-spacing:0.18em;color:#E8703A;text-transform:uppercase;">MBTI 4 Group Colors · 동적 매핑</div>
+    <div style="font-family:'Pretendard';font-weight:600;font-size:14px;color:#3D2E24;margin-top:4px;">16 타입을 4 그룹(O/D × S/R)으로 분류 · 같은 그룹은 같은 색상</div>
+    <table style="width:100%;border-collapse:collapse;font-size:11px;line-height:1.7;margin:10px 0 4px;">
+      <tr style="background:rgba(0,0,0,0.03);">
+        <th style="text-align:left;padding:4px 8px;color:#9B8A7A;font-weight:700;width:50px;">그룹</th>
+        <th style="text-align:left;padding:4px 8px;color:#9B8A7A;font-weight:700;">의미</th>
+        <th style="text-align:left;padding:4px 8px;color:#9B8A7A;font-weight:700;width:60px;">컬러</th>
+        <th style="text-align:left;padding:4px 8px;color:#9B8A7A;font-weight:700;width:90px;">Hex</th>
+        <th style="text-align:left;padding:4px 8px;color:#9B8A7A;font-weight:700;">소속 타입</th>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(0,0,0,0.05);"><td style="padding:4px 8px;"><code>OS</code></td><td style="padding:4px 8px;">지성·민감성</td><td style="padding:4px 8px;"><span style="display:inline-block;width:16px;height:16px;background:#D4837A;border-radius:3px;vertical-align:middle;"></span></td><td style="padding:4px 8px;"><code>#D4837A</code></td><td style="padding:4px 8px;color:#3D2E24;font-size:10.5px;">OSNT 알로에 · OSNW 흰 복숭아 · OSPT 토마토 · OSPW 딸기</td></tr>
+      <tr style="border-bottom:1px solid rgba(0,0,0,0.05);"><td style="padding:4px 8px;"><code>OR</code></td><td style="padding:4px 8px;">지성·저항성</td><td style="padding:4px 8px;"><span style="display:inline-block;width:16px;height:16px;background:#3A5A7C;border-radius:3px;vertical-align:middle;"></span></td><td style="padding:4px 8px;"><code>#3A5A7C</code></td><td style="padding:4px 8px;color:#3D2E24;font-size:10.5px;">ORNT 청포도 · ORNW 배 · ORPT 메추리알 · ORPW 아보카도</td></tr>
+      <tr style="border-bottom:1px solid rgba(0,0,0,0.05);"><td style="padding:4px 8px;"><code>DS</code></td><td style="padding:4px 8px;">건성·민감성</td><td style="padding:4px 8px;"><span style="display:inline-block;width:16px;height:16px;background:#E8A7B0;border-radius:3px;vertical-align:middle;"></span></td><td style="padding:4px 8px;"><code>#E8A7B0</code></td><td style="padding:4px 8px;color:#3D2E24;font-size:10.5px;">DSNT 두부 · DSNW 코코넛 · DSPT 석류알 · DSPW 라즈베리</td></tr>
+      <tr><td style="padding:4px 8px;"><code>DR</code></td><td style="padding:4px 8px;">건성·저항성</td><td style="padding:4px 8px;"><span style="display:inline-block;width:16px;height:16px;background:#7A9E7E;border-radius:3px;vertical-align:middle;"></span></td><td style="padding:4px 8px;"><code>#7A9E7E</code></td><td style="padding:4px 8px;color:#3D2E24;font-size:10.5px;">DRNT 선인장 · DRNW 감자 · DRPT 올리브 · DRPW 무화과</td></tr>
+    </table>
+    <div style="font-size:10px;color:#9B8A7A;margin-top:8px;font-style:italic;">※ 이 색상은 <strong>커버 하단 DSNT 뱃지 + 처방 슬라이드 상단 바 뱃지 + 셋 헤더 뱃지</strong>에 동적 적용됨. 강조어(em) 색상은 브랜드 오렌지 <code>#E8703A</code> 유지. 가이드 미리보기는 DSNT(DS 그룹 · 소프트 핑크) 예시.</div>
+  </div>
+
   <!-- ── 전 슬라이드 공통 프레임 ── -->
   <div style="margin:12px 0 24px;padding:14px 18px;background:#FFFEF9;border:1px dashed #D4A04A;border-radius:6px;">
     <div style="font-family:'Playfair Display',serif;font-size:12px;letter-spacing:0.18em;color:#D4A04A;text-transform:uppercase;">Shared Frame · 전 슬라이드 공통</div>
@@ -2006,7 +2026,7 @@ main {
         <div class="mk-overlay" style="background:none;bottom:34px;padding:40px 16px 8px;">
           <div class="mk-char" style="color:#FFF8F0;text-shadow:0 2px 8px rgba(0,0,0,0.5), 0 0 20px rgba(0,0,0,0.3);">두부</div>
           <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:10px;color:rgba(255,248,240,0.7);text-align:left;">Tofu</div>
-          <div style="text-align:left;margin-top:5px;"><span style="background:#E8703A;color:#fff;font-size:7px;font-weight:700;padding:2px 8px;border-radius:3px;letter-spacing:0.2em;box-shadow:0 2px 5px rgba(232,112,58,0.35);">DSNT</span></div>
+          <div style="text-align:left;margin-top:5px;"><span style="background:#E8A7B0;color:#fff;font-size:7px;font-weight:700;padding:2px 8px;border-radius:3px;letter-spacing:0.2em;box-shadow:0 2px 5px rgba(232,167,176,0.45);">DSNT</span></div>
           <div style="font-size:7px;color:rgba(255,248,240,0.65);text-align:left;margin-top:3px;letter-spacing:0.06em;">건성·민감성·비색소·탄력형</div>
         </div>
         <div class="mk-tagline">당신의 피부가 말하는 이야기</div>
@@ -2085,7 +2105,7 @@ main {
             </tr>
             <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
               <td style="color:#9B8A7A;">코드 뱃지 (DSNT)</td>
-              <td><code>Pretendard Bold</code>, <code>12pt</code>, 자간 <code>200</code>, 배경 <code>#E8703A</code>, 글자 <code>#FFFFFF</code>, radius 3px, padding 5px 14px, 그림자 <code>0 4px 12px rgba(232,112,58,0.35)</code></td>
+              <td><code>Pretendard Bold</code>, <code>12pt</code>, 자간 <code>200</code>, 배경: <strong>MBTI 그룹 컬러 (위 4그룹 테이블 참조)</strong> — 예시 DSNT는 DS 그룹 <code>#E8A7B0</code>, 글자 <code>#FFFFFF</code>, radius 3px, padding 5px 14px, 그림자 <code>0 4px 12px [그룹컬러]59</code> (alpha 35%)</td>
             </tr>
             <tr>
               <td style="color:#9B8A7A;">피부 유형</td>
@@ -2103,7 +2123,7 @@ main {
         <span class="brk tl"></span><span class="brk tr"></span><span class="brk bl"></span><span class="brk br"></span>
         <div class="mk-bar">
           <div class="mk-bar-logo">IM AESTHETIC</div>
-          <div class="mk-bar-badge">DSNT</div>
+          <div class="mk-bar-badge" style="background:#E8A7B0;box-shadow:0 2px 5px rgba(232,167,176,0.45);">DSNT</div>
         </div>
         <div style="text-align:center;margin-top:6px;margin-bottom:4px;">
           <span style="font-family:'Noto Serif KR',serif;font-weight:300;font-size:10px;color:#3D2E24;">두부</span>
@@ -2163,7 +2183,7 @@ main {
           <table style="width:100%;border-collapse:collapse;font-size:11px;line-height:1.7;margin:6px 0 10px;">
             <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
               <td style="color:#9B8A7A;width:140px;padding:3px 0;">코드 뱃지 (DSNT)</td>
-              <td><code>Pretendard Bold</code>, <code>12pt</code>, 자간 <code>200</code>, 배경 <code>#E8703A</code>, 글자 <code>#FFFFFF</code>, radius 3px (사각), padding 5px 14px, 그림자 <code>0 4px 12px rgba(232,112,58,0.35)</code> · <strong>브랜드바 우측</strong></td>
+              <td><code>Pretendard Bold</code>, <code>12pt</code>, 자간 <code>200</code>, 배경: <strong>MBTI 그룹 컬러 (위 4그룹 테이블 참조)</strong> — 예시 DSNT는 DS 그룹 <code>#E8A7B0</code>, 글자 <code>#FFFFFF</code>, radius 3px (사각), padding 5px 14px, 그림자 <code>0 4px 12px [그룹컬러]59</code> · <strong>브랜드바 우측</strong></td>
             </tr>
             <tr>
               <td style="color:#9B8A7A;">캐릭터명</td>

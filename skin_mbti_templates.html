@@ -620,6 +620,15 @@ const MBTI_TYPES = [
     donts:["자외선 차단 없이 외출","너무 뜨거운 물 세안","보습 단계 생략","각질 제거 너무 자주"] }
 ];
 
+/* MBTI group colors — 4 groups × 4 types, first 2 letters of code define group */
+const MBTI_GROUP_COLORS = {
+  OS: '#D4837A', // 지성·민감성 (coral rose)
+  OR: '#3A5A7C', // 지성·저항성 (dark navy)
+  DS: '#E8A7B0', // 건성·민감성 (soft pink)
+  DR: '#7A9E7E'  // 건성·저항성 (olive green)
+};
+const mbtiColor = code => MBTI_GROUP_COLORS[code.slice(0,2)] || 'var(--orange)';
+
 /* ══════════════════════════════════════════════════════
    DATA: PRAKRITI 9 TYPES (constitution + lifestyle)
    ══════════════════════════════════════════════════════ */
@@ -780,9 +789,10 @@ function renderTriangle(code) {
    ══════════════════════════════════════════════════════ */
 function renderMbti(index) {
   const t = MBTI_TYPES[index];
+  const color = mbtiColor(t.code);
   document.getElementById('mbtiSet').innerHTML = `
     <div class="set-header">
-      <div class="code-badge">${t.code}</div>
+      <div class="code-badge" style="background:${color};">${t.code}</div>
       <div>
         <div class="set-name">${t.charKo} <span style="font-family:'Playfair Display',serif;font-size:18px;color:var(--muted);margin-left:8px;font-style:italic;">${t.charEn}</span></div>
         <div class="set-cat">${t.cat}</div>
@@ -804,7 +814,7 @@ function renderMbti(index) {
               <div class="cover-name-ko">${t.charKo}</div>
               <div class="cover-name-en">${t.charEn}</div>
             </div>
-            <div class="cover-code-box"><span>${t.code}</span></div>
+            <div class="cover-code-box"><span style="background:${color};box-shadow:0 4px 12px ${color}59;">${t.code}</span></div>
             <div class="cover-cat">${t.cat}</div>
           </div>
           ${foot}
@@ -814,7 +824,7 @@ function renderMbti(index) {
       <div class="slide-item">
         <div class="slide-label">Slide 2 · One-line Prescription + OX</div>
         <div class="slide-mockup mk-rx" id="m-2">
-          ${brk}${bar(t.code)}
+          ${brk}${bar(t.code, color)}
           <div class="rx-sub">${t.charKo} <em>${t.charEn}</em></div>
           <div class="rx-label">One-line Prescription</div>
           <div class="rx-title"><span class="rx-title-quote">“</span>${t.rxTitle}<em>${t.rxHighlight}</em><span class="rx-title-quote">”</span></div>
