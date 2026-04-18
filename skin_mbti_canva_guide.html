@@ -328,11 +328,65 @@ main {
 }
 .slide-note strong { color: var(--orange); font-weight: 700; }
 
+/* ─── Shared frame (matches templates: brk corners + brand bar + tagline + footer) ─── */
+.slide-mockup .brk {
+  position: absolute; width: 14px; height: 14px;
+  border: 1.5px solid var(--gold); opacity: 0.55;
+  pointer-events: none; z-index: 4;
+}
+.slide-mockup .brk.tl { top: 6px; left: 6px; border-right: none; border-bottom: none; }
+.slide-mockup .brk.tr { top: 6px; right: 6px; border-left: none; border-bottom: none; }
+.slide-mockup .brk.bl { bottom: 6px; left: 6px; border-right: none; border-top: none; }
+.slide-mockup .brk.br { bottom: 6px; right: 6px; border-left: none; border-top: none; }
+.slide-mockup .mk-bar {
+  position: absolute; top: 12px; left: 0; right: 0;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 16px; z-index: 3;
+}
+.slide-mockup .mk-bar-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 7px; font-weight: 500;
+  letter-spacing: 0.28em; color: var(--gold);
+}
+.slide-mockup .mk-bar-acc {
+  font-size: 6px; color: var(--text-muted);
+  letter-spacing: 0.06em; font-weight: 500;
+}
+.slide-mockup .mk-bar-badge {
+  color: #FFF; font-size: 7px; font-weight: 700;
+  padding: 2px 7px; border-radius: 3px;
+  letter-spacing: 0.14em; background: var(--orange);
+  box-shadow: 0 2px 5px rgba(232,112,58,0.35);
+}
+.slide-mockup .mk-tagline {
+  position: absolute; bottom: 22px; left: 0; right: 0;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 6px; letter-spacing: 0.32em;
+  color: var(--gold); text-transform: uppercase; z-index: 3;
+}
+.slide-mockup .mk-tagline::before, .slide-mockup .mk-tagline::after {
+  content: '—'; color: var(--gold); opacity: 0.6;
+  margin: 0 5px; font-weight: 300;
+}
+.slide-mockup .mk-acc-footer {
+  position: absolute; bottom: 10px; left: 0; right: 0;
+  text-align: center; font-size: 6px; color: var(--text-muted);
+  letter-spacing: 0.05em; font-weight: 500; z-index: 3;
+}
+
 /* Mockup: slide 1 - cover (fullscreen + left-bottom text) */
 .mk-cover {
   background: var(--cream);
   overflow: hidden;
 }
+/* Dark video preview overrides — light tints for visibility on dark BG */
+.mk-cover .brk { border-color: rgba(255,248,240,0.5); }
+.mk-cover .mk-bar-logo { color: rgba(255,248,240,0.85); text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+.mk-cover .mk-bar-acc { color: rgba(255,248,240,0.65); text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+.mk-cover .mk-tagline { color: rgba(255,248,240,0.75); text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+.mk-cover .mk-tagline::before, .mk-cover .mk-tagline::after { color: rgba(255,248,240,0.5); }
+.mk-cover .mk-acc-footer { color: rgba(255,248,240,0.65); text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
 .mk-cover .mk-logo {
   position: absolute;
   top: 14px; left: 14px;
@@ -1793,39 +1847,73 @@ main {
     <div style="font-family:'Pretendard';font-size:13px;color:#9B8A7A;margin-top:4px;">16 타입별 커버 → 한 줄 처방 + Do's/Don'ts (피부특성 상세는 생략, 핵심 압축)</div>
   </div>
 
+  <!-- ── 전 슬라이드 공통 프레임 ── -->
+  <div style="margin:12px 0 24px;padding:14px 18px;background:#FFFEF9;border:1px dashed #D4A04A;border-radius:6px;">
+    <div style="font-family:'Playfair Display',serif;font-size:12px;letter-spacing:0.18em;color:#D4A04A;text-transform:uppercase;">Shared Frame · 전 슬라이드 공통</div>
+    <div style="font-family:'Pretendard';font-weight:600;font-size:14px;color:#3D2E24;margin-top:4px;">모든 슬라이드에 동일하게 적용되는 프레임 요소</div>
+    <table style="width:100%;border-collapse:collapse;font-size:11px;line-height:1.7;margin:10px 0 4px;">
+      <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+        <td style="color:#9B8A7A;width:180px;padding:4px 0;">① 네 모서리 L-bracket</td>
+        <td>36×36px 골드 <code>#D4A04A</code>, border 2px, 투명도 55% · 상단 left/right border-none, 하단 left/right border-none 형식 (각 꼭짓점) · 거리 18px · 다크 커버에서는 border-color <code>rgba(255,248,240,0.5)</code></td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+        <td style="color:#9B8A7A;">② 브랜드 바 (상단)</td>
+        <td>top 30px, padding 0 44px · 좌측 "IM AESTHETIC" <code>Playfair Display 500</code>, <code>14pt</code>, 자간 <code>280</code>, 색상 <code>#D4A04A</code> (골드) · 우측 @account 또는 <strong>DSNT 뱃지</strong> (슬라이드별 다름)</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+        <td style="color:#9B8A7A;">③ 태그라인 (하단 중앙)</td>
+        <td>bottom 50px, center · "당신의 피부가 말하는 이야기" · <code>Playfair Display</code>, <code>10pt</code>, 자간 <code>320</code>, 골드 <code>#D4A04A</code>, UPPERCASE · 좌우에 em-dash <code>—</code> 장식</td>
+      </tr>
+      <tr>
+        <td style="color:#9B8A7A;">④ 계정 푸터 (하단 중앙)</td>
+        <td>bottom 30px, center · "@im.aesthetic.official" · <code>Pretendard 500</code>, <code>10pt</code>, 색상 <code>#9B8A7A</code>, 자간 <code>50</code></td>
+      </tr>
+    </table>
+    <div style="font-size:10px;color:#9B8A7A;margin-top:8px;font-style:italic;">※ 각 슬라이드별 콘텐츠(한 줄 처방, 향기 등)는 이 프레임 내부에 배치. 커버는 DSNT 뱃지 대신 @account 표시.</div>
+  </div>
+
   <div class="slide-row">
     <!-- Slide A-1: Cover -->
     <div class="slide-item">
       <div class="slide-mockup mk-cover" id="slide-a1" style="background:#5C4A3A;">
-        <div class="mk-logo" style="color:rgba(255,248,240,0.85);text-shadow:0 1px 4px rgba(0,0,0,0.3);">IM AESTHETIC</div>
-        <div style="position:absolute;top:14px;right:14px;font-family:'Pretendard',sans-serif;font-size:8px;color:rgba(255,248,240,0.65);letter-spacing:0.08em;z-index:3;text-shadow:0 1px 3px rgba(0,0,0,0.3);">@im.aesthetic.official</div>
-        <div style="position:absolute;top:42px;left:16px;font-family:'Playfair Display',serif;font-size:8px;letter-spacing:0.3em;color:rgba(255,248,240,0.75);text-transform:uppercase;z-index:3;text-shadow:0 1px 3px rgba(0,0,0,0.3);">Skin MBTI · Character</div>
-        <div style="position:absolute;top:56px;left:16px;font-family:'Noto Serif KR',serif;font-weight:300;font-size:13px;color:#FFF8F0;letter-spacing:0.08em;z-index:3;text-shadow:0 1px 4px rgba(0,0,0,0.35);">나의 피부 캐릭터는?</div>
+        <!-- Shared frame: 4 corner brackets + brand bar + tagline + footer -->
+        <span class="brk tl"></span><span class="brk tr"></span><span class="brk bl"></span><span class="brk br"></span>
+        <div class="mk-bar">
+          <div class="mk-bar-logo">IM AESTHETIC</div>
+          <div class="mk-bar-acc">@im.aesthetic.official</div>
+        </div>
+        <div style="position:absolute;top:36px;left:16px;font-family:'Playfair Display',serif;font-size:7px;letter-spacing:0.3em;color:rgba(255,248,240,0.75);text-transform:uppercase;z-index:3;text-shadow:0 1px 3px rgba(0,0,0,0.3);">Skin MBTI · Character</div>
+        <div style="position:absolute;top:50px;left:16px;font-family:'Noto Serif KR',serif;font-weight:300;font-size:11px;color:#FFF8F0;letter-spacing:0.08em;z-index:3;text-shadow:0 1px 4px rgba(0,0,0,0.35);">나의 피부 캐릭터는?</div>
+        <div style="position:absolute;top:70px;left:16px;width:24px;height:0;border-top:1px solid rgba(255,248,240,0.6);z-index:3;"></div>
         <div class="mk-play">▶</div>
         <div class="mk-play-lbl">캐릭터 MP4 / 이미지 (풀화면)</div>
-        <div class="mk-overlay" style="background:none;">
+        <div class="mk-overlay" style="background:none;bottom:34px;padding:40px 16px 8px;">
           <div class="mk-char" style="color:#FFF8F0;text-shadow:0 2px 8px rgba(0,0,0,0.5), 0 0 20px rgba(0,0,0,0.3);">두부</div>
-          <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:11px;color:rgba(255,248,240,0.7);text-align:left;">Tofu</div>
-          <div style="text-align:left;margin-top:6px;"><span style="background:#E8703A;color:#fff;font-size:8px;font-weight:700;padding:3px 9px;border-radius:3px;letter-spacing:0.2em;box-shadow:0 2px 5px rgba(232,112,58,0.35);">DSNT</span></div>
-          <div style="font-size:8px;color:rgba(255,248,240,0.65);text-align:left;margin-top:4px;letter-spacing:0.06em;">건성·민감성·비색소·탄력형</div>
+          <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:10px;color:rgba(255,248,240,0.7);text-align:left;">Tofu</div>
+          <div style="text-align:left;margin-top:5px;"><span style="background:#E8703A;color:#fff;font-size:7px;font-weight:700;padding:2px 8px;border-radius:3px;letter-spacing:0.2em;box-shadow:0 2px 5px rgba(232,112,58,0.35);">DSNT</span></div>
+          <div style="font-size:7px;color:rgba(255,248,240,0.65);text-align:left;margin-top:3px;letter-spacing:0.06em;">건성·민감성·비색소·탄력형</div>
         </div>
+        <div class="mk-tagline">당신의 피부가 말하는 이야기</div>
+        <div class="mk-acc-footer">@im.aesthetic.official</div>
         <div class="mk-callout" style="top:8%;left:8px;">1</div>
         <div class="mk-callout" style="top:42%;left:8px;">2</div>
-        <div class="mk-callout" style="top:72%;left:8px;">3</div>
+        <div class="mk-callout" style="top:65%;left:8px;">3</div>
+        <div class="mk-callout" style="bottom:14px;right:8px;">4</div>
       </div>
       <div>
         <div class="slide-title">Slide A-1 (Slide 1) — 커버 (앱 화면 1 미러링)</div>
         <button class="btn-png" onclick="downloadMockup('slide-a1','customer-set-01-cover.png')">PNG Download</button>
         <div class="slide-note">
-          <strong>① 브랜드명 + 타이틀 (좌측 상단)</strong><br>
+          <em style="font-size:10px;color:#9B8A7A;">※ 네 모서리 L-bracket + 하단 태그라인/계정 푸터는 <strong>공통 프레임</strong>(위 섹션) 참조.<br>※ 커버는 <strong>다크 MP4 비디오 배경</strong> 위에 라이트 톤 텍스트를 얹는 구조. 미리보기는 비디오 로드 상태를 시뮬레이션.</em><br><br>
+          <strong>① 브랜드 바 변형 (다크 비디오 위)</strong><br>
           <table style="width:100%;border-collapse:collapse;font-size:11px;line-height:1.7;margin:6px 0 10px;">
             <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
               <td style="color:#9B8A7A;width:140px;padding:3px 0;">IM AESTHETIC</td>
-              <td><code>Playfair Display Regular</code>, <code>28pt</code>, 자간 <code>280</code>, 색상 <code>#FFF8F0</code></td>
+              <td><code>Playfair Display Regular</code>, <code>14pt</code>, 자간 <code>280</code>, 색상 <code>#FFF8F0</code> (다크 위 밝게, 투명도 85%), text-shadow <code>0 1px 4px rgba(0,0,0,0.3)</code></td>
             </tr>
             <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
               <td style="color:#9B8A7A;">@im.aesthetic.official</td>
-              <td><code>Pretendard Regular</code>, <code>12pt</code>, 색상 <code>#FFF8F0</code> (투명도 65%), 우측 상단</td>
+              <td><code>Pretendard Regular</code>, <code>11pt</code>, 색상 <code>#FFF8F0</code> (투명도 65%), 우측 상단, text-shadow <code>0 1px 4px rgba(0,0,0,0.3)</code></td>
             </tr>
             <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
               <td style="color:#9B8A7A;">SKIN MBTI · CHARACTER</td>
@@ -1894,20 +1982,22 @@ main {
 
     <!-- Slide A-2: 한 줄 처방 + OX -->
     <div class="slide-item">
-      <div class="slide-mockup mk-do" id="slide-a2">
-        <div class="mk-brand-bar">
-          <div class="mk-brand-logo">IM AESTHETIC</div>
-          <div class="mk-head-badge" style="margin-left:auto;">DSNT</div>
+      <div class="slide-mockup mk-do" id="slide-a2" style="padding:30px 16px 36px;">
+        <!-- Shared frame: 4 corner brackets + brand bar (logo + DSNT badge) + tagline + footer -->
+        <span class="brk tl"></span><span class="brk tr"></span><span class="brk bl"></span><span class="brk br"></span>
+        <div class="mk-bar">
+          <div class="mk-bar-logo">IM AESTHETIC</div>
+          <div class="mk-bar-badge">DSNT</div>
         </div>
-        <div style="text-align:center;margin-bottom:8px;">
+        <div style="text-align:center;margin-top:6px;margin-bottom:4px;">
           <span style="font-family:'Noto Serif KR',serif;font-weight:300;font-size:10px;color:#3D2E24;">두부</span>
           <span style="font-family:'Playfair Display',serif;font-style:italic;font-size:10px;color:#9B8A7A;margin-left:4px;">Tofu</span>
         </div>
-        <div style="font-family:'Playfair Display',serif;font-size:8px;letter-spacing:0.16em;color:#D4A04A;text-align:center;margin-top:10px;">ONE-LINE PRESCRIPTION</div>
-        <div style="font-family:'Noto Serif KR',serif;font-weight:300;font-size:20px;line-height:1.35;text-align:center;color:#3D2E24;margin-top:4px;padding:0 14px;">
-          <span style="color:#9B8A7A;opacity:0.7;">"</span>장벽 재건<br><em style="color:#E8703A;font-style:normal;">세라마이드 보충</em><span style="color:#9B8A7A;opacity:0.7;">"</span>
+        <div style="font-family:'Playfair Display',serif;font-size:7px;letter-spacing:0.32em;color:#D4A04A;text-align:center;text-transform:uppercase;margin-top:6px;">One-line Prescription</div>
+        <div style="font-family:'Noto Serif KR',serif;font-weight:300;font-size:18px;line-height:1.35;text-align:center;color:#3D2E24;margin-top:4px;padding:0 12px;letter-spacing:0.02em;">
+          <span style="color:#9B8A7A;opacity:0.7;">&ldquo;</span>장벽 재건<em style="color:#E8703A;font-style:normal;font-weight:500;display:block;margin-top:2px;">세라마이드 보충</em><span style="color:#9B8A7A;opacity:0.7;">&rdquo;</span>
         </div>
-        <div class="mk-divider" style="margin:12px auto;width:40px;"></div>
+        <div class="mk-divider" style="margin:10px auto;width:36px;"></div>
         <div class="mk-quote" style="font-size:8px;">
           겉은 촉촉해 보이지만 속은 건조해요,,, 깊은 수분을 채워야 진짜 생기를 되찾아요.
         </div>
@@ -1927,30 +2017,29 @@ main {
             <div class="mk-item"><span class="mk-mark-no">✗</span>과도한 스킨케어 단계</div>
           </div>
         </div>
-        <div class="mk-footer">IM AESTHETIC · @im.aesthetic.official</div>
-        <div class="mk-callout" style="top:4%;left:8px;">1</div>
-        <div class="mk-callout" style="top:12%;left:8px;">2</div>
-        <div class="mk-callout" style="top:24%;right:8px;">3</div>
-        <div class="mk-callout" style="top:42%;right:8px;">4</div>
-        <div class="mk-callout" style="top:68%;right:8px;">5</div>
+        <div class="mk-tagline">당신의 피부가 말하는 이야기</div>
+        <div class="mk-acc-footer">@im.aesthetic.official</div>
+        <div class="mk-callout" style="top:8%;left:8px;">1</div>
+        <div class="mk-callout" style="top:18%;right:8px;">2</div>
+        <div class="mk-callout" style="top:32%;right:8px;">3</div>
+        <div class="mk-callout" style="top:48%;right:8px;">4</div>
+        <div class="mk-callout" style="top:72%;right:8px;">5</div>
+        <div class="mk-callout" style="bottom:12px;left:8px;">6</div>
       </div>
       <div>
         <div class="slide-title">Slide A-2 (Slide 2) — 한 줄 처방 + OX</div>
         <button class="btn-png" onclick="downloadMockup('slide-a2','customer-set-02-prescription-ox.png')">PNG Download</button>
         <div class="slide-note">
-          <strong>① 브랜드 바 (상단)</strong> · 배경 <code>#FFF8F0</code><br>
+          <em style="font-size:10px;color:#9B8A7A;">※ 네 모서리 L-bracket + 하단 태그라인 "당신의 피부가 말하는 이야기" + @계정 푸터는 <strong>공통 프레임</strong>(위 섹션) 참조. 이 슬라이드는 크림 배경 <code>#FFF8F0</code> 기본.</em><br><br>
+          <strong>① 브랜드 바 (상단 · 공통 프레임)</strong><br>
           <table style="width:100%;border-collapse:collapse;font-size:11px;line-height:1.7;margin:6px 0 10px;">
             <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
-              <td style="color:#9B8A7A;width:140px;padding:3px 0;">IM AESTHETIC</td>
-              <td><code>Playfair Display Regular</code>, <code>12pt</code>, 자간 <code>200</code>, 색상 <code>#3D2E24</code></td>
-            </tr>
-            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
-              <td style="color:#9B8A7A;">@im.aesthetic.official</td>
-              <td><code>Pretendard Regular</code>, <code>10pt</code>, 자간 <code>50</code>, 색상 <code>#9B8A7A</code></td>
+              <td style="color:#9B8A7A;width:140px;padding:3px 0;">좌측 "IM AESTHETIC"</td>
+              <td><code>Playfair Display 500</code>, <code>14pt</code>, 자간 <code>280</code>, 색상 <code>#D4A04A</code> (골드)</td>
             </tr>
             <tr>
-              <td style="color:#9B8A7A;">하단 구분선</td>
-              <td>색상 <code>#E8703A</code> (투명도 15%), 두께 1px</td>
+              <td style="color:#9B8A7A;">우측 DSNT 뱃지</td>
+              <td>커버와 달리 <strong>브랜드바 우측에 DSNT 뱃지</strong> 배치 (@계정 대신) · 사양은 ② 참조</td>
             </tr>
           </table>
 
@@ -1982,7 +2071,11 @@ main {
             </tr>
             <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
               <td style="color:#9B8A7A;">타이틀 양쪽 따옴표</td>
-              <td>처방 문구 좌우 <code>"</code> · 색상 <code>#9B8A7A</code> (sub text), 투명도 <code>70%</code>, 본문과 동일 font/size — 에디토리얼 인용 효과</td>
+              <td><strong>스마트 curly 따옴표</strong> 사용 — 여는 <code>&ldquo;</code> (U+201C), 닫는 <code>&rdquo;</code> (U+201D) · 색상 <code>#9B8A7A</code>, 투명도 <code>70%</code>, 본문과 동일 font/size · 일반 <code>"</code>(U+0022) 사용 금지</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;">닫는 따옴표 위치</td>
+              <td>강조어 <code>em</code>이 <code>display:block</code>이므로 닫는 따옴표 <code>&rdquo;</code>는 자동으로 <strong>별줄 하단</strong>에 떨어짐 — 에디토리얼 장식 효과</td>
             </tr>
             <tr>
               <td style="color:#9B8A7A;">구분선</td>
