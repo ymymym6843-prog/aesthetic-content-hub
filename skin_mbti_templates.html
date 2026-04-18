@@ -158,6 +158,19 @@ body {
   align-self: flex-start;
 }
 .slide-btn:hover { background: var(--orange); color: #FFF; }
+.canva-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: 'Pretendard'; font-size: 12px; font-weight: 600;
+  padding: 8px 16px; border: none;
+  background: linear-gradient(135deg, #00C4CC 0%, #7D2AE8 100%);
+  color: #FFF; border-radius: 4px; cursor: pointer;
+  text-decoration: none; align-self: flex-start;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.canva-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(125,42,232,0.25); }
+.canva-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+.slide-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.slide-actions .canva-note { font-size: 11px; color: var(--muted); margin-left: 4px; }
 
 /* ══════════ SLIDE MOCKUP (540×675 = 1080×1350 @ scale:2 · Instagram Feed 4:5) ══════════ */
 .slide-mockup {
@@ -629,6 +642,33 @@ const MBTI_GROUP_COLORS = {
 };
 const mbtiColor = code => MBTI_GROUP_COLORS[code.slice(0,2)] || 'var(--orange)';
 
+/* Canva edit URLs — 16 individual MBTI files + 1 multi-slide prakriti + 1 multi-slide fragrance */
+const MBTI_CANVA_URLS = {
+  OSNT: 'https://www.canva.com/design/DAHHLtPWFro/YkiP0qWFqyGiuSVFOBPuEA/edit',
+  OSNW: 'https://www.canva.com/design/DAHHLnKS-5Y/XOz__S9mqvs4rDvjJX6iXA/edit',
+  OSPT: 'https://www.canva.com/design/DAHHL4Koe3k/vqw-pZZFnl7BbBf7RvF5Iw/edit',
+  OSPW: 'https://www.canva.com/design/DAHHL9Yhii8/luo4ck9OqyPEcOMiyUps4w/edit',
+  ORNT: 'https://www.canva.com/design/DAHHL8PvE1Y/D8zU_HPxGYLS68yILTYCsQ/edit',
+  ORNW: 'https://www.canva.com/design/DAHHL1wEikE/SSTJA1xkG7FZOHerm89ozA/edit',
+  ORPT: 'https://www.canva.com/design/DAHHL1kJNAM/PZhhqqVfcQzN3BzJL-6uow/edit',
+  ORPW: 'https://www.canva.com/design/DAHHL3nH1A4/oQ0C1S2gElXs2wWauZ9xmw/edit',
+  DSNT: 'https://www.canva.com/design/DAHHFTK8RpE/UsFC3TOjCMEJVK8GEiK2bw/edit',
+  DSNW: 'https://www.canva.com/design/DAHHMChzzOo/2gc2tOe1nh-yDGp4qCx1YQ/edit',
+  DSPT: 'https://www.canva.com/design/DAHHMIvhnAY/QQ9IvZdrW32ZhIatCjPGvg/edit',
+  DSPW: 'https://www.canva.com/design/DAHHMJM3AyE/hMgPAh930mYRTOyfyLQXlQ/edit',
+  DRNT: 'https://www.canva.com/design/DAHHMO6OXaY/ngCnVtn7lf8cpQTUEU9LjA/edit',
+  DRNW: 'https://www.canva.com/design/DAHHMBQtX_k/4cuTyxfngNUMH6AM8ENVDA/edit',
+  DRPT: 'https://www.canva.com/design/DAHHMNBpHXM/YPMShhMLWqV0VsdDFWjkfg/edit',
+  DRPW: 'https://www.canva.com/design/DAHHMOzVH8Y/BxYGYvXh5k9axxfc-VTb1w/edit'
+};
+const PRAKRITI_CANVA_URL  = 'https://www.canva.com/design/DAHHMn08R44/XecISfmtgz_1P562bPxQsQ/edit';
+const FRAGRANCE_CANVA_URL = 'https://www.canva.com/design/DAHHMz-tKxU/klQijwvcxLEggibKb3RGnA/edit';
+
+/* Canva button HTML — reusable snippet with Canva brand gradient */
+const CANVA_ICON_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
+const canvaBtn = (url, label = 'Canva에서 편집') =>
+  `<a class="canva-btn" href="${url}" target="_blank" rel="noopener">${CANVA_ICON_SVG}${label}</a>`;
+
 /* ══════════════════════════════════════════════════════
    DATA: PRAKRITI 9 TYPES (constitution + lifestyle)
    ══════════════════════════════════════════════════════ */
@@ -829,7 +869,11 @@ function renderMbti(index) {
           </div>
           ${foot}
         </div>
-        <button class="slide-btn" onclick="dl('m-1','MBTI_${t.code}_01_cover')">PNG 다운로드</button>
+        <div class="slide-actions">
+          <button class="slide-btn" onclick="dl('m-1','MBTI_${t.code}_01_cover')">PNG 다운로드</button>
+          ${canvaBtn(MBTI_CANVA_URLS[t.code])}
+          <span class="canva-note">커버+처방 2슬라이드 동일 파일</span>
+        </div>
       </div>
       <div class="slide-item">
         <div class="slide-label">Slide 2 · One-line Prescription + OX</div>
@@ -852,7 +896,10 @@ function renderMbti(index) {
           </div>
           ${foot}
         </div>
-        <button class="slide-btn" onclick="dl('m-2','MBTI_${t.code}_02_prescription')">PNG 다운로드</button>
+        <div class="slide-actions">
+          <button class="slide-btn" onclick="dl('m-2','MBTI_${t.code}_02_prescription')">PNG 다운로드</button>
+          ${canvaBtn(MBTI_CANVA_URLS[t.code])}
+        </div>
       </div>
     </div>`;
 }
@@ -895,7 +942,11 @@ function renderPrakriti(index) {
           </div>
           ${foot}
         </div>
-        <button class="slide-btn" onclick="dl('p-1','PRAKRITI_${p.code}')">PNG 다운로드</button>
+        <div class="slide-actions">
+          <button class="slide-btn" onclick="dl('p-1','PRAKRITI_${p.code}')">PNG 다운로드</button>
+          ${canvaBtn(PRAKRITI_CANVA_URL, 'Canva에서 편집 (9종 통합)')}
+          <span class="canva-note">9 슬라이드 중 <strong>${p.code}</strong> 슬라이드로 이동</span>
+        </div>
       </div>
     </div>`;
 }
@@ -933,7 +984,11 @@ function renderFragrance(index) {
           <div class="fr-tag-wrap"><span class="fr-pk-tag">for ${f.parentPK} prakriti</span></div>
           ${foot}
         </div>
-        <button class="slide-btn" onclick="dl('f-1','FRAGRANCE_${f.nameEn.replace(/\\s/g,'')}')">PNG 다운로드</button>
+        <div class="slide-actions">
+          <button class="slide-btn" onclick="dl('f-1','FRAGRANCE_${f.nameEn.replace(/\\s/g,'')}')">PNG 다운로드</button>
+          ${canvaBtn(FRAGRANCE_CANVA_URL, 'Canva에서 편집 (16종 통합)')}
+          <span class="canva-note">16 슬라이드 중 <strong>${f.nameEn}</strong> 슬라이드로 이동</span>
+        </div>
       </div>
     </div>`;
 }

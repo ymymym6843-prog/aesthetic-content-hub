@@ -523,35 +523,6 @@ main {
   <div class="template-grid" id="rv-grid"></div>
 </div>
 
-<!-- ═══ SKIN MBTI 카드 세트 ═══ -->
-<div class="category">
-  <div class="category-header">
-    <div class="category-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/>
-        <rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/>
-      </svg>
-    </div>
-    <div class="category-title">Skin MBTI 카드 세트</div>
-    <span class="category-count">16 MBTI · 1 프라크리티 · 1 향기</span>
-    <div class="category-line"></div>
-  </div>
-  <div style="font-size:12px;color:#9B8A7A;margin:0 0 16px;line-height:1.6;">
-    고객 진단 결과에 따라 4장 1세트 발행 구조 —
-    <strong style="color:#3D2E24;">MBTI 1 (커버) + MBTI 2 (처방) + 프라크리티 + 향기</strong>.
-    MBTI는 타입별 독립 파일(16개), 프라크리티·향기는 멀티슬라이드 통합 파일(9·16종 내부 슬라이드 각각 PNG export).
-  </div>
-
-  <div style="margin-bottom:6px;font-family:'Playfair Display',serif;font-size:13px;letter-spacing:0.14em;color:#E8703A;text-transform:uppercase;">MBTI 16 타입 · 타입별 파일</div>
-  <div class="template-grid" id="mbti-grid" style="margin-bottom:32px;"></div>
-
-  <div style="margin-bottom:6px;font-family:'Playfair Display',serif;font-size:13px;letter-spacing:0.14em;color:#D4A04A;text-transform:uppercase;">프라크리티 체질 · 멀티슬라이드 (9종)</div>
-  <div class="template-grid" id="prakriti-grid" style="margin-bottom:32px;"></div>
-
-  <div style="margin-bottom:6px;font-family:'Playfair Display',serif;font-size:13px;letter-spacing:0.14em;color:#9BA788;text-transform:uppercase;">행운 향기 · 멀티슬라이드 (16종)</div>
-  <div class="template-grid" id="fragrance-grid"></div>
-</div>
-
 <!-- ═══ CHECKLIST ═══ -->
 <div class="checklist-section">
   <h3>Customizing Checklist</h3>
@@ -614,29 +585,6 @@ const BLANK_URLS = [
   'https://www.canva.com/design/DAHGDz8wE7g/ncsRQVyeMqbvOOtn7NyBhA/edit'
 ];
 
-// Skin MBTI 카드 세트 URLs (16 MBTI individual + 1 prakriti multi-slide + 1 fragrance multi-slide)
-const MBTI_TEMPLATES = [
-  { code: 'OSNT', name: '알로에',       nameEn: 'Aloe',             cat: '지성·민감성·비색소·탄력형', group: 'OS', url: 'https://www.canva.com/design/DAHHLtPWFro/YkiP0qWFqyGiuSVFOBPuEA/edit' },
-  { code: 'OSNW', name: '흰 복숭아',    nameEn: 'White Peach',      cat: '지성·민감성·비색소·주름형', group: 'OS', url: 'https://www.canva.com/design/DAHHLnKS-5Y/XOz__S9mqvs4rDvjJX6iXA/edit' },
-  { code: 'OSPT', name: '토마토',       nameEn: 'Tomato',           cat: '지성·민감성·색소성·탄력형', group: 'OS', url: 'https://www.canva.com/design/DAHHL4Koe3k/vqw-pZZFnl7BbBf7RvF5Iw/edit' },
-  { code: 'OSPW', name: '딸기',         nameEn: 'Strawberry',       cat: '지성·민감성·색소성·주름형', group: 'OS', url: 'https://www.canva.com/design/DAHHL9Yhii8/luo4ck9OqyPEcOMiyUps4w/edit' },
-  { code: 'ORNT', name: '청포도',       nameEn: 'Green Grape',      cat: '지성·저항성·비색소·탄력형', group: 'OR', url: 'https://www.canva.com/design/DAHHL8PvE1Y/D8zU_HPxGYLS68yILTYCsQ/edit' },
-  { code: 'ORNW', name: '배',           nameEn: 'Pear',             cat: '지성·저항성·비색소·주름형', group: 'OR', url: 'https://www.canva.com/design/DAHHL1wEikE/SSTJA1xkG7FZOHerm89ozA/edit' },
-  { code: 'ORPT', name: '메추리알',     nameEn: 'Quail Egg',        cat: '지성·저항성·색소성·탄력형', group: 'OR', url: 'https://www.canva.com/design/DAHHL1kJNAM/PZhhqqVfcQzN3BzJL-6uow/edit' },
-  { code: 'ORPW', name: '아보카도',     nameEn: 'Avocado',          cat: '지성·저항성·색소성·주름형', group: 'OR', url: 'https://www.canva.com/design/DAHHL3nH1A4/oQ0C1S2gElXs2wWauZ9xmw/edit' },
-  { code: 'DSNT', name: '두부',         nameEn: 'Tofu',             cat: '건성·민감성·비색소·탄력형', group: 'DS', url: 'https://www.canva.com/design/DAHHFTK8RpE/UsFC3TOjCMEJVK8GEiK2bw/edit' },
-  { code: 'DSNW', name: '코코넛',       nameEn: 'Coconut',          cat: '건성·민감성·비색소·주름형', group: 'DS', url: 'https://www.canva.com/design/DAHHMChzzOo/2gc2tOe1nh-yDGp4qCx1YQ/edit' },
-  { code: 'DSPT', name: '석류알',       nameEn: 'Pomegranate Seed', cat: '건성·민감성·색소성·탄력형', group: 'DS', url: 'https://www.canva.com/design/DAHHMIvhnAY/QQ9IvZdrW32ZhIatCjPGvg/edit' },
-  { code: 'DSPW', name: '라즈베리',     nameEn: 'Raspberry',        cat: '건성·민감성·색소성·주름형', group: 'DS', url: 'https://www.canva.com/design/DAHHMJM3AyE/hMgPAh930mYRTOyfyLQXlQ/edit' },
-  { code: 'DRNT', name: '선인장',       nameEn: 'Cactus',           cat: '건성·저항성·비색소·탄력형', group: 'DR', url: 'https://www.canva.com/design/DAHHMO6OXaY/ngCnVtn7lf8cpQTUEU9LjA/edit' },
-  { code: 'DRNW', name: '감자',         nameEn: 'Potato',           cat: '건성·저항성·비색소·주름형', group: 'DR', url: 'https://www.canva.com/design/DAHHMBQtX_k/4cuTyxfngNUMH6AM8ENVDA/edit' },
-  { code: 'DRPT', name: '올리브',       nameEn: 'Olive',            cat: '건성·저항성·색소성·탄력형', group: 'DR', url: 'https://www.canva.com/design/DAHHMNBpHXM/YPMShhMLWqV0VsdDFWjkfg/edit' },
-  { code: 'DRPW', name: '무화과',       nameEn: 'Fig',              cat: '건성·저항성·색소성·주름형', group: 'DR', url: 'https://www.canva.com/design/DAHHMOzVH8Y/BxYGYvXh5k9axxfc-VTb1w/edit' }
-];
-const MBTI_GROUP_COLORS = { OS: '#D4837A', OR: '#3A5A7C', DS: '#E8A7B0', DR: '#7A9E7E' };
-const PRAKRITI_TEMPLATE_URL  = 'https://www.canva.com/design/DAHHMn08R44/XecISfmtgz_1P562bPxQsQ/edit';
-const FRAGRANCE_TEMPLATE_URL = 'https://www.canva.com/design/DAHHMz-tKxU/klQijwvcxLEggibKb3RGnA/edit';
-
 const TEMPLATES = {
   ba: [
     { name: 'IM 웨딩케어 B&A', desc: '오렌지 라벨 · 회차별 변화 · 거북목/숄더/통증 태그', url: BA_URLS[0], tags: ['1080x1350', 'Orange', '회차별'] },
@@ -662,23 +610,16 @@ const TEMPLATES = {
 // ═══ RENDER ═══
 function renderCard(t) {
   const viewUrl = t.url;
-  // Priority: t.preview (direct path) > PREVIEW_MAP lookup
-  const directPreview = t.preview || null;
-  const previewImg = !directPreview ? (PREVIEW_MAP[t.name] || '') : '';
-  const badgeHtml = t.badge
-    ? `<span class="status-badge done" style="background:${t.badge.color};color:#fff;letter-spacing:0.12em;">${t.badge.text}</span>`
-    : `<span class="status-badge done">CUSTOMIZED</span>`;
+  const previewImg = PREVIEW_MAP[t.name] || '';
   return `
     <div class="template-card">
       <div class="template-preview">
         <a href="${viewUrl}" target="_blank" rel="noopener" style="display:block;width:100%;height:100%">
-          ${directPreview
-            ? `<img src="${directPreview}" alt="${t.name}" style="width:100%;height:100%;object-fit:cover">`
-            : previewImg
-              ? `<img src="/template_previews/${encodeURIComponent(previewImg)}" alt="${t.name}" style="width:100%;height:100%;object-fit:cover">`
-              : `<div style="width:100%;height:100%;background:#FAF4EA;display:flex;align-items:center;justify-content:center;color:#9B8A7A;font-size:12px">No Preview</div>`}
+          ${previewImg
+            ? `<img src="/template_previews/${encodeURIComponent(previewImg)}" alt="${t.name}" style="width:100%;height:100%;object-fit:cover">`
+            : `<div style="width:100%;height:100%;background:#FAF4EA;display:flex;align-items:center;justify-content:center;color:#9B8A7A;font-size:12px">No Preview</div>`}
         </a>
-        ${badgeHtml}
+        <span class="status-badge done">CUSTOMIZED</span>
       </div>
       <div class="template-body">
         <div class="template-name">${t.name}</div>
@@ -701,35 +642,6 @@ document.getElementById('ba-grid').innerHTML = TEMPLATES.ba.map(renderCard).join
 document.getElementById('cn-grid').innerHTML = TEMPLATES.cn.map(renderCard).join('');
 document.getElementById('rv-grid').innerHTML = TEMPLATES.rv.map(renderCard).join('');
 document.getElementById('blank-grid').innerHTML = TEMPLATES.blank.map(renderCard).join('');
-
-// ═══ SKIN MBTI RENDER ═══
-const mbtiCards = MBTI_TEMPLATES.map(m => ({
-  name: `${m.code} · ${m.name}`,
-  desc: `${m.cat} · ${m.nameEn}`,
-  url: m.url,
-  tags: ['1080x1350', m.group + ' 그룹', '2슬라이드'],
-  preview: `/mbti_thumbnails/${m.code}.jpg`,
-  badge: { text: m.code, color: MBTI_GROUP_COLORS[m.group] }
-}));
-document.getElementById('mbti-grid').innerHTML = mbtiCards.map(renderCard).join('');
-
-document.getElementById('prakriti-grid').innerHTML = renderCard({
-  name: '프라크리티 체질 템플릿',
-  desc: '9종 프라크리티(V/VP/VK/P/PV/PK/K/KP/KV) 멀티슬라이드 · 타입별 슬라이드 개별 PNG export',
-  url: PRAKRITI_TEMPLATE_URL,
-  tags: ['1080x1350', '9 슬라이드', 'Do\'s/Don\'ts 통합', '삼각형 + 체질명'],
-  preview: '/mbti_thumbnails/prakriti.jpg',
-  badge: { text: '9 TYPES', color: '#D4956A' }
-});
-
-document.getElementById('fragrance-grid').innerHTML = renderCard({
-  name: '행운 향기 템플릿',
-  desc: '16종 보타니컬 향기(카모마일/로즈/라벤더/샌달우드 등) 멀티슬라이드 · 매칭 프라크리티 표기',
-  url: FRAGRANCE_TEMPLATE_URL,
-  tags: ['1080x1350', '16 슬라이드', 'FOR VK PRAKRITI 뱃지', '수채화 일러스트'],
-  preview: '/mbti_thumbnails/fragrance.jpg',
-  badge: { text: '16 TYPES', color: '#8BB57A' }
-});
 
 </script>
 <script src="/nav-shared.js"></script>
