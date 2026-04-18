@@ -375,6 +375,122 @@ main {
   letter-spacing: 0.05em; font-weight: 500; z-index: 3;
 }
 
+/* ─── Prakriti Template (B-1) — mirrors templates .mk-dosha ─── */
+.mk-dosha { background: linear-gradient(180deg, #F5EDE0 0%, #EEE0CC 100%); padding: 30px 16px 34px; position: relative; display: flex; flex-direction: column; }
+.mk-dosha .d-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 6px; letter-spacing: 0.32em;
+  text-align: center; text-transform: uppercase;
+  margin-top: 12px; margin-bottom: 2px;
+}
+.mk-dosha .d-title {
+  font-family: 'Noto Serif KR', serif; font-weight: 300;
+  font-size: 9px; color: var(--dark);
+  text-align: center; letter-spacing: 0.08em; margin-bottom: 2px;
+}
+.mk-dosha .d-name {
+  font-family: 'Noto Serif KR', serif; font-weight: 400;
+  font-size: 18px; text-align: center; letter-spacing: 0.06em;
+}
+.mk-dosha .d-name-en {
+  font-family: 'Playfair Display', serif;
+  font-size: 7px; letter-spacing: 0.42em;
+  color: var(--text-muted); text-align: center;
+  margin-top: 2px; text-transform: uppercase;
+}
+.mk-dosha .d-triangle {
+  width: 140px; height: 120px;
+  margin: 6px auto 4px;
+}
+.mk-dosha .d-comment {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 300; font-style: italic;
+  font-size: 7px; line-height: 1.55;
+  color: var(--dark); text-align: center;
+  padding: 5px 8px 0;
+  border-top: 1px solid rgba(212,160,74,0.3);
+  margin: 4px 10px 8px;
+}
+.mk-dosha .d-cols {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 5px;
+}
+.mk-dosha .d-col { padding: 5px 6px 6px; border-radius: 4px; }
+.mk-dosha .d-col.good { background: rgba(143,174,106,0.15); border: 1px solid rgba(143,174,106,0.4); }
+.mk-dosha .d-col.bad { background: rgba(220,100,80,0.1); border: 1px solid rgba(220,100,80,0.35); }
+.mk-dosha .d-col-title {
+  font-size: 7px; font-weight: 700; margin-bottom: 3px;
+  text-align: center; letter-spacing: 0.05em;
+  padding-bottom: 2px; border-bottom: 1px solid currentColor;
+  opacity: 0.9;
+}
+.mk-dosha .d-col.good .d-col-title { color: #4A7C59; }
+.mk-dosha .d-col.bad .d-col-title { color: #C0392B; }
+.mk-dosha .d-item {
+  font-size: 6px; line-height: 1.7; color: var(--dark);
+  display: flex; align-items: flex-start; gap: 3px;
+}
+.mk-dosha .d-item::before { font-weight: 700; flex-shrink: 0; font-size: 6px; }
+.mk-dosha .d-col.good .d-item::before { content: '✓'; color: #4A7C59; }
+.mk-dosha .d-col.bad .d-item::before { content: '✗'; color: #C0392B; }
+
+/* ─── Fragrance Template (B-2) — mirrors templates .mk-fr ─── */
+.mk-fr { background: linear-gradient(180deg, #FFF8F0 0%, #F5EDE0 100%); padding: 32px 18px 36px; position: relative; display: flex; flex-direction: column; align-items: stretch; }
+.mk-fr .fr-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 6px; letter-spacing: 0.34em;
+  text-align: center; text-transform: uppercase; margin-top: 14px; margin-bottom: 3px;
+}
+.mk-fr .fr-title {
+  font-family: 'Noto Serif KR', serif; font-weight: 300;
+  font-size: 10px; text-align: center;
+  letter-spacing: 0.06em; margin-bottom: 4px;
+}
+.mk-fr .fr-divider {
+  width: 30px; height: 0; border-top: 1px solid;
+  margin: 8px auto; opacity: 0.6;
+}
+.mk-fr .fr-flower-wrap {
+  text-align: center; margin-top: 10px; position: relative;
+  height: 100px; display: flex; align-items: center; justify-content: center;
+}
+.mk-fr .fr-flower {
+  width: 78px; height: 78px; object-fit: cover;
+  border-radius: 50%;
+  filter: drop-shadow(0 2px 8px rgba(212,160,74,0.22));
+  z-index: 2; position: relative;
+}
+.mk-fr .fr-flower-ring {
+  width: 86px; height: 86px; border-radius: 50%;
+  border: 1px solid; opacity: 0.25;
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+.mk-fr .fr-name {
+  font-family: 'Noto Serif KR', serif; font-weight: 400;
+  font-size: 20px; color: var(--dark);
+  text-align: center; margin-top: 8px; letter-spacing: 0.02em;
+}
+.mk-fr .fr-name-en {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 10px; color: var(--text-muted);
+  text-align: center; margin-top: 2px; letter-spacing: 0.08em;
+}
+.mk-fr .fr-desc {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 300; font-style: italic;
+  font-size: 7.5px; line-height: 1.7;
+  color: var(--dark); text-align: center;
+  padding: 0 10px; margin-top: 8px;
+}
+.mk-fr .fr-pk-tag {
+  display: inline-block;
+  background: rgba(212,160,74,0.1); border: 1px solid rgba(212,160,74,0.3);
+  padding: 2px 8px; border-radius: 3px;
+  font-size: 6px; letter-spacing: 0.15em;
+  color: var(--text-muted); margin-top: 8px; text-transform: uppercase;
+}
+.mk-fr .fr-tag-wrap { text-align: center; }
+
 /* Mockup: slide 1 - cover (fullscreen + left-bottom text) */
 .mk-cover {
   background: var(--cream);
@@ -2141,146 +2257,256 @@ main {
     </div>
   </div>
 
-  <!-- ── Carousel B: Ayurveda + Fragrance ── -->
+  <!-- ── Carousel B: Prakriti + Fragrance ── -->
   <div style="margin:48px 0 12px;padding:14px 18px;background:#F5EDE0;border-left:4px solid #D4A04A;border-radius:4px;">
     <div style="font-family:'Playfair Display',serif;font-size:14px;letter-spacing:0.12em;color:#D4A04A;">CAROUSEL B · 2 SLIDES</div>
-    <div style="font-family:'Pretendard';font-weight:600;font-size:18px;color:#3D2E24;margin-top:4px;">아유르베다 체질 + 향기 삼각형</div>
-    <div style="font-family:'Pretendard';font-size:13px;color:#9B8A7A;margin-top:4px;">MBTI 타입에서 <strong>자동 파생</strong>된 아유르베다 체질 + 매칭 향기. 예) DSNT → 바타 → 카모마일 / ORPW → 카파+피타 → — · 고객은 진단 1회, 결과 4장으로 확장</div>
+    <div style="font-family:'Pretendard';font-weight:600;font-size:18px;color:#3D2E24;margin-top:4px;">프라크리티 체질 + 매칭 향기</div>
+    <div style="font-family:'Pretendard';font-size:13px;color:#9B8A7A;margin-top:4px;">MBTI 타입에서 <strong>자동 파생</strong>된 프라크리티 체질(B-1) + 매칭 향기(B-2). 9종 프라크리티 컬러가 뱃지·라벨·삼각형·링에 동적 적용됨. 라이프스타일 Do's/Don'ts는 프라크리티 개념이므로 B-1에 통합. 예) DSNT → 바타 → 라벤더 / VK → 카모마일</div>
   </div>
 
   <div class="slide-row">
-    <!-- Slide B-1: 아유르베다 체질 + 향기 삼각형 차트 (병합) -->
+    <!-- Slide B-1: Prakriti Template — 삼각형 + 라이프스타일 OX (VK 예시, 색상 #9BA788) -->
     <div class="slide-item">
-      <div class="slide-mockup mk-cover-b" id="slide-b1">
-        <div class="mk-b-logo">IM AESTHETIC</div>
-        <div class="mk-b-badge">VK</div>
-        <div style="font-family:'Noto Serif KR',serif;font-weight:300;font-size:13px;text-align:center;color:#3D2E24;margin-top:44px;letter-spacing:0.08em;">나의 에너지 체질</div>
-        <div style="font-family:'Noto Serif KR',serif;font-weight:400;font-size:18px;text-align:center;color:#D4A04A;margin-top:4px;">바타 카파</div>
-        <div style="font-family:'Playfair Display',serif;font-size:8px;letter-spacing:0.16em;color:#9B8A7A;text-align:center;margin-top:2px;">VATA · KAPHA</div>
-        <!-- Fragrance Triangle Chart -->
-        <div style="position:relative;width:140px;height:130px;margin:10px auto 0;">
-          <svg viewBox="0 0 140 130" style="width:100%;height:100%;">
-            <!-- Outer triangle -->
-            <polygon points="70,8 132,120 8,120" fill="rgba(212,160,74,0.08)" stroke="#D4A04A" stroke-width="1"/>
-            <!-- Inner guide grid -->
-            <polygon points="70,40 103,98 37,98" fill="none" stroke="#D4A04A" stroke-width="0.4" stroke-dasharray="1,1" opacity="0.5"/>
-            <!-- Vertex dots -->
-            <circle cx="70" cy="8" r="3" fill="#9B8AC0"/>
-            <circle cx="132" cy="120" r="3" fill="#8FAE6A"/>
-            <circle cx="8" cy="120" r="3" fill="#E8703A"/>
-            <!-- User's blend point (Pitta-Kapha high, Vata low) -->
-            <polygon points="70,46 108,100 48,100" fill="rgba(212,160,74,0.35)" stroke="#D4A04A" stroke-width="0.7"/>
-            <circle cx="75" cy="82" r="3.5" fill="#D4A04A" stroke="#3D2E24" stroke-width="0.5"/>
-          </svg>
-          <!-- Vertex labels with fragrances -->
-          <div style="position:absolute;top:-2px;left:50%;transform:translateX(-50%);text-align:center;">
-            <div style="font-family:'Playfair Display',serif;font-size:7px;letter-spacing:0.14em;color:#9B8AC0;font-weight:600;">VATA</div>
-            <div style="font-size:5.5px;color:#9B8A7A;margin-top:1px;">샌달우드·라벤더</div>
+      <div class="slide-mockup mk-dosha" id="slide-b1">
+        <!-- Shared frame -->
+        <span class="brk tl"></span><span class="brk tr"></span><span class="brk bl"></span><span class="brk br"></span>
+        <div class="mk-bar">
+          <div class="mk-bar-logo">IM AESTHETIC</div>
+          <div class="mk-bar-badge" style="background:#9BA788;box-shadow:0 2px 5px rgba(155,167,136,0.35);">VK</div>
+        </div>
+        <!-- Prakriti identity -->
+        <div class="d-label" style="color:#9BA788;opacity:0.85;">AIR + EARTH</div>
+        <div class="d-title">나의 에너지 체질</div>
+        <div class="d-name" style="color:#9BA788;">바타-카파</div>
+        <div class="d-name-en">VATA · KAPHA</div>
+        <!-- Triangle with colored vertex boxes -->
+        <svg class="d-triangle" viewBox="0 0 320 280">
+          <defs><linearGradient id="triG-VK-guide" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#9BA788" stop-opacity="0.12"/>
+            <stop offset="100%" stop-color="#9BA788" stop-opacity="0.03"/>
+          </linearGradient></defs>
+          <polygon points="160,50 280,250 40,250" fill="url(#triG-VK-guide)" stroke="#D4A04A" stroke-width="1.2"/>
+          <line x1="160" y1="50" x2="160" y2="250" stroke="#D4A04A" stroke-width="0.4" stroke-dasharray="3 3" opacity="0.35"/>
+          <line x1="40" y1="250" x2="220" y2="150" stroke="#D4A04A" stroke-width="0.4" stroke-dasharray="3 3" opacity="0.35"/>
+          <line x1="280" y1="250" x2="100" y2="150" stroke="#D4A04A" stroke-width="0.4" stroke-dasharray="3 3" opacity="0.35"/>
+          <!-- Blend point for VK (V:50, P:15, K:35) → weighted center -->
+          <circle cx="155" cy="170" r="18" fill="none" stroke="#9BA788" stroke-width="1" opacity="0.2"/>
+          <circle cx="155" cy="170" r="11" fill="none" stroke="#9BA788" stroke-width="1" opacity="0.45"/>
+          <circle cx="155" cy="170" r="6" fill="#9BA788"/>
+          <!-- Vertex labels (colored boxes) -->
+          <rect x="132" y="23" width="56" height="38" rx="4" fill="#F5D6D3" stroke="#D98782" stroke-width="0.8"/>
+          <text x="160" y="38" text-anchor="middle" font-family="Pretendard" font-size="11" font-weight="700" fill="#D98782">바타</text>
+          <text x="160" y="52" text-anchor="middle" font-family="Pretendard" font-size="9" fill="#D98782" opacity="0.85">순기</text>
+          <rect x="22" y="239" width="56" height="38" rx="4" fill="#CDDCE8" stroke="#6B8AA9" stroke-width="0.8"/>
+          <text x="50" y="254" text-anchor="middle" font-family="Pretendard" font-size="11" font-weight="700" fill="#6B8AA9">피타</text>
+          <text x="50" y="268" text-anchor="middle" font-family="Pretendard" font-size="9" fill="#6B8AA9" opacity="0.85">진정</text>
+          <rect x="242" y="239" width="56" height="38" rx="4" fill="#CDDFC8" stroke="#7CA06F" stroke-width="0.8"/>
+          <text x="270" y="254" text-anchor="middle" font-family="Pretendard" font-size="11" font-weight="700" fill="#7CA06F">카파</text>
+          <text x="270" y="268" text-anchor="middle" font-family="Pretendard" font-size="9" fill="#7CA06F" opacity="0.85">순환</text>
+        </svg>
+        <div class="d-comment">바람과 물이 교차하는 체질. 따뜻한 자극으로 얼어붙은 흐름을 녹여야 해요.</div>
+        <!-- Do's / Don'ts · 체질 밸런싱/악화 -->
+        <div class="d-cols">
+          <div class="d-col good">
+            <div class="d-col-title">Do's · 체질 밸런싱</div>
+            <div class="d-item">따뜻하고 가벼운 음식</div>
+            <div class="d-item">활동적 아침 루틴</div>
+            <div class="d-item">따뜻한 허브티</div>
+            <div class="d-item">꾸준한 유산소</div>
           </div>
-          <div style="position:absolute;bottom:-6px;right:-10px;text-align:right;">
-            <div style="font-family:'Playfair Display',serif;font-size:7px;letter-spacing:0.14em;color:#8FAE6A;font-weight:600;">KAPHA</div>
-            <div style="font-size:5.5px;color:#9B8A7A;margin-top:1px;">진저·페퍼민트</div>
-          </div>
-          <div style="position:absolute;bottom:-6px;left:-10px;text-align:left;">
-            <div style="font-family:'Playfair Display',serif;font-size:7px;letter-spacing:0.14em;color:#E8703A;font-weight:600;">PITTA</div>
-            <div style="font-size:5.5px;color:#9B8A7A;margin-top:1px;">로즈·네롤리</div>
+          <div class="d-col bad">
+            <div class="d-col-title">Don'ts · 체질 악화</div>
+            <div class="d-item">차가운 음식·음료</div>
+            <div class="d-item">장시간 정지 자세</div>
+            <div class="d-item">과도한 낮잠</div>
+            <div class="d-item">기름진 식사</div>
           </div>
         </div>
-        <div style="font-size:7px;line-height:1.5;color:#3D2E24;text-align:center;padding:8px 14px 0;margin-top:14px;">
-          불(Pitta)과 물(Kapha)이 우세한 체질,,,<br>
-          <span style="color:#D4A04A;">쿨링과 순환</span>이 균형의 열쇠입니다.
-        </div>
-        <div class="mk-b-footer" style="margin-top:10px;">@im.aesthetic.official</div>
-        <div class="mk-callout" style="top:6%;right:8px;">1</div>
-        <div class="mk-callout" style="top:32%;left:8px;">2</div>
-        <div class="mk-callout" style="top:60%;right:8px;">3</div>
+        <div class="mk-tagline">당신의 피부가 말하는 이야기</div>
+        <div class="mk-acc-footer">@im.aesthetic.official</div>
+        <div class="mk-callout" style="top:4%;right:8px;">1</div>
+        <div class="mk-callout" style="top:14%;left:8px;">2</div>
+        <div class="mk-callout" style="top:42%;left:8px;">3</div>
+        <div class="mk-callout" style="top:60%;right:8px;">4</div>
+        <div class="mk-callout" style="bottom:12px;left:8px;">5</div>
       </div>
       <div>
-        <div class="slide-title">Slide B-1 (Slide 3) — 아유르베다 + 향기 삼각형</div>
-        <button class="btn-png" onclick="downloadMockup('slide-b1','customer-set-03-ayurveda-fragrance-triangle.png')">PNG Download</button>
+        <div class="slide-title">Slide B-1 (Slide 3) — 프라크리티 체질 + 라이프스타일 OX</div>
+        <button class="btn-png" onclick="downloadMockup('slide-b1','customer-set-03-prakriti.png')">PNG Download</button>
         <div class="slide-note">
-          <strong>① 상단 영역</strong><br>
-          · 로고: "IM AESTHETIC" — <code>Playfair Display 400</code>, <code>14px</code>, 자간 <code>0.2em</code>, 색상 <code>#3D2E24</code>, 좌상단<br>
-          · 뱃지: 프라크리티 코드 (V/P/K/VP/VK 등 9종 중 1개) — <code>Pretendard 800</code>, <code>12px</code>, 자간 <code>0.1em</code>, 배경 <code>#D4A04A</code>, 글자 <code>#FFF</code>, 우상단<br>
-          · 체질 라벨: "나의 에너지 체질" — <code>Noto Serif KR 300</code>, <code>18px</code>, 자간 <code>0.08em</code>, 색상 <code>#3D2E24</code>, center<br>
-          · 체질명(KR): <code>Noto Serif KR 400</code>, <code>24px</code>, 색상 <code>#D4A04A</code>, center<br>
-          · 체질명(EN): <code>Playfair Display 400</code>, <code>10px</code>, 자간 <code>0.16em</code>, 색상 <code>#9B8A7A</code>, center<br><br>
-          <strong>② 향기 삼각형 차트</strong><br>
-          · 외곽 삼각형: stroke <code>#D4A04A</code>, width 1px, fill <code>rgba(212,160,74,0.08)</code><br>
-          · 내부 가이드: stroke <code>#D4A04A</code>, dasharray, opacity 0.5<br>
-          · 꼭짓점 도트: <span style="color:#9B8AC0;">바타 <code>#9B8AC0</code></span> · <span style="color:#E8703A;">피타 <code>#E8703A</code></span> · <span style="color:#8FAE6A;">카파 <code>#8FAE6A</code></span><br>
-          · 꼭짓점 라벨: <code>Playfair Display 600</code>, <code>10px</code>, 자간 <code>0.14em</code>, 각 도샤 색상<br>
-          · 꼭짓점 향기: <code>Pretendard 400</code>, <code>8px</code>, 색상 <code>#9B8A7A</code><br>
-          · 블렌드 포인트: <code>#D4A04A</code> 골드 도트, stroke <code>#3D2E24</code><br><br>
-          <strong>③ 해석 문구</strong><br>
-          · <code>Pretendard 400</code>, <code>11px</code>, line-height <code>1.5</code>, 색상 <code>#3D2E24</code>, center<br>
-          · 키워드 강조: 색상 <code>#D4A04A</code><br><br>
-          <strong>MBTI → 아유르베다 자동 매핑</strong> (docx "아유르베다 연결" 근거):
-          <br>• <strong>V (바타)</strong>: 건성·얇은 피부 — DSNT, DSNW, DSPT, DSPW
-          <br>• <strong>P (피타)</strong>: 염증·붉은 기 — OSNT, OSNW, OSPT, OSPW
-          <br>• <strong>K (카파)</strong>: 두껍고 정체된 — DRNT, DRNW, ORNT, ORNW
-          <br>• <strong>K+P (카파+피타)</strong>: 가죽피부+열 갇힘 — DRPT, DRPW, ORPT, ORPW
-          <br>도트 위치와 내부 삼각형 색/크기는 타입별 매핑에 따라 조정.
+          <em style="font-size:10px;color:#9B8A7A;">※ 네 모서리 L-bracket + 브랜드바 + 하단 태그라인/계정 푸터는 <strong>공통 프레임</strong> 참조.<br>※ 체질 밸런싱/악화는 프라크리티 고유 컨셉이므로 이 슬라이드에 통합. 배경: 베이지 그라디언트 <code>#F5EDE0 → #EEE0CC</code>.</em><br><br>
+
+          <strong>🎨 프라크리티 9종 · 동적 색상 매핑</strong><br>
+          <em style="font-size:10px;color:#9B8A7A;">브랜드바 뱃지 + "AIR + EARTH" 라벨 + 체질명(KR) + 삼각형 fill + 블렌드 포인트 모두 아래 색상을 따름. 향기 슬라이드(B-2)도 동일 색 적용.</em>
+          <table style="width:100%;border-collapse:collapse;font-size:11px;line-height:1.7;margin:6px 0 12px;">
+            <tr style="background:rgba(0,0,0,0.03);">
+              <th style="text-align:left;padding:4px 8px;color:#9B8A7A;font-weight:700;">코드</th>
+              <th style="text-align:left;padding:4px 8px;color:#9B8A7A;font-weight:700;">체질</th>
+              <th style="text-align:left;padding:4px 8px;color:#9B8A7A;font-weight:700;">컬러</th>
+              <th style="text-align:left;padding:4px 8px;color:#9B8A7A;font-weight:700;">Hex</th>
+              <th style="text-align:left;padding:4px 8px;color:#9B8A7A;font-weight:700;">라벨</th>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.05);"><td style="padding:4px 8px;"><code>V</code></td><td style="padding:4px 8px;">바타</td><td style="padding:4px 8px;"><span style="display:inline-block;width:16px;height:16px;background:#8C9BB8;border-radius:3px;vertical-align:middle;"></span></td><td style="padding:4px 8px;"><code>#8C9BB8</code></td><td style="padding:4px 8px;color:#9B8A7A;">AIR</td></tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.05);"><td style="padding:4px 8px;"><code>VP</code></td><td style="padding:4px 8px;">바타-피타</td><td style="padding:4px 8px;"><span style="display:inline-block;width:16px;height:16px;background:#C4917A;border-radius:3px;vertical-align:middle;"></span></td><td style="padding:4px 8px;"><code>#C4917A</code></td><td style="padding:4px 8px;color:#9B8A7A;">AIR + FIRE</td></tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.05);"><td style="padding:4px 8px;"><code>VK</code></td><td style="padding:4px 8px;">바타-카파</td><td style="padding:4px 8px;"><span style="display:inline-block;width:16px;height:16px;background:#9BA788;border-radius:3px;vertical-align:middle;"></span></td><td style="padding:4px 8px;"><code>#9BA788</code></td><td style="padding:4px 8px;color:#9B8A7A;">AIR + EARTH</td></tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.05);"><td style="padding:4px 8px;"><code>P</code></td><td style="padding:4px 8px;">피타</td><td style="padding:4px 8px;"><span style="display:inline-block;width:16px;height:16px;background:#E8703A;border-radius:3px;vertical-align:middle;"></span></td><td style="padding:4px 8px;"><code>#E8703A</code></td><td style="padding:4px 8px;color:#9B8A7A;">FIRE</td></tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.05);"><td style="padding:4px 8px;"><code>PV</code></td><td style="padding:4px 8px;">피타-바타</td><td style="padding:4px 8px;"><span style="display:inline-block;width:16px;height:16px;background:#D58068;border-radius:3px;vertical-align:middle;"></span></td><td style="padding:4px 8px;"><code>#D58068</code></td><td style="padding:4px 8px;color:#9B8A7A;">FIRE + AIR</td></tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.05);"><td style="padding:4px 8px;"><code>PK</code></td><td style="padding:4px 8px;">피타-카파</td><td style="padding:4px 8px;"><span style="display:inline-block;width:16px;height:16px;background:#B5824F;border-radius:3px;vertical-align:middle;"></span></td><td style="padding:4px 8px;"><code>#B5824F</code></td><td style="padding:4px 8px;color:#9B8A7A;">FIRE + EARTH</td></tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.05);"><td style="padding:4px 8px;"><code>K</code></td><td style="padding:4px 8px;">카파</td><td style="padding:4px 8px;"><span style="display:inline-block;width:16px;height:16px;background:#7F8F78;border-radius:3px;vertical-align:middle;"></span></td><td style="padding:4px 8px;"><code>#7F8F78</code></td><td style="padding:4px 8px;color:#9B8A7A;">EARTH</td></tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.05);"><td style="padding:4px 8px;"><code>KP</code></td><td style="padding:4px 8px;">카파-피타</td><td style="padding:4px 8px;"><span style="display:inline-block;width:16px;height:16px;background:#A08559;border-radius:3px;vertical-align:middle;"></span></td><td style="padding:4px 8px;"><code>#A08559</code></td><td style="padding:4px 8px;color:#9B8A7A;">EARTH + FIRE</td></tr>
+            <tr><td style="padding:4px 8px;"><code>KV</code></td><td style="padding:4px 8px;">카파-바타</td><td style="padding:4px 8px;"><span style="display:inline-block;width:16px;height:16px;background:#8C98A0;border-radius:3px;vertical-align:middle;"></span></td><td style="padding:4px 8px;"><code>#8C98A0</code></td><td style="padding:4px 8px;color:#9B8A7A;">EARTH + AIR</td></tr>
+          </table>
+
+          <strong>① 상단 · 체질 정체성</strong><br>
+          <table style="width:100%;border-collapse:collapse;font-size:11px;line-height:1.7;margin:6px 0 10px;">
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;width:160px;padding:3px 0;">AIR + EARTH (요소 라벨)</td>
+              <td><code>Playfair Display 400</code>, <code>9.5pt</code>, 자간 <code>320</code>, UPPERCASE · 색상: <strong>프라크리티 컬러</strong> (투명도 85%) · center</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;">나의 에너지 체질</td>
+              <td><code>Noto Serif KR 300</code>, <code>13pt</code>, 자간 <code>80</code>, 색상 <code>#3D2E24</code>, center</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;">체질명 KR "바타-카파"</td>
+              <td><code>Noto Serif KR 400</code>, <code>26pt</code>, 자간 <code>60</code>, 색상: <strong>프라크리티 컬러</strong>, center · 이중 체질은 하이픈 연결 (예: "바타-카파")</td>
+            </tr>
+            <tr>
+              <td style="color:#9B8A7A;">체질명 EN "VATA · KAPHA"</td>
+              <td><code>Playfair Display 400</code>, <code>10pt</code>, 자간 <code>420</code>, UPPERCASE, 색상 <code>#9B8A7A</code>, center</td>
+            </tr>
+          </table>
+
+          <strong>② 프라크리티 삼각형</strong><br>
+          · viewBox <code>320×280</code>, 크기 <code>190×160px</code>, margin 8px auto<br>
+          · 외곽 삼각형: stroke <code>#D4A04A</code> 1.2px, fill <strong>프라크리티 컬러 그라디언트</strong> (opacity 12% → 3%)<br>
+          · 내부 가이드선: stroke <code>#D4A04A</code> 0.4px, dasharray <code>3 3</code>, opacity 35% (꼭짓점에서 반대 변 중점으로 3선)<br>
+          · <strong>꼭짓점 라벨 (컬러 박스)</strong>: <code>rx:4px</code>, <code>56×38px</code>, stroke 0.8px · 바타 <code>#F5D6D3</code>/<code>#D98782</code> · 피타 <code>#CDDCE8</code>/<code>#6B8AA9</code> · 카파 <code>#CDDFC8</code>/<code>#7CA06F</code><br>
+          · 박스 내 텍스트: <code>Pretendard 700</code>, <code>11pt</code> (체질명) + <code>9pt</code> opacity 85% (한자 키워드: 순기·진정·순환)<br>
+          · 블렌드 포인트: 3중 원 (투명 outer r18 opacity 20%, middle r11 opacity 45%, 중심 filled r6) · 색상: <strong>프라크리티 컬러</strong> · 위치는 BALANCE 비율 가중평균 (V/P/K %)<br><br>
+
+          <strong>③ 해석 문구 (d-comment)</strong><br>
+          · <code>Noto Serif KR 300 italic</code>, <code>10.5pt</code>, line-height <code>1.55</code>, 색상 <code>#3D2E24</code>, center · padding 6px 12px, margin 0 24px<br>
+          · 상단 <code>border-top</code>: <code>rgba(212,160,74,0.3)</code> 1px — 골드 구분선<br><br>
+
+          <strong>④ Do's · 체질 밸런싱 / Don'ts · 체질 악화</strong><br>
+          <table style="width:100%;border-collapse:collapse;font-size:11px;line-height:1.7;margin:6px 0 10px;">
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;width:160px;padding:3px 0;">Do's 박스</td>
+              <td>배경 <code>rgba(143,174,106,0.15)</code>, border <code>rgba(143,174,106,0.4)</code> 1px, radius 6px, padding 10px 12px 12px</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;">Don'ts 박스</td>
+              <td>배경 <code>rgba(220,100,80,0.1)</code>, border <code>rgba(220,100,80,0.35)</code> 1px, radius 6px</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;">타이틀 (체질 밸런싱 / 악화)</td>
+              <td>"Do's · 체질 밸런싱" / "Don'ts · 체질 악화" · <code>Pretendard 700</code>, <code>11pt</code>, center · 하단 currentColor 1px border · Do's <code>#4A7C59</code> · Don'ts <code>#C0392B</code></td>
+            </tr>
+            <tr>
+              <td style="color:#9B8A7A;">항목 텍스트</td>
+              <td><code>Noto Serif KR 300</code> 또는 <code>Pretendard 400</code>, <code>9.5pt</code>, line-height <code>1.7</code>, 색상 <code>#3D2E24</code> · ✓/✗ 아이콘은 <code>::before</code>, 각 9pt, currentColor</td>
+            </tr>
+          </table>
+
+          <strong>MBTI → 프라크리티 자동 매핑</strong> (근거: docx "아유르베다 연결")<br>
+          • <strong>V (바타)</strong>: 건성·얇은 피부 — DSNT, DSNW, DSPT, DSPW<br>
+          • <strong>P (피타)</strong>: 염증·붉은 기 — OSNT, OSNW, OSPT, OSPW<br>
+          • <strong>K (카파)</strong>: 두껍고 정체된 — DRNT, DRNW, ORNT, ORNW<br>
+          • <strong>KP (카파+피타)</strong>: 가죽피부+열 갇힘 — DRPT, DRPW, ORPT, ORPW<br>
+          · BALANCE 비율(V/P/K %)에 따라 삼각형 내부 블렌드 포인트가 가중평균 위치로 자동 계산됨.
         </div>
       </div>
     </div>
 
-    <!-- Slide B-2: 매칭 향기 + CTA (기존 B-3) -->
+    <!-- Slide B-2: Fragrance Template — 향기 단독 (OX 제거, 프라크리티 색상 동적) -->
     <div class="slide-item">
-      <div class="slide-mockup mk-energy" id="slide-b2">
-        <div class="mk-brand-bar">
-          <div class="mk-brand-logo">IM AESTHETIC</div>
-          <div class="mk-brand-badge" style="background:#D4A04A;">VK</div>
+      <div class="slide-mockup mk-fr" id="slide-b2">
+        <!-- Shared frame -->
+        <span class="brk tl"></span><span class="brk tr"></span><span class="brk bl"></span><span class="brk br"></span>
+        <div class="mk-bar">
+          <div class="mk-bar-logo">IM AESTHETIC</div>
+          <div class="mk-bar-badge" style="background:#9BA788;box-shadow:0 2px 5px rgba(155,167,136,0.35);">VK</div>
         </div>
-        <!-- 향기 영역 (메인) -->
-        <div class="mk-e-title" style="font-size:10px;color:#D4A04A;margin-top:14px;">당신의 에너지에 행운을 더하는 향기</div>
-        <div class="mk-divider" style="margin-top:6px;"></div>
-        <!-- 꽃 일러스트 (보타니컬 수채화 PNG, 원형 링 포함) -->
-        <div style="text-align:center;margin-top:10px;position:relative;height:54px;display:flex;align-items:center;justify-content:center;">
-          <span style="position:absolute;width:50px;height:50px;border-radius:50%;border:1px solid #D4A04A;opacity:0.25;top:50%;left:50%;transform:translate(-50%,-50%);"></span>
-          <img src="fragrance_icons/fragrance_chamomile.png" alt="Chamomile" style="width:46px;height:46px;border-radius:50%;object-fit:cover;filter:drop-shadow(0 2px 6px rgba(212,160,74,0.22));position:relative;z-index:2;">
+        <!-- Fragrance identity -->
+        <div class="fr-label" style="color:#9BA788;opacity:0.85;">Lucky Fragrance</div>
+        <div class="fr-title" style="color:#9BA788;">당신의 에너지에 행운을 더하는 향기</div>
+        <div class="fr-divider" style="border-top-color:#9BA788;"></div>
+        <!-- Botanical watercolor with colored ring -->
+        <div class="fr-flower-wrap">
+          <span class="fr-flower-ring" style="border-color:#9BA788;"></span>
+          <img class="fr-flower" src="fragrance_icons/fragrance_chamomile.png" alt="Chamomile">
         </div>
-        <div class="mk-fr-name" style="font-size:15px;margin-top:2px;">카모마일 Chamomile</div>
-        <div class="mk-fr-desc" style="padding:0 12px;">정체된 피부에 부드러운 위로를 건네 막힌 순환의 길을 살며시 열어줍니다.</div>
-        <!-- 좋은 것 / 주의할 점 OX 박스 (라이프스타일, 부가정보 → 하단) -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:0 8px;margin-top:14px;">
-          <div style="background:rgba(143,174,106,0.15);border:1px solid rgba(143,174,106,0.4);border-radius:4px;padding:5px 4px;">
-            <div style="font-size:6.5px;color:#5A7A3E;font-weight:600;text-align:center;">✓ 좋은 것</div>
-            <div style="font-size:5.5px;color:#3D2E24;line-height:1.4;margin-top:2px;text-align:center;">시원·달콤한 음식<br>규칙적 수면</div>
-          </div>
-          <div style="background:rgba(220,100,80,0.1);border:1px solid rgba(220,100,80,0.35);border-radius:4px;padding:5px 4px;">
-            <div style="font-size:6.5px;color:#B8463A;font-weight:600;text-align:center;">✗ 주의할 점</div>
-            <div style="font-size:5.5px;color:#3D2E24;line-height:1.4;margin-top:2px;text-align:center;">매운 음식·과로<br>차가운 환경</div>
-          </div>
-        </div>
-        <div class="mk-footer">IM AESTHETIC · @im.aesthetic.official</div>
-        <div class="mk-callout" style="top:14%;right:8px;">4</div>
-        <div class="mk-callout" style="top:34%;right:8px;">5</div>
-        <div class="mk-callout" style="top:72%;right:8px;">6</div>
+        <div class="fr-name">카모마일</div>
+        <div class="fr-name-en">Chamomile</div>
+        <div class="fr-desc">정체된 피부에 부드러운 위로를 건네<br>막힌 순환의 길을 살며시 열어줍니다.</div>
+        <div class="fr-tag-wrap"><span class="fr-pk-tag">for VK prakriti</span></div>
+        <div class="mk-tagline">당신의 피부가 말하는 이야기</div>
+        <div class="mk-acc-footer">@im.aesthetic.official</div>
+        <div class="mk-callout" style="top:4%;right:8px;">1</div>
+        <div class="mk-callout" style="top:14%;left:8px;">2</div>
+        <div class="mk-callout" style="top:36%;left:8px;">3</div>
+        <div class="mk-callout" style="top:64%;right:8px;">4</div>
+        <div class="mk-callout" style="top:82%;right:8px;">5</div>
+        <div class="mk-callout" style="bottom:12px;left:8px;">6</div>
       </div>
       <div>
-        <div class="slide-title">Slide B-2 (Slide 4) — 매칭 향기 + 라이프스타일 OX (앱 화면 3 미러링)</div>
+        <div class="slide-title">Slide B-2 (Slide 4) — 매칭 향기 템플릿</div>
         <button class="btn-png" onclick="downloadMockup('slide-b2','customer-set-04-fragrance.png')">PNG Download</button>
         <div class="slide-note">
-          <strong>④ 골드 제목</strong><br>
-          · "당신의 에너지에 행운을 더하는 향기" — <code>Noto Serif KR 300</code>, <code>14px</code>, 색상 <code>#D4A04A</code>, center<br>
-          · 구분선: 골드 <code>#D4A04A</code>, 폭 40px, 두께 1px<br><br>
-          <strong>⑤ 꽃 일러스트 + 향기명 + 설명</strong><br>
-          · 일러스트: <strong>반드시 보타니컬 수채화 PNG</strong> 사용 — <code>public/fragrance_icons/fragrance_*.png</code> (chamomile/rose/lavender 등 16종). 유니코드 ❀ 사용 금지<br>
-          · 원형 마스크 (border-radius 50%), 130×130px, drop-shadow <code>0 4px 16px rgba(212,160,74,0.22)</code><br>
-          · 외곽 골드 링: 140×140 1px solid <code>#D4A04A</code>, 투명도 25%<br>
-          · 향기명(KR+EN): <code>Noto Serif KR 400</code>, <code>20px</code>, 색상 <code>#3D2E24</code>, center<br>
-          · 설명 문구: <code>Noto Serif KR 300 italic</code>, <code>10px</code>, line-height <code>1.6</code>, 색상 <code>#3D2E24</code>, center, padding 좌우 12px<br><br>
-          <strong>⑥ 좋은 것 / 주의할 점 OX</strong><br>
-          · 컬럼 타이틀 "✓ 좋은 것": <code>Pretendard 600</code>, <code>10px</code>, 색상 <code>#5A7A3E</code><br>
-          · 컬럼 타이틀 "✗ 주의할 점": <code>Pretendard 600</code>, <code>10px</code>, 색상 <code>#B8463A</code><br>
-          · 항목 텍스트: <code>Pretendard 400</code>, <code>9px</code>, 색상 <code>#3D2E24</code>, line-height <code>1.4</code><br>
-          · 좋은 것 배경: <code>rgba(143,174,106,0.15)</code>, border <code>rgba(143,174,106,0.4)</code><br>
-          · 주의할 점 배경: <code>rgba(220,100,80,0.1)</code>, border <code>rgba(220,100,80,0.35)</code><br>
-          · border-radius: <code>4px</code>, padding: <code>5px 4px</code><br><br>
-          <strong>레이아웃 의도</strong> — 향기(메인 결과) → OX(부가 행동지침) 순서. 피부 케어 OX(Slide 2)와 <strong>별개</strong>(체질 라이프스타일).
-          <br><br>
-          <strong>일러스트 팁</strong> — <code>public/fragrance_icons/fragrance_{영문명}.png</code> 16종 보타니컬 수채화 아이콘 사용 가능. 또는 Canva Elements에서 아래 키워드로 검색 후 골드(<code>#D4A04A</code>)로 색 교체.
+          <em style="font-size:10px;color:#9B8A7A;">※ 공통 프레임(L-bracket + 브랜드바 + 태그라인/계정 푸터) + <strong>프라크리티 컬러 동적 적용</strong>. 배경: 크림→베이지 그라디언트 <code>#FFF8F0 → #F5EDE0</code>.<br>※ 라이프스타일 OX는 B-1(프라크리티)로 이동 — 이 슬라이드는 향기에만 집중.</em><br><br>
+
+          <strong>① 브랜드바 뱃지 (프라크리티 코드)</strong><br>
+          · 우측 상단 DSNT/VK 등 프라크리티 코드 뱃지 — 배경: <strong>프라크리티 컬러</strong> (위 9종 테이블 참조, B-1과 동일) · 나머지 사양은 공통 프레임 참조<br><br>
+
+          <strong>② Lucky Fragrance 라벨</strong><br>
+          · <code>Playfair Display 400</code>, <code>10pt</code>, 자간 <code>340</code>, UPPERCASE · 색상: <strong>프라크리티 컬러</strong> (투명도 85%) · center, margin-top spacer 28px<br><br>
+
+          <strong>③ Korean Title + 구분선</strong><br>
+          <table style="width:100%;border-collapse:collapse;font-size:11px;line-height:1.7;margin:6px 0 10px;">
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;width:180px;padding:3px 0;">"당신의 에너지에 행운을 더하는 향기"</td>
+              <td><code>Noto Serif KR 300</code>, <code>15pt</code>, 자간 <code>60</code>, center · 색상: <strong>프라크리티 컬러</strong></td>
+            </tr>
+            <tr>
+              <td style="color:#9B8A7A;">구분선 (fr-divider)</td>
+              <td>폭 <code>44px</code>, 두께 1px, 색상: <strong>프라크리티 컬러</strong> (border-top-color), 투명도 60%, margin 12px auto, center</td>
+            </tr>
+          </table>
+
+          <strong>④ 보타니컬 꽃 일러스트 + 골드 링</strong><br>
+          <table style="width:100%;border-collapse:collapse;font-size:11px;line-height:1.7;margin:6px 0 10px;">
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;width:180px;padding:3px 0;">꽃 이미지</td>
+              <td><strong>반드시 수채화 PNG</strong>: <code>public/fragrance_icons/fragrance_*.png</code> (16종 — chamomile/rose/lavender/sandalwood 등). 유니코드 ❀ 금지 · 크기 130×130px, border-radius 50%, <code>object-fit: cover</code>, drop-shadow <code>0 4px 16px rgba(212,160,74,0.22)</code></td>
+            </tr>
+            <tr>
+              <td style="color:#9B8A7A;">외곽 링 (fr-flower-ring)</td>
+              <td>140×140px 원, border 1px solid <strong>프라크리티 컬러</strong>, 투명도 25% (absolute centered)</td>
+            </tr>
+          </table>
+
+          <strong>⑤ 향기명 + 설명</strong><br>
+          <table style="width:100%;border-collapse:collapse;font-size:11px;line-height:1.7;margin:6px 0 10px;">
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;width:180px;padding:3px 0;">향기명 KR "카모마일"</td>
+              <td><code>Noto Serif KR 400</code>, <code>32pt</code>, 자간 <code>20</code>, 색상 <code>#3D2E24</code>, center, margin-top 14px</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;">향기명 EN "Chamomile"</td>
+              <td><code>Playfair Display 400 italic</code>, <code>16pt</code>, 자간 <code>80</code>, 색상 <code>#9B8A7A</code>, center, margin-top 4px</td>
+            </tr>
+            <tr>
+              <td style="color:#9B8A7A;">설명 문구 (fr-desc)</td>
+              <td><code>Noto Serif KR 300 italic</code>, <code>12pt</code>, line-height <code>1.7</code>, 색상 <code>#3D2E24</code>, center, padding 0 12px, margin-top 16px</td>
+            </tr>
+          </table>
+
+          <strong>⑥ FOR [코드] PRAKRITI 뱃지</strong><br>
+          · 예: "FOR VK PRAKRITI" — <code>Pretendard 400</code>, <code>9pt</code>, 자간 <code>150</code>, UPPERCASE · 색상 <code>#9B8A7A</code> · 배경 <code>rgba(212,160,74,0.1)</code>, border <code>rgba(212,160,74,0.3)</code> 1px, radius 3px, padding 4px 12px · margin-top 14px, center<br>
+          · 매칭된 프라크리티 코드 표시 (향기 → 프라크리티 역참조)<br><br>
+
+          <strong>일러스트 팁</strong> — <code>public/fragrance_icons/fragrance_{영문명}.png</code> 16종 보타니컬 수채화 아이콘 사용 가능. 없는 경우 Canva Elements에서 아래 키워드로 검색 후 골드(<code>#D4A04A</code>)로 색 교체.
         </div>
         <div style="margin-top:10px;padding:10px 14px;background:#FFF8F0;border:1px solid rgba(212,160,74,0.3);border-radius:6px;font-size:11px;">
           <div style="font-family:'Playfair Display',serif;font-size:11px;letter-spacing:0.1em;color:#D4A04A;margin-bottom:6px;">FRAGRANCE CANVA KEYWORDS</div>
