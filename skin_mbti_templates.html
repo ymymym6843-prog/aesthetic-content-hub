@@ -632,10 +632,20 @@ const mbtiColor = code => MBTI_GROUP_COLORS[code.slice(0,2)] || 'var(--orange)';
 /* ══════════════════════════════════════════════════════
    DATA: PRAKRITI 9 TYPES (constitution + lifestyle)
    ══════════════════════════════════════════════════════ */
+/* Dosha colors — 3 pure match im-aesthetic.vercel.app doshaColors exactly.
+ * Triangle vertex labels always use these 3 (V/P/K axes are fixed). */
+const DOSHA_COLORS = {
+  V: { main: '#D4956A', fill: 'rgba(212,149,106,0.25)', light: 'rgba(212,149,106,0.12)' },
+  P: { main: '#7BA7C2', fill: 'rgba(123,167,194,0.25)', light: 'rgba(123,167,194,0.12)' },
+  K: { main: '#8BB57A', fill: 'rgba(139,181,122,0.25)', light: 'rgba(139,181,122,0.12)' }
+};
+/* Hybrid palette: 3 pure match app (customer continuity) + 6 combined blends
+ * at dominant 70% / sub 30% weight (Instagram visual rhythm across 9 types).
+ * Used on badge, name, element label, fragrance ring, blend point. */
 const PRAKRITI_COLORS = {
-  V:  '#8C9BB8', VP: '#C4917A', VK: '#9BA788',
-  P:  '#E8703A', PV: '#D58068', PK: '#B5824F',
-  K:  '#7F8F78', KP: '#A08559', KV: '#8C98A0'
+  V:  '#D4956A', VP: '#B99A84', VK: '#BE9E6F',
+  P:  '#7BA7C2', PV: '#96A2A8', PK: '#80ABAC',
+  K:  '#8BB57A', KP: '#86B190', KV: '#A1AB75'
 };
 const BALANCE = {
   V:  { V:70, P:15, K:15 },
@@ -762,12 +772,12 @@ function renderTriangle(code) {
   const total = b.V + b.P + b.K;
   const dotX = (vx * b.V + px * b.P + kx * b.K) / total;
   const dotY = (vy * b.V + py * b.P + ky * b.K) / total;
-  const vBg={V:'#F5D6D3',P:'#CDDCE8',K:'#CDDFC8'}, vStr={V:'#D98782',P:'#6B8AA9',K:'#7CA06F'};
+  // Vertex label colors match analysis app exactly (doshaColors.X.light / main)
   const lbl = (cx,cy,nm,sb,k) => {
-    const w=56,h=38;
-    return `<rect x="${cx-w/2}" y="${cy-h/2}" width="${w}" height="${h}" rx="4" fill="${vBg[k]}" stroke="${vStr[k]}" stroke-width="0.8"/>
-      <text x="${cx}" y="${cy-4}" text-anchor="middle" font-family="Pretendard" font-size="11" font-weight="700" fill="${vStr[k]}">${nm}</text>
-      <text x="${cx}" y="${cy+10}" text-anchor="middle" font-family="Pretendard" font-size="9" fill="${vStr[k]}" opacity="0.85">${sb}</text>`;
+    const w=56,h=38, c=DOSHA_COLORS[k];
+    return `<rect x="${cx-w/2}" y="${cy-h/2}" width="${w}" height="${h}" rx="4" fill="${c.light}" stroke="${c.main}" stroke-width="0.8" stroke-opacity="0.6"/>
+      <text x="${cx}" y="${cy-4}" text-anchor="middle" font-family="Pretendard" font-size="11" font-weight="700" fill="${c.main}">${nm}</text>
+      <text x="${cx}" y="${cy+10}" text-anchor="middle" font-family="Pretendard" font-size="9" fill="${c.main}" opacity="0.85">${sb}</text>`;
   };
   return `<svg viewBox="0 0 320 280" style="width:100%;height:100%;">
     <defs><linearGradient id="triG-${code}" x1="0" y1="0" x2="0" y2="1">
@@ -780,7 +790,7 @@ function renderTriangle(code) {
     <circle cx="${dotX}" cy="${dotY}" r="18" fill="none" stroke="${color}" stroke-width="1" opacity="0.2"/>
     <circle cx="${dotX}" cy="${dotY}" r="11" fill="none" stroke="${color}" stroke-width="1" opacity="0.45"/>
     <circle cx="${dotX}" cy="${dotY}" r="6" fill="${color}"/>
-    ${lbl(vx,vy-8,'바타','순기','V')}${lbl(px+10,py+8,'피타','진정','P')}${lbl(kx-10,ky+8,'카파','순환','K')}
+    ${lbl(vx,vy-8,'바타','온기','V')}${lbl(px+10,py+8,'피타','진정','P')}${lbl(kx-10,ky+8,'카파','순환','K')}
   </svg>`;
 }
 
