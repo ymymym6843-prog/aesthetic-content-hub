@@ -536,15 +536,6 @@ main {
   color: var(--dark);
   letter-spacing: -0.2px;
 }
-.mk-do .mk-quote::before {
-  content: '"';
-  position: absolute;
-  top: -2px; left: 6px;
-  font-family: 'Playfair Display', serif;
-  font-size: 16px;
-  color: var(--orange);
-  line-height: 1;
-}
 .mk-do .mk-traits {
   display: flex;
   flex-direction: column;
@@ -572,9 +563,11 @@ main {
   padding: 2px 8px;
   background: var(--orange);
   color: #fff;
-  border-radius: 50px;
+  border-radius: 3px;
   font-size: 8px;
-  font-weight: 800;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  box-shadow: 0 2px 5px rgba(232,112,58,0.35);
 }
 .mk-do .mk-head-name {
   font-size: 10px;
@@ -594,8 +587,8 @@ main {
   flex-direction: column;
   gap: 4px;
 }
-.mk-do .mk-col.good { background: #E8F5E9; }
-.mk-do .mk-col.bad { background: #FFEBEE; }
+.mk-do .mk-col.good { background: rgba(143,174,106,0.12); border: 1px solid rgba(143,174,106,0.35); }
+.mk-do .mk-col.bad { background: rgba(220,100,80,0.10); border: 1px solid rgba(220,100,80,0.35); }
 .mk-do .mk-col-title {
   font-size: 9px;
   font-weight: 800;
@@ -1813,7 +1806,7 @@ main {
         <div class="mk-overlay" style="background:none;">
           <div class="mk-char" style="color:#FFF8F0;text-shadow:0 2px 8px rgba(0,0,0,0.5), 0 0 20px rgba(0,0,0,0.3);">두부</div>
           <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:11px;color:rgba(255,248,240,0.7);text-align:left;">Tofu</div>
-          <div style="text-align:left;margin-top:6px;"><span style="background:#E8703A;color:#fff;font-size:8px;font-weight:600;padding:2px 8px;border-radius:3px;letter-spacing:0.1em;">DSNT</span></div>
+          <div style="text-align:left;margin-top:6px;"><span style="background:#E8703A;color:#fff;font-size:8px;font-weight:700;padding:3px 9px;border-radius:3px;letter-spacing:0.2em;box-shadow:0 2px 5px rgba(232,112,58,0.35);">DSNT</span></div>
           <div style="font-size:8px;color:rgba(255,248,240,0.65);text-align:left;margin-top:4px;letter-spacing:0.06em;">건성·민감성·비색소·탄력형</div>
         </div>
         <div class="mk-callout" style="top:8%;left:8px;">1</div>
@@ -1888,7 +1881,7 @@ main {
             </tr>
             <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
               <td style="color:#9B8A7A;">코드 뱃지 (DSNT)</td>
-              <td><code>Pretendard Bold</code>, <code>14pt</code>, 자간 <code>200</code>, 배경 <code>#E8703A</code>, 글자 <code>#FFFFFF</code>, radius 3px</td>
+              <td><code>Pretendard Bold</code>, <code>12pt</code>, 자간 <code>200</code>, 배경 <code>#E8703A</code>, 글자 <code>#FFFFFF</code>, radius 3px, padding 5px 14px, 그림자 <code>0 4px 12px rgba(232,112,58,0.35)</code></td>
             </tr>
             <tr>
               <td style="color:#9B8A7A;">피부 유형</td>
@@ -1912,7 +1905,7 @@ main {
         </div>
         <div style="font-family:'Playfair Display',serif;font-size:8px;letter-spacing:0.16em;color:#D4A04A;text-align:center;margin-top:10px;">ONE-LINE PRESCRIPTION</div>
         <div style="font-family:'Noto Serif KR',serif;font-weight:300;font-size:20px;line-height:1.35;text-align:center;color:#3D2E24;margin-top:4px;padding:0 14px;">
-          "장벽 재건<br><em style="color:#E8703A;font-style:normal;">세라마이드 보충</em>"
+          <span style="color:#9B8A7A;opacity:0.7;">"</span>장벽 재건<br><em style="color:#E8703A;font-style:normal;">세라마이드 보충</em><span style="color:#9B8A7A;opacity:0.7;">"</span>
         </div>
         <div class="mk-divider" style="margin:12px auto;width:40px;"></div>
         <div class="mk-quote" style="font-size:8px;">
@@ -1920,14 +1913,14 @@ main {
         </div>
         <div class="mk-cols" style="margin-top:10px;">
           <div class="mk-col good">
-            <div class="mk-col-title">Do's ✓</div>
+            <div class="mk-col-title">Do's</div>
             <div class="mk-item"><span class="mk-mark-ok">✓</span>순한 보습제 꾸준히</div>
             <div class="mk-item"><span class="mk-mark-ok">✓</span>진정 성분 제품</div>
             <div class="mk-item"><span class="mk-mark-ok">✓</span>미온수 세안</div>
             <div class="mk-item"><span class="mk-mark-ok">✓</span>자외선 차단제</div>
           </div>
           <div class="mk-col bad">
-            <div class="mk-col-title">Don'ts ✗</div>
+            <div class="mk-col-title">Don'ts</div>
             <div class="mk-item"><span class="mk-mark-no">✗</span>자극적인 성분 제품</div>
             <div class="mk-item"><span class="mk-mark-no">✗</span>뜨거운 물 세안</div>
             <div class="mk-item"><span class="mk-mark-no">✗</span>때수건으로 문지르기</div>
@@ -1965,7 +1958,7 @@ main {
           <table style="width:100%;border-collapse:collapse;font-size:11px;line-height:1.7;margin:6px 0 10px;">
             <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
               <td style="color:#9B8A7A;width:140px;padding:3px 0;">코드 뱃지 (DSNT)</td>
-              <td><code>Pretendard ExtraBold</code>, <code>11pt</code>, 배경 <code>#E8703A</code>, 글자 <code>#FFFFFF</code>, radius 3px, padding 4px 12px · <strong>브랜드바 우측</strong></td>
+              <td><code>Pretendard Bold</code>, <code>12pt</code>, 자간 <code>200</code>, 배경 <code>#E8703A</code>, 글자 <code>#FFFFFF</code>, radius 3px (사각), padding 5px 14px, 그림자 <code>0 4px 12px rgba(232,112,58,0.35)</code> · <strong>브랜드바 우측</strong></td>
             </tr>
             <tr>
               <td style="color:#9B8A7A;">캐릭터명</td>
@@ -1986,6 +1979,10 @@ main {
             <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
               <td style="color:#9B8A7A;">강조어</td>
               <td>색상 <code>#E8703A</code>, font-style normal (기울임 해제)</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+              <td style="color:#9B8A7A;">타이틀 양쪽 따옴표</td>
+              <td>처방 문구 좌우 <code>"</code> · 색상 <code>#9B8A7A</code> (sub text), 투명도 <code>70%</code>, 본문과 동일 font/size — 에디토리얼 인용 효과</td>
             </tr>
             <tr>
               <td style="color:#9B8A7A;">구분선</td>
@@ -2010,11 +2007,11 @@ main {
           <table style="width:100%;border-collapse:collapse;font-size:11px;line-height:1.7;margin:6px 0 10px;">
             <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
               <td style="color:#9B8A7A;width:140px;padding:3px 0;">Do's 타이틀</td>
-              <td><code>Pretendard Bold</code>, <code>11pt</code>, 자간 <code>100</code>, 색상 <code>#4A7C59</code></td>
+              <td>"Do's" (✓ 없음) · <code>Pretendard Bold</code>, <code>12pt</code>, 자간 <code>50</code>, 색상 <code>#4A7C59</code>, center, 하단 padding 5px + border 1px currentColor</td>
             </tr>
             <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
               <td style="color:#9B8A7A;">Don'ts 타이틀</td>
-              <td><code>Pretendard Bold</code>, <code>11pt</code>, 자간 <code>100</code>, 색상 <code>#C0392B</code></td>
+              <td>"Don'ts" (✗ 없음) · <code>Pretendard Bold</code>, <code>12pt</code>, 자간 <code>50</code>, 색상 <code>#C0392B</code>, center, 하단 padding 5px + border 1px currentColor</td>
             </tr>
             <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
               <td style="color:#9B8A7A;">항목 텍스트</td>
@@ -2026,11 +2023,11 @@ main {
             </tr>
             <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
               <td style="color:#9B8A7A;">Do's 배경</td>
-              <td><code>rgba(74,124,89,0.06)</code> · border <code>rgba(74,124,89,0.15)</code></td>
+              <td>배경 <code>rgba(143,174,106,0.12)</code> (올리브 보타니컬) · border <code>rgba(143,174,106,0.35)</code> 1px · radius 6px</td>
             </tr>
             <tr>
               <td style="color:#9B8A7A;">Don'ts 배경</td>
-              <td><code>rgba(192,57,43,0.06)</code> · border <code>rgba(192,57,43,0.15)</code></td>
+              <td>배경 <code>rgba(220,100,80,0.10)</code> (웜 레드) · border <code>rgba(220,100,80,0.35)</code> 1px · radius 6px</td>
             </tr>
           </table>
 
@@ -2145,8 +2142,11 @@ main {
         <!-- 향기 영역 (메인) -->
         <div class="mk-e-title" style="font-size:10px;color:#D4A04A;margin-top:14px;">당신의 에너지에 행운을 더하는 향기</div>
         <div class="mk-divider" style="margin-top:6px;"></div>
-        <!-- 꽃 일러스트 자리 -->
-        <div style="text-align:center;margin-top:10px;font-size:24px;color:#D4A04A;">❀</div>
+        <!-- 꽃 일러스트 (보타니컬 수채화 PNG, 원형 링 포함) -->
+        <div style="text-align:center;margin-top:10px;position:relative;height:54px;display:flex;align-items:center;justify-content:center;">
+          <span style="position:absolute;width:50px;height:50px;border-radius:50%;border:1px solid #D4A04A;opacity:0.25;top:50%;left:50%;transform:translate(-50%,-50%);"></span>
+          <img src="fragrance_icons/fragrance_chamomile.png" alt="Chamomile" style="width:46px;height:46px;border-radius:50%;object-fit:cover;filter:drop-shadow(0 2px 6px rgba(212,160,74,0.22));position:relative;z-index:2;">
+        </div>
         <div class="mk-fr-name" style="font-size:15px;margin-top:2px;">카모마일 Chamomile</div>
         <div class="mk-fr-desc" style="padding:0 12px;">정체된 피부에 부드러운 위로를 건네 막힌 순환의 길을 살며시 열어줍니다.</div>
         <!-- 좋은 것 / 주의할 점 OX 박스 (라이프스타일, 부가정보 → 하단) -->
@@ -2173,7 +2173,9 @@ main {
           · "당신의 에너지에 행운을 더하는 향기" — <code>Noto Serif KR 300</code>, <code>14px</code>, 색상 <code>#D4A04A</code>, center<br>
           · 구분선: 골드 <code>#D4A04A</code>, 폭 40px, 두께 1px<br><br>
           <strong>⑤ 꽃 일러스트 + 향기명 + 설명</strong><br>
-          · 일러스트: <code>public/fragrance_icons/</code> 이미지 사용 또는 Canva Elements 검색<br>
+          · 일러스트: <strong>반드시 보타니컬 수채화 PNG</strong> 사용 — <code>public/fragrance_icons/fragrance_*.png</code> (chamomile/rose/lavender 등 16종). 유니코드 ❀ 사용 금지<br>
+          · 원형 마스크 (border-radius 50%), 130×130px, drop-shadow <code>0 4px 16px rgba(212,160,74,0.22)</code><br>
+          · 외곽 골드 링: 140×140 1px solid <code>#D4A04A</code>, 투명도 25%<br>
           · 향기명(KR+EN): <code>Noto Serif KR 400</code>, <code>20px</code>, 색상 <code>#3D2E24</code>, center<br>
           · 설명 문구: <code>Noto Serif KR 300 italic</code>, <code>10px</code>, line-height <code>1.6</code>, 색상 <code>#3D2E24</code>, center, padding 좌우 12px<br><br>
           <strong>⑥ 좋은 것 / 주의할 점 OX</strong><br>
@@ -3117,12 +3119,12 @@ function renderTypes() {
               <button class="copy-btn" data-copy="${escapeHtml(traitsText)}">복사</button>
             </div>
             <div class="type-list-block good">
-              <h5>Do's ✓</h5>
+              <h5>Do's</h5>
               <ul>${dos}</ul>
               <button class="copy-btn" data-copy="${escapeHtml(dosText)}">복사</button>
             </div>
             <div class="type-list-block bad">
-              <h5>Don'ts ✗</h5>
+              <h5>Don'ts</h5>
               <ul>${donts}</ul>
               <button class="copy-btn" data-copy="${escapeHtml(dontsText)}">복사</button>
             </div>
@@ -3183,12 +3185,12 @@ function renderDosha() {
               <button class="copy-btn" data-copy="${escapeHtml(traitsText)}">복사</button>
             </div>
             <div class="type-list-block good">
-              <h5>Do's ✓ (체질 밸런싱)</h5>
+              <h5>Do's · 체질 밸런싱</h5>
               <ul>${dos}</ul>
               <button class="copy-btn" data-copy="${escapeHtml(dosText)}">복사</button>
             </div>
             <div class="type-list-block bad">
-              <h5>Don'ts ✗ (체질 악화)</h5>
+              <h5>Don'ts · 체질 악화</h5>
               <ul>${donts}</ul>
               <button class="copy-btn" data-copy="${escapeHtml(dontsText)}">복사</button>
             </div>
